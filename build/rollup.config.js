@@ -85,7 +85,7 @@ if (!argv.format || argv.format === "es") {
   const esConfig = {
     ...baseConfig,
     input: "src/entry.esm.ts",
-    external,
+    external: ["vue", /primevue\/.+/],
     output: {
       file: "dist/im-library.esm.js",
       format: "esm",
