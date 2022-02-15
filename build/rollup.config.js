@@ -12,6 +12,7 @@ import { terser } from "rollup-plugin-terser";
 import ttypescript from "ttypescript";
 import typescript from "rollup-plugin-typescript2";
 import minimist from "minimist";
+import image from "rollup-plugin-img";
 // Get browserslist config and remove ie from es build targets
 const esbrowserslist = fs
   .readFileSync("./.browserslistrc")
@@ -55,6 +56,7 @@ const baseConfig = {
       // Process all `<style>` blocks except `<style module>`.
       PostCSS({ include: /(?<!&module=.*)\.css$/ }),
       commonjs(),
+      image({ extenstions: /\.(png)$/, limit: 100000 }),
     ],
     babel: {
       exclude: "node_modules/**",
