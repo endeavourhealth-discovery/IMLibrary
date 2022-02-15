@@ -10,30 +10,33 @@
         > IMViewer
         > IMEditor
 
-To start run
+### To start run
 
-> npm install
+`npm install`
 
-To build
 
-> npm run build
+### To build
 
-To run the component test environment locally
+`npm run build`
 
-> npm run serve
+
+### To run the component test environment locally
+
+`npm run serve`
+
 
 ## Development
 
-Add new components in:
+### Add new components in:
 
 > src/lib-components
 
-Register components for export in
+### Register components for export in
 
 > src/lib-components/index.ts
 
-### Testing
+## Testing
 
-Add your component to the template section in
+### Add your component to the template section in
 
 > dev/serve.vue
