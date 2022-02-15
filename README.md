@@ -5,10 +5,10 @@
 **For best use, ensure IMLibrary is located in the same parent folder as any other IM apps**
 *e.g.*
 
-    \> Information Manager
-        \> IMLibrary
-        \> IMViewer
-        \> IMEditor
+    > Information Manager
+        > IMLibrary
+        > IMViewer
+        > IMEditor
 
 To start run
 
