@@ -16,7 +16,7 @@
     "serve": "vue-cli-service serve dev/serve.ts",
     "prebuild": "rimraf ./dist",
     "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
-    "postbuild": "rimraf ./dist/types/dev ./dist/types/src/entry.d.ts && npm pack && tar --strip-components=1 -C ../IMEditor/front-end-vue/node_modules/im-library -xvf ./im-library-1.0.1.tgz package"
+    "postbuild": "rimraf ./dist/types/dev ./dist/types/src/entry.d.ts && npm pack && tar --strip-components=1 -C ../IMEditor/front-end-vue/node_modules/im-library -xvf ./im-library-1.0.1.tgz package && tar --strip-components=1 -C ../Viewer/front-end-vue/node_modules/im-library -xvf ./im-library-1.0.1.tgz package && tar --strip-components=1 -C ../IMAuth/front-end-vue/node_modules/im-library -xvf ./im-library-1.0.1.tgz package && tar --strip-components=1 -C ../IMDirectory/front-end-vue/node_modules/im-library -xvf ./im-library-1.0.1.tgz package"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",

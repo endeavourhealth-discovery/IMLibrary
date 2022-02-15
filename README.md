@@ -3,6 +3,7 @@
 ## Project setup
 
 **For best use, ensure IMLibrary is located in the same parent folder as any other IM apps**
+
 *e.g.*
 
     > Information Manager
@@ -10,7 +11,7 @@
         > IMViewer
         > IMEditor
 
-#### To start run
+#### To install
 
 `npm install`
 
