@@ -54,6 +54,10 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import MenuBar from "primevue/menubar";
+import Button from "primevue/button";
+import OverlayPanel from "primevue/overlaypanel";
+import Menu from "primevue/menu";
 
 class User {
   username: string;
@@ -104,6 +108,7 @@ export default defineComponent({
     currentUser: { type: User, required: false },
     isLoggedIn: { type: Boolean, required: true },
   },
+  components: { MenuBar, Menu, Button, OverlayPanel },
   data() {
     return {
       loading: false,
