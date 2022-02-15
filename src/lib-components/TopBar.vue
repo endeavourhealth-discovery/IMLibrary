@@ -1,5 +1,5 @@
 <template>
-  <Menubar :model="items">
+  <!-- <Menubar :model="items">
     <template #start>
       <img
         class="im-logo"
@@ -49,7 +49,8 @@
       </Button>
       <Menu ref="userMenu" :model="getItems()" :popup="true" />
     </template>
-  </Menubar>
+  </Menubar> -->
+  <p>Hi</p>
 </template>
 
 <script lang="ts">
