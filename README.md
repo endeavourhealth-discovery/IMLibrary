@@ -3,7 +3,8 @@
 ## Project setup
 
 **For best use, ensure IMLibrary is located in the same parent folder as any other IM apps**
-_e.g._
+*e.g.*
+
   \> Information Manager
     \> IMLibrary
     \> IMViewer
