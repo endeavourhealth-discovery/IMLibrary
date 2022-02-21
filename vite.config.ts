@@ -13,7 +13,7 @@ module.exports = defineConfig({
     },
     rollupOptions: {
       // external modules won't be bundled into your library
-      // external: ['vue', /primevue\/.+/], // not every external has a global
+      external: ["vue", /primevue\/.+/], // not every external has a global
       output: {
         // disable warning on src/index.ts using both default and named export
         exports: "named",
