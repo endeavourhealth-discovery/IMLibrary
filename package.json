@@ -1,58 +1,42 @@
 {
   "name": "im-library",
-  "version": "1.0.1",
-  "description": "",
-  "main": "dist/im-library.ssr.js",
-  "browser": "dist/im-library.esm.js",
-  "module": "dist/im-library.esm.js",
-  "unpkg": "dist/im-library.min.js",
-  "types": "dist/types/src/entry.esm.d.ts",
-  "files": [
-    "dist/*",
-    "src/**/*.vue"
-  ],
-  "sideEffects": false,
+  "version": "0.0.0",
   "scripts": {
-    "serve": "vue-cli-service serve dev/serve.ts",
-    "prebuild": "rimraf ./dist",
-    "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
-    "postbuild": "rimraf ./dist/types/dev ./dist/types/src/entry.d.ts && npm pack && tar --strip-components=1 -C ../IMEditor/front-end-vue/node_modules/im-library -xvf ./im-library-1.0.1.tgz package && tar --strip-components=1 -C ../Viewer/front-end-vue/node_modules/im-library -xvf ./im-library-1.0.1.tgz package && tar --strip-components=1 -C ../IMAuth/front-end-vue/node_modules/im-library -xvf ./im-library-1.0.1.tgz package && tar --strip-components=1 -C ../IMDirectory/front-end-vue/node_modules/im-library -xvf ./im-library-1.0.1.tgz package"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "@babel/preset-env": "^7.14.7",
-    "@babel/preset-typescript": "^7.14.5",
-    "@rollup/plugin-alias": "^3.1.2",
-    "@rollup/plugin-babel": "^5.3.0",
-    "@rollup/plugin-commonjs": "^14.0.0",
-    "@rollup/plugin-node-resolve": "^9.0.0",
-    "@rollup/plugin-replace": "^2.4.2",
-    "@vue/cli-plugin-babel": "^4.5.13",
-    "@vue/cli-plugin-typescript": "^4.5.13",
-    "@vue/cli-service": "^4.5.13",
-    "@vue/compiler-sfc": "^3.0.11",
-    "@zerollup/ts-transform-paths": "^1.7.18",
-    "cross-env": "^7.0.3",
-    "minimist": "^1.2.5",
-    "postcss": "^8.2.10",
-    "primeflex": "^2.0.0",
-    "primeicons": "^5.0.0",
-    "primevue": "^3.5.1",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.52.8",
-    "rollup-plugin-img": "^1.1.0",
-    "rollup-plugin-postcss": "^4.0.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.30.0",
-    "rollup-plugin-vue": "^6.0.0",
-    "ttypescript": "^1.5.12",
-    "typescript": "^4.0.3",
-    "vue": "^3.0.5"
+    "build": "rimraf dist && vue-tsc && vite build",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs"
   },
   "peerDependencies": {
-    "vue": "^3.0.5"
+    "primeflex": "^3.1.2",
+    "primeicons": "^5.0.0",
+    "primevue": "^3.11.1",
+    "vue": "^3.2.25"
   },
-  "engines": {
-    "node": ">=12"
+  "devDependencies": {
+    "@types/node": "^17.0.18",
+    "@vitejs/plugin-vue": "^2.0.0",
+    "primeflex": "^3.1.2",
+    "primeicons": "^5.0.0",
+    "primevue": "^3.11.1",
+    "rimraf": "^3.0.2",
+    "sass": "^1.49.7",
+    "typescript": "^4.4.4",
+    "vite": "^2.7.2",
+    "vitepress": "^0.21.6",
+    "vue": "^3.2.25",
+    "vue-tsc": "^0.29.8"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "types": "./dist/types/index.d.ts",
+  "module": "./dist/im-library.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/im-library.es.js"
+    },
+    "./dist/style.css": "./dist/style.css"
   }
 }
