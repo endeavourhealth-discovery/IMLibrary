@@ -267,7 +267,8 @@ export default /*#__PURE__*/ defineComponent({
       (this.$refs.userMenu as any).toggle(event);
     },
     getUrl(item: string): string {
-      return require("@/assets/avatars/" + item);
+      const url = new URL(`../assets/avatars/${item}`, import.meta.url);
+      return url.href;
     },
     openAppsOverlay(event: any) {
       (this.$refs.appsO as any).toggle(event);
