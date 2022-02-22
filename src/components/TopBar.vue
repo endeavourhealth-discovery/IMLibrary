@@ -58,51 +58,10 @@ import MenuBar from "primevue/menubar";
 import Button from "primevue/button";
 import OverlayPanel from "primevue/overlaypanel";
 import Menu from "primevue/menu";
+import { User } from "../models/modules/User";
+import { LoginItem, AccountItem } from "../models/modules/MenuItems";
 
-class User {
-  username: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  avatar: string;
-  id: string;
-
-  constructor(
-    username: string,
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
-    avatar: string
-  ) {
-    this.username = username;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.password = password;
-    this.avatar = avatar;
-    this.id = "";
-  }
-
-  setId(id: string): void {
-    this.id = id;
-  }
-}
-
-interface LoginItem {
-  label: string;
-  icon: string;
-  url: string;
-}
-
-interface AccountItem {
-  label: string;
-  icon: string;
-  url: string;
-}
-
-export default /*#__PURE__*/ defineComponent({
+export default defineComponent({
   name: "TopBar",
   props: {
     currentUser: { type: User, required: false },
@@ -216,13 +175,13 @@ export default /*#__PURE__*/ defineComponent({
         {
           label: "Login",
           icon: "fa fa-fw fa-user",
-          url: process.env.VUE_APP_AUTH_URL + "login?returnUrl=VUE_APP_EDITOR",
+          url: import.meta.env.VITE_AUTH_URL + "login?returnUrl=VUE_APP_EDITOR",
         },
         {
           label: "Register",
           icon: "fa fa-fw fa-user-plus",
           url:
-            process.env.VUE_APP_AUTH_URL + "register?returnUrl=VUE_APP_EDITOR",
+            import.meta.env.VITE_AUTH_URL + "register?returnUrl=VUE_APP_EDITOR",
         },
       ] as LoginItem[],
       accountItems: [
@@ -230,27 +189,28 @@ export default /*#__PURE__*/ defineComponent({
           label: "My account",
           icon: "fa fa-fw fa-user",
           url:
-            process.env.VUE_APP_AUTH_URL +
+            import.meta.env.VITE_AUTH_URL +
             "my-account?returnUrl=VUE_APP_EDITOR",
         },
         {
           label: "Edit account",
           icon: "fa fa-fw fa-user-edit",
           url:
-            process.env.VUE_APP_AUTH_URL +
+            import.meta.env.VITE_AUTH_URL +
             "my-account/edit?returnUrl=VUE_APP_EDITOR",
         },
         {
           label: "Change password",
           icon: "fa fa-fw fa-user-lock",
           url:
-            process.env.VUE_APP_AUTH_URL +
+            import.meta.env.VITE_AUTH_URL +
             "my-account/password-edit?returnUrl=VUE_APP_EDITOR",
         },
         {
           label: "Logout",
           icon: "fa fa-fw fa-sign-out-alt",
-          url: process.env.VUE_APP_AUTH_URL + "logout?returnUrl=VUE_APP_EDITOR",
+          url:
+            import.meta.env.VITE_AUTH_URL + "logout?returnUrl=VUE_APP_EDITOR",
         },
       ] as AccountItem[],
     };
