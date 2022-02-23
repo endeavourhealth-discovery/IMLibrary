@@ -1,7 +1,7 @@
-import { BuilderType } from "../../models/modules/BuilderJson";
-import { ComponentDetails } from "../../models/modules/BuilderJson";
-import { ComponentType } from "../../models/modules/BuilderJson";
-import { NextComponentSummary } from "../../models/modules/BuilderJson";
+import { BuilderType } from "../../enums/modules/BuilderType";
+import { ComponentDetails } from "../../interfaces/modules/ComponentDetails";
+import { ComponentType } from "../../enums/modules/ComponentType";
+import { NextComponentSummary } from "../../interfaces/modules/NextComponentSummary";
 
 export function generateNewComponent(
   type: ComponentType,

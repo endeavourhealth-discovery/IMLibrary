@@ -1,4 +1,5 @@
-import { TTBundle, TTIriRef } from "../../models/modules/TripleTree";
+import { TTBundle } from "../../interfaces/modules/TTBundle";
+import { TTIriRef } from "../../interfaces/Interfaces";
 import { IM } from "../../vocabulary/IM";
 import { RDFS } from "../../vocabulary/RDFS";
 import { isArrayHasLength, isObjectHasKeys } from "./DataTypeCheckers";

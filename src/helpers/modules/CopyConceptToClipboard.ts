@@ -1,4 +1,4 @@
-import { DefinitionConfig } from "../../models/modules/Configs";
+import { DefinitionConfig } from "../../interfaces/modules/DefinitionConfig";
 
 import { bundleToText } from "./Transforms";
 import {

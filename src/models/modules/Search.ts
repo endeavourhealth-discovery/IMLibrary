@@ -1,4 +1,5 @@
-import { TTIriRef } from "./TripleTree";
+import { TTIriRef } from "../../interfaces/modules/TTIriRef";
+import { SortBy } from "../../enums/modules/SortBy";
 
 export class ConceptSummary {
   name = "";
@@ -31,9 +32,4 @@ export class SearchResponse {
   totalSize!: number;
   concepts!: ConceptSummary[];
   request?: SearchRequest;
-}
-
-export enum SortBy {
-  Usage,
-  Length,
 }

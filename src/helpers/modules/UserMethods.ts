@@ -1,4 +1,4 @@
-import { PasswordStrength } from "../../models/modules/User";
+import { PasswordStrength } from "../../enums/modules/PasswordStrength";
 
 export function verifyIsEmail(email: string): boolean {
   return /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email);

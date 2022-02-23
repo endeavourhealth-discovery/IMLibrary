@@ -1,4 +1,4 @@
-import { TTIriRef } from "./TripleTree";
+import { TTIriRef } from "./TTIriRef";
 
 export interface PartialEntity {
   entity: Object;

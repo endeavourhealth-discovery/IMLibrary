@@ -3,7 +3,7 @@
 // Class, Record Type
 // Everything else
 
-import { TTIriRef } from "../../models/modules/TripleTree";
+import { TTIriRef } from "../../interfaces/modules/TTIriRef";
 import { Vocabulary } from "../../vocabulary/index";
 
 export function isOfTypes(

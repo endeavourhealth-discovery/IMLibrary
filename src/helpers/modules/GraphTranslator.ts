@@ -1,5 +1,5 @@
-import { PartialBundle } from "../../models/modules/EntityServiceTypes";
-import TTGraphData from "../../models/modules/TTGraphData";
+import { PartialBundle } from "../../interfaces/modules/PartialBundle";
+import TTGraphData from "../../interfaces/modules/TTGraphData";
 import { Vocabulary } from "../../vocabulary";
 import { isArrayHasLength, isObjectHasKeys } from "./DataTypeCheckers";
 

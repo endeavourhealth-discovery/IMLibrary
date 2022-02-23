@@ -59,7 +59,8 @@ import Button from "primevue/button";
 import OverlayPanel from "primevue/overlaypanel";
 import Menu from "primevue/menu";
 import { User } from "../models/modules/User";
-import { LoginItem, AccountItem } from "../models/modules/MenuItems";
+import { AccountItem } from "../interfaces/modules/AccountItem";
+import { LoginItem } from "../interfaces/modules/LoginItem";
 
 export default defineComponent({
   name: "TopBar",
