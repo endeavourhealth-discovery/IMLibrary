@@ -58,7 +58,7 @@ import MenuBar from "primevue/menubar";
 import Button from "primevue/button";
 import OverlayPanel from "primevue/overlaypanel";
 import Menu from "primevue/menu";
-import { User } from "../models/modules/User";
+import User from "../models/modules/User";
 import { AccountItem } from "../interfaces/modules/AccountItem";
 import { LoginItem } from "../interfaces/modules/LoginItem";
 

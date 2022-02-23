@@ -1,6 +1,6 @@
-import { User } from "./User";
+import User from "./User";
 
-export class CustomAlert {
+export default class CustomAlert {
   status: number;
   message: string;
   error?: Error | string;
