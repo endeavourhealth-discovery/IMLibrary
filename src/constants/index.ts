@@ -1,4 +1,3 @@
-import * as MyConstants from "./MyConstants";
-import { Avatars } from "./modules/Avatars";
+import * as Constants from "./Constants";
 
-export { MyConstants, Avatars };
+export { Constants };
