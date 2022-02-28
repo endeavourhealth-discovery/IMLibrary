@@ -1,0 +1,1 @@
+import{_ as e,a as t,o,d as r}from"./app.ed4490ae.js";const f='{"title":"What is My Lib?","description":"","frontmatter":{},"headers":[],"relativePath":"index.md","lastUpdated":1645464100562}',a={},n=r("",4),i=[n];function s(p,c,l,m,h,_){return o(),t("div",null,i)}var u=e(a,[["render",s]]);export{f as __pageData,u as default};
