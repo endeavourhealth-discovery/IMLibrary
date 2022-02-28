@@ -32,6 +32,7 @@ import { NextComponentSummary } from "./modules/NextComponentSummary";
 import { PartialBundle } from "./modules/PartialBundle";
 import { PartialEntity } from "./modules/PartialEntity";
 import { ProcessedDataModelProperty } from "./modules/ProcessedDataModelProperty";
+import { RecentActivityItem } from "./modules/RecentActivityItem";
 import { SearchResponse } from "./modules/SearchResponse";
 import { SimpleCount } from "./modules/SimpleCount";
 import { SimpleMap } from "./modules/SimpleMap";
@@ -82,6 +83,7 @@ export {
   type PartialBundle,
   type PartialEntity,
   type ProcessedDataModelProperty,
+  type RecentActivityItem,
   type SearchResponse,
   type SimpleCount,
   type SimpleMap,
