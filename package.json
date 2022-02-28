@@ -1,6 +1,7 @@
 {
   "name": "im-library",
   "version": "0.0.0",
+  "main": "dist/im-library.es.js",
   "scripts": {
     "build": "rimraf dist && vue-tsc && vite build",
     "docs:dev": "vitepress dev docs",
