@@ -2,7 +2,6 @@ export class IM {
   public static NAMESPACE = "http://endhealth.info/im#";
   public static PREFIX = "im";
   public static IRI = "@id";
-  public static CONCEPT = IM.NAMESPACE + "Concept";
   public static CONCEPT_SET_GROUP = IM.NAMESPACE + "ConceptSetGroup";
   public static CODE = IM.NAMESPACE + "code";
   public static SCHEME = IM.NAMESPACE + "scheme";
@@ -35,7 +34,6 @@ export class IM {
 
   public static QUERY_SET = IM.NAMESPACE + "QuerySet";
   public static QUERY_TEMPLATE = IM.NAMESPACE + "QueryTemplate";
-  public static CONCEPT_SET = IM.NAMESPACE + "ConceptSet";
   public static VALUE_SET = IM.NAMESPACE + "ValueSet";
   public static HAS_MEMBERS = IM.NAMESPACE + "hasMembers";
   public static SET = IM.NAMESPACE + "Set";
@@ -74,4 +72,12 @@ export class IM {
   public static CONCEPT_TYPES = IM.NAMESPACE + "ontologyConceptTypes";
   public static CONCEPT_SCHEMES = IM.NAMESPACE + "ontologyConceptSchemes";
   public static CONCEPT_STATUS = IM.NAMESPACE + "ontologyConceptStatus";
+
+  // High level types
+  public static CONCEPT = IM.NAMESPACE + "Concept";
+  public static VALUESET = IM.NAMESPACE + "ValueSet";
+  public static CONCEPT_SET = IM.NAMESPACE + "ConceptSet";
+  public static DATAMODEL_ENTITY = IM.NAMESPACE + "DataModelEntity";
+  public static DATAMODEL_PROPERTY = IM.NAMESPACE + "dataModelProperty";
+  public static QUERY = IM.NAMESPACE + "Query";
 }
