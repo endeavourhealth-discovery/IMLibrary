@@ -5,7 +5,6 @@ export interface imlibraryInterface {
 }
 const IMLibrary: imlibraryInterface = {
   install(app: App, options: any): void {
-    console.log(options);
     if (!options || !options.store) {
       throw new Error("Please initialise plugin with a Vuex store.");
     }
