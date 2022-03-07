@@ -1,9 +1,10 @@
 {
   "name": "im-library",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "dist/im-library.es.js",
   "scripts": {
-    "build": "rimraf dist && rimraf build && vue-tsc && vite build && shx mkdir ./build && shx cp -R ./dist ./build/dist && shx cp ./package.json ./build",
+    "build:dev": "rimraf dist && rimraf build && vue-tsc && vite build && shx mkdir ./build && shx cp -R ./dist ./build/dist && shx cp ./package.json ./build",
+    "build:production": "npm version minor && npm pack",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
