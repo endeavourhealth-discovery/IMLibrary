@@ -10,11 +10,13 @@ import "primeflex/primeflex.css";
 
 import "./custom.css";
 
+import store from "../../store";
+
 export default {
   ...DefaultTheme,
   enhanceApp({ app }) {
     app.use(PrimeVue);
-    app.use(IMLibrary);
+    app.use(IMLibrary, { store });
     app.component("DemoContainer", DemoContainer);
   },
 };
