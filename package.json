@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "dist/im-library.es.js",
   "scripts": {
-    "build": "rimraf dist && vue-tsc && vite build",
+    "build": "rimraf dist && rimraf build && vue-tsc && vite build && shx cp -R ./dist ./build",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
@@ -36,7 +36,6 @@
     "vue-tsc": "^0.29.8"
   },
   "files": [
-    "src",
     "dist"
   ],
   "types": "./dist/types/index.d.ts",
@@ -46,5 +45,9 @@
       "import": "./dist/im-library.es.js"
     },
     "./dist/style.css": "./dist/style.css"
+  },
+  "dependencies": {
+    "shx": "^0.3.4",
+    "vuex": "^4.0.2"
   }
 }

@@ -1,0 +1,3 @@
+<template>
+  <SnomedLicense />
+</template>
