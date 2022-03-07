@@ -1,10 +1,8 @@
 node_modules
-node_module
 .DS_Store
 dist
 build
-dist/types
-dist/style.css
 *.local
 docs/.vuepress/.cache
 docs/.vuepress/.temp
+.idea
