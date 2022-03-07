@@ -2,7 +2,6 @@ const path = require("path");
 const { defineConfig } = require("vite");
 import vue from "@vitejs/plugin-vue";
 import { esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
-import copy from "rollup-plugin-copy";
 
 module.exports = defineConfig({
   plugins: [vue()], // to process SFC
