@@ -118,8 +118,7 @@ import Button from "primevue/button";
 export default defineComponent({
   name: "SnomedLicense",
   components: { Button, Dialog },
-  props: { returnUrl: { type: String, required: true } },
-  computed: mapState(["snomedLicenseAccepted"]),
+  computed: mapState(["snomedLicenseAccepted", "snomedReturnUrl"]),
   watch: {
     snomedLicenseAccepted(newValue) {
       if (newValue === "true") {
@@ -141,7 +140,7 @@ export default defineComponent({
 
     submitAgree(): void {
       this.$store.commit("updateSnomedLicenseAccepted", "true");
-      window.location.href = this.returnUrl;
+      window.location.href = this.snomedReturnUrl;
     },
   },
 });

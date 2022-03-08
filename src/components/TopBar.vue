@@ -58,17 +58,17 @@ import MenuBar from "primevue/menubar";
 import Button from "primevue/button";
 import OverlayPanel from "primevue/overlaypanel";
 import Menu from "primevue/menu";
-import User from "../models/modules/User";
 import { AccountItem } from "../interfaces/modules/AccountItem";
 import { LoginItem } from "../interfaces/modules/LoginItem";
+import { mapState } from "vuex";
 
 export default defineComponent({
   name: "TopBar",
-  props: {
-    currentUser: { type: User, required: false },
-    isLoggedIn: { type: Boolean, required: true },
-  },
   components: { MenuBar, Menu, Button, OverlayPanel },
+  computed: mapState(["currentUser", "isLoggedIn", "authReturnUrl"]),
+  mounted() {
+    this.setUserMenuItems();
+  },
   data() {
     return {
       loading: false,
@@ -172,48 +172,8 @@ export default defineComponent({
           ],
         },
       ],
-      loginItems: [
-        {
-          label: "Login",
-          icon: "fa fa-fw fa-user",
-          url: import.meta.env.VITE_AUTH_URL + "login?returnUrl=VUE_APP_EDITOR",
-        },
-        {
-          label: "Register",
-          icon: "fa fa-fw fa-user-plus",
-          url:
-            import.meta.env.VITE_AUTH_URL + "register?returnUrl=VUE_APP_EDITOR",
-        },
-      ] as LoginItem[],
-      accountItems: [
-        {
-          label: "My account",
-          icon: "fa fa-fw fa-user",
-          url:
-            import.meta.env.VITE_AUTH_URL +
-            "my-account?returnUrl=VUE_APP_EDITOR",
-        },
-        {
-          label: "Edit account",
-          icon: "fa fa-fw fa-user-edit",
-          url:
-            import.meta.env.VITE_AUTH_URL +
-            "my-account/edit?returnUrl=VUE_APP_EDITOR",
-        },
-        {
-          label: "Change password",
-          icon: "fa fa-fw fa-user-lock",
-          url:
-            import.meta.env.VITE_AUTH_URL +
-            "my-account/password-edit?returnUrl=VUE_APP_EDITOR",
-        },
-        {
-          label: "Logout",
-          icon: "fa fa-fw fa-sign-out-alt",
-          url:
-            import.meta.env.VITE_AUTH_URL + "logout?returnUrl=VUE_APP_EDITOR",
-        },
-      ] as AccountItem[],
+      loginItems: [] as LoginItem[],
+      accountItems: [] as AccountItem[],
     };
   },
   methods: {
@@ -233,6 +193,60 @@ export default defineComponent({
     },
     openAppsOverlay(event: any) {
       (this.$refs.appsO as any).toggle(event);
+    },
+    setUserMenuItems(): void {
+      this.loginItems = [
+        {
+          label: "Login",
+          icon: "fa fa-fw fa-user",
+          url:
+            import.meta.env.VITE_AUTH_URL +
+            "login?returnUrl=" +
+            this.authReturnUrl,
+        },
+        {
+          label: "Register",
+          icon: "fa fa-fw fa-user-plus",
+          url:
+            import.meta.env.VITE_AUTH_URL +
+            "register?returnUrl=" +
+            this.authReturnUrl,
+        },
+      ];
+      this.accountItems = [
+        {
+          label: "My account",
+          icon: "fa fa-fw fa-user",
+          url:
+            import.meta.env.VITE_AUTH_URL +
+            "my-account?returnUrl=" +
+            this.authReturnUrl,
+        },
+        {
+          label: "Edit account",
+          icon: "fa fa-fw fa-user-edit",
+          url:
+            import.meta.env.VITE_AUTH_URL +
+            "my-account/edit?returnUrl=" +
+            this.authReturnUrl,
+        },
+        {
+          label: "Change password",
+          icon: "fa fa-fw fa-user-lock",
+          url:
+            import.meta.env.VITE_AUTH_URL +
+            "my-account/password-edit?returnUrl=" +
+            this.authReturnUrl,
+        },
+        {
+          label: "Logout",
+          icon: "fa fa-fw fa-sign-out-alt",
+          url:
+            import.meta.env.VITE_AUTH_URL +
+            "logout?returnUrl=" +
+            this.authReturnUrl,
+        },
+      ];
     },
   },
 });
