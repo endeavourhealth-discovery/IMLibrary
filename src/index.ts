@@ -11,19 +11,22 @@ export interface imlibraryInterface {
 }
 const IMLibrary: imlibraryInterface = {
   install(app: App, options: any): void {
-    dom.watch();
-    library.add(fas as any, far as any);
     if (!options || !options.store) {
       throw new Error("Please initialise plugin with a Vuex store.");
     }
-    if (options.store.state.docs) app.use(options.store);
+    // registers for docs only
+    if (options.store.state.docs) {
+      app.use(options.store);
+      dom.watch();
+      library.add(fas as any, far as any);
+      app.directive("tooltip", Tooltip);
+      app.component("font-awesome-icon", FontAwesomeIcon);
+    }
     for (const key in components) {
       // @ts-expect-error
       app.component(key, components[key]);
     }
-    app.directive("tooltip", Tooltip);
-    app.component("font-awesome-icon", FontAwesomeIcon);
-  }
+  },
 };
 
 import "./assets/main.scss";
