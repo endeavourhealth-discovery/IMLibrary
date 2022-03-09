@@ -1,7 +1,7 @@
 <template>
   <MenuBar>
     <template #start>
-      <img class="im-logo" src="../assets/logos/Logo-object-empty.png" alt="IM logo" />
+      <img class="im-logo" src="../assets/logos/Logo-object-empty.png" alt="IM logo" v-on:click="toLandingPage" />
     </template>
     <template #end>
       <Button icon="pi pi-th-large" class="p-button-rounded p-button-text p-button-plain p-button-lg" @click="openAppsOverlay" />
@@ -64,6 +64,9 @@ export default defineComponent({
     };
   },
   methods: {
+    toLandingPage() {
+      window.location.href = "/";
+    },
     navigateToEditor(): void {
       window.open("/editor/#/");
     },
@@ -157,10 +160,6 @@ export default defineComponent({
   .im-logo {
     width: 3vw;
   }
-}
-
-.p-menubar {
-  background: #ffffff;
 }
 
 .p-menubar-root-list,
