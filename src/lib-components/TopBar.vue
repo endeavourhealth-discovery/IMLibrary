@@ -1,28 +1,18 @@
 <template>
-  <Menubar :model="items">
+  <Menubar>
     <template #start>
-      <img
-        class="im-logo"
-        src="../assets/logos/Logo-object-empty.png"
-        alt="IM logo"
-      />
+      <img class="im-logo" src="../assets/logos/Logo-object-empty.png" alt="IM logo" />
     </template>
     <template #end>
-      <Button
-        icon="pi pi-th-large"
-        class="p-button-rounded p-button-text p-button-plain p-button-lg"
-        @click="openAppsOverlay"
-      />
+      <Button icon="pi pi-th-large" class="p-button-rounded p-button-text p-button-plain p-button-lg" @click="openAppsOverlay" />
       <OverlayPanel ref="appsO">
-        <div class="app-icons-container" justify-content-end>
-          <div class="app-icon">
-            <i class="pi pi-cog app-icon"></i>
+        <div class="grid">
+          <div class="col-6">
+            <Button v-tooltip.bottom="'Editor'" icon="far fa-edit" class="p-button-rounded p-button-text p-button-plain" @click="navigateToEditor" />
           </div>
-          <div class="app-icon">4</div>
-          <div class="app-icon">4</div>
-          <div class="app-icon">4</div>
-          <div class="app-icon">4</div>
-          <div class="app-icon">4</div>
+          <div class="col-6">
+            <Button v-tooltip.bottom="'UPRN'" icon="far fa-map" class="p-button-rounded p-button-text p-button-plain" @click="navigateToUPRN" />
+          </div>
         </div>
       </OverlayPanel>
       <Button
@@ -40,12 +30,7 @@
         aria-haspopup="true"
         aria-controls="overlay_menu"
       >
-        <img
-          class="avatar-icon"
-          alt="avatar icon"
-          :src="getUrl(currentUser.avatar)"
-          style="width: 1.5rem"
-        />
+        <img class="avatar-icon" alt="avatar icon" :src="getUrl(currentUser.avatar)" style="width: 1.5rem" />
       </Button>
       <Menu ref="userMenu" :model="getItems()" :popup="true" />
     </template>
@@ -68,14 +53,7 @@ class User {
   avatar: string;
   id: string;
 
-  constructor(
-    username: string,
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
-    avatar: string
-  ) {
+  constructor(username: string, firstName: string, lastName: string, email: string, password: string, avatar: string) {
     this.username = username;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -106,7 +84,7 @@ export default /*#__PURE__*/ defineComponent({
   name: "TopBar",
   props: {
     currentUser: { type: User, required: false },
-    isLoggedIn: { type: Boolean, required: true },
+    isLoggedIn: { type: Boolean, required: true }
   },
   components: { MenuBar, Menu, Button, OverlayPanel },
   data() {
@@ -114,148 +92,49 @@ export default /*#__PURE__*/ defineComponent({
       loading: false,
       request: {} as { cancel: any; msg: string },
       searchText: "",
-      items: [
-        {
-          label: "Videos",
-          icon: "pi pi-fw pi-video",
-          items: [
-            {
-              label: "Video 1",
-              items: [{ label: "Video 1.1" }, { label: "Video 1.2" }],
-            },
-            {
-              label: "Video 2",
-              items: [{ label: "Video 2.1" }, { label: "Video 2.2" }],
-            },
-            {
-              label: "Video 3",
-              items: [{ label: "Video 3.1" }, { label: "Video 3.2" }],
-            },
-            {
-              label: "Video 4",
-              items: [{ label: "Video 4.1" }, { label: "Video 4.2" }],
-            },
-          ],
-        },
-        {
-          label: "Users",
-          icon: "pi pi-fw pi-users",
-          items: [
-            {
-              label: "User 1",
-              items: [{ label: "User 1.1" }, { label: "User 1.2" }],
-            },
-            {
-              label: "User 2",
-              items: [{ label: "User 2.1" }, { label: "User 2.2" }],
-            },
-            {
-              label: "User 3",
-              items: [{ label: "User 3.1" }, { label: "User 3.2" }],
-            },
-            {
-              label: "User 4",
-              items: [{ label: "User 4.1" }, { label: "User 4.2" }],
-            },
-            {
-              label: "User 5",
-              items: [{ label: "User 5.1" }, { label: "User 5.2" }],
-            },
-            {
-              label: "User 6",
-              items: [{ label: "User 6.1" }, { label: "User 6.2" }],
-            },
-          ],
-        },
-        {
-          label: "Events",
-          icon: "pi pi-fw pi-calendar",
-          items: [
-            {
-              label: "Event 1",
-              items: [{ label: "Event 1.1" }, { label: "Event 1.2" }],
-            },
-            {
-              label: "Event 2",
-              items: [{ label: "Event 2.1" }, { label: "Event 2.2" }],
-            },
-            {
-              label: "Event 3",
-              items: [{ label: "Event 3.1" }, { label: "Event 3.2" }],
-            },
-            {
-              label: "Event 4",
-              items: [{ label: "Event 4.1" }, { label: "Event 4.2" }],
-            },
-          ],
-        },
-        {
-          label: "Settings",
-          icon: "pi pi-fw pi-cog",
-          items: [
-            {
-              label: "Setting 1",
-              items: [{ label: "Setting 1.1" }, { label: "Setting 1.2" }],
-            },
-            {
-              label: "Setting 2",
-              items: [{ label: "Setting 2.1" }, { label: "Setting 2.2" }],
-            },
-            {
-              label: "Setting 3",
-              items: [{ label: "Setting 3.1" }, { label: "Setting 3.2" }],
-            },
-            {
-              label: "Setting 4",
-              items: [{ label: "Setting 4.1" }, { label: "Setting 4.2" }],
-            },
-          ],
-        },
-      ],
       loginItems: [
         {
           label: "Login",
           icon: "fa fa-fw fa-user",
-          url: process.env.VUE_APP_AUTH_URL + "login?returnUrl=VUE_APP_EDITOR",
+          url: process.env.VUE_APP_AUTH_URL + "login?returnUrl=VUE_APP_EDITOR"
         },
         {
           label: "Register",
           icon: "fa fa-fw fa-user-plus",
-          url:
-            process.env.VUE_APP_AUTH_URL + "register?returnUrl=VUE_APP_EDITOR",
-        },
+          url: process.env.VUE_APP_AUTH_URL + "register?returnUrl=VUE_APP_EDITOR"
+        }
       ] as LoginItem[],
       accountItems: [
         {
           label: "My account",
           icon: "fa fa-fw fa-user",
-          url:
-            process.env.VUE_APP_AUTH_URL +
-            "my-account?returnUrl=VUE_APP_EDITOR",
+          url: process.env.VUE_APP_AUTH_URL + "my-account?returnUrl=VUE_APP_EDITOR"
         },
         {
           label: "Edit account",
           icon: "fa fa-fw fa-user-edit",
-          url:
-            process.env.VUE_APP_AUTH_URL +
-            "my-account/edit?returnUrl=VUE_APP_EDITOR",
+          url: process.env.VUE_APP_AUTH_URL + "my-account/edit?returnUrl=VUE_APP_EDITOR"
         },
         {
           label: "Change password",
           icon: "fa fa-fw fa-user-lock",
-          url:
-            process.env.VUE_APP_AUTH_URL +
-            "my-account/password-edit?returnUrl=VUE_APP_EDITOR",
+          url: process.env.VUE_APP_AUTH_URL + "my-account/password-edit?returnUrl=VUE_APP_EDITOR"
         },
         {
           label: "Logout",
           icon: "fa fa-fw fa-sign-out-alt",
-          url: process.env.VUE_APP_AUTH_URL + "logout?returnUrl=VUE_APP_EDITOR",
-        },
-      ] as AccountItem[],
+          url: process.env.VUE_APP_AUTH_URL + "logout?returnUrl=VUE_APP_EDITOR"
+        }
+      ] as AccountItem[]
     };
   },
   methods: {
+    navigateToEditor() {
+      window.open("/editor/#/");
+    },
+    navigateToUPRN() {
+      window.open("/editor/#/");
+    },
     getItems(): LoginItem[] | AccountItem[] {
       if (this.isLoggedIn) {
         return this.accountItems;
@@ -271,8 +150,8 @@ export default /*#__PURE__*/ defineComponent({
     },
     openAppsOverlay(event: any) {
       (this.$refs.appsO as any).toggle(event);
-    },
-  },
+    }
+  }
 });
 </script>
 
@@ -309,5 +188,14 @@ export default /*#__PURE__*/ defineComponent({
   .im-logo {
     width: 3vw;
   }
+}
+
+.p-menubar {
+  background: #ffffff;
+}
+
+.p-menubar-root-list,
+.p-menubar-button {
+  visibility: hidden;
 }
 </style>
