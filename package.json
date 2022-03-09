@@ -1,6 +1,6 @@
 {
   "name": "im-library",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/im-library.es.js",
   "scripts": {
     "build:dev": "rimraf dist && rimraf build && vue-tsc && vite build && shx mkdir ./build && shx cp -R ./dist ./build/dist && shx cp ./package.json ./build",
