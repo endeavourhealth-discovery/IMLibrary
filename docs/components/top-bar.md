@@ -14,10 +14,12 @@ This component depends on third-party component library for Vue 3:
 Click the buttons to change the count.
 
 <DemoContainer>
-  <Basic/>
+  <ClientOnly>
+    <Basic/>
+  </ClientOnly>
 </DemoContainer>
 
-<<< @/components/demo/ComponentB/Basic.vue
+<<< @/components/demo/TopBar/Basic.vue
 
 ## Reference
 

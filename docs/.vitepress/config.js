@@ -16,9 +16,8 @@ module.exports = {
       {
         text: "Components",
         children: [
-          { text: "Component A", link: "/components/component-a" },
-          { text: "Component B", link: "/components/component-b" },
           { text: "TopBar", link: "/components/top-bar" },
+          { text:"SnomedLicense", link:"/components/snomed-license" }
         ],
       },
     ],

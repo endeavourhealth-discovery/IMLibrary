@@ -1,3 +1,3 @@
 <template>
-  <TopBar :isLoggedIn="false" :currentUser="undefined" />
+  <TopBar />
 </template>
