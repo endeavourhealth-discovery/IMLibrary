@@ -73,12 +73,12 @@ export default defineComponent({
       searchText: "",
       loginItems: [] as LoginItem[],
       accountItems: [] as AccountItem[],
-      menuBarItems: [] as { label: string | undefined }[]
+      menuBarItems: [{ label: "" }] as { label: string | undefined }[]
     };
   },
   methods: {
     setMenuBarItems() {
-      this.menuBarItems.push({ label: this.title });
+      this.menuBarItems[0].label = this.title;
     },
     toLandingPage() {
       window.location.href = "/";
