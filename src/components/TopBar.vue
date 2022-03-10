@@ -55,6 +55,11 @@ export default defineComponent({
   props: {
     title: { type: String, required: false }
   },
+  watch: {
+    title() {
+      this.setMenuBarItems();
+    }
+  },
   components: { MenuBar, Menu, Button, OverlayPanel },
   computed: mapState(["currentUser", "isLoggedIn", "authReturnUrl"]),
   mounted() {
