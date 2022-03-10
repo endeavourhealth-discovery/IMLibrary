@@ -1,5 +1,8 @@
 <template>
-  <MenuBar>
+  <MenuBar :model="menuBarItems">
+    <template #item="{ item }">
+      <div class="topbar-title">{{ item.label }}</div>
+    </template>
     <template #start>
       <img class="im-logo" src="../assets/logos/Logo-object-empty.png" alt="IM logo" v-on:click="toLandingPage" />
     </template>
@@ -49,10 +52,14 @@ import { mapState } from "vuex";
 
 export default defineComponent({
   name: "TopBar",
+  props: {
+    title: { type: String, required: false }
+  },
   components: { MenuBar, Menu, Button, OverlayPanel },
   computed: mapState(["currentUser", "isLoggedIn", "authReturnUrl"]),
   mounted() {
     this.setUserMenuItems();
+    this.setMenuBarItems();
   },
   data() {
     return {
@@ -60,10 +67,14 @@ export default defineComponent({
       request: {} as { cancel: any; msg: string },
       searchText: "",
       loginItems: [] as LoginItem[],
-      accountItems: [] as AccountItem[]
+      accountItems: [] as AccountItem[],
+      menuBarItems: [] as { label: string | undefined }[]
     };
   },
   methods: {
+    setMenuBarItems() {
+      this.menuBarItems.push({ label: this.title });
+    },
     toLandingPage() {
       window.location.href = "/";
     },
@@ -135,21 +146,6 @@ export default defineComponent({
   cursor: pointer;
   margin-bottom: 0rem;
 }
-.app-list-container {
-  justify-content: center;
-}
-
-.app-icons-container {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-.app-icon {
-  width: calc(25% - 1rem);
-}
 
 @media screen and (max-width: 1439px) {
   .im-logo {
@@ -165,5 +161,10 @@ export default defineComponent({
 .p-menubar-root-list,
 .p-menubar-button {
   visibility: hidden;
+}
+
+.topbar-title {
+  padding: 0.75rem;
+  font-size: 1.25rem;
 }
 </style>

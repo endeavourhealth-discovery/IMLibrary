@@ -14,7 +14,7 @@ This component depends on third-party component library for Vue 3:
 Click the buttons to change the count.
 
 <DemoContainer>
-  <Basic/>
+  <Basic :title="'Entity Title'"/>
 </DemoContainer>
 
 <<< @/components/demo/ComponentB/Basic.vue
