@@ -1,3 +1,3 @@
-import Services from "./Services"
+import LoggerService from "./modules/LoggerService"
 
-export { Services}
+export { LoggerService}
