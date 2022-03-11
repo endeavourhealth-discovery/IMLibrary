@@ -1,8 +1,8 @@
 const path = require("path");
 
 module.exports = {
-  title: "My Lib",
-  description: "Just playing around.",
+  title: "IM Library",
+  description: "Library for the Information Model app suite",
   themeConfig: {
     repo: "https://github.com/endeavourhealth-discovery/IMLibrary",
     sidebar: [
@@ -18,6 +18,7 @@ module.exports = {
         children: [
           { text: "TopBar", link: "/components/top-bar" },
           { text:"SnomedLicense", link:"/components/snomed-license" },
+          { text: "TextHTMLWithLabel", link:"/components/text-html-with-label"},
           { test: "TextWithLabel", link: "/components/text-with-label" }
         ],
       },
