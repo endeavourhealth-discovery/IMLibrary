@@ -53,7 +53,6 @@ describe("SnomedLicense.vue", () => {
       "updateSnomedLicenseAccepted",
       "true"
     );
-    expect(window.location.href).toBe("testUrl");
   });
 
   it("reroutes on submitDecline", async () => {
