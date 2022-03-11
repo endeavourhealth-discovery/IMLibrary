@@ -12,7 +12,7 @@ describe("SnomedLicense.vue", () => {
 
   beforeEach(() => {
     mockStore = {
-      state: { snomedLicenseAccepted: "false" },
+      state: { snomedLicenseAccepted: "false", snomedReturnUrl: "testUrl" },
       commit: vi.fn(),
     };
     mockLocation = { href: "" };
@@ -25,7 +25,6 @@ describe("SnomedLicense.vue", () => {
         components: { Dialog, Button },
         mocks: { $store: mockStore },
       },
-      props: { returnUrl: "testUrl" },
     });
   });
 
