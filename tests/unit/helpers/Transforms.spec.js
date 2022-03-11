@@ -200,40 +200,40 @@ describe("bundleToText", () => {
   });
 
   it("can convert a bundle to text", async () => {
-    expect(bundleToText(testBundle, PREDICATES, 0, true)).toBe(expected);
+    expect(bundleToText("", testBundle, PREDICATES, 0, true)).toBe(expected);
   });
 });
 
 describe("ttValueToString", () => {
   it("handles ttIri", async () => {
     expect(
-      ttValueToString({ "@id": "testIri", name: "testName" }, "object", 0, true)
+      ttValueToString("", { "@id": "testIri", name: "testName" }, "object", 0, true)
     ).toBe('<a href="http://localhost/#/concept/testIri">testName</a>');
   });
 
   it("handles array", async () => {
-    expect(ttValueToString([{ "@id": "testIri" }], "object", 0, true)).toBe(
+    expect(ttValueToString("", [{ "@id": "testIri" }], "object", 0, true)).toBe(
       '<a href="http://localhost/#/concept/testIri">testIri</a>\n'
     );
   });
 
   it("handles ttNode", async () => {
     expect(
-      ttValueToString({ nodeIri: { "@id": "testIri" } }, "object", 0, true)
+      ttValueToString("", { nodeIri: { "@id": "testIri" } }, "object", 0, true)
     ).toStrictEqual(
       'nodeIri : <a href="http://localhost/#/concept/testIri">testIri</a>\n'
     );
   });
 
   it("handles undefined", async () => {
-    expect(ttValueToString(undefined, "object", 0, true)).toBe("undefined");
+    expect(ttValueToString("", undefined, "object", 0, true)).toBe("undefined");
   });
 });
 
 describe("ttIriToString", () => {
   it("handles iri with name", () => {
     expect(
-      ttIriToString(
+      ttIriToString("",
         { "@id": "testIri", name: "testName" },
         "object",
         0,
@@ -245,13 +245,13 @@ describe("ttIriToString", () => {
 
   it("handles iri no name", () => {
     expect(
-      ttIriToString({ "@id": "testIri", name: "" }, "object", 0, true, false)
+      ttIriToString("", { "@id": "testIri", name: "" }, "object", 0, true, false)
     ).toBe('<a href="http://localhost/#/concept/testIri">testIri</a>');
   });
 
   it("handles not inline", () => {
     expect(
-      ttIriToString(
+      ttIriToString("", 
         { "@id": "testIri", name: "testName" },
         "object",
         2,
@@ -263,7 +263,7 @@ describe("ttIriToString", () => {
 
   it("handles inline", () => {
     expect(
-      ttIriToString(
+      ttIriToString("", 
         { "@id": "testIri", name: "testName" },
         "object",
         2,
@@ -275,7 +275,7 @@ describe("ttIriToString", () => {
 
   it("handles previous array", () => {
     expect(
-      ttIriToString(
+      ttIriToString("", 
         { "@id": "testIri", name: "testName" },
         "array",
         2,
@@ -505,6 +505,6 @@ describe("ttNodeToString ___ isa rolegroup", () => {
   });
 
   it("handles node ___ missing iriMap", async () => {
-    expect(ttNodeToString(NODE, "object", 0, true, PREDICATES)).toBe(EXPECTED);
+    expect(ttNodeToString("", NODE, "object", 0, true, PREDICATES)).toBe(EXPECTED);
   });
 });

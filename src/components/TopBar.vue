@@ -1,7 +1,12 @@
 <template>
-  <MenuBar>
+  <MenuBar :model="menuBarItems">
+    <template #item>
+      <div style="margin-left:10px">
+        <slot name="content"></slot>
+      </div>
+    </template>
     <template #start>
-      <img class="im-logo" src="../assets/logos/Logo-object-empty.png" alt="IM logo" />
+      <img class="im-logo" src="../assets/logos/Logo-object-empty.png" alt="IM logo" v-on:click="toLandingPage" />
     </template>
     <template #end>
       <Button icon="pi pi-th-large" class="p-button-rounded p-button-text p-button-plain p-button-lg" @click="openAppsOverlay" />
@@ -60,10 +65,14 @@ export default defineComponent({
       request: {} as { cancel: any; msg: string },
       searchText: "",
       loginItems: [] as LoginItem[],
-      accountItems: [] as AccountItem[]
+      accountItems: [] as AccountItem[],
+      menuBarItems: [{ label: "" }] as { label: string | undefined }[]
     };
   },
   methods: {
+    toLandingPage() {
+      window.location.href = "/";
+    },
     navigateToEditor(): void {
       window.open("/editor/#/");
     },
@@ -132,39 +141,25 @@ export default defineComponent({
   cursor: pointer;
   margin-bottom: 0rem;
 }
-.app-list-container {
-  justify-content: center;
-}
-
-.app-icons-container {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-.app-icon {
-  width: calc(25% - 1rem);
-}
 
 @media screen and (max-width: 1439px) {
   .im-logo {
-    width: 3vw;
+    width: 2.25vw;
   }
 }
 @media screen and (min-width: 1440px) {
   .im-logo {
-    width: 3vw;
+    width: 2.25vw;
   }
-}
-
-.p-menubar {
-  background: #ffffff;
 }
 
 .p-menubar-root-list,
 .p-menubar-button {
   visibility: hidden;
+}
+
+.topbar-title {
+  padding: 0.75rem;
+  font-size: 1.25rem;
 }
 </style>

@@ -8,6 +8,7 @@ import { isArrayHasLength, isObjectHasKeys } from "./DataTypeCheckers";
 const indentSize = "  ";
 
 export function bundleToText(
+  appPath: string,
   bundle: TTBundle,
   defaultPredicatenames: any,
   indent: number,
@@ -19,14 +20,7 @@ export function bundleToText(
   delete bundle.entity["@id"];
   delete bundle.entity[IM.IS_A];
   let result = "";
-  result += ttValueToString(
-    bundle.entity,
-    "object",
-    indent,
-    withHyperlinks,
-    predicates,
-    blockedUrlIris
-  );
+  result += ttValueToString(appPath, bundle.entity, "object", indent, withHyperlinks, predicates, blockedUrlIris);
   return result;
 }
 
@@ -40,6 +34,7 @@ function addDefaultPredicates(predicates?: any, defaults?: any) {
 }
 
 export function ttValueToString(
+  appPath: string,
   node: any,
   previousType: string,
   indent: number,
@@ -48,33 +43,13 @@ export function ttValueToString(
   blockedUrlIris?: string[]
 ): string {
   if (isObjectHasKeys(node, ["@id"])) {
-    return ttIriToString(
-      node,
-      previousType,
-      indent,
-      withHyperlinks,
-      false,
-      blockedUrlIris
-    );
+    return ttIriToString(appPath, node, previousType, indent, withHyperlinks, false, blockedUrlIris);
   } else if (isObjectHasKeys(node, [RDFS.LABEL, IM.CODE])) {
     return termToString(node, indent);
   } else if (isObjectHasKeys(node)) {
-    return ttNodeToString(
-      node,
-      previousType,
-      indent,
-      withHyperlinks,
-      iriMap,
-      blockedUrlIris
-    );
+    return ttNodeToString(appPath, node, previousType, indent, withHyperlinks, iriMap, blockedUrlIris);
   } else if (isArrayHasLength(node)) {
-    return ttArrayToString(
-      node,
-      indent,
-      withHyperlinks,
-      iriMap,
-      blockedUrlIris
-    );
+    return ttArrayToString(appPath, node, indent, withHyperlinks, iriMap, blockedUrlIris);
   } else {
     return String(node);
   }
@@ -85,6 +60,7 @@ export function termToString(node: any, indent: number): string {
 }
 
 export function ttIriToString(
+  appPath: string,
   iri: TTIriRef,
   previous: string,
   indent: number,
@@ -95,19 +71,13 @@ export function ttIriToString(
   const pad = indentSize.repeat(indent);
   let result = "";
   if (!inline) result += pad;
-  if (
-    withHyperlinks &&
-    (!blockedUrlIris || !blockedUrlIris.includes(iri["@id"]))
-  ) {
+  if (withHyperlinks && (!blockedUrlIris || !blockedUrlIris.includes(iri["@id"]))) {
     const escapedUrl = iri["@id"].replace(/\//gi, "%2F").replace(/#/gi, "%23");
-    result += `<a href="${window.location.origin}/#/concept/${escapedUrl}">`;
+    result += `<a href="${window.location.origin}${appPath}/#/concept/${escapedUrl}">`;
   }
   if (iri.name) result += removeEndBrackets(iri.name);
   else result += iri["@id"];
-  if (
-    withHyperlinks &&
-    (!blockedUrlIris || !blockedUrlIris.includes(iri["@id"]))
-  ) {
+  if (withHyperlinks && (!blockedUrlIris || !blockedUrlIris.includes(iri["@id"]))) {
     result += "</a>";
   }
   if (previous === "array") result += "\n";
@@ -115,6 +85,7 @@ export function ttIriToString(
 }
 
 export function ttNodeToString(
+  appPath: string,
   node: any,
   previousType: string,
   indent: number,
@@ -149,6 +120,7 @@ export function ttNodeToString(
       }
     }
     result = processNode(
+      appPath,
       key,
       value,
       result,
@@ -160,7 +132,7 @@ export function ttNodeToString(
         suffix: suffix,
         group: group,
         last: last,
-        withHyperlinks: withHyperlinks,
+        withHyperlinks: withHyperlinks
       },
       blockedUrlIris
     );
@@ -170,6 +142,7 @@ export function ttNodeToString(
 }
 
 function processNode(
+  appPath: string,
   key: string,
   value: any,
   result: string,
@@ -184,111 +157,49 @@ function processNode(
   const withHyperlinks = stringAdditions.withHyperlinks;
   if (isObjectHasKeys(value, ["@id"])) {
     result += getObjectName(key, iriMap, pad, prefix);
-    result += ttIriToString(
-      value as TTIriRef,
-      "object",
-      indent,
-      withHyperlinks,
-      true,
-      blockedUrlIris
-    );
+    result += ttIriToString(appPath, value as TTIriRef, "object", indent, withHyperlinks, true, blockedUrlIris);
     result += suffix;
   } else if (isArrayHasLength(value)) {
     if (value.length === 1 && isObjectHasKeys(value[0], ["@id"])) {
       result += getObjectName(key, iriMap, pad, prefix);
-      result += ttIriToString(
-        value[0] as TTIriRef,
-        "object",
-        indent,
-        withHyperlinks,
-        true,
-        blockedUrlIris
-      );
+      result += ttIriToString(appPath, value[0] as TTIriRef, "object", indent, withHyperlinks, true, blockedUrlIris);
       result += suffix;
-    } else if (
-      (value.length === 1 && typeof value[0] === "string") ||
-      typeof value[0] === "number"
-    ) {
+    } else if ((value.length === 1 && typeof value[0] === "string") || typeof value[0] === "number") {
       result += getObjectName(key, iriMap, pad, prefix);
       result += String(value[0]);
       result += suffix;
     } else {
       result += getObjectName(key, iriMap, pad, prefix);
       result += "\n";
-      result += ttValueToString(
-        value,
-        "object",
-        indent + 1,
-        withHyperlinks,
-        iriMap,
-        blockedUrlIris
-      );
-      if (
-        stringAdditions.group &&
-        stringAdditions.last &&
-        result.endsWith("\n")
-      )
-        result =
-          result.substring(0, result.length - 1) +
-          " )" +
-          result.substring(result.length - 1);
+      result += ttValueToString(appPath, value, "object", indent + 1, withHyperlinks, iriMap, blockedUrlIris);
+      if (stringAdditions.group && stringAdditions.last && result.endsWith("\n"))
+        result = result.substring(0, result.length - 1) + " )" + result.substring(result.length - 1);
       else if (stringAdditions.group && stringAdditions.last) result += " )\n";
     }
   } else if (isObjectHasKeys(value)) {
     result += getObjectName(key, iriMap, pad, prefix);
     result += "\n";
-    result += ttValueToString(
-      value,
-      "object",
-      indent + 1,
-      withHyperlinks,
-      iriMap,
-      blockedUrlIris
-    );
+    result += ttValueToString(appPath, value, "object", indent + 1, withHyperlinks, iriMap, blockedUrlIris);
     if (stringAdditions.group && stringAdditions.last && result.endsWith("\n"))
-      result =
-        result.substring(0, result.length - 1) +
-        " )" +
-        result.substring(result.length - 1);
+      result = result.substring(0, result.length - 1) + " )" + result.substring(result.length - 1);
     else if (stringAdditions.group && stringAdditions.last) result += " )\n";
   } else {
     result += getObjectName(key, iriMap, pad, prefix);
-    result += ttValueToString(
-      value,
-      "object",
-      indent,
-      withHyperlinks,
-      iriMap,
-      blockedUrlIris
-    );
+    result += ttValueToString(appPath, value, "object", indent, withHyperlinks, iriMap, blockedUrlIris);
     result += stringAdditions.suffix;
   }
   return result;
 }
 
 function getObjectName(key: string, iriMap: any, pad: string, prefix: string) {
-  if (iriMap && iriMap[key])
-    return pad + prefix + removeEndBrackets(iriMap[key]) + " : ";
+  if (iriMap && iriMap[key]) return pad + prefix + removeEndBrackets(iriMap[key]) + " : ";
   else return pad + prefix + removeEndBrackets(key) + " : ";
 }
 
-export function ttArrayToString(
-  arr: any[],
-  indent: number,
-  withHyperlinks: boolean,
-  iriMap?: any,
-  blockedUrlIris?: string[]
-): string {
+export function ttArrayToString(appPath: string, arr: any[], indent: number, withHyperlinks: boolean, iriMap?: any, blockedUrlIris?: string[]): string {
   let result = "";
   for (const item of arr) {
-    result += ttValueToString(
-      item,
-      "array",
-      indent,
-      withHyperlinks,
-      iriMap,
-      blockedUrlIris
-    );
+    result += ttValueToString(appPath, item, "array", indent, withHyperlinks, iriMap, blockedUrlIris);
   }
   return result;
 }
@@ -297,11 +208,7 @@ function removeEndBrackets(str: string): string {
   const lastBracketStart = str.lastIndexOf("(");
   const bracketText = str.substring(lastBracketStart);
   const lastBracketEnd = bracketText.indexOf(")");
-  if (lastBracketStart > 0 && lastBracketEnd > 0)
-    return (
-      str.substring(0, lastBracketStart).trimEnd() +
-      str.substring(lastBracketEnd + lastBracketStart + 1)
-    );
+  if (lastBracketStart > 0 && lastBracketEnd > 0) return str.substring(0, lastBracketStart).trimEnd() + str.substring(lastBracketEnd + lastBracketStart + 1);
   else return str;
 }
 
@@ -311,5 +218,5 @@ export default {
   ttIriToString,
   ttNodeToString,
   ttValueToString,
-  termToString,
+  termToString
 };

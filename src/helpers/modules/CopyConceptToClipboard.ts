@@ -1,33 +1,16 @@
 import { DefinitionConfig } from "../../interfaces/modules/DefinitionConfig";
 
 import { bundleToText } from "./Transforms";
-import {
-  isArrayHasLength,
-  isObject,
-  isObjectHasKeys,
-} from "./DataTypeCheckers";
+import { isArrayHasLength, isObject, isObjectHasKeys } from "./DataTypeCheckers";
 
-export function copyConceptToClipboard(
-  concept: any,
-  configs?: DefinitionConfig[],
-  defaults?: any,
-  blockedUrlIris?: string[]
-): string {
+export function copyConceptToClipboard(concept: any, configs?: DefinitionConfig[], defaults?: any, blockedUrlIris?: string[]): string {
   const totalKeys = Object.keys(concept).length;
   let counter = 0;
   let returnString = "";
   let key: string;
   let value: any;
   for ([key, value] of Object.entries(concept)) {
-    const copyString = conceptObjectToCopyString(
-      key,
-      value,
-      counter,
-      totalKeys,
-      configs,
-      defaults,
-      blockedUrlIris
-    );
+    const copyString = conceptObjectToCopyString(key, value, counter, totalKeys, configs, defaults, blockedUrlIris);
     if (copyString) returnString += copyString.value;
     counter++;
   }
@@ -41,37 +24,21 @@ function getReturnString(value: string, counterEqTotalKeysMO: boolean) {
   return counterEqTotalKeysMO ? value : value + ",\n";
 }
 
-function handleIsArrayHasLength(
-  newString: string,
-  value: any,
-  key: string,
-  newKey: string
-) {
+function handleIsArrayHasLength(newString: string, value: any, key: string, newKey: string) {
   if (isObjectHasKeys(value[0], ["name"])) {
     newString = value.map((item: any) => item.name).join(",\n\t");
-  } else if (
-    value.every((item: any) => isObjectHasKeys(item, ["property"])) &&
-    value.every((item: any) => isObjectHasKeys(item.property, ["name"]))
-  ) {
+  } else if (value.every((item: any) => isObjectHasKeys(item, ["property"])) && value.every((item: any) => isObjectHasKeys(item.property, ["name"]))) {
     newString = value.map((item: any) => item.property.name).join(",\n\t");
   } else if (value.every((item: any) => typeof item === "string")) {
     newString = value.join(",\n\t");
   } else {
-    console.warn(
-      undefined,
-      "Uncovered object property or missing name found for key: " +
-        key +
-        " at conceptObjectToCopyString within helpers"
-    );
+    console.warn(undefined, "Uncovered object property or missing name found for key: " + key + " at conceptObjectToCopyString within helpers");
   }
   return newString ? newKey + ": [\n\t" + newString + "\n]" : "";
 }
 
 function isArrayWithoutLengthAndIsObjectWithoutKeys(value: any) {
-  return (
-    (Array.isArray(value) && !value.length) ||
-    (isObject(value) && !isObjectHasKeys(value))
-  );
+  return (Array.isArray(value) && !value.length) || (isObject(value) && !isObjectHasKeys(value));
 }
 
 export function conceptObjectToCopyString(
@@ -92,9 +59,7 @@ export function conceptObjectToCopyString(
   const counterEqTotalKeysMO = counter === totalKeys - 1;
 
   if (configs && isArrayHasLength(configs)) {
-    const label = configs.find(
-      (config: DefinitionConfig) => config.predicate === key
-    );
+    const label = configs.find((config: DefinitionConfig) => config.predicate === key);
     if (label) {
       newKey = label.label;
     }
@@ -105,22 +70,14 @@ export function conceptObjectToCopyString(
   } else if (isObjectHasKeys(value, ["name"])) {
     returnString = newKey + ": " + value.name;
   } else if (isObjectHasKeys(value, ["entity", "predicates"])) {
-    returnString =
-      newKey +
-      ': "\n' +
-      bundleToText(value, defaults, 1, false, blockedUrlIris) +
-      '\n"';
+    returnString = newKey + ': "\n' + bundleToText("", value, defaults, 1, false, blockedUrlIris) + '\n"';
   } else if (typeof value === "string") {
     newString = value.replace(/\n/g, "\n\t").replace(/<p>/g, "\n\t");
     returnString = newKey + ": " + newString;
   } else if (typeof value === "number") {
     returnString = newKey + ": " + value.toString();
   } else {
-    console.log(
-      `CopyConceptToClipboard encountered unexpected object type. Object ${JSON.stringify(
-        value
-      )} converted to json string`
-    );
+    console.log(`CopyConceptToClipboard encountered unexpected object type. Object ${JSON.stringify(value)} converted to json string`);
     returnString = newKey + ": " + JSON.stringify(value);
   }
 
@@ -131,5 +88,5 @@ export function conceptObjectToCopyString(
 
 export default {
   copyConceptToClipboard,
-  conceptObjectToCopyString,
+  conceptObjectToCopyString
 };

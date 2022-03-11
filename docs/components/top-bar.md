@@ -15,7 +15,7 @@ Click the buttons to change the count.
 
 <DemoContainer>
   <ClientOnly>
-    <Basic/>
+    <Basic title="Entity Title"/>
   </ClientOnly>
 </DemoContainer>
 
