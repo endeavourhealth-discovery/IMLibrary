@@ -154,12 +154,12 @@ export default defineComponent({
 
 @media screen and (max-width: 1439px) {
   .im-logo {
-    width: 3vw;
+    width: 2.25vw;
   }
 }
 @media screen and (min-width: 1440px) {
   .im-logo {
-    width: 3vw;
+    width: 2.25vw;
   }
 }
 
