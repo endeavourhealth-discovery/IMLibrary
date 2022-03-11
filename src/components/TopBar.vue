@@ -1,7 +1,9 @@
 <template>
   <MenuBar :model="menuBarItems">
-    <template #item="{ item }">
-      <div class="topbar-title">{{ item.label }}</div>
+    <template #item>
+      <div style="margin-left:10px">
+        <slot name="content"></slot>
+      </div>
     </template>
     <template #start>
       <img class="im-logo" src="../assets/logos/Logo-object-empty.png" alt="IM logo" v-on:click="toLandingPage" />
@@ -52,19 +54,10 @@ import { mapState } from "vuex";
 
 export default defineComponent({
   name: "TopBar",
-  props: {
-    title: { type: String, required: false }
-  },
-  watch: {
-    title() {
-      this.setMenuBarItems();
-    }
-  },
   components: { MenuBar, Menu, Button, OverlayPanel },
   computed: mapState(["currentUser", "isLoggedIn", "authReturnUrl"]),
   mounted() {
     this.setUserMenuItems();
-    this.setMenuBarItems();
   },
   data() {
     return {
@@ -77,9 +70,6 @@ export default defineComponent({
     };
   },
   methods: {
-    setMenuBarItems() {
-      this.menuBarItems[0].label = this.title;
-    },
     toLandingPage() {
       window.location.href = "/";
     },
