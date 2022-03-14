@@ -87,7 +87,7 @@ export default defineComponent({
       (this.$refs.userMenu as any).toggle(event);
     },
     getUrl(item: string): string {
-      const url = new URL(`../assets/avatars/${item}`, import.meta.url);
+      const url = new URL(`/src/assets/avatars/${item}`, import.meta.url);
       return url.href;
     },
     openAppsOverlay(event: any) {
