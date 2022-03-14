@@ -17,7 +17,7 @@ Click the buttons to change the count.
   <Basic/>
 </DemoContainer>
 
-<<< @/components/demo/ComponentB/Basic.vue
+<<< @/components/demo/SnomedLicense/Basic.vue
 
 ## Reference
 

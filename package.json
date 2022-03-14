@@ -48,12 +48,13 @@
     "./dist/style.css": "./dist/style.css"
   },
   "dependencies": {
-    "shx": "^0.3.4",
-    "vuex": "^4.0.2",
     "@fortawesome/fontawesome-svg-core": "^1.3.0",
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
-    "@fortawesome/vue-fontawesome": "^3.0.0-5"
+    "@fortawesome/vue-fontawesome": "^3.0.0-5",
+    "shx": "^0.3.4",
+    "vue-router": "^4.0.14",
+    "vuex": "^4.0.2"
   }
 }

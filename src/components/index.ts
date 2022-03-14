@@ -1,7 +1,13 @@
-import ComponentA from "./ComponentA.vue";
-import ComponentB from "./ComponentB.vue";
-import TopBar from "./TopBar.vue";
-import ReportTable from "./ReportTable.vue";
-import SnomedLicense from "./SnomedLicense.vue";
+import ArrayObjectNameTagWithLabel from "./modules/ArrayObjectNameTagWithLabel.vue";
+import ArrayObjectNamesToStringWithLabel from "./modules/ArrayObjectNamesToStringWithLabel.vue";
+import ArrayObjectNameListboxWithLabel from "./modules/ArrayObjectNameListboxWithLabel.vue";
+import TopBar from "./modules/TopBar.vue";
+import ReportTable from "./modules/ReportTable.vue";
+import SnomedLicense from "./modules/SnomedLicense.vue";
+import TextHTMLWithLabel from "./modules/TextHTMLWithLabel.vue";
+import TextWithLabel from "./modules/TextWithLabel.vue";
+import TextDefinition from "./modules/TextDefinition.vue"
+import ObjectNameWithLabel from "./modules/ObjectNameWithLabel.vue";
+import NumberWithLabel from "./modules/NumberWithLabel.vue";
 
-export { ComponentA, ComponentB, TopBar, ReportTable, SnomedLicense };
+export { ArrayObjectNameTagWithLabel, ArrayObjectNamesToStringWithLabel, ArrayObjectNameListboxWithLabel, TopBar, ReportTable, SnomedLicense, TextHTMLWithLabel, TextWithLabel, TextDefinition, ObjectNameWithLabel, NumberWithLabel };

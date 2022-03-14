@@ -17,6 +17,7 @@ const IMLibrary: imlibraryInterface = {
     // registers for docs only
     if (options.store.state.docs) {
       app.use(options.store);
+      app.use(options.router);
       dom.watch();
       library.add(fas as any, far as any);
       app.directive("tooltip", Tooltip);
@@ -35,9 +36,9 @@ export default IMLibrary;
 
 export * from "./components";
 export * from "./constants";
-export * from "./utils";
 export * from "./vocabulary";
 export * from "./helpers";
 export * from "./models";
 export * from "./enums";
 export * from "./interfaces";
+export * from "./services";

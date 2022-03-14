@@ -1,5 +1,5 @@
 import { flushPromises, mount } from "@vue/test-utils";
-import SnomedLicense from "@/components/SnomedLicense.vue";
+import SnomedLicense from "../../../src/components/modules/SnomedLicense.vue";
 import Dialog from "primevue/dialog";
 import Button from "primevue/button";
 import PrimeVue from "primevue/config";
@@ -12,7 +12,7 @@ describe("SnomedLicense.vue", () => {
 
   beforeEach(() => {
     mockStore = {
-      state: { snomedLicenseAccepted: "false" },
+      state: { snomedLicenseAccepted: "false", snomedReturnUrl: "testUrl" },
       commit: vi.fn(),
     };
     mockLocation = { href: "" };
@@ -25,7 +25,6 @@ describe("SnomedLicense.vue", () => {
         components: { Dialog, Button },
         mocks: { $store: mockStore },
       },
-      props: { returnUrl: "testUrl" },
     });
   });
 
@@ -53,7 +52,7 @@ describe("SnomedLicense.vue", () => {
       "updateSnomedLicenseAccepted",
       "true"
     );
-    expect(window.location.href).toBe(wrapper.vm.testUrl);
+    expect(window.location.href).toBe("testUrl");
   });
 
   it("reroutes on submitDecline", async () => {

@@ -1,8 +1,8 @@
 <script setup>
-import Basic from './demo/TopBar/Basic.vue'
+import Basic from './demo/TextHTMLWithLabel/Basic.vue'
 </script>
 
-# Component B
+# Text HTML with label
 
 This component depends on third-party component library for Vue 3:
 
@@ -14,12 +14,10 @@ This component depends on third-party component library for Vue 3:
 Click the buttons to change the count.
 
 <DemoContainer>
-  <ClientOnly>
-    <Basic title="Entity Title"/>
-  </ClientOnly>
+  <Basic/>
 </DemoContainer>
 
-<<< @/components/demo/TopBar/Basic.vue
+<<< @/components/demo/TextWithLabel/Basic.vue
 
 ## Reference
 
@@ -29,7 +27,10 @@ You may show props, slots, events, methods, etc. using Markdown.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-|      |      |         |             |
+| Data | String| None   | Data as string |
+| Label | String | None | Label of data |
+| Size | String | 100% | CSS width of element |
+| id   | String | None | Html id |
 
 ### Events
 

@@ -11,12 +11,13 @@ import "primeflex/primeflex.css";
 import "./custom.css";
 
 import store from "../../store";
+import router from "../../router"
 
 export default {
   ...DefaultTheme,
   enhanceApp({ app }) {
     app.use(PrimeVue);
-    app.use(IMLibrary, { store });
+    app.use(IMLibrary, { store, router });
     app.component("DemoContainer", DemoContainer);
   },
 };

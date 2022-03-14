@@ -6,7 +6,7 @@
       </div>
     </template>
     <template #start>
-      <img class="im-logo" src="../assets/logos/Logo-object-empty.png" alt="IM logo" v-on:click="toLandingPage" />
+      <img class="im-logo" src="../../assets/logos/Logo-object-empty.png" alt="IM logo" v-on:click="toLandingPage" />
     </template>
     <template #end>
       <Button icon="pi pi-th-large" class="p-button-rounded p-button-text p-button-plain p-button-lg" @click="openAppsOverlay" />
@@ -48,8 +48,8 @@ import MenuBar from "primevue/menubar";
 import Button from "primevue/button";
 import OverlayPanel from "primevue/overlaypanel";
 import Menu from "primevue/menu";
-import { AccountItem } from "../interfaces/modules/AccountItem";
-import { LoginItem } from "../interfaces/modules/LoginItem";
+import { AccountItem } from "../../interfaces/modules/AccountItem";
+import { LoginItem } from "../../interfaces/modules/LoginItem";
 import { mapState } from "vuex";
 
 export default defineComponent({

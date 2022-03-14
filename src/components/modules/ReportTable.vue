@@ -36,8 +36,8 @@ import Column from "primevue/column";
 import DataTable from "primevue/datatable";
 import Card from "primevue/card";
 import ProgressSpinner from "primevue/progressspinner";
-import { RDFS, OWL } from "../vocabulary/Vocabulary";
-import { isObjectHasKeys } from "../helpers/modules/DataTypeCheckers";
+import { RDFS, OWL } from "../../vocabulary/Vocabulary";
+import { isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
 
 export default defineComponent({
   name: "ReportTable",
