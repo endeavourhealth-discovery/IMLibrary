@@ -1,5 +1,5 @@
 import { flushPromises, mount } from "@vue/test-utils";
-import SnomedLicense from "@/components/SnomedLicense.vue";
+import SnomedLicense from "../../../src/components/modules/SnomedLicense.vue";
 import Dialog from "primevue/dialog";
 import Button from "primevue/button";
 import PrimeVue from "primevue/config";

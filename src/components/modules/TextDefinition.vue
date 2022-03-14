@@ -27,9 +27,9 @@
 <script lang="ts">
 import { defineComponent } from "@vue/runtime-core";
 import { mapState } from "vuex";
-import { TTBundle, PartialEntity } from "../interfaces/Interfaces";
-import { isArrayHasLength, isObjectHasKeys } from "../helpers/modules/DataTypeCheckers";
-import {bundleToText} from "../helpers/modules/Transforms"
+import { TTBundle, PartialEntity } from "../../interfaces/Interfaces";
+import { isArrayHasLength, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
+import {bundleToText} from "../../helpers/modules/Transforms"
 
 export default defineComponent({
   name: "TextDefinition",
