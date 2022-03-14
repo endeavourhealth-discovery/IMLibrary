@@ -140,17 +140,7 @@ export default defineComponent({
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 0rem;
-}
-
-@media screen and (max-width: 1439px) {
-  .im-logo {
-    width: 2.25vw;
-  }
-}
-@media screen and (min-width: 1440px) {
-  .im-logo {
-    width: 2.25vw;
-  }
+  width: 2.25rem;
 }
 
 .p-menubar-root-list,
