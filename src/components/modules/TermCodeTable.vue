@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DataTable :value="terms" responsiveLayout="scroll">
+    <DataTable class="p-datatable-sm" :value="terms" responsiveLayout="scroll">
       <Column field="name" header="Name"> </Column>
       <Column field="code" header="Code"></Column>
     </DataTable>
