@@ -1,3 +1,3 @@
-import LoggerService from "./modules/LoggerService"
+import LoggerService from "./modules/LoggerService";
 
-export { LoggerService}
+export { LoggerService };
