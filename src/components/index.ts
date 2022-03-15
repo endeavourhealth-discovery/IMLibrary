@@ -6,8 +6,22 @@ import ReportTable from "./modules/ReportTable.vue";
 import SnomedLicense from "./modules/SnomedLicense.vue";
 import TextHTMLWithLabel from "./modules/TextHTMLWithLabel.vue";
 import TextWithLabel from "./modules/TextWithLabel.vue";
-import TextDefinition from "./modules/TextDefinition.vue"
+import TextDefinition from "./modules/TextDefinition.vue";
 import ObjectNameWithLabel from "./modules/ObjectNameWithLabel.vue";
 import NumberWithLabel from "./modules/NumberWithLabel.vue";
+import TermCodeTable from "./modules/TermCodeTable.vue";
 
-export { ArrayObjectNameTagWithLabel, ArrayObjectNamesToStringWithLabel, ArrayObjectNameListboxWithLabel, TopBar, ReportTable, SnomedLicense, TextHTMLWithLabel, TextWithLabel, TextDefinition, ObjectNameWithLabel, NumberWithLabel };
+export {
+  ArrayObjectNameTagWithLabel,
+  ArrayObjectNamesToStringWithLabel,
+  ArrayObjectNameListboxWithLabel,
+  TopBar,
+  ReportTable,
+  SnomedLicense,
+  TextHTMLWithLabel,
+  TextWithLabel,
+  TextDefinition,
+  ObjectNameWithLabel,
+  NumberWithLabel,
+  TermCodeTable
+};
