@@ -14,3 +14,18 @@ import NumberWithLabel from "./modules/NumberWithLabel.vue";
 import TermCodeTable from "./modules/TermCodeTable.vue";
 
 export {
+  ArrayObjectNameTagWithLabel,
+  ArrayObjectNamesToStringWithLabel,
+  ArrayObjectNameListboxWithLabel,
+  TermCodeTable,
+  TextSectionHeader,
+  SectionDivider,
+  TopBar,
+  ReportTable,
+  SnomedLicense,
+  TextHTMLWithLabel,
+  TextWithLabel,
+  TextDefinition,
+  ObjectNameWithLabel,
+  NumberWithLabel
+};
