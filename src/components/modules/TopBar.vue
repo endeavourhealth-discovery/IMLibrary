@@ -9,7 +9,7 @@
       <img class="im-logo" src="../../assets/logos/Logo-object-empty.png" alt="IM logo" v-on:click="toLandingPage" />
     </template>
     <template #end>
-      <Button icon="pi pi-th-large" class="p-button-rounded p-button-text p-button-plain p-button-lg" @click="openAppsOverlay" />
+      <Button icon="pi pi-th-large" class="p-button-rounded p-button-text p-button-plain p-button-lg p-button-icon-only" @click="openAppsOverlay" />
       <OverlayPanel ref="appsO">
         <div class="grid">
           <div class="col-6">
@@ -23,14 +23,14 @@
       <Button
         v-if="!isLoggedIn"
         icon="pi pi-user"
-        class="p-button-rounded p-button-text p-button-plain p-button-lg"
+        class="p-button-rounded p-button-text p-button-plain p-button-lg p-button-icon-only"
         @click="openUserMenu"
         aria-haspopup="true"
         aria-controls="overlay_menu"
       />
       <Button
         v-if="currentUser && isLoggedIn"
-        class="p-button-rounded p-button-text p-button-plain p-button-lg"
+        class="p-button-rounded p-button-text p-button-plain p-button-lg p-button-icon-only"
         @click="openUserMenu"
         aria-haspopup="true"
         aria-controls="overlay_menu"
