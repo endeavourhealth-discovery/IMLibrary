@@ -73,7 +73,7 @@ export function ttIriToString(
   if (!inline) result += pad;
   if (withHyperlinks && (!blockedUrlIris || !blockedUrlIris.includes(iri["@id"]))) {
     const escapedUrl = iri["@id"].replace(/\//gi, "%2F").replace(/#/gi, "%23");
-    result += `<a href="${window.location.origin}${appPath}/#/concept/${escapedUrl}">`;
+    result += `<a target="_blank" href="${window.location.origin}${appPath}/#/concept/${escapedUrl}">`;
   }
   if (iri.name) result += removeEndBrackets(iri.name);
   else result += iri["@id"];
