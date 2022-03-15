@@ -11,5 +11,21 @@ import TextDefinition from "./modules/TextDefinition.vue";
 import TextSectionHeader from "./modules/TextSectionHeader.vue";
 import ObjectNameWithLabel from "./modules/ObjectNameWithLabel.vue";
 import NumberWithLabel from "./modules/NumberWithLabel.vue";
+import TermCodeTable from "./modules/TermCodeTable.vue";
 
-export { ArrayObjectNameTagWithLabel, ArrayObjectNamesToStringWithLabel, ArrayObjectNameListboxWithLabel, SectionDivider, TopBar, ReportTable, SnomedLicense, TextHTMLWithLabel, TextWithLabel, TextDefinition, TextSectionHeader, ObjectNameWithLabel, NumberWithLabel };
+export {
+  ArrayObjectNameTagWithLabel,
+  ArrayObjectNamesToStringWithLabel,
+  ArrayObjectNameListboxWithLabel,
+  TermCodeTable,
+  TextSectionHeader,
+  SectionDivider,
+  TopBar,
+  ReportTable,
+  SnomedLicense,
+  TextHTMLWithLabel,
+  TextWithLabel,
+  TextDefinition,
+  ObjectNameWithLabel,
+  NumberWithLabel
+};

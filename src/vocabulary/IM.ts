@@ -16,6 +16,7 @@ export class IM {
   public static HAS_CHILDREN = IM.NAMESPACE + "hasChildren";
   public static DEFINITION = IM.NAMESPACE + "definition";
   public static USAGE_STATS = IM.NAMESPACE + "usageStats";
+  public static HAS_TERM_CODE = IM.NAMESPACE + "hasTermCode";
 
   // mapping
   public static HAS_MAP = IM.NAMESPACE + "hasMap";
