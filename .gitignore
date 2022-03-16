@@ -6,3 +6,7 @@ build
 docs/.vuepress/.cache
 docs/.vuepress/.temp
 .idea
+coverage
+testResults.json
+.gradle
+node
