@@ -109,6 +109,7 @@ export default defineComponent({
 }
 
 .text-definition {
+  width: 100%;
   border: 1px solid #dee2e6;
   border-radius: 3px;
   padding: 0.5rem;
