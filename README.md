@@ -1,4 +1,9 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b1b84831-789e-4629-a9e3-55a36e136653/deploy-status)](https://app.netlify.com/sites/sharp-babbage-154f0a/deploys)
+# IM Library
+
+![Version](https://s3.eu-west-2.amazonaws.com/endeavour-codebuild-output/badges/IMLibrary/version.svg)
+![Build Status](https://s3.eu-west-2.amazonaws.com/endeavour-codebuild-output/badges/IMLibrary/build.svg)
+![Unit Tests](https://s3.eu-west-2.amazonaws.com/endeavour-codebuild-output/badges/IMLibrary/unit-test.svg)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=endeavourhealth-discovery_IMLibrary&metric=alert_status)](https://sonarcloud.io/dashboard?id=endeavourhealth-discovery_IMViewer)
 
 # Vue Component Library Starter
 
