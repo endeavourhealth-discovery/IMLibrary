@@ -134,7 +134,7 @@ describe("TextDefinition.vue ___ data", () => {
     expect(wrapper.vm.definition).toBe(
       'Is subclass of : \n  <a target="_blank" href="http://localhost/viewer/#/concept/http:%2F%2Fsnomed.info%2Fsct%2364217002">Curvature of spine</a>\n  <a target="_blank" href="http://localhost/viewer/#/concept/http:%2F%2Fsnomed.info%2Fsct%23928000">Disorder of musculoskeletal system</a>\n  <a target="_blank" href="http://localhost/viewer/#/concept/http:%2F%2Fsnomed.info%2Fsct%23699699005">Disorder of vertebral column</a>\n  Where : \n    ( Associated morphology : <a target="_blank" href="http://localhost/viewer/#/concept/http:%2F%2Fsnomed.info%2Fsct%2331739005">Lateral abnormal curvature</a>\n      Finding site : <a target="_blank" href="http://localhost/viewer/#/concept/http:%2F%2Fsnomed.info%2Fsct%23289959001">Musculoskeletal structure of spine</a> )\n'
     );
-    expect(wrapper.vm.loading).toBe(true);
+    expect(wrapper.vm.loading).toBe(false);
   });
 
   it("checks hasData ___ true", () => {
