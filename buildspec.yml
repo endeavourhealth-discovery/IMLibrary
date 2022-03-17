@@ -19,4 +19,4 @@ phases:
       - IP=$(curl http://checkip.amazonaws.com)/32
       - echo $IP of CodeBuild Instance
       - echo Build completed on `date`
-      - aws s3 cp im-library-1.0.0.tgz s3://endeavour-deployment/IMLibrary/ --acl public-read --cache-control max-age=0
+      - aws s3 cp im-library-1.0.0.tgz s3://endeavour-codebuild-output/ --acl public-read --cache-control max-age=0
