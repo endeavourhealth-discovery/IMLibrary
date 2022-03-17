@@ -9,12 +9,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   name: "TermCodeTable",
   props: {
-    terms: { type: [], required: true }
+    terms: { type: Array as PropType<Array<any>>, required: true }
   }
 });
 </script>
