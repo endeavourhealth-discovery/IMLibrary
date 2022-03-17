@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show" class="text-section-header-container" :style="{ width: size }">
+  <div v-if="show" :id="id" class="text-section-header-container" :style="{ width: size }">
     <strong class="text-section-header">
       {{ label }}
     </strong>
