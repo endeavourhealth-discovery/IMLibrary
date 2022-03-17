@@ -11,6 +11,7 @@ phases:
       - IP=$(curl http://checkip.amazonaws.com)/32
       - echo $IP of CodeBuild Instance
   build:
+    on-failure: ABORT
     commands:
       - chmod +x aws_scripts/build.sh
       - aws_scripts/build.sh
@@ -20,3 +21,7 @@ phases:
       - echo $IP of CodeBuild Instance
       - echo Build completed on `date`
       - aws s3 cp im-library-1.0.0.tgz s3://endeavour-codebuild-output/ --acl public-read --cache-control max-age=0
+      - aws codepipeline start-pipeline-execution --name Dev-IMDirectory
+      - aws codepipeline start-pipeline-execution --name Dev-IMViewer
+      - aws codepipeline start-pipeline-execution --name Dev-IMAuth
+      - aws codepipeline start-pipeline-execution --name Dev-IMEditor
