@@ -10,3 +10,4 @@ coverage
 testResults.json
 .gradle
 node
+.env

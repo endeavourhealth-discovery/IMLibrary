@@ -1,6 +1,7 @@
 <template>
   <div>
     <DataTable class="p-datatable-sm" :value="terms" responsiveLayout="scroll">
+      <template #empty> No terms found. </template>
       <Column field="name" header="Name"> </Column>
       <Column field="code" header="Code"></Column>
     </DataTable>
