@@ -1,22 +1,41 @@
 <template>
   <MenuBar :model="menuBarItems">
     <template #item>
-      <div style="margin-left:10px">
+      <div style="margin-left: 10px">
         <slot name="content"></slot>
       </div>
     </template>
     <template #start>
-      <img class="im-logo" src="../../assets/logos/Logo-object-empty.png" alt="IM logo" v-on:click="toLandingPage" />
+      <img
+        class="im-logo"
+        src="../../assets/logos/Logo-object-empty.png"
+        alt="IM logo"
+        v-on:click="toLandingPage"
+      />
     </template>
     <template #end>
-      <Button icon="pi pi-th-large" class="p-button-rounded p-button-text p-button-plain p-button-lg p-button-icon-only" @click="openAppsOverlay" />
+      <Button
+        icon="pi pi-th-large"
+        class="p-button-rounded p-button-text p-button-plain p-button-lg p-button-icon-only"
+        @click="openAppsOverlay"
+      />
       <OverlayPanel ref="appsO">
         <div class="grid">
           <div class="col-6">
-            <Button v-tooltip.bottom="'Editor'" icon="far fa-edit" class="p-button-rounded p-button-text p-button-plain" @click="navigateToEditor" />
+            <Button
+              v-tooltip.bottom="'Editor'"
+              icon="far fa-edit"
+              class="p-button-rounded p-button-text p-button-plain"
+              @click="navigateToEditor"
+            />
           </div>
           <div class="col-6">
-            <Button v-tooltip.bottom="'UPRN'" icon="far fa-map" class="p-button-rounded p-button-text p-button-plain" @click="navigateToEditor" />
+            <Button
+              v-tooltip.bottom="'UPRN'"
+              icon="far fa-map"
+              class="p-button-rounded p-button-text p-button-plain"
+              @click="navigateToEditor"
+            />
           </div>
         </div>
       </OverlayPanel>
@@ -35,7 +54,12 @@
         aria-haspopup="true"
         aria-controls="overlay_menu"
       >
-        <img class="avatar-icon" alt="avatar icon" :src="getUrl(currentUser.avatar)" style="width: 1.5rem" />
+        <img
+          class="avatar-icon"
+          alt="avatar icon"
+          :src="getUrl(currentUser.avatar)"
+          style="width: 1.5rem"
+        />
       </Button>
       <Menu ref="userMenu" :model="getItems()" :popup="true" />
     </template>
@@ -51,7 +75,7 @@ import Menu from "primevue/menu";
 import { AccountItem } from "../../interfaces/modules/AccountItem";
 import { LoginItem } from "../../interfaces/modules/LoginItem";
 import { mapState } from "vuex";
-import {Env} from '../../services';
+import { Env } from "../../services";
 
 export default defineComponent({
   name: "TopBar",
@@ -67,7 +91,7 @@ export default defineComponent({
       searchText: "",
       loginItems: [] as LoginItem[],
       accountItems: [] as AccountItem[],
-      menuBarItems: [{ label: "" }] as { label: string | undefined }[]
+      menuBarItems: [{ label: "" }] as { label: string | undefined }[],
     };
   },
   methods: {
@@ -99,38 +123,42 @@ export default defineComponent({
         {
           label: "Login",
           icon: "fa fa-fw fa-user",
-          url: Env.authUrl + "#/login?returnUrl=" + this.authReturnUrl
+          url: Env.authUrl + "#/login?returnUrl=" + this.authReturnUrl,
         },
         {
           label: "Register",
           icon: "fa fa-fw fa-user-plus",
-          url: Env.authUrl + "#/?returnUrl=" + this.authReturnUrl
-        }
+          url: Env.authUrl + "#/?returnUrl=" + this.authReturnUrl,
+        },
       ];
       this.accountItems = [
         {
           label: "My account",
           icon: "fa fa-fw fa-user",
-          url: Env.authUrl + "#/my-account?returnUrl=" + this.authReturnUrl
+          url: Env.authUrl + "#/my-account?returnUrl=" + this.authReturnUrl,
         },
         {
           label: "Edit account",
           icon: "fa fa-fw fa-user-edit",
-          url: Env.authUrl + "#/my-account/edit?returnUrl=" + this.authReturnUrl
+          url:
+            Env.authUrl + "#/my-account/edit?returnUrl=" + this.authReturnUrl,
         },
         {
           label: "Change password",
           icon: "fa fa-fw fa-user-lock",
-          url: Env.authUrl + "#/my-account/password-edit?returnUrl=" + this.authReturnUrl
+          url:
+            Env.authUrl +
+            "#/my-account/password-edit?returnUrl=" +
+            this.authReturnUrl,
         },
         {
           label: "Logout",
           icon: "fa fa-fw fa-sign-out-alt",
-          url: Env.authUrl + "#/logout?returnUrl=" + this.authReturnUrl
-        }
+          url: Env.authUrl + "#/logout?returnUrl=" + this.authReturnUrl,
+        },
       ];
-    }
-  }
+    },
+  },
 });
 </script>
 
@@ -142,6 +170,11 @@ export default defineComponent({
   cursor: pointer;
   margin-bottom: 0rem;
   width: 2.25rem;
+}
+
+.p-menubar {
+  height: 3.5rem;
+  border: none;
 }
 
 .p-menubar-root-list,
