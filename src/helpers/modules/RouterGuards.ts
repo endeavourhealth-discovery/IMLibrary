@@ -18,18 +18,28 @@ export function checkLicense(
   return hasCalledNext;
 }
 
-export async function checkAuth(to: any, currentUrl: string, store: any) {
-  if (to.matched.some((record: any) => !record.meta.requiresAuth)) {
-    store.commit("updateConceptIri", to.params.selectedIri as string);
-  } else {
+export async function checkAuth(
+  to: any,
+  next: any,
+  store: any,
+  hasCalledNext: boolean,
+  currentUrl: string
+) {
+  if (to.matched.some((record: any) => record.meta.requiresAuth)) {
     await store.dispatch("authenticateCurrentUser").then((res: any) => {
       console.log("auth guard user authenticated:" + res.authenticated);
       if (!res.authenticated) {
         console.log("redirecting to login");
-        window.location.href = Env.authUrl + "login?returnUrl=" + currentUrl;
+        if ((currentUrl = "Auth")) {
+          hasCalledNext = true;
+          next({ path: "/login" });
+        } else {
+          window.location.href = Env.authUrl + "login?returnUrl=" + currentUrl;
+        }
       }
     });
   }
+  return hasCalledNext;
 }
 
 export default {
