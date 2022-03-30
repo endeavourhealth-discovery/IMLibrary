@@ -30,7 +30,7 @@ export async function checkAuth(
       console.log("auth guard user authenticated:" + res.authenticated);
       if (!res.authenticated) {
         console.log("redirecting to login");
-        if ((currentUrl = "Auth")) {
+        if (currentUrl === "Auth") {
           hasCalledNext = true;
           next({ path: "/login" });
         } else {
