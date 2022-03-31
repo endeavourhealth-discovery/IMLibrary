@@ -119,17 +119,6 @@ export function deleteItem(
     }
   }
   updatePositions(build);
-  // build.splice(index, 1);
-  // console.log("oops");
-  // if (index < length - 1 && build[index].type === ComponentType.ADD_NEXT) {
-  //   build[index] = genNextOptions(index - 1, build[index - 1].type, builderType, parentGroup);
-  // }
-  // if (build[length - 1].type !== ComponentType.ADD_NEXT) {
-  //   build.push(genNextOptions(length - 1, build[length - 1].type, builderType, parentGroup));
-  // } else {
-  //   build[length - 1] = genNextOptions(length - 2, build[length - 2].type, builderType, parentGroup);
-  // }
-  // updatePositions(build);
 }
 
 export function updateItem(
