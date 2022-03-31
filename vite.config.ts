@@ -45,7 +45,7 @@ module.exports = defineConfig({
       },
     },
     coverage: {
-      reporter: ["text", "json", "html"],
+      reporter: ["text", "lcov"],
     },
   },
 });
