@@ -25,7 +25,7 @@ describe("ConceptTypeMethods", () => {
     },
   ];
   const testQueryType = [
-    { "@id": "http://endhealth.info/im#QueryTemplate", name: "Query template" },
+    { "@id": "http://endhealth.info/im#Query", name: "Query template" },
   ];
   const testFolder = [
     { "@id": "http://endhealth.info/im#Folder", name: "Folder" },

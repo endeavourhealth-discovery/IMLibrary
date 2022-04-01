@@ -79,7 +79,7 @@ export function getColourFromType(conceptTypes: TTIriRef[]): string {
   if (isOfTypes(conceptTypes, Vocabulary.IM.FOLDER)) {
     return bgsFixed[1];
   }
-  if (isOfTypes(conceptTypes, Vocabulary.IM.QUERY_TEMPLATE)) {
+  if (isOfTypes(conceptTypes, Vocabulary.IM.QUERY)) {
     return bgsFixed[3];
   }
   return bgsFixed[4];
