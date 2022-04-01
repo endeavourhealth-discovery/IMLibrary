@@ -11,3 +11,5 @@ testResults.json
 .gradle
 node
 .env
+package-lock.json
+im-library-1.0.0.tgz

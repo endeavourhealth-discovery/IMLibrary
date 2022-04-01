@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "dist/im-library.es.js",
   "scripts": {
+    "preinstall": "copy package-lock.json.clean package-lock.json || cp package-lock.json.clean package-lock.json",
     "build:dev": "rimraf dist && rimraf build && vue-tsc && vite build && shx mkdir ./build && shx cp -R ./dist ./build/dist && shx cp ./package.json ./build",
     "build:production": "npm run build:dev && npm pack",
     "docs:dev": "vitepress dev docs",

@@ -58,7 +58,7 @@ export function getFAIconFromType(conceptTypes: TTIriRef[]): string[] {
   if (isOfTypes(conceptTypes, Vocabulary.IM.FOLDER)) {
     return ["fas", "folder"];
   }
-  if (isOfTypes(conceptTypes, Vocabulary.IM.QUERY_TEMPLATE)) {
+  if (isOfTypes(conceptTypes, Vocabulary.IM.QUERY)) {
     return ["fas", "search"];
   }
   return ["far", "lightbulb"];
