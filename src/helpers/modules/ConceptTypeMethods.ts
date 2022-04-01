@@ -45,6 +45,22 @@ export function isProperty(conceptTypes: TTIriRef[]): boolean {
   return isOfTypes(conceptTypes, Vocabulary.RDF.PROPERTY);
 }
 
+export function isConcept(conceptTypes: TTIriRef[]): boolean {
+  return isOfTypes(conceptTypes, Vocabulary.IM.CONCEPT);
+}
+
+export function isQuery(entityTypes: TTIriRef[]): boolean {
+  return isOfTypes(entityTypes, Vocabulary.IM.QUERY_TEMPLATE);
+}
+
+export function isRecordModel(entityTypes: TTIriRef[]): boolean {
+  return isOfTypes(entityTypes, Vocabulary.SHACL.NODESHAPE);
+}
+
+export function isFolder(entityTypes: TTIriRef[]): boolean {
+  return isOfTypes(entityTypes, Vocabulary.IM.FOLDER);
+}
+
 export function getFAIconFromType(conceptTypes: TTIriRef[]): string[] {
   if (isOfTypes(conceptTypes, Vocabulary.SHACL.NODESHAPE)) {
     return ["fas", "project-diagram"];
@@ -86,13 +102,23 @@ export function getColourFromType(conceptTypes: TTIriRef[]): string {
 }
 
 export function getNamesAsStringFromTypes(typeList: TTIriRef[]) {
-  return typeList.map((type) => type.name).join(", ");
+  return typeList
+    .map((type) => {
+      if (type["@id"] === Vocabulary.SHACL.NODESHAPE) {
+        return "Data model";
+      } else return type.name;
+    })
+    .join(", ");
 }
 
 export default {
   isOfTypes,
   isProperty,
   isValueSet,
+  isConcept,
+  isFolder,
+  isQuery,
+  isRecordModel,
   getColourFromType,
   getFAIconFromType,
   getNamesAsStringFromTypes,
