@@ -12,7 +12,7 @@
 import { defineComponent, PropType } from "vue";
 import { TTIriRef } from "../../interfaces/Interfaces";
 import { isArrayHasLength, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
-import LoggerService from "../../services/modules/LoggerService"
+import LoggerService from "../../services/modules/LoggerService";
 
 export default defineComponent({
   name: "ArrayObjectNameTagWithLabel",
