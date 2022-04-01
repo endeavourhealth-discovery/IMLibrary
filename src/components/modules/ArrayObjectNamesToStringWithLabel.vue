@@ -9,28 +9,36 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { isArrayHasLength,isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
+import {
+  isArrayHasLength,
+  isObjectHasKeys,
+} from "../../helpers/modules/DataTypeCheckers";
+import { Vocabulary } from "../../vocabulary";
 
 export default defineComponent({
   name: "ArrayObjectNamesToStringWithLabel",
   props: {
     label: { type: String },
     data: { type: Array as PropType<Array<string>>, default: () => [] },
-    size: { type: String }
+    size: { type: String },
   },
   computed: {
     arrayToString(): string | undefined {
-      if (isArrayHasLength(this.data) && this.data.every(item => isObjectHasKeys(item, ["name"]))) {
+      if (
+        isArrayHasLength(this.data) &&
+        this.data.every((item) => isObjectHasKeys(item, ["name"]))
+      ) {
         return this.data
-          .map(function(item: any) {
+          .map(function (item: any) {
+            if (item["@id"] === Vocabulary.SHACL.NODESHAPE) return "Data model";
             return item.name;
           })
           .join(", ");
       } else {
         return undefined;
       }
-    }
-  }
+    },
+  },
 });
 </script>
 
