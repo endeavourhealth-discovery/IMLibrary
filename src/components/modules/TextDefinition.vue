@@ -13,14 +13,11 @@
           enterClass: 'hidden',
           enterActiveClass: 'my-fadein',
           leaveActiveClass: 'my-fadeout',
-          leaveToClass: 'hidden',
+          leaveToClass: 'hidden'
         }"
       />
     </div>
-    <div
-      v-html="definition"
-      :class="'hidden text-definition tgl-' + label"
-    ></div>
+    <div v-html="definition" :class="'hidden text-definition tgl-' + label"></div>
     <div class="loading-container" v-if="loading">
       <ProgressSpinner />
     </div>
@@ -31,10 +28,7 @@
 import { defineComponent } from "@vue/runtime-core";
 import { mapState } from "vuex";
 import { TTBundle, PartialEntity } from "../../interfaces/Interfaces";
-import {
-  isArrayHasLength,
-  isObjectHasKeys,
-} from "../../helpers/modules/DataTypeCheckers";
+import { isArrayHasLength, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
 import { bundleToText } from "../../helpers/modules/Transforms";
 
 export default defineComponent({
@@ -43,23 +37,20 @@ export default defineComponent({
     label: { type: String },
     data: {
       type: Object as () => PartialEntity,
-      default: () => null,
+      default: () => null
     },
     size: { type: String },
-    show: { type: Boolean },
+    show: { type: Boolean }
   },
   computed: {
     hasData(): boolean {
-      if (
-        isObjectHasKeys(this.data, ["entity", "predicates"]) &&
-        isObjectHasKeys(this.data.entity)
-      ) {
+      if (isObjectHasKeys(this.data, ["entity", "predicates"]) && isObjectHasKeys(this.data.entity)) {
         return true;
       } else {
         return false;
       }
     },
-    ...mapState(["blockedIris", "defaultPredicateNames"]),
+    ...mapState(["blockedIris", "defaultPredicateNames"])
   },
   mounted() {
     this.init();
@@ -69,7 +60,7 @@ export default defineComponent({
       buttonExpanded: false,
       count: 0,
       definition: "",
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -78,9 +69,7 @@ export default defineComponent({
       this.getDefinition();
       this.loading = false;
       if (this.label === "Definition") {
-        const button = document.getElementById(
-          `expand-button-${this.label}`
-        ) as HTMLElement;
+        const button = document.getElementById(`expand-button-${this.label}`) as HTMLElement;
         if (button) button.click();
       }
     },
@@ -91,19 +80,12 @@ export default defineComponent({
 
     getDefinition(): void {
       if (!this.hasData) return;
-      this.definition = bundleToText(
-        "/viewer",
-        this.data as TTBundle,
-        this.defaultPredicateNames,
-        0,
-        true,
-        this.blockedIris
-      );
+      this.definition = bundleToText("/viewer", this.data as TTBundle, this.defaultPredicateNames, 0, true, this.blockedIris);
     },
 
     getCount(): number {
       let count = 0;
-      Object.keys(this.data.entity).forEach((key) => {
+      Object.keys(this.data.entity).forEach(key => {
         if (isArrayHasLength((this.data.entity as any)[key])) {
           count += (this.data.entity as any)[key].length;
         } else {
@@ -111,8 +93,8 @@ export default defineComponent({
         }
       });
       return count;
-    },
-  },
+    }
+  }
 });
 </script>
 
@@ -133,7 +115,7 @@ export default defineComponent({
   padding: 0.5rem;
   margin: 0.5rem 0 0 0;
   overflow: auto;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 .head-container {
