@@ -1,5 +1,6 @@
 export class IM {
-  public static NAMESPACE = "http://endhealth.info/im#";
+  public static DOMAIN = "http://endhealth.info/";
+  public static NAMESPACE = IM.DOMAIN + "im#";
   public static PREFIX = "im";
   public static IRI = "@id";
   public static CONCEPT_SET_GROUP = IM.NAMESPACE + "ConceptSetGroup";
@@ -45,20 +46,6 @@ export class IM {
   public static ADDRESS = IM.NAMESPACE + "address";
   public static MODELLING_ENTITY_TYPE = IM.NAMESPACE + "ModellingEntityType";
 
-  // code schemes
-  public static CODE_SCHEME = IM.NAMESPACE + "CodeScheme";
-  public static CODE_SCHEME_SNOMED = IM.NAMESPACE + "SnomedCodeScheme";
-  public static CODE_SCHEME_READ = IM.NAMESPACE + "Read2CodeScheme";
-  public static CODE_SCHEME_ICD10 = IM.NAMESPACE + "ICD10CodeScheme";
-  public static CODE_SCHEME_OPCS4 = IM.NAMESPACE + "OPSC49CodeScheme";
-  public static CODE_SCHEME_EMIS = IM.NAMESPACE + "EMISCodeScheme";
-  public static CODE_SCHEME_BARTS = IM.NAMESPACE + "BartsCernerCodeScheme";
-  public static CODE_SCHEME_VISION = IM.NAMESPACE + "VisionCodeScheme";
-  public static CODE_SCHEME_CTV3 = IM.NAMESPACE + "CTV3TPPCodeScheme";
-  public static CODE_SCHEME_TERMS = IM.NAMESPACE + "TermOnlyCodeScheme";
-  public static CODE_SCHEME_ODS = IM.NAMESPACE + "ODSCodeScheme";
-  public static DISCOVERY_CODE = IM.NAMESPACE + "DiscoveryCodeScheme";
-
   public static STATS_REPORT_ENTRY = IM.NAMESPACE + "hasStatsReportEntry";
 
   public static MODULE_ONTOLOGY = IM.NAMESPACE + "DiscoveryOntology";
@@ -81,4 +68,7 @@ export class IM {
   public static DATAMODEL_ENTITY = IM.NAMESPACE + "DataModelEntity";
   public static DATAMODEL_PROPERTY = IM.NAMESPACE + "dataModelProperty";
   public static QUERY = IM.NAMESPACE + "Query";
+
+  // Graphs
+  public static GRAPH_EMIS = IM.DOMAIN + "emis#";
 }
