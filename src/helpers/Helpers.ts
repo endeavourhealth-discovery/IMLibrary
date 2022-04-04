@@ -9,7 +9,6 @@ import Sorters from "./modules/Sorters";
 import Transforms from "./modules/Transforms";
 import UserMethods from "./modules/UserMethods";
 import EditorBuilderJsonMethods from "./modules/EditorBuilderJsonMethods";
-import RouterGuards from "./modules/RouterGuards";
 
 export default {
   ChartRescale,
@@ -22,6 +21,5 @@ export default {
   Sorters,
   Transforms,
   UserMethods,
-  EditorBuilderJsonMethods,
-  RouterGuards,
+  EditorBuilderJsonMethods
 };
