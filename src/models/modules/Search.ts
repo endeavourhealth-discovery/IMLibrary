@@ -26,10 +26,7 @@ export class SearchRequest {
 }
 
 export class SearchResponse {
-  pageStart!: number;
-  pageEnd!: number;
-  pageSize!: number;
-  totalSize!: number;
-  concepts!: ConceptSummary[];
-  request?: SearchRequest;
+  page!: number;
+  count!: number;
+  entities!: ConceptSummary[];
 }
