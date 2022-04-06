@@ -199,6 +199,7 @@ function getObjectName(key: string, iriMap: any, pad: string, prefix: string) {
 export function ttArrayToString(appPath: string, arr: any[], indent: number, withHyperlinks: boolean, iriMap?: any, blockedUrlIris?: string[]): string {
   let result = "";
   for (const item of arr) {
+    removeGroupNumber(arr);
     result += ttValueToString(appPath, item, "array", indent, withHyperlinks, iriMap, blockedUrlIris);
   }
   return result;
@@ -210,6 +211,19 @@ function removeEndBrackets(str: string): string {
   const lastBracketEnd = bracketText.indexOf(")");
   if (lastBracketStart > 0 && lastBracketEnd > 0) return str.substring(0, lastBracketStart).trimEnd() + str.substring(lastBracketEnd + lastBracketStart + 1);
   else return str;
+}
+
+function removeGroupNumber(arr: any[]) {
+  const groupNumberItems = arr.filter(item => {
+    return isObjectHasKeys(item, [IM.ROLE_GROUP]);
+  });
+  if (isArrayHasLength(groupNumberItems)) {
+    for (const groupNumberItem of groupNumberItems) {
+      for (const roleGroup of groupNumberItem[IM.ROLE_GROUP]) {
+        delete roleGroup["http://endhealth.info/im#groupNumber"];
+      }
+    }
+  }
 }
 
 export default {
