@@ -27,7 +27,7 @@ module.exports = {
       {
         text: "Constants",
         link: "/constants/index",
-        children: []
+        children: [{ text: "Avatars", link: "/constants/avatars" }]
       },
       {
         text: "Enums",
