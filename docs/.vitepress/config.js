@@ -18,7 +18,6 @@ module.exports = {
         children: [
           { text: "TopBar", link: "/components/top-bar" },
           { text:"SnomedLicense", link:"/components/snomed-license" },
-          { text: "TextHTMLWithLabel", link:"/components/text-html-with-label"},
           { test: "TextWithLabel", link: "/components/text-with-label" }
         ],
       },

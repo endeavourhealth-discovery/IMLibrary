@@ -1,1 +1,0 @@
-import{_ as s,a as n,o as a,d as t}from"./app.ed4490ae.js";const g='{"title":"Getting Started","description":"","frontmatter":{},"headers":[{"level":2,"title":"Setup","slug":"setup"}],"relativePath":"guide/index.md","lastUpdated":1645464100562}',e={},p=t("",13),o=[p];function c(r,u,i,l,d,k){return a(),n("div",null,o)}var h=s(e,[["render",c]]);export{g as __pageData,h as default};

@@ -11,9 +11,7 @@ export default createStore({
     conceptIri: IM.MODULE_ONTOLOGY,
     currentUser: {} as Models.User,
     isLoggedIn: false as boolean,
-    snomedLicenseAccepted: localStorage.getItem(
-      "snomedLicenseAccepted"
-    ) as string,
+    snomedLicenseAccepted: process.isClient ? localStorage.getItem("snomedLicenseAccepted") as string : "false",
     blockedIris: [] as string[],
     selectedEntityType: "",
     conceptActivePanel: 0,

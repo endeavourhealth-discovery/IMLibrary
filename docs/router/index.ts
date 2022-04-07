@@ -1,6 +1,6 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import {createRouter, createWebHashHistory, RouteRecordRaw, RouterHistory} from 'vue-router';
 import { nextTick } from "vue";
-import SnomedLicense from "../../src/components/SnomedLicense.vue";
+import SnomedLicense from "../../src/components/modules/SnomedLicense.vue";
 
 const APP_TITLE = "IM Library Docs";
 
@@ -13,7 +13,7 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: process.isClient ? createWebHashHistory() : {} as RouterHistory,
   routes
 });
 

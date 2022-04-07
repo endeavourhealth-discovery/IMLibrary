@@ -10,7 +10,7 @@ export default {
     }
   },
   mounted() {
-    import("../../../../src/components/TopBar.vue").then((module) => {
+    import("../../../../src/components/modules/TopBar.vue").then((module) => {
       this.dynamicComponent = module.default
     })
   }
