@@ -32,7 +32,15 @@ module.exports = {
       {
         text: "Enums",
         link: "/enums/index",
-        children: []
+        children: [
+          { text: "AppEnum", link: "/enums/app-enum" },
+          { text: "BuilderType", link: "/enums/builder-type" },
+          { text: "ComponentType", link: "/enums/component-type" },
+          { text: "ECLComponent", link: "/enums/ecl-component" },
+          { text: "ECLType", link: "/enums/ecl-type" },
+          { text: "PasswordStrength", link: "/enums/password-strength" },
+          { text: "SortBy", link: "/enums/sort-by" }
+        ]
       },
       {
         text: "Helpers",
