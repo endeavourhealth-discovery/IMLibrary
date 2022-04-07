@@ -17,7 +17,7 @@ Click the buttons to change the count.
   <Basic/>
 </DemoContainer>
 
-<<< @/components/demo/TextWithLabel/Basic.vue
+<<< @/components/demo/TextHTMLWithLabel/Basic.vue
 
 ## Reference
 

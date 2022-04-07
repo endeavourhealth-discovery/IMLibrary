@@ -1,44 +1,55 @@
 <script setup>
 import Basic from './demo/TopBar/Basic.vue'
+import Content from './demo/TopBar/Content.vue'
 </script>
 
-# Component B
+# Topbar
 
 This component depends on third-party component library for Vue 3:
 
-- Component (button) from [PrimeVue](https://www.primefaces.org/primevue/)
+- Components (Button, Menu, OverlayPanel) from [PrimeVue](https://www.primefaces.org/primevue/)
 - CSS from [PrimeIcons](https://www.primefaces.org/showcase/icons.xhtml) and [PrimeFlex](https://www.primefaces.org/primeflex/)
 
 ## Example Usage
 
-Click the buttons to change the count.
+### Basic
 
 <DemoContainer>
-  <ClientOnly>
-    <Basic title="Entity Title"/>
-  </ClientOnly>
+  <Basic/>
 </DemoContainer>
 
 <<< @/components/demo/TopBar/Basic.vue
+
+### Content slot
+
+<DemoContainer>
+  <Content/>
+</DemoContainer>
+
+<<< @/components/demo/TopBar/Content.vue
 
 ## Reference
 
 You may show props, slots, events, methods, etc. using Markdown.
 
-### Properties
+### Props
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-|      |      |         |             |
+None
+
+### Store props
+
+| Name | Type | Description |
+| ---- | ---------- | ----------- |
+|   currentUser   |      User      |      AWS Cognito verified user       |
+| isLoggedIn | Boolean | boolean for currentUser verified |
+| authReturnUrl | string | return URL sent to IMAuth app |
 
 ### Events
 
-| Name | Parameters | Description |
-| ---- | ---------- | ----------- |
-|      |            |             |
+None
 
 ### Slots
 
 | Name | Parameters | Description |
 | ---- | ---------- | ----------- |
-|      |            |             |
+|   Content   |      None      |       Content fits between icon and app/user menus      |
