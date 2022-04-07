@@ -1,3 +1,3 @@
 <template>
-  <TextHTMLWithLabel data="Data" label="Label" size="100%" />
+  <TextHTMLWithLabel data="Text with <p>HTML<p> and \n newlines" id="demo-1" label="Label" size="100%" />
 </template>

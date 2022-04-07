@@ -4,14 +4,11 @@ import Basic from './demo/TextHTMLWithLabel/Basic.vue'
 
 # Text HTML with label
 
-This component depends on third-party component library for Vue 3:
+## Summary
 
-- Component (button) from [PrimeVue](https://www.primefaces.org/primevue/)
-- CSS from [PrimeIcons](https://www.primefaces.org/showcase/icons.xhtml) and [PrimeFlex](https://www.primefaces.org/primeflex/)
+Textbox which replaces `<p>` and `\n` tags with correct HTML tags
 
 ## Example Usage
-
-Click the buttons to change the count.
 
 <DemoContainer>
   <Basic/>
@@ -23,23 +20,12 @@ Click the buttons to change the count.
 
 You may show props, slots, events, methods, etc. using Markdown.
 
-### Properties
+### Props
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| Data | String| None   | Data as string |
-| Label | String | None | Label of data |
-| Size | String | 100% | CSS width of element |
-| id   | String | None | Html id |
+| Data | String| "None"   | Data as string |
+| Label | String | "Description | Label of data |
+| Size | String | "100%" | CSS width of element |
+| id   | String | "TextHTMLWithLabel" | HTML id |
 
-### Events
-
-| Name | Parameters | Description |
-| ---- | ---------- | ----------- |
-|      |            |             |
-
-### Slots
-
-| Name | Parameters | Description |
-| ---- | ---------- | ----------- |
-|      |            |             |
