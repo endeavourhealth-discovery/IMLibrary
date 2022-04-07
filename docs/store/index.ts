@@ -11,12 +11,11 @@ export default createStore({
     conceptIri: IM.MODULE_ONTOLOGY,
     currentUser: {} as Models.User,
     isLoggedIn: false as boolean,
-    snomedLicenseAccepted: localStorage.getItem(
-      "snomedLicenseAccepted"
-    ) as string,
+    snomedLicenseAccepted: localStorage.getItem("snomedLicenseAccepted") as string,
+    snomedReturnUrl: "http://localhost:3000/components/snomed-license.html",
     blockedIris: [] as string[],
     selectedEntityType: "",
-    conceptActivePanel: 0,
+    conceptActivePanel: 0
   },
   mutations: {
     updateBlockedIris(state, blockedIris) {
@@ -40,8 +39,8 @@ export default createStore({
     },
     updateConceptActivePanel(state, number) {
       state.conceptActivePanel = number;
-    },
+    }
   },
   actions: {},
-  modules: {},
+  modules: {}
 });

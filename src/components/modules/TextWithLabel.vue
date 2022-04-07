@@ -1,7 +1,7 @@
 <template>
-  <div class="text-with-label-container" :style="{ width: size }">
+  <div class="text-with-label-container" :id="id" :style="{ width: size }">
     <strong class="label">{{ label }}: </strong>
-    <span class="data break-text">{{ data ? data : "None" }}</span>
+    <span class="data break-text">{{ data }}</span>
   </div>
 </template>
 
@@ -10,7 +10,12 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "TextWithLabel",
-  props: { label: String, data: String, size: String }
+  props: {
+    label: { type: String, default: "Label" },
+    data: { type: String, default: "None" },
+    size: { type: String, default: "100%" },
+    id: { type: String, default: "TextWithLabel" }
+  }
 });
 </script>
 

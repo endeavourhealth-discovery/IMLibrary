@@ -5,10 +5,22 @@ import Content from './demo/TopBar/Content.vue'
 
 # Topbar
 
-This component depends on third-party component library for Vue 3:
+## Dependencies
+
+This component depends on third-party component librarys for Vue 3:
 
 - Components (Button, Menu, OverlayPanel) from [PrimeVue](https://www.primefaces.org/primevue/)
 - CSS from [PrimeIcons](https://www.primefaces.org/showcase/icons.xhtml) and [PrimeFlex](https://www.primefaces.org/primeflex/)
+
+## Summary
+
+IM app suite top bar component.
+
+Component comprises start, content and end sections.
+
+* Start: IMLogo with home click functionality
+* Content: Slot for injected content
+* End: IM App selector and User menu
 
 ## Example Usage
 
@@ -28,9 +40,6 @@ This component depends on third-party component library for Vue 3:
 
 <<< @/components/demo/TopBar/Content.vue
 
-## Reference
-
-You may show props, slots, events, methods, etc. using Markdown.
 
 ### Props
 
@@ -52,4 +61,4 @@ None
 
 | Name | Parameters | Description |
 | ---- | ---------- | ----------- |
-|   Content   |      None      |       Content fits between icon and app/user menus      |
+|   Content   |      None      |       Content fits between start and end sections    |
