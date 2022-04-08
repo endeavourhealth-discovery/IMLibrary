@@ -18,6 +18,7 @@ module.exports = {
         text: "Components",
         link: "/components/index",
         children: [
+          { text: "ArrayObjectNameListboxWithLabel", link: "/components/array-object-name-listbox-with-label" },
           { text: "TextHTMLWithLabel", link: "/components/text-html-with-label" },
           { text: "TextWithLabel", link: "/components/text-with-label" },
           { text: "TopBar", link: "/components/top-bar" },

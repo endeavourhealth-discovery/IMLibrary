@@ -2,6 +2,7 @@ import DefaultTheme from "vitepress/theme";
 import PrimeVue from "primevue/config";
 import DemoContainer from "../components/DemoContainer.vue";
 import IMLibrary from "im-library";
+import StyleClass from "primevue/styleclass";
 
 import "primevue/resources/themes/saga-blue/theme.css"; //theme
 import "primevue/resources/primevue.min.css"; //core css
@@ -11,13 +12,14 @@ import "primeflex/primeflex.css";
 import "./custom.css";
 
 import store from "../../store";
-import router from "../../router"
+import router from "../../router";
 
 export default {
   ...DefaultTheme,
   enhanceApp({ app }) {
     app.use(PrimeVue);
     app.use(IMLibrary, { store, router });
+    app.directive("styleclass", StyleClass);
     app.component("DemoContainer", DemoContainer);
-  },
+  }
 };

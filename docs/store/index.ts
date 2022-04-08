@@ -15,7 +15,8 @@ export default createStore({
     snomedReturnUrl: "http://localhost:3000/components/snomed-license.html",
     blockedIris: [] as string[],
     selectedEntityType: "",
-    conceptActivePanel: 0
+    conceptActivePanel: 0,
+    arrayObjectNameListboxWithLabelStartExpanded: ["Label"]
   },
   mutations: {
     updateBlockedIris(state, blockedIris) {
