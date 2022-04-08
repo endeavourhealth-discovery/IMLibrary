@@ -1,5 +1,5 @@
 <template>
-  <div class="container" :style="{ width: size }">
+  <div class="container" :style="{ width: size }" :id="id">
     <strong class="label">{{ label }}: </strong>
     <span class="data-string">
       {{ arrayToString ? arrayToString : "None" }}
@@ -17,7 +17,8 @@ export default defineComponent({
   props: {
     label: { type: String, default: "Label" },
     data: { type: Array as PropType<Array<string>>, default: [] },
-    size: { type: String, default: "100%" }
+    size: { type: String, default: "100%" },
+    id: { type: String, default: "ArrayObjectNamesToStringWithLabel" }
   },
   computed: {
     arrayToString(): string | undefined {
