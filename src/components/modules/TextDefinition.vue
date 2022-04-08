@@ -34,12 +34,12 @@ import { bundleToText } from "../../helpers/modules/Transforms";
 export default defineComponent({
   name: "TextDefinition",
   props: {
-    label: { type: String },
+    label: { type: String, required: true },
     data: {
       type: Object as () => PartialEntity,
-      default: () => null
+      required: true
     },
-    size: { type: String },
+    size: { type: String, default: "100%" },
     show: { type: Boolean }
   },
   computed: {

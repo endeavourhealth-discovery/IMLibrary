@@ -10,6 +10,11 @@ import Menu from "primevue/menu";
 import OverlayPanel from "primevue/overlaypanel";
 import StyleClass from "primevue/styleclass";
 import Tag from "primevue/tag";
+import Card from "primevue/card";
+import ProgressSpinner from "primevue/progressspinner";
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
+import Divider from "primevue/divider";
 
 import "primevue/resources/themes/saga-blue/theme.css"; //theme
 import "primevue/resources/primevue.min.css"; //core css
@@ -34,6 +39,11 @@ export default {
       .component("Listbox", Listbox)
       .component("Menu", Menu)
       .component("OverlayPanel", OverlayPanel)
-      .component("Tag", Tag);
+      .component("Tag", Tag)
+      .component("Card", Card)
+      .component("ProgressSpinner", ProgressSpinner)
+      .component("DataTable", DataTable)
+      .component("Column", Column)
+      .component("Divider", Divider);
   }
 };

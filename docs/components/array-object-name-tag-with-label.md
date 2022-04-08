@@ -31,15 +31,15 @@ You may show props, slots, events, methods, etc. using Markdown.
 
 ### Props
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| Data | Array[Object{TTIriRef}]| []   | Array of TTIriRef objects |
-| Label | String | "Label" | Label of data |
-| Size | String | "100%" | CSS width of element |
+| Name | Type | Required | Default | Description |
+| ---- | ---- | -------- | ------- | ----------- |
+| data | Array[Object{TTIriRef}]| true | null | Array of TTIriRef objects |
+| label | String | true | null | Label of data |
+| size | String | "100%" | CSS width of element |
 | id   | String | "ArrayObjectNameTagWithLabel" | HTML id |
 
 ### Store props
 
 | Name | Type | Default | Description |
 | ---- | ---- | ---- | ---- |
-| TagSeverityMatches | Array[Object{"@id":string,severity:string}] | [] | severity must be valid primevue Tag severity |
+| TagSeverityMatches | Array[Object{"@id":string,severity:string}] | null | severity must be valid primevue Tag severity |

@@ -37,8 +37,8 @@ None
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| snomedLicenseAccepted | boolean| false   | stores if license agreement has been accepted |
-| snomedReturnUrl | string |  | URL to return to previous app on agreement acceptance |
+| snomedLicenseAccepted | boolean| null   | stores if license agreement has been accepted |
+| snomedReturnUrl | string | null | URL to return to previous app on agreement acceptance |
 
 ### Events
 

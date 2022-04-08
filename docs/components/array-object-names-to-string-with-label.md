@@ -22,9 +22,9 @@ You may show props, slots, events, methods, etc. using Markdown.
 
 ### Props
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| Data | Array[Object]| []   | Array of objects with name key |
-| Label | String | "Label" | Label of data |
-| Size | String | "100%" | CSS width of element |
-| id   | String | "ArrayObjectNamesToStringWithLabel" | HTML id |
+| Name | Type | Required | Default | Description |
+| ---- | ---- | ---- | ------- | ----------- |
+| data | Array[Object{name:string}]| true | null | Array of objects with name key |
+| label | String | true | null | Label of data |
+| size | String | false | "100%" | CSS width of element |
+| id   | String | false | "ArrayObjectNamesToStringWithLabel" | HTML id |

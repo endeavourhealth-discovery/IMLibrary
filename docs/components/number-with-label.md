@@ -18,12 +18,12 @@ Textbox which renders a label and associated number.
 
 ### Props
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| data | number| null   | Data as string |
-| label | String | "Label | Label of data |
-| size | String | "100%" | CSS width of element |
-| id | String | "TextWithLabel | HTML id |
+| Name | Type | Required | Default | Description |
+| ---- | ---- | ---- |------- | ----------- |
+| data | number| true | null   | Data as string |
+| label | String | true | "Label | Label of data |
+| size | String | false | "100%" | CSS width of element |
+| id | String | false | "TextWithLabel | HTML id |
 
 ### Events
 

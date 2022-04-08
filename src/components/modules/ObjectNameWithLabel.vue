@@ -11,11 +11,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
-import LoggerService from "../../services/modules/LoggerService"
+import LoggerService from "../../services/modules/LoggerService";
 
 export default defineComponent({
   name: "TextWithLabel",
-  props: { label: {type:String, required: true}, data: {type:Object, required: false}, size: {type:String, required: true} },
+  props: { label: { type: String, required: true }, data: { type: Object, required: true }, size: { type: String, default: "100%" } },
   computed: {
     isObjectWithName(): boolean {
       if (isObjectHasKeys(this.data, ["name"])) {

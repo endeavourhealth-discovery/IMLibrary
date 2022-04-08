@@ -15,8 +15,8 @@ import { Vocabulary } from "../../vocabulary";
 export default defineComponent({
   name: "ArrayObjectNamesToStringWithLabel",
   props: {
-    label: { type: String, default: "Label" },
-    data: { type: Array as PropType<Array<string>>, default: [] },
+    label: { type: String, required: true },
+    data: { type: Array as PropType<Array<string>>, required: true },
     size: { type: String, default: "100%" },
     id: { type: String, default: "ArrayObjectNamesToStringWithLabel" }
   },

@@ -45,9 +45,9 @@ import LoggerService from "../../services/modules/LoggerService";
 export default defineComponent({
   name: "ArrayObjectNameListboxWithLabel",
   props: {
-    label: { type: String, default: "Label" },
-    data: { type: Array as PropType<Array<unknown>>, default: [] },
-    size: { type: String, default: "100%" },
+    label: { type: String, required: true },
+    data: { type: Array as PropType<Array<unknown>>, required: true },
+    size: { type: String, default: "100%", required: false },
     id: { type: String, default: "array-object-name-listbox-with-label" }
   },
   computed: {

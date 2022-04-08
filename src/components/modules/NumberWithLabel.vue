@@ -11,8 +11,8 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "NumberWithLabel",
   props: {
-    label: { type: String, default: "Label" },
-    data: { type: [Number, String] },
+    label: { type: String, required: true },
+    data: { type: [Number, String], required: true },
     size: { type: String, default: "100%" },
     id: { type: String, default: "NumberWithLabel" }
   },

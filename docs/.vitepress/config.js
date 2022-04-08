@@ -23,10 +23,15 @@ module.exports = {
           { text: "ArrayObjectNameTagWithLabel", link: "/components/array-object-name-tag-with-label" },
           { text: "NumberWithLabel", link: "/components/number-with-label" },
           { text: "ObjectNameTagWithLabel", link: "/components/object-name-tag-with-label" },
+          { text: "ObjectNameWithLabel", link: "/components/object-name-with-label" },
+          { text: "ReportTable", link: "/components/report-table" },
+          { text: "SectionDivider", link: "/components/section-divider" },
+          { text: "SnomedLicense", link: "/components/snomed-license" },
+          { text: "TermCodeTable", link: "/components/term-code-table" },
+          { text: "TextDefinition", link: "/components/text-definition" },
           { text: "TextHTMLWithLabel", link: "/components/text-html-with-label" },
           { text: "TextWithLabel", link: "/components/text-with-label" },
-          { text: "TopBar", link: "/components/top-bar" },
-          { text: "SnomedLicense", link: "/components/snomed-license" }
+          { text: "TopBar", link: "/components/top-bar" }
         ]
       },
       {

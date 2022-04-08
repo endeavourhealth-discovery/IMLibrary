@@ -16,8 +16,8 @@ import { mapState } from "vuex";
 export default defineComponent({
   name: "ObjectNameTagWithLabel",
   props: {
-    label: { type: String, default: "Label" },
-    data: { type: Object as PropType<TTIriRef>, default: null },
+    label: { type: String, required: true },
+    data: { type: Object as PropType<TTIriRef>, required: true },
     size: { type: String, default: "100%" },
     id: { type: String, default: "ObjectNameTagWithLabel" }
   },
@@ -49,9 +49,10 @@ export default defineComponent({
 .container {
   margin: 0;
   padding: 0.25rem 0.5rem 0 0;
-}
-
-.break-text {
-  word-break: break-all;
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
 }
 </style>

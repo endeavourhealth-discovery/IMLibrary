@@ -25,21 +25,17 @@ Listbox display is toggleable through a vuex store variable `arrayObjectNameList
 
 <<< @/components/demo/ArrayObjectNameListboxWithLabel/Basic.vue
 
-## Reference
-
-You may show props, slots, events, methods, etc. using Markdown.
-
 ### Props
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| Data | Array[Object]| []   | Array of objects with name key |
-| Label | String | "Label" | Label of data |
-| Size | String | "100%" | CSS width of element |
-| id   | String | "ArrayObjectNameListboxWithLabel" | HTML id |
+| Name | Type | Required | Default | Description |
+| ---- | ---- | -------- |------- | ----------- |
+| data | Array[Object{name:string}]| false | null   | Array of objects with name key |
+| label | String | true | null | Label of data |
+| size | String | false | "100%" | CSS width of element |
+| id   | String | false | "ArrayObjectNameListboxWithLabel" | HTML id |
 
 ### Store props
 
 | Name | Type | Default | Description |
 | ---- | ---- | ---- | ---- |
-| arrayObjectNameListboxWithLabelStartExpanded | Array[String] | [] | List of Label names to start pre-expanded |
+| arrayObjectNameListboxWithLabelStartExpanded | Array[String] | null | List of Label names to start pre-expanded |

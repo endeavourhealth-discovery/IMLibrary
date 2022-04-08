@@ -1,10 +1,10 @@
 <template>
   <div class="container" :style="{ width: size }" :id="id">
     <strong class="label">{{ label }}: </strong>
-    <span v-if="isArrayObject">
+    <div v-if="isArrayObject" class="tag-container">
       <Tag v-for="item of data" :key="item['@id']" :value="item.name" :severity="getSeverity(item)" class="data-tag" />
-    </span>
-    <span v-else class="data">None</span>
+    </div>
+    <span v-else class="tag-container">None</span>
   </div>
 </template>
 
@@ -18,8 +18,8 @@ import { mapState } from "vuex";
 export default defineComponent({
   name: "ArrayObjectNameTagWithLabel",
   props: {
-    label: { type: String, default: "Label" },
-    data: { type: Array as PropType<Array<TTIriRef>>, default: [] },
+    label: { type: String, required: true },
+    data: { type: Array as PropType<Array<TTIriRef>>, required: true },
     size: { type: String, default: "100%" },
     id: { type: String, default: "ArrayObjectnameTagWithLabel" }
   },
@@ -52,9 +52,18 @@ export default defineComponent({
 .container {
   margin: 0;
   padding: 0.25rem 0.5rem 0 0;
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.break-text {
-  word-break: break-all;
+.tag-container {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
 }
 </style>

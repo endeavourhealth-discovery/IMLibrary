@@ -25,18 +25,14 @@ Tag severity is set using vuex store variable `TagSeverityMatches`.
 
 <<< @/components/demo/ObjectNameTagWithLabel/Basic.vue
 
-## Reference
-
-You may show props, slots, events, methods, etc. using Markdown.
-
 ### Props
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| Data | Object{TTIriRef}| {}   | TTIriRef object |
-| Label | String | "Label" | Label of data |
-| Size | String | "100%" | CSS width of element |
-| id   | String | "ObjectNameTagWithLabel" | HTML id |
+| Name | Type | Required | Default | Description |
+| ---- | ---- | ---- |------- | ----------- |
+| data | TTIriRef | true | null   | TTIriRef object |
+| label | String | true | null | Label of data |
+| size | String | false | "100%" | CSS width of element |
+| id   | String | false | "ObjectNameTagWithLabel" | HTML id |
 
 ### Store props
 
