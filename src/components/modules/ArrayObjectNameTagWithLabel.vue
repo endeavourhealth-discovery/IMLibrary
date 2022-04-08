@@ -13,42 +13,34 @@ import { defineComponent, PropType } from "vue";
 import { TTIriRef } from "../../interfaces/Interfaces";
 import { isArrayHasLength, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
 import LoggerService from "../../services/modules/LoggerService";
+import { mapState } from "vuex";
 
 export default defineComponent({
   name: "ArrayObjectNameTagWithLabel",
   props: {
-    label: { type: String },
-    data: { type: Array as PropType<Array<TTIriRef>> },
-    size: String
-  },
-  methods: {
-    getSeverity(item: TTIriRef): string {
-      let result = "info";
-      if (item && isObjectHasKeys(item, ["name"])) {
-        switch (item.name) {
-          case "Active":
-            result = "success";
-            break;
-          case "Draft":
-            result = "warning";
-            break;
-          case "Inactive":
-            result = "danger";
-            break;
-          default:
-            LoggerService.warn("TagWithLabel missing case for severity");
-        }
-      }
-      return result;
-    }
+    label: { type: String, default: "Label" },
+    data: { type: Array as PropType<Array<TTIriRef>>, default: [] },
+    size: { type: String, default: "100%" }
   },
   computed: {
+    ...mapState(["TagSeverityMatches"]),
     isArrayObject(): boolean {
       if (this.data && isArrayHasLength(this.data) && isObjectHasKeys(this.data[0], ["@id"])) {
         return true;
       } else {
         return false;
       }
+    }
+  },
+  methods: {
+    getSeverity(item: TTIriRef): string {
+      let result = "info";
+      if (item && isObjectHasKeys(item, ["name"])) {
+        const found = this.TagSeverityMatches.find((severity: { "@id": string; severity: string }) => severity["@id"] === item["@id"]);
+        if (found) result = found.severity;
+        else LoggerService.warn("TagWithLabel missing case for severity");
+      }
+      return result;
     }
   }
 });

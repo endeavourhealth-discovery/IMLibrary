@@ -1,0 +1,30 @@
+<script setup>
+import Basic from './demo/ArrayObjectNamesToStringWithLabel/Basic.vue'
+</script>
+
+# ArrayObjectNamesToStringWithLabel
+
+## Summary
+
+Renders an array of objects containing `name` key into a comma separated string with a label.
+
+## Example Usage
+
+<DemoContainer>
+  <Basic/>
+</DemoContainer>
+
+<<< @/components/demo/ArrayObjectNamesToStringWithLabel/Basic.vue
+
+## Reference
+
+You may show props, slots, events, methods, etc. using Markdown.
+
+### Props
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| Data | Array[Object]| []   | Array of objects with name key |
+| Label | String | "Label" | Label of data |
+| Size | String | "100%" | CSS width of element |
+| id   | String | "ArrayObjectNamesToStringWithLabel" | HTML id |

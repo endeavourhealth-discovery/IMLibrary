@@ -41,12 +41,9 @@ import { RouteRecordName } from "vue-router";
 import { mapState } from "vuex";
 import { isArrayHasLength, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
 import LoggerService from "../../services/modules/LoggerService";
-import Button from "primevue/button";
-import Listbox from "primevue/listbox";
 
 export default defineComponent({
   name: "ArrayObjectNameListboxWithLabel",
-  components: { Button, Listbox },
   props: {
     label: { type: String, default: "Label" },
     data: { type: Array as PropType<Array<unknown>>, default: [] },

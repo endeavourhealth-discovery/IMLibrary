@@ -16,7 +16,12 @@ export default createStore({
     blockedIris: [] as string[],
     selectedEntityType: "",
     conceptActivePanel: 0,
-    arrayObjectNameListboxWithLabelStartExpanded: ["Label"]
+    arrayObjectNameListboxWithLabelStartExpanded: ["Label"],
+    TagSeverityMatches: [
+      { "@id": IM.ACTIVE, severity: "success" },
+      { "@id": IM.DRAFT, severity: "warning" },
+      { "@id": IM.INACTIVE, severity: "danger" }
+    ]
   },
   mutations: {
     updateBlockedIris(state, blockedIris) {

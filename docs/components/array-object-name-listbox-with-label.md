@@ -4,6 +4,13 @@ import Basic from './demo/ArrayObjectNameListboxWithLabel/Basic.vue'
 
 # ArrayObjectNameListboxWithLabel
 
+## Dependencies
+
+This component depends on third-party component librarys for Vue 3:
+
+- Components (Button, Listbox) from [PrimeVue](https://www.primefaces.org/primevue/)
+- CSS from [PrimeIcons](https://www.primefaces.org/showcase/icons.xhtml) and [PrimeFlex](https://www.primefaces.org/primeflex/)
+
 ## Summary
 
 Renders an array of objects containing `name` key into a primevue listbox.
