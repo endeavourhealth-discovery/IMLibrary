@@ -17,7 +17,7 @@ export default createStore({
     selectedEntityType: "",
     conceptActivePanel: 0,
     arrayObjectNameListboxWithLabelStartExpanded: ["Label"],
-    TagSeverityMatches: [
+    tagSeverityMatches: [
       { "@id": IM.ACTIVE, severity: "success" },
       { "@id": IM.DRAFT, severity: "warning" },
       { "@id": IM.INACTIVE, severity: "danger" }

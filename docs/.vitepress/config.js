@@ -22,6 +22,7 @@ module.exports = {
           { text: "ArrayObjectNamesToStringWithLabel", link: "/components/array-object-names-to-string-with-label" },
           { text: "ArrayObjectNameTagWithLabel", link: "/components/array-object-name-tag-with-label" },
           { text: "NumberWithLabel", link: "/components/number-with-label" },
+          { text: "ObjectNameTagWithLabel", link: "/components/object-name-tag-with-label" },
           { text: "TextHTMLWithLabel", link: "/components/text-html-with-label" },
           { text: "TextWithLabel", link: "/components/text-with-label" },
           { text: "TopBar", link: "/components/top-bar" },

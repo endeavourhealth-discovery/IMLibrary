@@ -24,7 +24,7 @@ export default defineComponent({
     id: { type: String, default: "ArrayObjectnameTagWithLabel" }
   },
   computed: {
-    ...mapState(["TagSeverityMatches"]),
+    ...mapState(["tagSeverityMatches"]),
     isArrayObject(): boolean {
       if (this.data && isArrayHasLength(this.data) && isObjectHasKeys(this.data[0], ["@id"])) {
         return true;
@@ -36,8 +36,9 @@ export default defineComponent({
   methods: {
     getSeverity(item: TTIriRef): string {
       let result = "info";
+      if (!this.tagSeverityMatches) throw new Error("Missing vuex store property 'tagSeverityMatches'");
       if (item && isObjectHasKeys(item, ["name"])) {
-        const found = this.TagSeverityMatches.find((severity: { "@id": string; severity: string }) => severity["@id"] === item["@id"]);
+        const found = this.tagSeverityMatches.find((severity: { "@id": string; severity: string }) => severity["@id"] === item["@id"]);
         if (found) result = found.severity;
         else LoggerService.warn("TagWithLabel missing case for severity");
       }
