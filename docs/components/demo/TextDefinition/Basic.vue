@@ -1,5 +1,5 @@
 <template>
-  <TextDefinition :data="data" label="Label" size="100%" :show="true" id="demo-text-with-label" />
+  <TextDefinition :data="data" label="Definition" size="100%" :show="true" id="demo-text-with-label" />
 </template>
 <script>
 export default {

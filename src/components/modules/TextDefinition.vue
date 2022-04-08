@@ -40,7 +40,7 @@ export default defineComponent({
       required: true
     },
     size: { type: String, default: "100%" },
-    show: { type: Boolean }
+    id: { type: String, default: "TextDefinition" }
   },
   computed: {
     hasData(): boolean {
@@ -50,7 +50,7 @@ export default defineComponent({
         return false;
       }
     },
-    ...mapState(["blockedIris", "defaultPredicateNames"])
+    ...mapState(["blockedIris", "defaultPredicateNames", "textDefinitionStartExpanded"])
   },
   mounted() {
     this.init();
@@ -68,7 +68,12 @@ export default defineComponent({
       this.loading = true;
       this.getDefinition();
       this.loading = false;
-      if (this.label === "Definition") {
+      this.startExpanded();
+    },
+
+    startExpanded() {
+      if (!Array.isArray(this.textDefinitionStartExpanded)) throw new Error("TextDefinition missing vuex store property 'textDefinitionStartExpanded'");
+      if (this.textDefinitionStartExpanded.includes(this.label)) {
         const button = document.getElementById(`expand-button-${this.label}`) as HTMLElement;
         if (button) button.click();
       }

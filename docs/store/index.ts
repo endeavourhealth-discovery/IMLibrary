@@ -22,7 +22,8 @@ export default createStore({
       { "@id": IM.DRAFT, severity: "warning" },
       { "@id": IM.INACTIVE, severity: "danger" }
     ],
-    defaultPredicateNames: []
+    defaultPredicateNames: [],
+    textDefinitionStartExpanded: ["Definition"]
   },
   mutations: {
     updateBlockedIris(state, blockedIris) {
