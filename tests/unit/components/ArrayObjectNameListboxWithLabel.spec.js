@@ -19,7 +19,8 @@ describe("ArrayObjectNameListboxWithLabel.vue ___ ontology", () => {
     mockRouter = { push: vi.fn() };
     mockStore = {
       state: {
-        selectedEntityType: "Ontology"
+        selectedEntityType: "Ontology",
+        arrayObjectNameListboxWithLabelStartExpanded: ["Is a"]
       }
     };
 
@@ -150,7 +151,8 @@ describe("ArrayObjectNameListboxWithLabel.vue ___ sets", () => {
     mockRouter = { push: vi.fn() };
     mockStore = {
       state: {
-        selectedEntityType: "Sets"
+        selectedEntityType: "Sets",
+        arrayObjectNameListboxWithLabelStartExpanded: []
       }
     };
 

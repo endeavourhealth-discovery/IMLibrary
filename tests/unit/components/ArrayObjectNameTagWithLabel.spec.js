@@ -2,15 +2,27 @@ import ArrayObjectNameTagWithLabel from "../../../src/components/modules/ArrayOb
 import { shallowMount } from "@vue/test-utils";
 import Tag from "primevue/tag";
 import LoggerService from "../../../src/services/modules/LoggerService";
+import { IM } from "../../../src/vocabulary/IM";
 
 describe("ArraObjectNameTagWithLabel.vue", () => {
   let wrapper;
+  let mockStore;
 
   beforeEach(() => {
     vi.resetAllMocks();
 
+    mockStore = {
+      state: {
+        tagSeverityMatches: [
+          { "@id": IM.ACTIVE, severity: "success" },
+          { "@id": IM.DRAFT, severity: "warning" },
+          { "@id": IM.INACTIVE, severity: "danger" }
+        ]
+      }
+    };
+
     wrapper = shallowMount(ArrayObjectNameTagWithLabel, {
-      global: { components: { Tag } },
+      global: { components: { Tag }, mocks: { $store: mockStore } },
       props: { label: "Status", size: "50%", data: [{ "@id": "http://endhealth.info/im#Active", name: "Active" }] }
     });
   });

@@ -14,9 +14,9 @@ describe("ArrayObjectNameToStringWithLabel.vue", () => {
         data: [
           { "@id": "http://endhealth.info/im#RecordType", name: "Record type" },
           { "@id": "http://www.w3.org/ns/shacl#NodeShape", name: "Node shape" },
-          { "@id": "http://www.w3.org/2002/07/owl#Class", name: "Class" },
-        ],
-      },
+          { "@id": "http://www.w3.org/2002/07/owl#Class", name: "Class" }
+        ]
+      }
     });
   });
 
@@ -33,8 +33,8 @@ describe("ArrayObjectNameToStringWithLabel.vue", () => {
         data: [
           { "@id": "http://endhealth.info/im#RecordType", name: "Record type" },
           { "@id": "http://www.w3.org/ns/shacl#NodeShape", name: "Node shape" },
-          { "@id": "http://www.w3.org/2002/07/owl#Class", name: "Class" },
-        ],
+          { "@id": "http://www.w3.org/2002/07/owl#Class", name: "Class" }
+        ]
       })
     ).toBe("Record type, Data model, Class");
   });
@@ -46,10 +46,10 @@ describe("ArrayObjectNameToStringWithLabel.vue", () => {
           { "@id": "http://endhealth.info/im#RecordType", name: "Record type" },
           {
             "@id": "http://www.w3.org/ns/shacl#NodeShape",
-            typename: "Node shape",
+            typename: "Node shape"
           },
-          { "@id": "http://www.w3.org/2002/07/owl#Class", name: "Class" },
-        ],
+          { "@id": "http://www.w3.org/2002/07/owl#Class", name: "Class" }
+        ]
       })
     ).toBe(undefined);
   });
@@ -62,11 +62,11 @@ describe("ArrayObjectNameToStringWithLabel.vue ___ missing data prop", () => {
     vi.resetAllMocks();
 
     wrapper = shallowMount(ArrayObjectNamesToStringWithLabel, {
-      props: { label: "Types", size: "50%", data: undefined },
+      props: { label: "Types", size: "50%", data: undefined }
     });
   });
 
   it("sets data prop default", () => {
-    expect(wrapper.vm.data).toStrictEqual([]);
+    expect(wrapper.vm.data).toBe(undefined);
   });
 });

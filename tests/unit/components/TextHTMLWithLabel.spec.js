@@ -70,7 +70,7 @@ describe("TextHTMLWithLabel.vue ___ id", () => {
   });
 
   it("can create convertedText", () => {
-    expect(wrapper.vm.convertedText).toBe("");
+    expect(wrapper.vm.convertedText).toBe("None");
   });
 
   // it("renders data", () => {
@@ -92,7 +92,7 @@ describe("TextHTMLWithLabel.vue ___ no data", () => {
   });
 
   it("can create convertedText", () => {
-    expect(wrapper.vm.convertedText).toBe("");
+    expect(wrapper.vm.convertedText).toBe("None");
   });
 
   // it("renders data", () => {
