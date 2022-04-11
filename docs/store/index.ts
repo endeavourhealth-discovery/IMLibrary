@@ -12,9 +12,18 @@ export default createStore({
     currentUser: {} as Models.User,
     isLoggedIn: false as boolean,
     snomedLicenseAccepted: process.isClient ? localStorage.getItem("snomedLicenseAccepted") as string : "false",
+    snomedReturnUrl: "http://localhost:3000/components/snomed-license.html",
     blockedIris: [] as string[],
     selectedEntityType: "",
     conceptActivePanel: 0,
+    arrayObjectNameListboxWithLabelStartExpanded: ["Label"],
+    tagSeverityMatches: [
+      { "@id": IM.ACTIVE, severity: "success" },
+      { "@id": IM.DRAFT, severity: "warning" },
+      { "@id": IM.INACTIVE, severity: "danger" }
+    ],
+    defaultPredicateNames: [],
+    textDefinitionStartExpanded: ["Definition"]
   },
   mutations: {
     updateBlockedIris(state, blockedIris) {
@@ -38,8 +47,8 @@ export default createStore({
     },
     updateConceptActivePanel(state, number) {
       state.conceptActivePanel = number;
-    },
+    }
   },
   actions: {},
-  modules: {},
+  modules: {}
 });

@@ -1,5 +1,5 @@
 <template>
-  <div class="container" :style="{ width: size }">
+  <div class="container" :style="{ width: size }" :id="id">
     <strong class="label">{{ label }}: </strong>
     <span v-if="data && isObjectWithName" class="data break-text">
       {{ data.name }}
@@ -11,11 +11,16 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
-import LoggerService from "../../services/modules/LoggerService"
+import LoggerService from "../../services/modules/LoggerService";
 
 export default defineComponent({
-  name: "TextWithLabel",
-  props: { label: {type:String, required: true}, data: {type:Object, required: false}, size: {type:String, required: true} },
+  name: "ObjectNameWithLabel",
+  props: {
+    label: { type: String, required: true },
+    data: { type: Object, required: true },
+    size: { type: String, default: "100%" },
+    id: { type: String, default: "object-name-with-label" }
+  },
   computed: {
     isObjectWithName(): boolean {
       if (isObjectHasKeys(this.data, ["name"])) {

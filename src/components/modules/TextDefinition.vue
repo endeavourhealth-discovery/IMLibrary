@@ -34,13 +34,13 @@ import { bundleToText } from "../../helpers/modules/Transforms";
 export default defineComponent({
   name: "TextDefinition",
   props: {
-    label: { type: String },
+    label: { type: String, required: true },
     data: {
       type: Object as () => PartialEntity,
-      default: () => null
+      required: true
     },
-    size: { type: String },
-    show: { type: Boolean }
+    size: { type: String, default: "100%" },
+    id: { type: String, default: "text-definition" }
   },
   computed: {
     hasData(): boolean {
@@ -50,7 +50,7 @@ export default defineComponent({
         return false;
       }
     },
-    ...mapState(["blockedIris", "defaultPredicateNames"])
+    ...mapState(["blockedIris", "defaultPredicateNames", "textDefinitionStartExpanded"])
   },
   mounted() {
     this.init();
@@ -68,7 +68,12 @@ export default defineComponent({
       this.loading = true;
       this.getDefinition();
       this.loading = false;
-      if (this.label === "Definition") {
+      this.startExpanded();
+    },
+
+    startExpanded() {
+      if (!Array.isArray(this.textDefinitionStartExpanded)) throw new Error("TextDefinition missing vuex store property 'textDefinitionStartExpanded'");
+      if (this.textDefinitionStartExpanded.includes(this.label)) {
         const button = document.getElementById(`expand-button-${this.label}`) as HTMLElement;
         if (button) button.click();
       }

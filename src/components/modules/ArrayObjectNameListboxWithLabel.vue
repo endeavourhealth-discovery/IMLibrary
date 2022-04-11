@@ -1,5 +1,5 @@
 <template>
-  <div v-if="data && isArrayObjectWithName" :style="{ width: size }">
+  <div v-if="data && isArrayObjectWithName" :id="id" :style="{ width: size }">
     <div class="head-container">
       <strong class="label">{{ label }}: </strong>
       <span>&nbsp;({{ data.length }})</span>
@@ -9,7 +9,7 @@
         :id="'expand-button-' + id"
         @click="setButtonExpanded"
         v-styleclass="{
-          selector: '#' + id,
+          selector: '#listbox-' + id,
           enterClass: 'hidden',
           enterActiveClass: 'my-fadein',
           leaveActiveClass: 'my-fadeout',
@@ -23,7 +23,7 @@
       v-model="selected"
       @change="navigate(selected['@id'])"
       emptyMessage="None"
-      :id="id"
+      :id="'listbox-' + id"
       class="array-listbox hidden"
     >
       <template #option="slotProps">
@@ -40,17 +40,18 @@ import { defineComponent, PropType } from "vue";
 import { RouteRecordName } from "vue-router";
 import { mapState } from "vuex";
 import { isArrayHasLength, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
-import LoggerService from "../../services/modules/LoggerService"
+import LoggerService from "../../services/modules/LoggerService";
 
 export default defineComponent({
   name: "ArrayObjectNameListboxWithLabel",
   props: {
-    label: { type: String },
-    data: { type: Array as PropType<Array<unknown>> },
-    size: { type: String },
-    id: { type: String }
+    label: { type: String, required: true },
+    data: { type: Array as PropType<Array<unknown>>, required: true },
+    size: { type: String, default: "100%", required: false },
+    id: { type: String, default: "array-object-name-listbox-with-label" }
   },
   computed: {
+    ...mapState(["arrayObjectNameListboxWithLabelStartExpanded"]),
     isArrayObjectWithName(): boolean {
       if (!this.data) return false;
       if (!isArrayHasLength(this.data)) return false;
@@ -63,8 +64,7 @@ export default defineComponent({
         );
         return false;
       }
-    },
-    ...mapState(["selectedEntityType"])
+    }
   },
   mounted() {
     this.expandAtStartup();
@@ -90,7 +90,7 @@ export default defineComponent({
     },
 
     expandAtStartup() {
-      if (this.selectedEntityType === "Ontology" && this.label === "Is a") {
+      if (this.arrayObjectNameListboxWithLabelStartExpanded.includes(this.label)) {
         const button = document.getElementById(`expand-button-${this.id}`) as HTMLElement;
         if (button) button.click();
       }

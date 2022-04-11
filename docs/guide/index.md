@@ -1,14 +1,10 @@
 # Getting Started
 
-You may add the usage of the library here.
-
-> If you remove Component B and the [PrimeFaces](https://www.primefaces.org/) (PrimeVue, PrimeIcons and PrimeFlex) dependencies from your library, the setup related to PrimeFaces won't be needed from the guide below.
-
 ## Setup
 
 This setup assumes your client app is created with Vite and vue-ts template, and you use 'npm link' to link to `im-library` locally.
 
-In your `package.json`, you shall have the dependencies compatible with the following:
+In your `package.json`, you should have the following compatible dependencies:
 
 ```json
 "dependencies": {
@@ -40,6 +36,10 @@ import "primeflex/primeflex.css";
 import "im-library/dist/style.css";
 ```
 
+## Importing
+
+### Components
+
 Import components from this library in your own component:
 
 ```html
@@ -47,3 +47,23 @@ Import components from this library in your own component:
   import { ComponentA, ComponentB } from "im-library";
 </script>
 ```
+
+### Types
+
+Import types from this library:
+
+```html
+<script>
+  import { TypeA, TypeB } from "im-library/dist/types/interfaces/Interfaces"
+</script>
+```
+
+### Object unpacking
+
+Import and unpack objects:
+
+```html
+<script>
+  import { Helpers } from "im-library"
+  const { Function1, Function2: { SubFunction1: SubFunction2 } } = Helpers
+</script>

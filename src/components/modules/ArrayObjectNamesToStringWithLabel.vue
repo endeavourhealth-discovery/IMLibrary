@@ -1,5 +1,5 @@
 <template>
-  <div class="container" :style="{ width: size }">
+  <div class="container" :style="{ width: size }" :id="id">
     <strong class="label">{{ label }}: </strong>
     <span class="data-string">
       {{ arrayToString ? arrayToString : "None" }}
@@ -9,25 +9,20 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import {
-  isArrayHasLength,
-  isObjectHasKeys,
-} from "../../helpers/modules/DataTypeCheckers";
+import { isArrayHasLength, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
 import { Vocabulary } from "../../vocabulary";
 
 export default defineComponent({
   name: "ArrayObjectNamesToStringWithLabel",
   props: {
-    label: { type: String },
-    data: { type: Array as PropType<Array<string>>, default: () => [] },
-    size: { type: String },
+    label: { type: String, required: true },
+    data: { type: Array as PropType<Array<string>>, required: true },
+    size: { type: String, default: "100%" },
+    id: { type: String, default: "array-object-names-to-string-with-label" }
   },
   computed: {
     arrayToString(): string | undefined {
-      if (
-        isArrayHasLength(this.data) &&
-        this.data.every((item) => isObjectHasKeys(item, ["name"]))
-      ) {
+      if (isArrayHasLength(this.data) && this.data.every(item => isObjectHasKeys(item, ["name"]))) {
         return this.data
           .map(function (item: any) {
             if (item["@id"] === Vocabulary.SHACL.NODESHAPE) return "Data model";
@@ -37,8 +32,8 @@ export default defineComponent({
       } else {
         return undefined;
       }
-    },
-  },
+    }
+  }
 });
 </script>
 

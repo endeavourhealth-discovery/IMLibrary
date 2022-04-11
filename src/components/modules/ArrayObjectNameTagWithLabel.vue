@@ -1,10 +1,10 @@
 <template>
-  <div class="container" :style="{ width: size }">
+  <div class="container" :style="{ width: size }" :id="id">
     <strong class="label">{{ label }}: </strong>
-    <span v-if="isArrayObject">
+    <div v-if="isArrayObject" class="tag-container">
       <Tag v-for="item of data" :key="item['@id']" :value="item.name" :severity="getSeverity(item)" class="data-tag" />
-    </span>
-    <span v-else class="data">None</span>
+    </div>
+    <span v-else class="tag-container">None</span>
   </div>
 </template>
 
@@ -13,42 +13,36 @@ import { defineComponent, PropType } from "vue";
 import { TTIriRef } from "../../interfaces/Interfaces";
 import { isArrayHasLength, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
 import LoggerService from "../../services/modules/LoggerService";
+import { mapState } from "vuex";
 
 export default defineComponent({
   name: "ArrayObjectNameTagWithLabel",
   props: {
-    label: { type: String },
-    data: { type: Array as PropType<Array<TTIriRef>> },
-    size: String
-  },
-  methods: {
-    getSeverity(item: TTIriRef): string {
-      let result = "info";
-      if (item && isObjectHasKeys(item, ["name"])) {
-        switch (item.name) {
-          case "Active":
-            result = "success";
-            break;
-          case "Draft":
-            result = "warning";
-            break;
-          case "Inactive":
-            result = "danger";
-            break;
-          default:
-            LoggerService.warn("TagWithLabel missing case for severity");
-        }
-      }
-      return result;
-    }
+    label: { type: String, required: true },
+    data: { type: Array as PropType<Array<TTIriRef>>, required: true },
+    size: { type: String, default: "100%" },
+    id: { type: String, default: "array-object-name-tag-with-label" }
   },
   computed: {
+    ...mapState(["tagSeverityMatches"]),
     isArrayObject(): boolean {
       if (this.data && isArrayHasLength(this.data) && isObjectHasKeys(this.data[0], ["@id"])) {
         return true;
       } else {
         return false;
       }
+    }
+  },
+  methods: {
+    getSeverity(item: TTIriRef): string {
+      let result = "info";
+      if (!this.tagSeverityMatches) throw new Error("Missing vuex store property 'tagSeverityMatches'");
+      if (item && isObjectHasKeys(item, ["name"])) {
+        const found = this.tagSeverityMatches.find((severity: { "@id": string; severity: string }) => severity["@id"] === item["@id"]);
+        if (found) result = found.severity;
+        else LoggerService.warn("TagWithLabel missing case for severity");
+      }
+      return result;
     }
   }
 });
@@ -58,9 +52,18 @@ export default defineComponent({
 .container {
   margin: 0;
   padding: 0.25rem 0.5rem 0 0;
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.break-text {
-  word-break: break-all;
+.tag-container {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
 }
 </style>

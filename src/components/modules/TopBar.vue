@@ -42,9 +42,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Button from "primevue/button";
-import OverlayPanel from "primevue/overlaypanel";
-import Menu from "primevue/menu";
 import { AccountItem } from "../../interfaces/modules/AccountItem";
 import { LoginItem } from "../../interfaces/modules/LoginItem";
 import { mapState } from "vuex";
@@ -52,7 +49,6 @@ import { Env } from "../../services";
 
 export default defineComponent({
   name: "TopBar",
-  components: { Menu, Button, OverlayPanel },
   computed: mapState(["currentUser", "isLoggedIn", "authReturnUrl"]),
   mounted() {
     this.setUserMenuItems();

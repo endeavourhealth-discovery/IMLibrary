@@ -97,12 +97,15 @@ describe("TextDefinition.vue ___ data", () => {
     "http://www.w3.org/2002/07/owl#someValuesFrom": "With a value",
     "http://www.w3.org/2002/07/owl#equivalentClass": "Is equivalent to",
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": "Is subclass of"
-  }
+  };
 
   beforeEach(async () => {
     vi.resetAllMocks();
 
-    mockStore = { state: { blockedIris: BLOCKED_IRIS, defaultPredicateNames: DEFAULT_PREDICATE_NAMES }, commit: vi.fn() };
+    mockStore = {
+      state: { blockedIris: BLOCKED_IRIS, defaultPredicateNames: DEFAULT_PREDICATE_NAMES, textDefinitionStartExpanded: ["Definition"] },
+      commit: vi.fn()
+    };
 
     mockButton = { click: vi.fn() };
 
@@ -112,10 +115,8 @@ describe("TextDefinition.vue ___ data", () => {
     wrapper = shallowMount(TextDefinition, {
       global: { components: { Button, ProgressSpinner }, mocks: { $store: mockStore }, directives: { styleclass: StyleClass } },
       props: {
-        data:  BUNDLE,
-        label: "Definition",
-        show: true,
-        size: "100%"
+        data: BUNDLE,
+        label: "Definition"
       }
     });
 
@@ -128,7 +129,6 @@ describe("TextDefinition.vue ___ data", () => {
     expect(wrapper.vm.label).toBe("Definition");
     expect(wrapper.vm.data).toStrictEqual(BUNDLE);
     expect(wrapper.vm.size).toBe("100%");
-    expect(wrapper.vm.show).toBe(true);
     expect(wrapper.vm.buttonExpanded).toBe(false);
     expect(wrapper.vm.count).toBe(0);
     expect(wrapper.vm.definition).toBe(
@@ -190,7 +190,7 @@ describe("TextDefinition.vue ___ no data", () => {
   beforeEach(async () => {
     vi.resetAllMocks();
 
-    mockStore = { state: { blockedIris: [] }, commit: vi.fn() };
+    mockStore = { state: { blockedIris: [], textDefinitionStartExpanded: [] }, commit: vi.fn() };
 
     mockButton = { click: vi.fn() };
 
@@ -217,6 +217,6 @@ describe("TextDefinition.vue ___ no data", () => {
     expect(wrapper.vm.getDefinition).toHaveBeenCalledTimes(1);
     expect(wrapper.vm.loading).toBe(false);
     expect(mockButton.click).not.toHaveBeenCalled();
-    expect(wrapper.vm.data).toBe(null);
+    expect(wrapper.vm.data).toBe(undefined);
   });
 });

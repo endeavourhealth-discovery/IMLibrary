@@ -9,6 +9,7 @@ import TextHTMLWithLabel from "./modules/TextHTMLWithLabel.vue";
 import TextWithLabel from "./modules/TextWithLabel.vue";
 import TextDefinition from "./modules/TextDefinition.vue";
 import TextSectionHeader from "./modules/TextSectionHeader.vue";
+import ObjectNameTagWithLabel from "./modules/ObjectNameTagWithLabel.vue";
 import ObjectNameWithLabel from "./modules/ObjectNameWithLabel.vue";
 import NumberWithLabel from "./modules/NumberWithLabel.vue";
 import TermCodeTable from "./modules/TermCodeTable.vue";
@@ -30,6 +31,7 @@ export {
   TextHTMLWithLabel,
   TextWithLabel,
   TextDefinition,
+  ObjectNameTagWithLabel,
   ObjectNameWithLabel,
   NumberWithLabel,
 
