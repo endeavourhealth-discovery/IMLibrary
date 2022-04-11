@@ -14,10 +14,6 @@ import ObjectNameWithLabel from "./modules/ObjectNameWithLabel.vue";
 import NumberWithLabel from "./modules/NumberWithLabel.vue";
 import TermCodeTable from "./modules/TermCodeTable.vue";
 
-import DraggableClause from './modules/query/DraggableClause.vue';
-import Profile from './modules/query/Profile.vue';
-import QueryDefinition from './modules/query/QueryDefinition.vue';
-
 export {
   ArrayObjectNameTagWithLabel,
   ArrayObjectNamesToStringWithLabel,
@@ -34,8 +30,4 @@ export {
   ObjectNameTagWithLabel,
   ObjectNameWithLabel,
   NumberWithLabel,
-
-  DraggableClause,
-  Profile,
-  QueryDefinition
 };

@@ -62,7 +62,7 @@
     "shx": "^0.3.4",
     "uuid": "^8.3.2",
     "vue-router": "^4.0.14",
-    "vuedraggable": "^2.24.3",
+    "vuedraggable": "^4.1.0",
     "vuex": "^4.0.2"
   }
 }

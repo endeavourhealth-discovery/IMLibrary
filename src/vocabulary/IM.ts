@@ -45,6 +45,7 @@ export class IM {
   public static ORGANISATION = IM.NAMESPACE + "Organisation";
   public static ADDRESS = IM.NAMESPACE + "address";
   public static MODELLING_ENTITY_TYPE = IM.NAMESPACE + "ModellingEntityType";
+  public static PROFILE = IM.NAMESPACE + "Profile";
 
   public static STATS_REPORT_ENTRY = IM.NAMESPACE + "hasStatsReportEntry";
 
