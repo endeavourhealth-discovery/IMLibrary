@@ -71,4 +71,9 @@ export class IM {
 
   // Graphs
   public static GRAPH_EMIS = IM.DOMAIN + "emis#";
+
+  //status options
+  public static ACTIVE = IM.NAMESPACE + "Active";
+  public static DRAFT = IM.NAMESPACE + "Draft";
+  public static INACTIVE = IM.NAMESPACE + "Inactive";
 }

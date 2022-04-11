@@ -1,44 +1,64 @@
 <script setup>
 import Basic from './demo/TopBar/Basic.vue'
+import Content from './demo/TopBar/Content.vue'
 </script>
 
-# Component B
+# Topbar
 
-This component depends on third-party component library for Vue 3:
+## Dependencies
 
-- Component (button) from [PrimeVue](https://www.primefaces.org/primevue/)
+This component depends on third-party component librarys for Vue 3:
+
+- Components (Button, Menu, OverlayPanel) from [PrimeVue](https://www.primefaces.org/primevue/)
 - CSS from [PrimeIcons](https://www.primefaces.org/showcase/icons.xhtml) and [PrimeFlex](https://www.primefaces.org/primeflex/)
+
+## Summary
+
+IM app suite top bar component.
+
+Component comprises start, content and end sections.
+
+* Start: IMLogo with home click functionality
+* Content: Slot for injected content
+* End: IM App selector and User menu
 
 ## Example Usage
 
-Click the buttons to change the count.
+### Basic
 
 <DemoContainer>
-  <ClientOnly>
-    <Basic title="Entity Title"/>
-  </ClientOnly>
+  <Basic/>
 </DemoContainer>
 
 <<< @/components/demo/TopBar/Basic.vue
 
-## Reference
+### Content slot
 
-You may show props, slots, events, methods, etc. using Markdown.
+<DemoContainer>
+  <Content/>
+</DemoContainer>
 
-### Properties
+<<< @/components/demo/TopBar/Content.vue
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-|      |      |         |             |
+
+### Props
+
+None
+
+### Store props
+
+| Name | Type | Description |
+| ---- | ---------- | ----------- |
+|   currentUser   |      User      |      AWS Cognito verified user       |
+| isLoggedIn | Boolean | boolean for currentUser verified |
+| authReturnUrl | string | return URL sent to IMAuth app |
 
 ### Events
 
-| Name | Parameters | Description |
-| ---- | ---------- | ----------- |
-|      |            |             |
+None
 
 ### Slots
 
 | Name | Parameters | Description |
 | ---- | ---------- | ----------- |
-|      |            |             |
+|   Content   |      None      |       Content fits between start and end sections    |

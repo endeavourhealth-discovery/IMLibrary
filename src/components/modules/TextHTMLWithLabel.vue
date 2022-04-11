@@ -1,8 +1,7 @@
 <template>
   <div class="text-html-with-label-container" :style="{ width: size }">
     <strong class="label">{{ label }}: </strong>
-    <span v-if="!data" class="text-html-container">None</span>
-    <div v-else class="text-html-container" v-html="convertedText" :id="id" />
+    <div class="text-html-container" v-html="convertedText" :id="id" />
   </div>
 </template>
 
@@ -12,10 +11,10 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "TextHTMLWithLabel",
   props: {
-    label: { type: String },
-    data: { type: String },
-    size: { type: String },
-    id: { type: String }
+    label: { type: String, required: true },
+    data: { type: String, required: false },
+    size: { type: String, default: "100%" },
+    id: { type: String, default: "text-html-with-label" }
   },
   mounted() {
     this.init();
@@ -27,21 +26,20 @@ export default defineComponent({
   },
   methods: {
     init() {
-      let text = "";
-      if (!this.id) {
+      if (!this.data) {
+        this.convertedText = "None";
         return;
-      } else if (this.data) {
-        text = this.data;
-        if (text.startsWith("<p>")) {
-          text = text.slice(3);
-        }
-        if (this.data.endsWith("<p>")) {
-          text = text.slice(0, -3);
-        }
-        text = text.replace(/<p>/g, "</p><p class='" + this.id + "-p'>");
-        text = text.replace(/\n/g, "</p><p class='" + this.id + "-p'>");
-        this.convertedText = "<p class='" + this.id + "-p'>" + text + "</p>";
       }
+      let text = this.data;
+      if (text.startsWith("<p>")) {
+        text = text.slice(3);
+      }
+      if (this.data.endsWith("<p>")) {
+        text = text.slice(0, -3);
+      }
+      text = text.replace(/<p>/g, "</p><p class='" + this.id + "-p'>");
+      text = text.replace(/\\n/g, "</p><p class='" + this.id + "-p'>");
+      this.convertedText = "<p class='" + this.id + "-p'>" + text + "</p>";
     }
   }
 });

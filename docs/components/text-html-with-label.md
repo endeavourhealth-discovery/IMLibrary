@@ -4,42 +4,28 @@ import Basic from './demo/TextHTMLWithLabel/Basic.vue'
 
 # Text HTML with label
 
-This component depends on third-party component library for Vue 3:
+## Summary
 
-- Component (button) from [PrimeVue](https://www.primefaces.org/primevue/)
-- CSS from [PrimeIcons](https://www.primefaces.org/showcase/icons.xhtml) and [PrimeFlex](https://www.primefaces.org/primeflex/)
+Textbox which replaces `<p>` and `\n` tags with correct HTML tags
 
 ## Example Usage
-
-Click the buttons to change the count.
 
 <DemoContainer>
   <Basic/>
 </DemoContainer>
 
-<<< @/components/demo/TextWithLabel/Basic.vue
+<<< @/components/demo/TextHTMLWithLabel/Basic.vue
 
 ## Reference
 
 You may show props, slots, events, methods, etc. using Markdown.
 
-### Properties
+### Props
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| Data | String| None   | Data as string |
-| Label | String | None | Label of data |
-| Size | String | 100% | CSS width of element |
-| id   | String | None | Html id |
+| Name | Type | Required | Default | Description |
+| ---- | ---- | ---- | ------- | ----------- |
+| Data | String| false | null   | Data as string |
+| Label | String | true | null | Label of data |
+| Size | String | false | "100%" | CSS width of element |
+| id   | String | false | "text-html-with-label" | HTML id |
 
-### Events
-
-| Name | Parameters | Description |
-| ---- | ---------- | ----------- |
-|      |            |             |
-
-### Slots
-
-| Name | Parameters | Description |
-| ---- | ---------- | ----------- |
-|      |            |             |
