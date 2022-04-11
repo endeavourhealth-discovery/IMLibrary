@@ -39,3 +39,5 @@ Start expanded if label is included in vuex store property `textDefinitionStartE
 | Name | Type | Default | Description |
 | ---- | ---- | ---- | ---- |
 | textDefinitionStartExpanded | Array[String] | null | List of Label names to start pre-expanded |
+| blockedIris | Array[String] | null | List of iri strings for hyperlink blocking |
+| defaultPredicateNames | `Object{iri: string}` | null | Object containing iri keys and alternate names as strings |
