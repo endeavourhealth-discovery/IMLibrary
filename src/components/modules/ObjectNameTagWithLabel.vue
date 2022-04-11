@@ -1,7 +1,7 @@
 <template>
   <div class="container" :style="{ width: size }">
     <strong class="label">{{ label }}: </strong>
-    <Tag v-if="isObjectWithName" :value="data.name" :severity="getSeverity" class="data-tag" />
+    <Tag v-if="isObjectWithName" :value="data.name" :severity="getSeverity(data)" class="data-tag" />
     <span v-else class="data">None</span>
   </div>
 </template>
@@ -29,13 +29,14 @@ export default defineComponent({
       } else {
         return false;
       }
-    },
-
-    getSeverity(): string {
+    }
+  },
+  methods: {
+    getSeverity(data: TTIriRef): string {
       let result = "info";
       if (!this.tagSeverityMatches) throw new Error("Missing vuex store property 'tagSeverityMatches'");
-      if (this.data && isObjectHasKeys(this.data, ["name"])) {
-        const found = this.tagSeverityMatches.find((severity: { "@id": string; severity: string }) => severity["@id"] === this.data["@id"]);
+      if (data && isObjectHasKeys(data, ["@id"])) {
+        const found = this.tagSeverityMatches.find((severity: { "@id": string; severity: string }) => severity["@id"] === data["@id"]);
         if (found) result = found.severity;
         else LoggerService.warn("TagWithLabel missing case for severity");
       }
