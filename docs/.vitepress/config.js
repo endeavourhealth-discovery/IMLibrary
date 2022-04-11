@@ -30,6 +30,7 @@ module.exports = {
           { text: "TermCodeTable", link: "/components/term-code-table" },
           { text: "TextDefinition", link: "/components/text-definition" },
           { text: "TextHTMLWithLabel", link: "/components/text-html-with-label" },
+          { text: "TextSectionHeader", link: "/components/text-section-header" },
           { text: "TextWithLabel", link: "/components/text-with-label" },
           { text: "TopBar", link: "/components/top-bar" }
         ]

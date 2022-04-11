@@ -18,7 +18,7 @@ export default defineComponent({
     label: { type: String, required: true },
     data: { type: Array as PropType<Array<string>>, required: true },
     size: { type: String, default: "100%" },
-    id: { type: String, default: "ArrayObjectNamesToStringWithLabel" }
+    id: { type: String, default: "array-object-names-to-string-with-label" }
   },
   computed: {
     arrayToString(): string | undefined {

@@ -32,7 +32,7 @@ Listbox display is toggleable through a vuex store variable `arrayObjectNameList
 | data | Array[Object{name:string}]| false | null   | Array of objects with name key |
 | label | String | true | null | Label of data |
 | size | String | false | "100%" | CSS width of element |
-| id   | String | false | "ArrayObjectNameListboxWithLabel" | HTML id |
+| id   | String | false | "array-object-name-listbox-with-label" | HTML id |
 
 ### Store props
 

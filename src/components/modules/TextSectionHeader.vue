@@ -12,10 +12,10 @@ import { defineComponent } from "@vue/runtime-core";
 export default defineComponent({
   name: "TextSectionHeader",
   props: {
-    label: { type: String },
-    size: { type: String },
-    id: { type: String },
-    show: { type: Boolean }
+    label: { type: String, required: true },
+    size: { type: String, default: "100%" },
+    id: { type: String, default: "text-section-header" },
+    show: { type: Boolean, required: false, default: true }
   }
 });
 </script>

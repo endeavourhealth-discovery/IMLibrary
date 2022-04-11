@@ -21,9 +21,9 @@ Textbox which renders a label and associated number.
 | Name | Type | Required | Default | Description |
 | ---- | ---- | ---- |------- | ----------- |
 | data | number| true | null   | Data as string |
-| label | String | true | "Label | Label of data |
+| label | String | true | null | Label of data |
 | size | String | false | "100%" | CSS width of element |
-| id | String | false | "TextWithLabel | HTML id |
+| id | String | false | "number-with-label | HTML id |
 
 ### Events
 

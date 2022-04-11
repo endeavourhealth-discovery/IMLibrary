@@ -40,7 +40,7 @@ export default defineComponent({
       required: true
     },
     size: { type: String, default: "100%" },
-    id: { type: String, default: "TextDefinition" }
+    id: { type: String, default: "text-definition" }
   },
   computed: {
     hasData(): boolean {

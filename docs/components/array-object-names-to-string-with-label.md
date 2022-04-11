@@ -27,4 +27,4 @@ You may show props, slots, events, methods, etc. using Markdown.
 | data | Array[Object{name:string}]| true | null | Array of objects with name key |
 | label | String | true | null | Label of data |
 | size | String | false | "100%" | CSS width of element |
-| id   | String | false | "ArrayObjectNamesToStringWithLabel" | HTML id |
+| id   | String | false | "array-object-names-to-string-with-label" | HTML id |

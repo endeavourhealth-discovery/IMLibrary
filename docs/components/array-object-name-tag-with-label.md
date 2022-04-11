@@ -36,7 +36,7 @@ You may show props, slots, events, methods, etc. using Markdown.
 | data | Array[Object{TTIriRef}]| true | null | Array of TTIriRef objects |
 | label | String | true | null | Label of data |
 | size | String | "100%" | CSS width of element |
-| id   | String | "ArrayObjectNameTagWithLabel" | HTML id |
+| id   | String | "array-object-name-tag-with-label" | HTML id |
 
 ### Store props
 

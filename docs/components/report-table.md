@@ -31,7 +31,7 @@ Card containing a table with title, subtitle and loading. Processes an array of 
 | subtitle | String | null | card subtitle |
 | tableHeader | String | null | table header |
 | inputData | Array[Object{count: number,label:string}] | [] | table data |
-| id   | String | "ReportTable" | HTML id |
+| id   | String | "report-table" | HTML id |
 
 ### Events
 

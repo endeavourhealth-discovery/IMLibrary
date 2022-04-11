@@ -21,7 +21,7 @@ export default defineComponent({
     label: { type: String, required: true },
     data: { type: Array as PropType<Array<TTIriRef>>, required: true },
     size: { type: String, default: "100%" },
-    id: { type: String, default: "ArrayObjectnameTagWithLabel" }
+    id: { type: String, default: "array-object-name-tag-with-label" }
   },
   computed: {
     ...mapState(["tagSeverityMatches"]),

@@ -11,10 +11,10 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "TextHTMLWithLabel",
   props: {
-    label: { type: String, default: "Description" },
-    data: { type: String, default: "None" },
+    label: { type: String, required: true },
+    data: { type: String, required: false },
     size: { type: String, default: "100%" },
-    id: { type: String, default: "TextHTMLWithLabel" }
+    id: { type: String, default: "text-html-with-label" }
   },
   mounted() {
     this.init();
@@ -26,6 +26,10 @@ export default defineComponent({
   },
   methods: {
     init() {
+      if (!this.data) {
+        this.convertedText = "None";
+        return;
+      }
       let text = this.data;
       if (text.startsWith("<p>")) {
         text = text.slice(3);

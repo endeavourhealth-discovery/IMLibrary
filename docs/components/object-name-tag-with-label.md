@@ -32,7 +32,7 @@ Tag severity is set using vuex store variable `TagSeverityMatches`.
 | data | TTIriRef | true | null   | TTIriRef object |
 | label | String | true | null | Label of data |
 | size | String | false | "100%" | CSS width of element |
-| id   | String | false | "ObjectNameTagWithLabel" | HTML id |
+| id   | String | false | "object-name-tag-with-label" | HTML id |
 
 ### Store props
 

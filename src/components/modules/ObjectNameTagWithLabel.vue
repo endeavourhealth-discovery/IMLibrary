@@ -19,7 +19,7 @@ export default defineComponent({
     label: { type: String, required: true },
     data: { type: Object as PropType<TTIriRef>, required: true },
     size: { type: String, default: "100%" },
-    id: { type: String, default: "ObjectNameTagWithLabel" }
+    id: { type: String, default: "object-name-tag-with-label" }
   },
   computed: {
     ...mapState(["tagSeverityMatches"]),

@@ -30,7 +30,7 @@ export default defineComponent({
     subTitle: { type: String, required: false },
     tableHeader: { type: String, required: false },
     inputData: { type: Array as PropType<Array<any>>, default: [] },
-    id: { type: String, default: "ReportTable" }
+    id: { type: String, default: "report-table" }
   },
   computed: {
     isCorrectInputData(): boolean {

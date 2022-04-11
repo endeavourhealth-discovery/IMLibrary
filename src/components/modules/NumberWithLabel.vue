@@ -14,7 +14,7 @@ export default defineComponent({
     label: { type: String, required: true },
     data: { type: [Number, String], required: true },
     size: { type: String, default: "100%" },
-    id: { type: String, default: "NumberWithLabel" }
+    id: { type: String, default: "number-with-label" }
   },
   computed: {
     asString(): string {

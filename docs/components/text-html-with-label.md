@@ -22,10 +22,10 @@ You may show props, slots, events, methods, etc. using Markdown.
 
 ### Props
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| Data | String| "None"   | Data as string |
-| Label | String | "Description | Label of data |
-| Size | String | "100%" | CSS width of element |
-| id   | String | "TextHTMLWithLabel" | HTML id |
+| Name | Type | Required | Default | Description |
+| ---- | ---- | ---- | ------- | ----------- |
+| Data | String| false | null   | Data as string |
+| Label | String | true | null | Label of data |
+| Size | String | false | "100%" | CSS width of element |
+| id   | String | false | "text-html-with-label" | HTML id |
 
