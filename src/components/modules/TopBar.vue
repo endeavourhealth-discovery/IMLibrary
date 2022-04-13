@@ -33,7 +33,7 @@
         aria-haspopup="true"
         aria-controls="overlay_menu"
       >
-        <img class="avatar-icon" alt="avatar icon" :src="getUrl(currentUser.avatar)" style="width: 1.5rem" />
+        <img class="avatar-icon" alt="avatar icon" :src="getUrl(currentUser.avatar)" style="min-width: 1.75rem" />
       </Button>
       <Menu ref="userMenu" :model="getItems()" :popup="true" />
     </div>
@@ -80,7 +80,7 @@ export default defineComponent({
       (this.$refs.userMenu as any).toggle(event);
     },
     getUrl(item: string): string {
-      const url = new URL(`/src/assets/avatars/${item}`, Env.baseUrl);
+      const url = new URL(`/src/assets/avatars/${item}`, import.meta.url);
       return url.href;
     },
     openAppsOverlay(event: any) {

@@ -16,8 +16,7 @@ const Env = {
     : "/catalogue/",
   viewerUrl: import.meta.env.VITE_VIEWER_URL
     ? (import.meta.env.VITE_VIEWER_URL as string)
-    : "/viewer/",
-  baseUrl: import.meta.url || "http://localhost:8080"
+    : "/viewer/"
 };
 
 Object.freeze(Env);
