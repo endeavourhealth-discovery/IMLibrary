@@ -11,7 +11,7 @@ export default createStore({
     conceptIri: IM.MODULE_ONTOLOGY,
     currentUser: {} as Models.User,
     isLoggedIn: false as boolean,
-    snomedLicenseAccepted: process.isClient ? localStorage.getItem("snomedLicenseAccepted") as string : "false",
+    snomedLicenseAccepted: "false",
     snomedReturnUrl: "http://localhost:3000/components/snomed-license.html",
     blockedIris: [] as string[],
     selectedEntityType: "",
@@ -40,7 +40,6 @@ export default createStore({
     },
     updateSnomedLicenseAccepted(state, status: string) {
       state.snomedLicenseAccepted = status;
-      localStorage.setItem("snomedLicenseAccepted", status);
     },
     updateSelectedEntityType(state, type) {
       state.selectedEntityType = type;
