@@ -39,6 +39,7 @@
     "vitepress": "^0.21.6",
     "vitest": "^0.5.9",
     "vue": "^3.2.25",
+    "vuedraggable": "^4.1.0",
     "vue-tsc": "^0.29.8"
   },
   "files": [
@@ -62,7 +63,6 @@
     "shx": "^0.3.4",
     "uuid": "^8.3.2",
     "vue-router": "^4.0.14",
-    "vuedraggable": "^4.1.0",
     "vuex": "^4.0.2"
   }
 }
