@@ -1,4 +1,4 @@
-import { v4 } from "uuid";
+import uuid from 'uuid-random';
 import _ from "lodash";
 
 import Templates from "./Templates";
@@ -209,7 +209,7 @@ export class Profile extends Entity {
 
                 _definitionTree.push(
                     {
-                        uuid: `urn:uuid:${v4()}`,
+                        uuid: `urn:uuid:${uuid()}`,
                         type: "operator",
                         include: _currentKey != "not",
                         name: _currentKey,
@@ -276,7 +276,7 @@ export class Profile extends Entity {
                 // console.log("currentkey", _currentKey)
 
                 return {
-                    uuid: `urn:uuid:${v4()}`,
+                    uuid: `urn:uuid:${uuid()}`,
                     type: _isMatchClause ? "match" : "operator",
                     include: _include,
                     name: _name,

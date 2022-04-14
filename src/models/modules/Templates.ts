@@ -1,4 +1,4 @@
-import { v4 } from "uuid";
+import uuid from 'uuid-random';
 import _ from "lodash";
 // import jsonpath from "jsonpath";
 
@@ -233,7 +233,7 @@ function phrase(phraseType: string, input: any, references: any[] = []): any {
                         "transformationInput": input
                     },
                 },
-                uuid: `urn:uuid:${v4()}`,
+                uuid: `urn:uuid:${uuid()}`,
             };
 
             return _transformedReferences;
@@ -256,7 +256,7 @@ function phrase(phraseType: string, input: any, references: any[] = []): any {
                         "transformationInput": input
                     },
                 },
-                uuid: `urn:uuid:${v4()}`,
+                uuid: `urn:uuid:${uuid()}`,
 
             };
 
@@ -337,7 +337,7 @@ function reference(targetClause: any, propertyPath = ""): any {
                 "propertyPath": propertyPath
             },
         },
-        uuid: `urn:uuid:${v4()}`,
+        uuid: `urn:uuid:${uuid()}`,
 
     } as any;
 
@@ -428,7 +428,7 @@ const constant = (text: any) => {
         mutable: false,
         data: [],
         meta: {},
-        uuid: `urn:uuid:${v4()}`,
+        uuid: `urn:uuid:${uuid()}`,
     }
 };
 
@@ -776,7 +776,7 @@ const PropertySort = (mainEntity: any, parentClause: any, currentClause: any, ar
 // #todo: add requirements for template matchin
 const CascadingTemplates = [
     {
-        uuid: `urn:uuid:${v4()}`,
+        uuid: `urn:uuid:${uuid()}`,
 
         get: { function: "includeMainEntity", input: [] },
         set: null,
@@ -789,7 +789,7 @@ const CascadingTemplates = [
         data: [],
         children: [
             {
-                uuid: `urn:uuid:${v4()}`,
+                uuid: `urn:uuid:${uuid()}`,
 
                 get: { function: "linkedEntity", input: [] },
                 set: null,
@@ -810,7 +810,7 @@ const CascadingTemplates = [
                 data: [],
                 children: [
                     {
-                        uuid: `urn:uuid:${v4()}`,
+                        uuid: `urn:uuid:${uuid()}`,
 
                         get: { function: "entityProperty", input: [{ paths: ["json", "json.and", "json.or", "json.not"] }] },
                         set: null,
@@ -838,7 +838,7 @@ const CascadingTemplates = [
                         children: []
                     },
                     {
-                        uuid: `urn:uuid:${v4()}`,
+                        uuid: `urn:uuid:${uuid()}`,
 
                         get: { function: "PropertySort", input: [] },
                         set: null,
@@ -885,7 +885,7 @@ const CascadingTemplates = [
                 ]
             },
             {
-                uuid: `urn:uuid:${v4()}`,
+                uuid: `urn:uuid:${uuid()}`,
 
                 get: { function: 'hasProfile', input: [] },
                 set: null,
