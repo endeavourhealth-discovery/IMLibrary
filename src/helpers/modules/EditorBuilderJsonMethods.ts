@@ -3,12 +3,7 @@ import { ComponentDetails } from "../../interfaces/modules/ComponentDetails";
 import { ComponentType } from "../../enums/modules/ComponentType";
 import { NextComponentSummary } from "../../interfaces/modules/NextComponentSummary";
 
-export function generateNewComponent(
-  type: ComponentType,
-  position: number,
-  data: any,
-  builderType: BuilderType
-) {
+export function generateNewComponent(type: ComponentType, position: number, data: any, builderType: BuilderType, showButtons: boolean) {
   let result;
   switch (type) {
     case ComponentType.LOGIC:
@@ -19,6 +14,7 @@ export function generateNewComponent(
         type: ComponentType.LOGIC,
         json: {},
         builderType: builderType,
+        showButtons: showButtons
       };
       break;
     case ComponentType.ENTITY:
@@ -29,6 +25,7 @@ export function generateNewComponent(
         type: ComponentType.ENTITY,
         json: {},
         builderType: builderType,
+        showButtons: showButtons
       };
       break;
     case ComponentType.QUANTIFIER:
@@ -39,6 +36,7 @@ export function generateNewComponent(
         type: ComponentType.QUANTIFIER,
         json: {},
         builderType: builderType,
+        showButtons: showButtons
       };
       break;
     case ComponentType.REFINEMENT:
@@ -49,6 +47,7 @@ export function generateNewComponent(
         type: ComponentType.REFINEMENT,
         json: {},
         builderType: builderType,
+        showButtons: showButtons
       };
       break;
     default:
@@ -57,23 +56,18 @@ export function generateNewComponent(
   return result;
 }
 
-export function genNextOptions(
-  position: number,
-  previous: ComponentType,
-  builderType: BuilderType,
-  group?: ComponentType
-): ComponentDetails {
+export function genNextOptions(position: number, previous: ComponentType, builderType: BuilderType, group?: ComponentType): ComponentDetails {
   return {
     id: "addNext_" + (position + 1),
     value: {
       previousPosition: position,
       previousComponentType: previous,
-      parentGroup: group,
+      parentGroup: group
     },
     position: position + 1,
     type: ComponentType.ADD_NEXT,
     json: {},
-    builderType: builderType,
+    builderType: builderType
   };
 }
 
@@ -83,15 +77,8 @@ export function updatePositions(build: ComponentDetails[]) {
   });
 }
 
-export function deleteItem(
-  itemToDelete: ComponentDetails,
-  build: ComponentDetails[],
-  parentGroup: ComponentType,
-  builderType: BuilderType
-) {
-  const index = build.findIndex(
-    (buildItem) => buildItem.position === itemToDelete.position
-  );
+export function deleteItem(itemToDelete: ComponentDetails, build: ComponentDetails[], parentGroup: ComponentType, builderType: BuilderType) {
+  const index = build.findIndex(buildItem => buildItem.position === itemToDelete.position);
   const length = build.length;
   if (itemToDelete.position === 0) {
     if (build.length > 1) {
@@ -101,12 +88,7 @@ export function deleteItem(
     }
   } else {
     if (index === length - 1) {
-      build[index] = genNextOptions(
-        index - 1,
-        build[index - 1].type,
-        builderType,
-        parentGroup
-      );
+      build[index] = genNextOptions(index - 1, build[index - 1].type, builderType, parentGroup);
     } else {
       if (build[index - 1].type === ComponentType.ADD_NEXT) {
         build.splice(index, 1);
@@ -121,39 +103,22 @@ export function deleteItem(
   updatePositions(build);
 }
 
-export function updateItem(
-  itemToUpdate: ComponentDetails,
-  build: ComponentDetails[]
-) {
-  const index = build.findIndex(
-    (buildItem) => buildItem.position === itemToUpdate.position
-  );
+export function updateItem(itemToUpdate: ComponentDetails, build: ComponentDetails[]) {
+  const index = build.findIndex(buildItem => buildItem.position === itemToUpdate.position);
   build[index] = itemToUpdate;
 }
 
-export function addNextOptions(
-  previousComponent: NextComponentSummary,
-  build: ComponentDetails[],
-  builderType: BuilderType
-): ComponentDetails {
+export function addNextOptions(previousComponent: NextComponentSummary, build: ComponentDetails[], builderType: BuilderType): ComponentDetails {
   const nextOptionsComponent = genNextOptions(
     previousComponent.previousPosition,
     previousComponent.previousComponentType,
     builderType,
     previousComponent.parentGroup
   );
-  if (
-    previousComponent.previousPosition !== build.length - 1 &&
-    build[previousComponent.previousPosition + 1].type ===
-      ComponentType.ADD_NEXT
-  ) {
+  if (previousComponent.previousPosition !== build.length - 1 && build[previousComponent.previousPosition + 1].type === ComponentType.ADD_NEXT) {
     build[previousComponent.previousPosition + 1] = nextOptionsComponent;
   } else {
-    build.splice(
-      previousComponent.previousPosition + 1,
-      0,
-      nextOptionsComponent
-    );
+    build.splice(previousComponent.previousPosition + 1, 0, nextOptionsComponent);
   }
   updatePositions(build);
   return nextOptionsComponent;
@@ -167,27 +132,12 @@ export function scrollIntoView(component: ComponentDetails) {
 export function addItem(
   itemToAdd: { selectedType: ComponentType; position: number; value: any },
   build: ComponentDetails[],
-  parentGroup: ComponentType,
-  builderType: BuilderType
+  builderType: BuilderType,
+  showButtons: boolean
 ) {
-  const newComponent = generateNewComponent(
-    itemToAdd.selectedType,
-    itemToAdd.position,
-    itemToAdd.value,
-    builderType
-  );
+  const newComponent = generateNewComponent(itemToAdd.selectedType, itemToAdd.position, itemToAdd.value, builderType, showButtons);
   if (!newComponent) return;
   build[itemToAdd.position] = newComponent;
-  if (build[build.length - 1].type !== ComponentType.ADD_NEXT) {
-    build.push(
-      genNextOptions(
-        build.length - 1,
-        build[build.length - 1].type,
-        builderType,
-        parentGroup
-      )
-    );
-  }
   updatePositions(build);
 }
 
@@ -199,5 +149,5 @@ export default {
   deleteItem,
   addItem,
   addNextOptions,
-  scrollIntoView,
+  scrollIntoView
 };
