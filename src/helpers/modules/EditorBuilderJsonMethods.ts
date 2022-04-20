@@ -137,7 +137,7 @@ export function addItem(
 ) {
   const newComponent = generateNewComponent(itemToAdd.selectedType, itemToAdd.position, itemToAdd.value, builderType, showButtons);
   if (!newComponent) return;
-  build[itemToAdd.position] = newComponent;
+  build.splice(itemToAdd.position, 0, newComponent);
   updatePositions(build);
 }
 
