@@ -99,23 +99,23 @@ describe("ConceptTypeMethods", () => {
     });
 
     it("returns correct colour for property", () => {
-      expect(getColourFromType(testPropertyType)).toBe("#d9212088");
+      expect(getColourFromType(testPropertyType)).toBe("#e68a3388");
     });
 
     it("returns correct colour for valueset", () => {
-      expect(getColourFromType(testSetType)).toBe("#62ac9a88");
+      expect(getColourFromType(testSetType)).toBe("#519cb888");
     });
 
     it("returns correct colour for folder", () => {
-      expect(getColourFromType(testFolder)).toBe("#4063b088");
+      expect(getColourFromType(testFolder)).toBe("#3f51a388");
     });
 
     it("returns correct colour for query", () => {
-      expect(getColourFromType(testQueryType)).toBe("#abbe5188");
+      expect(getColourFromType(testQueryType)).toBe("#83ba6d88");
     });
 
     it("returns correct colour for default no type", () => {
-      expect(getColourFromType([])).toBe("#e39a3688");
+      expect(getColourFromType([])).toBe("#c3ba4588");
     });
   });
 });
