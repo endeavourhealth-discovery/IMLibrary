@@ -7,22 +7,14 @@ import { TTIriRef } from "../../interfaces/modules/TTIriRef";
 import { Vocabulary } from "../../vocabulary/index";
 import palette from "google-palette";
 
-export function isOfTypes(
-  conceptTypeElements: TTIriRef[],
-  ...types: string[]
-): boolean {
+export function isOfTypes(conceptTypeElements: TTIriRef[], ...types: string[]): boolean {
   if (!conceptTypeElements || !conceptTypeElements.length) {
     return false;
   }
   let found = false;
   let index = 0;
   while (!found && index < types.length) {
-    if (
-      conceptTypeElements.some(
-        (e: any) =>
-          e.iri === types[index] || e[Vocabulary.IM.IRI] === types[index]
-      )
-    ) {
+    if (conceptTypeElements.some((e: any) => e.iri === types[index] || e[Vocabulary.IM.IRI] === types[index])) {
       found = true;
     }
     index++;
@@ -65,6 +57,9 @@ export function getFAIconFromType(conceptTypes: TTIriRef[]): string[] {
   if (isOfTypes(conceptTypes, Vocabulary.SHACL.NODESHAPE)) {
     return ["fas", "project-diagram"];
   }
+  if (isOfTypes(conceptTypes, Vocabulary.IM.TASK)) {
+    return ["fas", "clipboard-check"];
+  }
   if (isProperty(conceptTypes)) {
     return ["far", "edit"];
   }
@@ -81,10 +76,13 @@ export function getFAIconFromType(conceptTypes: TTIriRef[]): string[] {
 }
 
 export function getColourFromType(conceptTypes: TTIriRef[]): string {
-  const bgs = palette("tol-rainbow", 6);
+  const bgs = palette("tol-rainbow", 7);
   const bgsFixed = bgs.map((color: string) => "#" + color + "88");
   if (isOfTypes(conceptTypes, Vocabulary.SHACL.NODESHAPE)) {
     return bgsFixed[0];
+  }
+  if (isOfTypes(conceptTypes, Vocabulary.IM.TASK)) {
+    return bgsFixed[6];
   }
   if (isProperty(conceptTypes)) {
     return bgsFixed[5];
@@ -103,7 +101,7 @@ export function getColourFromType(conceptTypes: TTIriRef[]): string {
 
 export function getNamesAsStringFromTypes(typeList: TTIriRef[]) {
   return typeList
-    .map((type) => {
+    .map(type => {
       if (type["@id"] === Vocabulary.SHACL.NODESHAPE) {
         return "Data model";
       } else return type.name;
@@ -121,5 +119,5 @@ export default {
   isRecordModel,
   getColourFromType,
   getFAIconFromType,
-  getNamesAsStringFromTypes,
+  getNamesAsStringFromTypes
 };
