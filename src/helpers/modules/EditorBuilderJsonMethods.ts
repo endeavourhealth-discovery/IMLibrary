@@ -50,8 +50,30 @@ export function generateNewComponent(type: ComponentType, position: number, data
         showButtons: showButtons
       };
       break;
-    default:
+    case ComponentType.DEFINITION:
+      result = {
+        id: ComponentType.DEFINITION + "_" + position,
+        value: data,
+        position: position,
+        type: ComponentType.DEFINITION,
+        json: {},
+        builderType: builderType,
+        showButtons: showButtons
+      };
       break;
+    case ComponentType.HAS_MEMBERS:
+      result = {
+        id: ComponentType.HAS_MEMBERS + "_" + position,
+        value: data,
+        position: position,
+        type: ComponentType.HAS_MEMBERS,
+        json: {},
+        builderType: builderType,
+        showButtons: showButtons
+      };
+      break;
+    default:
+      throw new Error(`helper function generateNewComponent encountered an unexpected component type: ${type}`);
   }
   return result;
 }
