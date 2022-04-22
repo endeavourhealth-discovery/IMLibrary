@@ -61,12 +61,12 @@ export function generateNewComponent(type: ComponentType, position: number, data
         showButtons: showButtons
       };
       break;
-    case ComponentType.HAS_MEMBERS:
+    case ComponentType.HAS_MEMBER:
       result = {
-        id: ComponentType.HAS_MEMBERS + "_" + position,
+        id: ComponentType.HAS_MEMBER + "_" + position,
         value: data,
         position: position,
-        type: ComponentType.HAS_MEMBERS,
+        type: ComponentType.HAS_MEMBER,
         json: {},
         builderType: builderType,
         showButtons: showButtons

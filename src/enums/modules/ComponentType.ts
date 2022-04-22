@@ -4,7 +4,7 @@ export enum ComponentType {
   ADD_NEXT = "AddNext",
   BUILDER = "Builder",
   DEFINITION = "Definition",
-  HAS_MEMBERS = "HasMembers",
+  HAS_MEMBER = "HasMember",
   REFINEMENT = "Refinement",
   QUANTIFIER = "Quantifier"
 }
