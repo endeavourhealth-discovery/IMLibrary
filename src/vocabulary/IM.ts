@@ -18,6 +18,7 @@ export class IM {
   public static DEFINITION = IM.NAMESPACE + "definition";
   public static USAGE_STATS = IM.NAMESPACE + "usageStats";
   public static HAS_TERM_CODE = IM.NAMESPACE + "hasTermCode";
+  public static IN_TASK = IM.NAMESPACE + "inTask";
 
   // mapping
   public static HAS_MAP = IM.NAMESPACE + "hasMap";
@@ -46,6 +47,7 @@ export class IM {
   public static ADDRESS = IM.NAMESPACE + "address";
   public static MODELLING_ENTITY_TYPE = IM.NAMESPACE + "ModellingEntityType";
   public static PROFILE = IM.NAMESPACE + "Profile";
+  public static TASK = IM.NAMESPACE + "Task";
 
   public static STATS_REPORT_ENTRY = IM.NAMESPACE + "hasStatsReportEntry";
 
@@ -55,6 +57,7 @@ export class IM {
   public static MODULE_CATALOGUE = IM.NAMESPACE + "Catalogue";
   public static MODULE_QUERIES = IM.NAMESPACE + "QT_QueryTemplates";
   public static MODULE_IM = IM.NAMESPACE + "InformationModel";
+  public static MODULE_TASKS = IM.NAMESPACE + "Tasks";
 
   // Stats reports
   public static CONCEPT_CATEGORY = IM.NAMESPACE + "ontologyOverview";

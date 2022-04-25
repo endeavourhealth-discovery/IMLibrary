@@ -24,6 +24,7 @@ module.exports = {
           { text: "NumberWithLabel", link: "/components/number-with-label" },
           { text: "ObjectNameTagWithLabel", link: "/components/object-name-tag-with-label" },
           { text: "ObjectNameWithLabel", link: "/components/object-name-with-label" },
+          { text: "ProfileDisplay", link: "/components/profile-display" },
           { text: "ReportTable", link: "/components/report-table" },
           { text: "SectionDivider", link: "/components/section-divider" },
           { text: "SnomedLicense", link: "/components/snomed-license" },
