@@ -4,4 +4,4 @@ import Env from "./modules/Env";
 export default {
   Env,
   LoggerService
-}
+};
