@@ -3,7 +3,13 @@ import { ComponentDetails } from "../../interfaces/modules/ComponentDetails";
 import { ComponentType } from "../../enums/modules/ComponentType";
 import { NextComponentSummary } from "../../interfaces/modules/NextComponentSummary";
 
-export function generateNewComponent(type: ComponentType, position: number, data: any, builderType: BuilderType, showButtons: boolean) {
+export function generateNewComponent(
+  type: ComponentType,
+  position: number,
+  data: any,
+  builderType: BuilderType,
+  showButtons: { minus: boolean; plus: boolean }
+) {
   let result;
   switch (type) {
     case ComponentType.LOGIC:
@@ -155,7 +161,7 @@ export function addItem(
   itemToAdd: { selectedType: ComponentType; position: number; value: any },
   build: ComponentDetails[],
   builderType: BuilderType,
-  showButtons: boolean
+  showButtons: { minus: boolean; plus: boolean }
 ) {
   const newComponent = generateNewComponent(itemToAdd.selectedType, itemToAdd.position, itemToAdd.value, builderType, showButtons);
   if (!newComponent) return;
