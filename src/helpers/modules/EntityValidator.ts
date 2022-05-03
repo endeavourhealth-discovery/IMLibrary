@@ -27,21 +27,31 @@ export function hasValidTypes(entity: any): boolean {
 }
 
 export function hasValidStatus(entity: any): boolean {
-  if (!isObjectHasKeys(entity, [IM.STATUS])) return false;
-  if (!isArrayHasLength(entity[IM.STATUS])) return false;
-  if (!entity[IM.STATUS].every((status: TTIriRef) => isTTIriRef(status))) return false;
-  if (!entity[IM.STATUS].every((status: TTIriRef) => validStatus.includes(status["@id"]))) return false;
+  if (!isObjectHasKeys(entity, [IM.HAS_STATUS])) return false;
+  if (!isArrayHasLength(entity[IM.HAS_STATUS])) return false;
+  if (!entity[IM.HAS_STATUS].every((status: TTIriRef) => isTTIriRef(status))) return false;
+  if (!entity[IM.HAS_STATUS].every((status: TTIriRef) => validStatus.includes(status["@id"]))) return false;
   return true;
 }
 
 export function hasValidParents(entity: any): boolean {
   if (!isObjectHasKeys(entity, [IM.IS_CONTAINED_IN]) && !isObjectHasKeys(entity, [IM.IS_A]) && !isObjectHasKeys(entity, [RDFS.SUBCLASS_OF])) return false;
   if (isObjectHasKeys(entity, [IM.IS_CONTAINED_IN])) {
-    if (!isArrayHasLength(entity[IM.IS_CONTAINED_IN]) || !isObjectHasKeys(entity[IM.IS_CONTAINED_IN][0], ["@id", "name"])) return false;
+    if (!isArrayHasLength(entity[IM.IS_CONTAINED_IN]) || !entity[IM.IS_CONTAINED_IN].every((parent: unknown) => isTTIriRef(parent))) return false;
+  }
+  if (isObjectHasKeys(entity, [IM.IS_A])) {
+    if (!isArrayHasLength(entity[IM.IS_A]) || !entity[IM.IS_A].every((parent: unknown) => isTTIriRef(parent))) return false;
+  }
+  if (isObjectHasKeys(entity, [RDFS.SUBCLASS_OF])) {
+    if (!isArrayHasLength(entity[RDFS.SUBCLASS_OF]) || !entity[RDFS.SUBCLASS_OF].every((parent: unknown) => isTTIriRef(parent))) return false;
   }
   return true;
 }
 
 export default {
-  hasValidIri
+  hasValidIri,
+  hasValidName,
+  hasValidParents,
+  hasValidStatus,
+  hasValidTypes
 };
