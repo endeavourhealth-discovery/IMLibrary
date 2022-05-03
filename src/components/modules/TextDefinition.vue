@@ -27,16 +27,17 @@
 <script lang="ts">
 import { defineComponent } from "@vue/runtime-core";
 import { mapState } from "vuex";
-import { TTBundle, PartialEntity } from "../../interfaces/Interfaces";
+import { TTBundle } from "../../interfaces/Interfaces";
 import { isArrayHasLength, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
 import { bundleToText } from "../../helpers/modules/Transforms";
+import { isTTBundle } from "../../helpers/modules/TypeGuards";
 
 export default defineComponent({
   name: "TextDefinition",
   props: {
     label: { type: String, required: true },
     data: {
-      type: Object as () => PartialEntity,
+      type: Object as () => TTBundle,
       required: true
     },
     size: { type: String, default: "100%" },
@@ -44,7 +45,7 @@ export default defineComponent({
   },
   computed: {
     hasData(): boolean {
-      if (isObjectHasKeys(this.data, ["entity", "predicates"]) && isObjectHasKeys(this.data.entity)) {
+      if (isTTBundle(this.data) && isObjectHasKeys(this.data.entity)) {
         return true;
       } else {
         return false;

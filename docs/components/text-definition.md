@@ -13,7 +13,7 @@ This component depends on third-party component librarys for Vue 3:
 
 ## Summary
 
-Renders a PartialEntity into a readable display with labels replacing iris.
+Renders a TTBundle into a readable display with labels replacing iris.
 
 Start expanded if label is included in vuex store property `textDefinitionStartExpanded`.
 
@@ -29,7 +29,7 @@ Start expanded if label is included in vuex store property `textDefinitionStartE
 
 | Name | Type | Required | Default | Description |
 | ---- | ---- | ---- |------- | ----------- |
-| data | PartialEntity | true | null | Definition as PartialEntity |
+| data | TTBundle | true | null | Definition as TTBundle |
 | label | String | true | null | Label of data |
 | size | String | false | "100%" | CSS width of element |
 | id   | String | false | "TextDefinition" | HTML id |

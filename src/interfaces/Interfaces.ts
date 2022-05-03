@@ -29,8 +29,6 @@ import { MatchPattern } from "./modules/MatchPattern";
 import { ModuleItem } from "./modules/ModuleItem";
 import { Namespace } from "./modules/Namespace";
 import { NextComponentSummary } from "./modules/NextComponentSummary";
-import { PartialBundle } from "./modules/PartialBundle";
-import { PartialEntity } from "./modules/PartialEntity";
 import { ProcessedDataModelProperty } from "./modules/ProcessedDataModelProperty";
 import { RecentActivityItem } from "./modules/RecentActivityItem";
 import { SearchResponse } from "./modules/SearchResponse";
@@ -80,8 +78,6 @@ export {
   type ModuleItem,
   type Namespace,
   type NextComponentSummary,
-  type PartialBundle,
-  type PartialEntity,
   type ProcessedDataModelProperty,
   type RecentActivityItem,
   type SearchResponse,
@@ -97,5 +93,5 @@ export {
   type TTIriRef,
   type UPRN,
   type UprnSearchResponse,
-  type ValueSetMember,
+  type ValueSetMember
 };

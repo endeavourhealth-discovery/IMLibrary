@@ -9,6 +9,8 @@ import Sorters from "./modules/Sorters";
 import Transforms from "./modules/Transforms";
 import UserMethods from "./modules/UserMethods";
 import EditorBuilderJsonMethods from "./modules/EditorBuilderJsonMethods";
+import TypeGuards from "./modules/TypeGuards";
+import EntityValidator from "./modules/EntityValidator";
 
 export default {
   ChartRescale,
@@ -21,5 +23,7 @@ export default {
   Sorters,
   Transforms,
   UserMethods,
-  EditorBuilderJsonMethods
+  EditorBuilderJsonMethods,
+  TypeGuards,
+  EntityValidator
 };
