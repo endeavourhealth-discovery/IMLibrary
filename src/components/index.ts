@@ -17,6 +17,7 @@ import TermCodeTable from "./modules/TermCodeTable.vue";
 import DraggableClause from "./modules/DraggableClause.vue";
 import QueryDefinition from "./modules/QueryDefinition.vue";
 import ProfileDisplay from "./modules/ProfileDisplay.vue";
+import SecondaryTree from "./modules/SecondaryTree.vue";
 
 export {
   AccessDenied,
@@ -37,5 +38,6 @@ export {
   NumberWithLabel,
   DraggableClause,
   QueryDefinition,
-  ProfileDisplay
+  ProfileDisplay,
+  SecondaryTree
 };
