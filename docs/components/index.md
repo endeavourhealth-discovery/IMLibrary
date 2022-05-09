@@ -12,7 +12,7 @@ The available components are listed here with demo's available:
 - [SectionDivider](/components/section-divider) - Divider with show/hide functionality.
 - [SnomedLicense](/components/snomed-license) - snomed license.
 - [TermCodeTable](/components/term-code-table) - wrapper for primevue table to show term codes with name and code columns.
-- [TextDefinition](/components/text-definition) - processes `PartialEntity` object into easily readable version with a label and expander.
+- [TextDefinition](/components/text-definition) - processes `TTBundle` object into easily readable version with a label and expander.
 - [TextHTMLWithLabel](/components/text-html-with-label) - text with label which processes simple html tags.
 - [TextSectionHeader](/components/text-section-header) - header wrapper with show/hide functionality.
 - [TextWithLabel](/components/text-with-label) - text with label.

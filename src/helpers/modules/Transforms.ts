@@ -3,6 +3,7 @@ import { TTIriRef } from "../../interfaces/Interfaces";
 import { IM } from "../../vocabulary/IM";
 import { RDFS } from "../../vocabulary/RDFS";
 import { isArrayHasLength, isObjectHasKeys } from "./DataTypeCheckers";
+import { iriToUrl } from "./Converters";
 
 // min 2 characters
 const indentSize = "  ";
@@ -72,7 +73,7 @@ export function ttIriToString(
   let result = "";
   if (!inline) result += pad;
   if (withHyperlinks && (!blockedUrlIris || !blockedUrlIris.includes(iri["@id"]))) {
-    const escapedUrl = iri["@id"].replace(/\//gi, "%2F").replace(/#/gi, "%23");
+    const escapedUrl = iriToUrl(iri["@id"]);
     result += `<a target="_blank" href="${window.location.origin}${appPath}/#/concept/${escapedUrl}">`;
   }
   if (iri.name) result += removeEndBrackets(iri.name);

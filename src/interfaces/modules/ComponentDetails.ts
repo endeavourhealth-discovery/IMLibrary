@@ -8,4 +8,5 @@ export interface ComponentDetails {
   type: ComponentType;
   json: any;
   builderType: BuilderType;
+  showButtons?: { minus: boolean; plus: boolean };
 }

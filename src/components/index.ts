@@ -1,3 +1,4 @@
+import AccessDenied from "./modules/AccessDenied.vue";
 import ArrayObjectNameTagWithLabel from "./modules/ArrayObjectNameTagWithLabel.vue";
 import ArrayObjectNamesToStringWithLabel from "./modules/ArrayObjectNamesToStringWithLabel.vue";
 import ArrayObjectNameListboxWithLabel from "./modules/ArrayObjectNameListboxWithLabel.vue";
@@ -19,6 +20,7 @@ import ProfileDisplay from "./modules/ProfileDisplay.vue";
 import SecondaryTree from "./modules/SecondaryTree.vue";
 
 export {
+  AccessDenied,
   ArrayObjectNameTagWithLabel,
   ArrayObjectNamesToStringWithLabel,
   ArrayObjectNameListboxWithLabel,
