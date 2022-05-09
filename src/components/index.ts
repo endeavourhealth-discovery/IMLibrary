@@ -1,3 +1,4 @@
+import AccessDenied from "./modules/AccessDenied.vue";
 import ArrayObjectNameTagWithLabel from "./modules/ArrayObjectNameTagWithLabel.vue";
 import ArrayObjectNamesToStringWithLabel from "./modules/ArrayObjectNamesToStringWithLabel.vue";
 import ArrayObjectNameListboxWithLabel from "./modules/ArrayObjectNameListboxWithLabel.vue";
@@ -13,11 +14,12 @@ import ObjectNameTagWithLabel from "./modules/ObjectNameTagWithLabel.vue";
 import ObjectNameWithLabel from "./modules/ObjectNameWithLabel.vue";
 import NumberWithLabel from "./modules/NumberWithLabel.vue";
 import TermCodeTable from "./modules/TermCodeTable.vue";
-import DraggableClause from './modules/DraggableClause.vue';
-import QueryDefinition from './modules/QueryDefinition.vue';
-import ProfileDisplay from './modules/ProfileDisplay.vue';
+import DraggableClause from "./modules/DraggableClause.vue";
+import QueryDefinition from "./modules/QueryDefinition.vue";
+import ProfileDisplay from "./modules/ProfileDisplay.vue";
 
 export {
+  AccessDenied,
   ArrayObjectNameTagWithLabel,
   ArrayObjectNamesToStringWithLabel,
   ArrayObjectNameListboxWithLabel,
