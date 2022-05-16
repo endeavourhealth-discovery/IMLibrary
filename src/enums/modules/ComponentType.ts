@@ -6,5 +6,6 @@ export enum ComponentType {
   DEFINITION = "Definition",
   HAS_MEMBER = "HasMember",
   REFINEMENT = "Refinement",
-  QUANTIFIER = "Quantifier"
+  QUANTIFIER = "Quantifier",
+  PROPERTY = "Property"
 }

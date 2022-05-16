@@ -11,6 +11,7 @@ import UserMethods from "./modules/UserMethods";
 import EditorBuilderJsonMethods from "./modules/EditorBuilderJsonMethods";
 import TypeGuards from "./modules/TypeGuards";
 import EntityValidator from "./modules/EntityValidator";
+import EclSearchBuilderMethods from "./modules/EclSearchBuilderMethods.ts";
 
 export default {
   ChartRescale,
@@ -25,5 +26,6 @@ export default {
   UserMethods,
   EditorBuilderJsonMethods,
   TypeGuards,
-  EntityValidator
+  EntityValidator,
+  EclSearchBuilderMethods
 };
