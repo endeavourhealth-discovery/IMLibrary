@@ -1,5 +1,6 @@
 import AccessDenied from "./modules/AccessDenied.vue";
 import PageNotFound from "./modules/PageNotFound.vue";
+import EntityNotFound from "./modules/EntityNotFound.vue";
 import ArrayObjectNameTagWithLabel from "./modules/ArrayObjectNameTagWithLabel.vue";
 import ArrayObjectNamesToStringWithLabel from "./modules/ArrayObjectNamesToStringWithLabel.vue";
 import ArrayObjectNameListboxWithLabel from "./modules/ArrayObjectNameListboxWithLabel.vue";
@@ -23,6 +24,7 @@ import SecondaryTree from "./modules/SecondaryTree.vue";
 export {
   AccessDenied,
   PageNotFound,
+  EntityNotFound,
   ArrayObjectNameTagWithLabel,
   ArrayObjectNamesToStringWithLabel,
   ArrayObjectNameListboxWithLabel,
