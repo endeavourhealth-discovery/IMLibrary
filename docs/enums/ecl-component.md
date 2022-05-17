@@ -2,7 +2,7 @@
 import Basic from './demo/ECLComponent/Basic.vue'
 </script>
 
-# AppEnum
+# ECLComponent
 
 ## Summary
 
