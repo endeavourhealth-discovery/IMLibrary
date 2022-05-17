@@ -56,6 +56,17 @@ export function generateNewComponent(
         showButtons: showButtons
       };
       break;
+    case ComponentType.PROPERTY:
+      result = {
+        id: ComponentType.PROPERTY + "_" + position,
+        value: data,
+        position: position,
+        type: ComponentType.PROPERTY,
+        json: {},
+        builderType: builderType,
+        showButtons: showButtons
+      };
+      break;
     case ComponentType.DEFINITION:
       result = {
         id: ComponentType.DEFINITION + "_" + position,
