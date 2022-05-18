@@ -2,7 +2,7 @@
   <div v-if="data && isArrayObjectWithName" :id="id" :style="{ width: size }">
     <div class="head-container">
       <strong class="label">{{ label }}: </strong>
-      <span v-if="predicate === 'subtypes'">&nbsp;({{ totalCount }})</span>
+      <span v-if="totalCount[predicate] !== null">&nbsp;({{ totalCount[predicate] }})</span>
       <span v-else>&nbsp;({{ data.length }})</span>
       <Button
         :icon="buttonExpanded ? 'pi pi-minus' : 'pi pi-plus'"
@@ -33,7 +33,7 @@
         </div>
       </template>
       <template #footer>
-        <Button v-if="predicate === 'subtypes' && visible" label="Load more" class="p-button-text p-button-plain" @click="loadMore()"/>
+        <Button v-if="totalCount[predicate] !== null && visible" label="Load more..." class="p-button-text p-button-plain" @click="loadMore()"/>
       </template>
     </Listbox>
   </div>
@@ -54,7 +54,7 @@ export default defineComponent({
     size: { type: String, default: "100%", required: false },
     id: { type: String, default: "array-object-name-listbox-with-label" },
     predicate: { type: String as any},
-    totalCount: { type: Number},
+    totalCount: { type: Object as any},
     visible: { type: Boolean}
   },
   computed: {
