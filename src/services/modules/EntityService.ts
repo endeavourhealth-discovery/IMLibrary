@@ -6,7 +6,7 @@ import Env from "./Env";
 export default class EntityService {
   public static async getPartialEntity(iri: string, predicates: string[]): Promise<any> {
     try {
-      const response = await axios.get(Env.api + "api/entity/public/partial", {
+      const response = await axios.get(Env.API + "api/entity/public/partial", {
         params: {
           iri: iri,
           predicate: predicates.join(",")
@@ -20,7 +20,7 @@ export default class EntityService {
 
   public static async getEntityParents(iri: string, filters?: FiltersAsIris): Promise<EntityReferenceNode[]> {
     try {
-      const response = await axios.get(Env.api + "api/entity/public/parents", {
+      const response = await axios.get(Env.API + "api/entity/public/parents", {
         params: { iri: iri, schemeIris: filters?.schemes.join(",") }
       });
       return response.data;
@@ -31,7 +31,7 @@ export default class EntityService {
 
   public static async getEntityChildren(iri: string, filters?: FiltersAsIris, cancelToken?: CancelToken): Promise<EntityReferenceNode[]> {
     try {
-      const response = await axios.get(Env.api + "api/entity/public/children", {
+      const response = await axios.get(Env.API + "api/entity/public/children", {
         params: { iri: iri, schemeIris: filters?.schemes.join(",") },
         cancelToken: cancelToken
       });
@@ -43,7 +43,7 @@ export default class EntityService {
 
   public static async getEntitySummary(iri: string): Promise<Models.Search.ConceptSummary> {
     try {
-      const response = await axios.get(Env.api + "api/entity/public/summary", {
+      const response = await axios.get(Env.API + "api/entity/public/summary", {
         params: { iri: iri }
       });
       return response.data;
