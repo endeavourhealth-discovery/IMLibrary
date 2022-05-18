@@ -27,7 +27,7 @@ const IMLibrary: imlibraryInterface = {
       // @ts-expect-error
       app.component(key, components[key]);
     }
-  },
+  }
 };
 
 import "./assets/main.scss";

@@ -2,7 +2,7 @@
 import Basic from './demo/ComponentType/Basic.vue'
 </script>
 
-# AppEnum
+# ComponentType
 
 ## Summary
 

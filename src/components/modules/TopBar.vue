@@ -7,28 +7,33 @@
       <slot name="content" />
     </div>
     <div id="topbar-end">
-      <Button icon="pi pi-th-large" class="p-button-rounded p-button-text p-button-plain p-button-lg p-button-icon-only" @click="openAppsOverlay" />
+      <Button
+        icon="pi pi-th-large"
+        class="p-button-rounded p-button-text p-button-plain p-button-lg p-button-icon-only topbar-end-button"
+        @click="openAppsOverlay"
+      />
       <OverlayPanel ref="appsO">
-        <div class="grid">
-          <div class="col-6">
-            <Button v-tooltip.bottom="'Editor'" icon="far fa-edit" class="p-button-rounded p-button-text p-button-plain" @click="navigateToEditor" />
-          </div>
-          <div class="col-6">
-            <Button v-tooltip.bottom="'UPRN'" icon="far fa-map" class="p-button-rounded p-button-text p-button-plain" @click="navigateToEditor" />
-          </div>
+        <div class="flex flex-row flex-wrap gap-1 justify-content-start">
+          <Button
+            v-for="item in appItems"
+            v-tooltip.bottom="item.label"
+            :icon="item.icon"
+            class="p-button-rounded p-button-text p-button-plain"
+            @click="navigate(item.url)"
+          />
         </div>
       </OverlayPanel>
       <Button
         v-if="!isLoggedIn"
         icon="pi pi-user"
-        class="p-button-rounded p-button-text p-button-plain p-button-lg p-button-icon-only"
+        class="p-button-rounded p-button-text p-button-plain p-button-lg p-button-icon-only topbar-end-button"
         @click="openUserMenu"
         aria-haspopup="true"
         aria-controls="overlay_menu"
       />
       <Button
         v-if="currentUser && isLoggedIn"
-        class="p-button-rounded p-button-text p-button-plain p-button-lg p-button-icon-only"
+        class="p-button-rounded p-button-text p-button-plain p-button-lg p-button-icon-only topbar-end-button"
         @click="openUserMenu"
         aria-haspopup="true"
         aria-controls="overlay_menu"
@@ -52,6 +57,7 @@ export default defineComponent({
   computed: mapState(["currentUser", "isLoggedIn", "authReturnUrl"]),
   mounted() {
     this.setUserMenuItems();
+    this.setAppMenuItems();
   },
   data() {
     return {
@@ -59,15 +65,16 @@ export default defineComponent({
       request: {} as { cancel: any; msg: string },
       searchText: "",
       loginItems: [] as LoginItem[],
-      accountItems: [] as AccountItem[]
+      accountItems: [] as AccountItem[],
+      appItems: [] as { icon: string; url: string; label: string }[]
     };
   },
   methods: {
     toLandingPage() {
       window.location.href = "/";
     },
-    navigateToEditor(): void {
-      window.open("/editor/#/");
+    navigate(url: string) {
+      window.open(url);
     },
     getItems(): LoginItem[] | AccountItem[] {
       if (this.isLoggedIn) {
@@ -91,35 +98,43 @@ export default defineComponent({
         {
           label: "Login",
           icon: "fa fa-fw fa-user",
-          url: Env.authUrl + "#/login?returnUrl=" + this.authReturnUrl
+          url: Env.AUTH_URL + "#/login?returnUrl=" + this.authReturnUrl
         },
         {
           label: "Register",
           icon: "fa fa-fw fa-user-plus",
-          url: Env.authUrl + "#/?returnUrl=" + this.authReturnUrl
+          url: Env.AUTH_URL + "#/?returnUrl=" + this.authReturnUrl
         }
       ];
       this.accountItems = [
         {
           label: "My account",
           icon: "fa fa-fw fa-user",
-          url: Env.authUrl + "#/my-account?returnUrl=" + this.authReturnUrl
+          url: Env.AUTH_URL + "#/my-account?returnUrl=" + this.authReturnUrl
         },
         {
           label: "Edit account",
           icon: "fa fa-fw fa-user-edit",
-          url: Env.authUrl + "#/my-account/edit?returnUrl=" + this.authReturnUrl
+          url: Env.AUTH_URL + "#/my-account/edit?returnUrl=" + this.authReturnUrl
         },
         {
           label: "Change password",
           icon: "fa fa-fw fa-user-lock",
-          url: Env.authUrl + "#/my-account/password-edit?returnUrl=" + this.authReturnUrl
+          url: Env.AUTH_URL + "#/my-account/password-edit?returnUrl=" + this.authReturnUrl
         },
         {
           label: "Logout",
           icon: "fa fa-fw fa-sign-out-alt",
-          url: Env.authUrl + "#/logout?returnUrl=" + this.authReturnUrl
+          url: Env.AUTH_URL + "#/logout?returnUrl=" + this.authReturnUrl
         }
+      ];
+    },
+    setAppMenuItems() {
+      this.appItems = [
+        { label: "Directory", icon: "fas fa-folder-open", url: "/" },
+        { label: "Creator", icon: "fas fa-plus-circle", url: "/editor/#/creator" },
+        { label: "Editor", icon: "far fa-edit", url: "/editor/#/editor" },
+        { label: "Mapper", icon: "fas fa-chart-network", url: "/editor/#/mapper" }
       ];
     }
   }
@@ -163,5 +178,14 @@ export default defineComponent({
   flex-flow: row nowrap;
   justify-content: flex-end;
   align-items: center;
+  padding: 0 0.5rem 0 0;
+  gap: 0.25rem;
+}
+</style>
+
+<style>
+.topbar-end-button:hover {
+  background-color: #6c757d !important;
+  color: #ffffff !important;
 }
 </style>
