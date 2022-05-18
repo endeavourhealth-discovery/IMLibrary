@@ -2,7 +2,7 @@
 import Basic from './demo/BuilderType/Basic.vue'
 </script>
 
-# AppEnum
+# BuilderType
 
 ## Summary
 
