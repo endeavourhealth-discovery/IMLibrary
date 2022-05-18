@@ -55,24 +55,24 @@ export function isFolder(entityTypes: TTIriRef[]): boolean {
 
 export function getFAIconFromType(conceptTypes: TTIriRef[]): string[] {
   if (isOfTypes(conceptTypes, Vocabulary.SHACL.NODESHAPE)) {
-    return ["fas", "project-diagram"];
+    return ["fa-solid", "fa-diagram-project"];
   }
   if (isOfTypes(conceptTypes, Vocabulary.IM.TASK)) {
-    return ["fas", "clipboard-check"];
+    return ["fa-solid", "fa-clipboard-check"];
   }
   if (isProperty(conceptTypes)) {
-    return ["far", "edit"];
+    return ["fa-solid", "fa-pen-to-square"];
   }
   if (isValueSet(conceptTypes)) {
-    return ["fas", "tasks"];
+    return ["fa-solid", "fa-list-check"];
   }
   if (isFolder(conceptTypes)) {
-    return ["fas", "folder"];
+    return ["fa-solid", "fa-folder"];
   }
   if (isQuery(conceptTypes)) {
-    return ["fas", "search"];
+    return ["fa-solid", "fa-magnifying-glass"];
   }
-  return ["far", "lightbulb"];
+  return ["fa-solid", "fa-lightbulb"];
 }
 
 export function getColourFromType(conceptTypes: TTIriRef[]): string {

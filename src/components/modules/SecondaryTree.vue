@@ -44,7 +44,7 @@
         >
           <span v-if="!slotProps.node.loading">
             <div :style="'color:' + slotProps.node.color">
-              <font-awesome-icon :icon="slotProps.node.typeIcon" class="fa-fw" />
+              <i :class="slotProps.node.typeIcon" class="fa-fw" aria-hidden="true" />
             </div>
           </span>
           <ProgressSpinner v-if="slotProps.node.loading" />
