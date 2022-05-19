@@ -124,7 +124,7 @@ export default defineComponent({
         },
         {
           label: "Logout",
-          icon: "fa-solid fa-fw fa-arrow-right-from-basket",
+          icon: "fa-solid fa-fw fa-arrow-right-from-bracket",
           url: Env.AUTH_URL + "#/logout?returnUrl=" + this.authReturnUrl
         }
       ];
