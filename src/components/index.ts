@@ -43,5 +43,5 @@ export {
   DraggableClause,
   QueryDefinition,
   ProfileDisplay,
-  SecondaryTree
+  SecondaryTree,
 };
