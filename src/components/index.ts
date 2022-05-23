@@ -20,8 +20,6 @@ import DraggableClause from "./modules/DraggableClause.vue";
 import QueryDefinition from "./modules/QueryDefinition.vue";
 import ProfileDisplay from "./modules/ProfileDisplay.vue";
 import SecondaryTree from "./modules/SecondaryTree.vue";
-import PageNotFound from "./modules/PageNotFound.vue";
-import EntityNotFound from "./modules/EntityNotFound.vue";
 
 export {
   AccessDenied,
@@ -46,6 +44,4 @@ export {
   QueryDefinition,
   ProfileDisplay,
   SecondaryTree,
-  PageNotFound,
-  EntityNotFound
 };
