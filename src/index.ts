@@ -1,7 +1,6 @@
 import { App, Plugin } from "vue";
 import * as components from "./components";
 import Tooltip from "primevue/tooltip";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library, dom } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
@@ -21,7 +20,6 @@ const IMLibrary: imlibraryInterface = {
       dom.watch();
       library.add(fas as any, far as any);
       app.directive("tooltip", Tooltip);
-      app.component("font-awesome-icon", FontAwesomeIcon);
     }
     for (const key in components) {
       // @ts-expect-error

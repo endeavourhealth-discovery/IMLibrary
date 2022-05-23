@@ -97,44 +97,44 @@ export default defineComponent({
       this.loginItems = [
         {
           label: "Login",
-          icon: "fa fa-fw fa-user",
+          icon: "fa-solid fa-fw fa-user",
           url: Env.AUTH_URL + "#/login?returnUrl=" + this.authReturnUrl
         },
         {
           label: "Register",
-          icon: "fa fa-fw fa-user-plus",
+          icon: "fa-solid fa-fw fa-user-plus",
           url: Env.AUTH_URL + "#/?returnUrl=" + this.authReturnUrl
         }
       ];
       this.accountItems = [
         {
           label: "My account",
-          icon: "fa fa-fw fa-user",
+          icon: "fa-solid fa-fw fa-user",
           url: Env.AUTH_URL + "#/my-account?returnUrl=" + this.authReturnUrl
         },
         {
           label: "Edit account",
-          icon: "fa fa-fw fa-user-edit",
+          icon: "fa-solid fa-fw fa-user-pen",
           url: Env.AUTH_URL + "#/my-account/edit?returnUrl=" + this.authReturnUrl
         },
         {
           label: "Change password",
-          icon: "fa fa-fw fa-user-lock",
+          icon: "fa-solid fa-fw fa-user-lock",
           url: Env.AUTH_URL + "#/my-account/password-edit?returnUrl=" + this.authReturnUrl
         },
         {
           label: "Logout",
-          icon: "fa fa-fw fa-sign-out-alt",
+          icon: "fa-solid fa-fw fa-arrow-right-from-bracket",
           url: Env.AUTH_URL + "#/logout?returnUrl=" + this.authReturnUrl
         }
       ];
     },
     setAppMenuItems() {
       this.appItems = [
-        { label: "Directory", icon: "fas fa-folder-open", url: "/" },
-        { label: "Creator", icon: "fas fa-plus-circle", url: "/editor/#/creator" },
-        { label: "Editor", icon: "far fa-edit", url: "/editor/#/editor" },
-        { label: "Mapper", icon: "fas fa-chart-network", url: "/editor/#/mapper" }
+        { label: "Directory", icon: "fa-solid fa-folder-open", url: "/" },
+        { label: "Creator", icon: "fa-solid fa-circle-plus", url: "/editor/#/creator" },
+        { label: "Editor", icon: "fa-solid fa-pen-to-square", url: "/editor/#/editor" },
+        { label: "Mapper", icon: "fa-solid fa-diagram-project", url: "/editor/#/mapper" }
       ];
     }
   }
