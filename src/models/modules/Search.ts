@@ -20,6 +20,7 @@ export class SearchRequest {
   schemeFilter!: string[];
   descendentFilter!: string[];
   markIfDescendentOf!: string[];
+  isA!: string[];
   sortBy!: SortBy;
   page!: number;
   size!: number;
