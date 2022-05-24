@@ -7,6 +7,7 @@ import { iriToUrl } from "./Converters";
 
 // min 2 characters
 const indentSize = "  ";
+let seeMore = "";
 
 export function bundleToText(
   appPath: string,
@@ -14,8 +15,10 @@ export function bundleToText(
   defaultPredicatenames: any,
   indent: number,
   withHyperlinks: boolean,
+  conceptIri: string,
   blockedUrlIris?: string[]
 ): string {
+  seeMore = conceptIri;
   let predicates = bundle.predicates;
   predicates = addDefaultPredicates(predicates, defaultPredicatenames);
   delete bundle.entity["@id"];
@@ -74,7 +77,11 @@ export function ttIriToString(
   if (!inline) result += pad;
   if (withHyperlinks && (!blockedUrlIris || !blockedUrlIris.includes(iri["@id"]))) {
     const escapedUrl = iriToUrl(iri["@id"]);
-    result += `<a target="_blank" href="${window.location.origin}${appPath}/#/concept/${escapedUrl}">`;
+    if(iri["@id"] === seeMore){
+      result += `<a href="">`;
+    } else {
+      result += `<a target="_blank" href="${window.location.origin}${appPath}/#/concept/${escapedUrl}">`;
+    }
   }
   if (iri.name) result += removeEndBrackets(iri.name);
   else result += iri["@id"];
