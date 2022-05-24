@@ -21,6 +21,7 @@ export class SearchRequest {
   descendentFilter!: string[];
   markIfDescendentOf!: string[];
   isA!: string[];
+  select!: string[];
   sortBy!: SortBy;
   page!: number;
   size!: number;
