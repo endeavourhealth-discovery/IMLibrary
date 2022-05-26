@@ -20,7 +20,7 @@
 
       <!-- Operator Clause  -->
       <template v-else v-for="(child, childIndex) in children(entity)" :key="child.path">
-        <div v-if="isOperator(child?.path)" class="operator horizontal ">
+        <div v-if="isOperator(child?.path)" class="operator horizontal">
           <Keyword class="operator-label">{{ showOperator(path, index, childIndex) ? operator : "" }}</Keyword>
           <div class="operator-items">
             <Phrase
@@ -60,7 +60,6 @@ export default defineComponent({
   props: ["template", "modelValue", "object", "path", "valueType", "keys", "excludedKeys", "operator", "highlighted", "index", "edit"],
   emits: ["selectedClauseUpdated"],
   methods: {
-
     showOperator(path: string, index: number, childIndex: number): boolean {
       // console.log("path", path);
       // console.log("index", index);
@@ -105,7 +104,7 @@ export default defineComponent({
       get() {
         const testString = this?.entity?.name;
         if (!testString || testString == "") return "a";
-        return ["a", "e", "i", "o", "u"].some((letter: string) => letter.toLowerCase() == testString.substring(0, 1).toLowerCase());
+        return ["a", "e", "i", "o", "u"].some((letter: string) => letter.toLowerCase() == testString.substring(0, 1).toLowerCase()) ? "an" : "a";
       },
       set() {}
     }
