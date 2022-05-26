@@ -33,7 +33,7 @@
         </div>
       </template>
       <template #footer>
-        <Button v-if="loadMoreButtonVisible" label="Load more..." class="p-button-text p-button-plain" @click="loadMore" />
+        <Button v-if="loadMoreButtonVisible" :loading="loading" label="Load more..." class="p-button-text p-button-plain" @click="loadMore" />
       </template>
     </Listbox>
   </div>
@@ -90,7 +90,8 @@ export default defineComponent({
       pageSize: 10,
       nextPage: 2,
       totalCount: 0 as number,
-      listboxData: [] as any
+      listboxData: [] as any[],
+      loading: false
     };
   },
   methods: {
@@ -124,13 +125,13 @@ export default defineComponent({
     },
 
     async loadMore() {
-      console.log("here");
+      this.loading = true;
       const result = await this.data.loadMore(this.listboxData, this.totalCount, this.nextPage, this.pageSize, this.loadMoreButtonVisible, this.conceptIri);
       this.listboxData = result.children;
       this.nextPage = result.nextPage;
       this.pageSize = result.pageSize;
       this.loadMoreButtonVisible = result.loadButton;
-      console.log(result);
+      this.loading = false;
     }
   }
 });
