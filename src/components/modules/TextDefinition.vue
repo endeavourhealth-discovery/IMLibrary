@@ -1,5 +1,5 @@
 <template>
-  <div v-if="hasData" id="axioms-container" :style="{ width: size }">
+  <div v-if="show && hasData" id="axioms-container" :style="{ width: size }">
     <div class="head-container">
       <strong class="label">{{ label }}</strong>
       <span v-if="getCount()">&nbsp;({{ getCount() }})</span>
@@ -41,7 +41,8 @@ export default defineComponent({
       required: true
     },
     size: { type: String, default: "100%" },
-    id: { type: String, default: "text-definition" }
+    id: { type: String, default: "text-definition" },
+    show: { type: Boolean, required: true }
   },
   computed: {
     hasData(): boolean {
