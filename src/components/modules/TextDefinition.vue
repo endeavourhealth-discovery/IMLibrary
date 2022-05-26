@@ -41,7 +41,8 @@ export default defineComponent({
       required: true
     },
     size: { type: String, default: "100%" },
-    id: { type: String, default: "text-definition" }
+    id: { type: String, default: "text-definition" },
+    conceptIri: { type: String , default: ""}
   },
   computed: {
     hasData(): boolean {
@@ -86,7 +87,7 @@ export default defineComponent({
 
     getDefinition(): void {
       if (!this.hasData) return;
-      this.definition = bundleToText("/viewer", this.data as TTBundle, this.defaultPredicateNames, 0, true, this.blockedIris);
+      this.definition = bundleToText("/viewer", this.data as TTBundle, this.defaultPredicateNames, 0, true, this.conceptIri, this.blockedIris);
     },
 
     getCount(): number {

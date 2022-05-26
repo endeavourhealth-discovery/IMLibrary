@@ -2,7 +2,8 @@
   <div v-if="data && isArrayObjectWithName" :id="id" :style="{ width: size }">
     <div class="head-container">
       <strong class="label">{{ label }}: </strong>
-      <span>&nbsp;({{ data.length }})</span>
+      <span v-if="totalCount[predicate] !== null">&nbsp;({{ totalCount[predicate] }})</span>
+      <span v-else>&nbsp;({{ data.length }})</span>
       <Button
         :icon="buttonExpanded ? 'pi pi-minus' : 'pi pi-plus'"
         class="p-button-rounded p-button-text p-button-primary p-button-sm expand-button"
@@ -19,7 +20,7 @@
     </div>
     <Listbox
       :options="data"
-      listStyle="max-height: 12rem;overflow: auto;"
+      listStyle="max-height: 40rem;overflow: auto;"
       v-model="selected"
       @change="navigate(selected['@id'])"
       emptyMessage="None"
@@ -30,6 +31,9 @@
         <div class="data-name">
           {{ slotProps.option?.name || slotProps.option?.["@id"] }}
         </div>
+      </template>
+      <template #footer>
+        <Button v-if="totalCount[predicate] !== null && visible" label="Load more..." class="p-button-text p-button-plain" @click="loadMore()"/>
       </template>
     </Listbox>
   </div>
@@ -48,7 +52,10 @@ export default defineComponent({
     label: { type: String, required: true },
     data: { type: Array as PropType<Array<unknown>>, required: true },
     size: { type: String, default: "100%", required: false },
-    id: { type: String, default: "array-object-name-listbox-with-label" }
+    id: { type: String, default: "array-object-name-listbox-with-label" },
+    predicate: { type: String as any},
+    totalCount: { type: Object as any},
+    visible: { type: Boolean}
   },
   computed: {
     ...mapState(["arrayObjectNameListboxWithLabelStartExpanded"]),
@@ -94,6 +101,10 @@ export default defineComponent({
         const button = document.getElementById(`expand-button-${this.id}`) as HTMLElement;
         if (button) button.click();
       }
+    },
+
+    async loadMore() {
+      this.$emit("loadMore",this.predicate);
     }
   }
 });

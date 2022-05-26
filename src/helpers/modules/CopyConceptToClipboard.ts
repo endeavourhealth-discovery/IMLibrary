@@ -70,7 +70,7 @@ export function conceptObjectToCopyString(
   } else if (isObjectHasKeys(value, ["name"])) {
     returnString = newKey + ": " + value.name;
   } else if (isObjectHasKeys(value, ["entity", "predicates"])) {
-    returnString = newKey + ': "\n' + bundleToText("", value, defaults, 1, false, blockedUrlIris) + '\n"';
+    returnString = newKey + ': "\n' + bundleToText("", value, defaults, 1, false,"", blockedUrlIris) + '\n"';
   } else if (typeof value === "string") {
     newString = value.replace(/\n/g, "\n\t").replace(/<p>/g, "\n\t");
     returnString = newKey + ": " + newString;
