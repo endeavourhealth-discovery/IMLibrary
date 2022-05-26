@@ -41,8 +41,7 @@ export default defineComponent({
       required: true
     },
     size: { type: String, default: "100%" },
-    id: { type: String, default: "text-definition" },
-    conceptIri: { type: String , default: ""}
+    id: { type: String, default: "text-definition" }
   },
   computed: {
     hasData(): boolean {
@@ -52,7 +51,7 @@ export default defineComponent({
         return false;
       }
     },
-    ...mapState(["blockedIris", "defaultPredicateNames", "textDefinitionStartExpanded"])
+    ...mapState(["blockedIris", "defaultPredicateNames", "textDefinitionStartExpanded", "conceptIri"])
   },
   mounted() {
     this.init();
