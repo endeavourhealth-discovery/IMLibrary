@@ -1,5 +1,5 @@
 <template>
-  <div class="container" :style="{ width: size }" :id="id">
+  <div v-if="show" class="container" :style="{ width: size }" :id="id">
     <strong class="label">{{ label }}: </strong>
     <span class="data-string">
       {{ arrayToString ? arrayToString : "None" }}
@@ -18,7 +18,8 @@ export default defineComponent({
     label: { type: String, required: true },
     data: { type: Array as PropType<Array<string>>, required: true },
     size: { type: String, default: "100%" },
-    id: { type: String, default: "array-object-names-to-string-with-label" }
+    id: { type: String, default: "array-object-names-to-string-with-label" },
+    show: { type: Boolean, required: true }
   },
   computed: {
     arrayToString(): string | undefined {

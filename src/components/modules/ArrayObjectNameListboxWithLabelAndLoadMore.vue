@@ -2,7 +2,8 @@
   <div v-if="show && data && isArrayObjectWithName" :id="id" :style="{ width: size }">
     <div class="head-container">
       <strong class="label">{{ label }}: </strong>
-      <span>&nbsp;({{ data.length }})</span>
+      <span v-if="totalCount">&nbsp;({{ totalCount }})</span>
+      <span v-else>&nbsp;({{ listboxData.length }})</span>
       <Button
         :icon="buttonExpanded ? 'pi pi-minus' : 'pi pi-plus'"
         class="p-button-rounded p-button-text p-button-primary p-button-sm expand-button"
@@ -18,8 +19,8 @@
       />
     </div>
     <Listbox
-      :options="data"
-      listStyle="max-height: 12rem;overflow: auto;"
+      :options="listboxData"
+      listStyle="max-height: 40rem;overflow: auto;"
       v-model="selected"
       @change="navigate(selected['@id'])"
       emptyMessage="None"
@@ -30,6 +31,9 @@
         <div class="data-name">
           {{ slotProps.option?.name || slotProps.option?.["@id"] }}
         </div>
+      </template>
+      <template #footer>
+        <Button v-if="loadMoreButtonVisible" :loading="loading" label="Load more..." class="p-button-text p-button-plain" @click="loadMore" />
       </template>
     </Listbox>
   </div>
@@ -43,40 +47,63 @@ import { isArrayHasLength, isObjectHasKeys } from "../../helpers/modules/DataTyp
 import LoggerService from "../../services/modules/LoggerService";
 
 export default defineComponent({
-  name: "ArrayObjectNameListboxWithLabel",
+  name: "ArrayObjectNameListboxWithLabelAndLoadMore",
   props: {
     label: { type: String, required: true },
-    data: { type: Array as PropType<Array<unknown>>, required: false, default: [] },
+    data: { type: Object as PropType<{ children: any[]; totalCount: any; loadMore: Function }>, required: true },
     size: { type: String, default: "100%", required: false },
     id: { type: String, default: "array-object-name-listbox-with-label" },
     show: { type: Boolean, required: true }
   },
+  watch: {
+    data: {
+      handler() {
+        this.init();
+      },
+      deep: true
+    }
+  },
   computed: {
-    ...mapState(["arrayObjectNameListboxWithLabelStartExpanded"]),
+    ...mapState(["arrayObjectNameListboxWithLabelStartExpanded", "conceptIri"]),
     isArrayObjectWithName(): boolean {
       if (!this.data) return false;
-      if (!isArrayHasLength(this.data)) return false;
-      if (this.data.every(item => isObjectHasKeys(item, ["name"]))) {
+      if (!isArrayHasLength(this.data.children)) return false;
+      if (this.data.children.every(item => isObjectHasKeys(item, ["name"]))) {
         return true;
       } else {
         LoggerService.warn(
           undefined,
-          "Data error. Data is not array, array does not contain Object or Object has no property 'name' for use within component ArrayObjectNameListboxWithLabel.vue"
+          "Data error. Data is not array, array does not contain Object or Object has no property 'name' for use within component ArrayObjectNameListboxWithLabelAndLoadMore.vue"
         );
         return false;
       }
     }
   },
   mounted() {
-    this.expandAtStartup();
+    this.init();
   },
   data() {
     return {
       selected: {} as any,
-      buttonExpanded: false
+      buttonExpanded: false,
+      loadMoreButtonVisible: false,
+      pageSize: 10,
+      nextPage: 2,
+      totalCount: 0 as number,
+      listboxData: [] as any[],
+      loading: false
     };
   },
   methods: {
+    init() {
+      this.expandAtStartup();
+      this.totalCount = this.data.totalCount;
+      if (this.totalCount >= this.pageSize) {
+        this.loadMoreButtonVisible = true;
+      }
+      this.listboxData = this.data.children;
+    },
+
     navigate(iri: string) {
       const currentRoute = this.$route.name as RouteRecordName | undefined;
       if (iri)
@@ -95,6 +122,16 @@ export default defineComponent({
         const button = document.getElementById(`expand-button-${this.id}`) as HTMLElement;
         if (button) button.click();
       }
+    },
+
+    async loadMore() {
+      this.loading = true;
+      const result = await this.data.loadMore(this.listboxData, this.totalCount, this.nextPage, this.pageSize, this.loadMoreButtonVisible, this.conceptIri);
+      this.listboxData = result.children;
+      this.nextPage = result.nextPage;
+      this.pageSize = result.pageSize;
+      this.loadMoreButtonVisible = result.loadButton;
+      this.loading = false;
     }
   }
 });

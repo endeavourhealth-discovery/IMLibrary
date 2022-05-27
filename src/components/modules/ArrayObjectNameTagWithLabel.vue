@@ -1,5 +1,5 @@
 <template>
-  <div class="container" :style="{ width: size }" :id="id">
+  <div v-if="show" class="container" :style="{ width: size }" :id="id">
     <strong class="label">{{ label }}: </strong>
     <div v-if="isArrayObject" class="tag-container">
       <Tag v-for="item of data" :key="item['@id']" :value="item.name" :severity="getSeverity(item)" class="data-tag" />
@@ -21,7 +21,8 @@ export default defineComponent({
     label: { type: String, required: true },
     data: { type: Array as PropType<Array<TTIriRef>>, required: true },
     size: { type: String, default: "100%" },
-    id: { type: String, default: "array-object-name-tag-with-label" }
+    id: { type: String, default: "array-object-name-tag-with-label" },
+    show: { type: Boolean, required: true }
   },
   computed: {
     ...mapState(["tagSeverityMatches"]),

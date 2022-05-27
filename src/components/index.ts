@@ -4,6 +4,7 @@ import EntityNotFound from "./modules/EntityNotFound.vue";
 import ArrayObjectNameTagWithLabel from "./modules/ArrayObjectNameTagWithLabel.vue";
 import ArrayObjectNamesToStringWithLabel from "./modules/ArrayObjectNamesToStringWithLabel.vue";
 import ArrayObjectNameListboxWithLabel from "./modules/ArrayObjectNameListboxWithLabel.vue";
+import ArrayObjectNameListboxWithLabelAndLoadMore from "./modules/ArrayObjectNameListboxWithLabelAndLoadMore.vue";
 import TopBar from "./modules/TopBar.vue";
 import ReportTable from "./modules/ReportTable.vue";
 import SnomedLicense from "./modules/SnomedLicense.vue";
@@ -33,6 +34,7 @@ export {
   ArrayObjectNameTagWithLabel,
   ArrayObjectNamesToStringWithLabel,
   ArrayObjectNameListboxWithLabel,
+  ArrayObjectNameListboxWithLabelAndLoadMore,
   TermCodeTable,
   TextSectionHeader,
   SectionDivider,
@@ -45,8 +47,9 @@ export {
   ObjectNameTagWithLabel,
   ObjectNameWithLabel,
   NumberWithLabel,
-  // ProfileDisplay,
-  SecondaryTree,
+  DraggableClause,
+  ProfileDisplay,
+  SecondaryTree
   Keyword,
   Phrase,
   QueryDefinition,
