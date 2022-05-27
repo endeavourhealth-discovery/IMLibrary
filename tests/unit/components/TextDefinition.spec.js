@@ -3,6 +3,7 @@ import { flushPromises, shallowMount } from "@vue/test-utils";
 import Button from "primevue/button";
 import StyleClass from "primevue/styleclass";
 import ProgressSpinner from "primevue/progressspinner";
+import { expect } from "vitest";
 
 describe("TextDefinition.vue ___ data", () => {
   let wrapper;
@@ -116,7 +117,8 @@ describe("TextDefinition.vue ___ data", () => {
       global: { components: { Button, ProgressSpinner }, mocks: { $store: mockStore }, directives: { styleclass: StyleClass } },
       props: {
         data: BUNDLE,
-        label: "Definition"
+        label: "Definition",
+        show: true
       }
     });
 
@@ -178,45 +180,5 @@ describe("TextDefinition.vue ___ data", () => {
 
   it("can getCount", () => {
     expect(wrapper.vm.getCount()).toBe(4);
-  });
-});
-
-describe("TextDefinition.vue ___ no data", () => {
-  let wrapper;
-  let mockStore;
-  let docSpy;
-  let mockButton;
-
-  beforeEach(async () => {
-    vi.resetAllMocks();
-
-    mockStore = { state: { blockedIris: [], textDefinitionStartExpanded: [] }, commit: vi.fn() };
-
-    mockButton = { click: vi.fn() };
-
-    docSpy = vi.spyOn(document, "getElementById");
-    docSpy.mockReturnValue(mockButton);
-
-    wrapper = shallowMount(TextDefinition, {
-      global: { components: { Button, ProgressSpinner }, mocks: { $store: mockStore }, directives: { styleclass: StyleClass } },
-      props: {
-        label: "Bundle",
-        show: true,
-        size: "100%"
-      }
-    });
-
-    await flushPromises();
-    await wrapper.vm.$nextTick();
-    vi.clearAllMocks();
-  });
-
-  it("inits ___ not definition", async () => {
-    wrapper.vm.getDefinition = vi.fn();
-    wrapper.vm.init();
-    expect(wrapper.vm.getDefinition).toHaveBeenCalledTimes(1);
-    expect(wrapper.vm.loading).toBe(false);
-    expect(mockButton.click).not.toHaveBeenCalled();
-    expect(wrapper.vm.data).toBe(undefined);
   });
 });
