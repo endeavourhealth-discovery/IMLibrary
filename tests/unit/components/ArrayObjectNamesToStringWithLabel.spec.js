@@ -55,19 +55,3 @@ describe("ArrayObjectNameToStringWithLabel.vue", () => {
     ).toBe(undefined);
   });
 });
-
-describe("ArrayObjectNameToStringWithLabel.vue ___ missing data prop", () => {
-  let wrapper;
-
-  beforeEach(() => {
-    vi.resetAllMocks();
-
-    wrapper = shallowMount(ArrayObjectNamesToStringWithLabel, {
-      props: { label: "Types", size: "50%", data: undefined }
-    });
-  });
-
-  it("sets data prop default", () => {
-    expect(wrapper.vm.data).toBe(undefined);
-  });
-});
