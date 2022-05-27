@@ -17,15 +17,12 @@ import ObjectNameTagWithLabel from "./modules/ObjectNameTagWithLabel.vue";
 import ObjectNameWithLabel from "./modules/ObjectNameWithLabel.vue";
 import NumberWithLabel from "./modules/NumberWithLabel.vue";
 import TermCodeTable from "./modules/TermCodeTable.vue";
-// import ProfileDisplay from "./modules/ProfileDisplay.vue";
 import SecondaryTree from "./modules/SecondaryTree.vue";
-
 import Keyword from "./modules/query/Keyword.vue";
 import Phrase from "./modules/query/Phrase.vue";
 import QueryDefinition from "./modules/query/QueryDefinition.vue";
 import Selector from "./modules/query/Selector.vue";
 import Static from "./modules/query/Static.vue";
-
 
 export {
   AccessDenied,
@@ -47,12 +44,10 @@ export {
   ObjectNameTagWithLabel,
   ObjectNameWithLabel,
   NumberWithLabel,
-  DraggableClause,
-  ProfileDisplay,
-  SecondaryTree
+  SecondaryTree,
   Keyword,
   Phrase,
   QueryDefinition,
   Selector,
-  Static,
+  Static
 };
