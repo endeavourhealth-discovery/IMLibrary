@@ -25,7 +25,7 @@ function getReturnString(value: string, counterEqTotalKeysMO: boolean) {
 }
 
 function handleIsArrayHasLength(newString: string, value: any, key: string, newKey: string) {
-  if (isObjectHasKeys(value[0], ["name"])) {
+  if (value.every((item: any) => isObjectHasKeys(item, ["name"]))) {
     newString = value.map((item: any) => item.name).join(",\n\t");
   } else if (value.every((item: any) => isObjectHasKeys(item, ["property"])) && value.every((item: any) => isObjectHasKeys(item.property, ["name"]))) {
     newString = value.map((item: any) => item.property.name).join(",\n\t");
@@ -71,7 +71,7 @@ export function conceptObjectToCopyString(
     returnString = newKey + ": " + value.name;
   } else if (isObjectHasKeys(value, ["entity", "predicates"])) {
     returnString = newKey + ': "\n' + bundleToText("", value, defaults, 1, false, "", blockedUrlIris) + '\n"';
-  } else if (isObjectHasKeys(value, ["children", "totalCount"])) {
+  } else if (isObjectHasKeys(value, ["children", "totalCount"]) && Array.isArray(value.children)) {
     returnString = handleIsArrayHasLength(newString, value.children, key, newKey);
   } else if (typeof value === "string") {
     newString = value.replace(/\n/g, "\n\t").replace(/<p>/g, "\n\t");
