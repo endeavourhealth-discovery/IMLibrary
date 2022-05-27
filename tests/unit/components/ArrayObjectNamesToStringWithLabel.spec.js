@@ -15,7 +15,8 @@ describe("ArrayObjectNameToStringWithLabel.vue", () => {
           { "@id": "http://endhealth.info/im#RecordType", name: "Record type" },
           { "@id": "http://www.w3.org/ns/shacl#NodeShape", name: "Node shape" },
           { "@id": "http://www.w3.org/2002/07/owl#Class", name: "Class" }
-        ]
+        ],
+        show: true
       }
     });
   });

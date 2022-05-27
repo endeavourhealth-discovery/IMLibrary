@@ -44,9 +44,7 @@ describe("ArrayObjectNameListboxWithLabel.vue ___ ontology", () => {
           { "@id": "http://snomed.info/sct#12903001", name: "Acquired curvature of spine (disorder)" },
           { "@id": "http://snomed.info/sct#298382003", name: "Scoliosis deformity of spine (disorder)" }
         ],
-        predicate: "http://endhealth.info/im#isA",
-        totalCount: {"http://endhealth.info/im#isA" : null},
-        visible: false,
+        show: true,
         id: "array-object-name-listbox-with-label"
       }
     });
@@ -181,7 +179,7 @@ describe("ArrayObjectNameListboxWithLabel.vue ___ sets", () => {
           { "@id": "http://snomed.info/sct#298382003", name: "Scoliosis deformity of spine (disorder)" }
         ],
         predicate: "http://endhealth.info/im#isA",
-        totalCount: {"http://endhealth.info/im#isA" : null},
+        totalCount: { "http://endhealth.info/im#isA": null },
         visible: false,
         id: "array-object-name-listbox-with-label"
       }
