@@ -40,6 +40,7 @@
           @mouseover="showPopup($event, slotProps.node.data)"
           @mouseleave="hidePopup($event)"
           @click="navigate($event, slotProps.node.data)"
+          @dblclick="onDblClick(slotProps.node.data)"
           v-tooltip.top="'CTRL+click to navigate'"
         >
           <span v-if="!slotProps.node.loading">
@@ -322,6 +323,10 @@ export default defineComponent({
 
     navigate(event: any, iri: string): void {
       if (event.metaKey || event.ctrlKey) this.$router.push({ name: this.$route.name || undefined, params: { selectedIri: iri } });
+    },
+
+    onDblClick(iri: string) {
+      this.$router.push({ name: this.$route.name || undefined, params: { selectedIri: iri } });
     }
   }
 });
