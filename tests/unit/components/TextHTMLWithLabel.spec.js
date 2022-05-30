@@ -12,7 +12,8 @@ describe("TextHTMLWithLabel.vue", () => {
         label: "Description",
         data: "An entry recording information about a criticial care encounter.<p>common data model attributes for Critical care encounter",
         size: "100%",
-        id: "TextHTMLWithLabel1"
+        id: "TextHTMLWithLabel1",
+        show: true
       }
     });
   });
@@ -35,7 +36,8 @@ describe("TextHTMLWithLabel.vue ___ descContainer", () => {
         label: "Description",
         data: "An entry recording information about a criticial care encounter.<p>common data model attributes for Critical care encounter",
         size: "100%",
-        id: "TextHTMLWithLabel1"
+        id: "TextHTMLWithLabel1",
+        show: true
       }
     });
   });
@@ -65,7 +67,7 @@ describe("TextHTMLWithLabel.vue ___ id", () => {
     vi.resetAllMocks();
 
     wrapper = shallowMount(TextHTMLWithLabel, {
-      props: { label: "Description", data: undefined, size: "100%", id: undefined }
+      props: { label: "Description", data: undefined, size: "100%", id: undefined, show: true }
     });
   });
 
@@ -87,7 +89,7 @@ describe("TextHTMLWithLabel.vue ___ no data", () => {
     vi.resetAllMocks();
 
     wrapper = shallowMount(TextHTMLWithLabel, {
-      props: { label: "Description", data: undefined, size: "100%", id: "TextHTMLWithLabel1" }
+      props: { label: "Description", data: undefined, size: "100%", id: "TextHTMLWithLabel1", show: true }
     });
   });
 
@@ -113,7 +115,8 @@ describe("TextHTMLWithLabel.vue ___ <p> start and end", () => {
         label: "Description",
         data: "<p>An entry recording information about a criticial care encounter.<p>common data model attributes for Critical care encounter<p>",
         size: "100%",
-        id: "TextHTMLWithLabel1"
+        id: "TextHTMLWithLabel1",
+        show: true
       }
     });
   });

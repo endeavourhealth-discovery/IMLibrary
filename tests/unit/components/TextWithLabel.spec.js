@@ -8,7 +8,7 @@ describe("TextWithLabel.vue", () => {
     vi.resetAllMocks();
 
     wrapper = shallowMount(TextWithLabel, {
-      props: { label: "Name", data: "Scoliosis", size: "50%" }
+      props: { label: "Name", data: "Scoliosis", size: "50%", show: true }
     });
   });
 
