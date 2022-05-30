@@ -15,7 +15,8 @@ describe("ArrayObjectNameToStringWithLabel.vue", () => {
           { "@id": "http://endhealth.info/im#RecordType", name: "Record type" },
           { "@id": "http://www.w3.org/ns/shacl#NodeShape", name: "Node shape" },
           { "@id": "http://www.w3.org/2002/07/owl#Class", name: "Class" }
-        ]
+        ],
+        show: true
       }
     });
   });
@@ -52,21 +53,5 @@ describe("ArrayObjectNameToStringWithLabel.vue", () => {
         ]
       })
     ).toBe(undefined);
-  });
-});
-
-describe("ArrayObjectNameToStringWithLabel.vue ___ missing data prop", () => {
-  let wrapper;
-
-  beforeEach(() => {
-    vi.resetAllMocks();
-
-    wrapper = shallowMount(ArrayObjectNamesToStringWithLabel, {
-      props: { label: "Types", size: "50%", data: undefined }
-    });
-  });
-
-  it("sets data prop default", () => {
-    expect(wrapper.vm.data).toBe(undefined);
   });
 });

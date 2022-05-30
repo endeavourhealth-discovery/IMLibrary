@@ -4,6 +4,7 @@ import EntityNotFound from "./modules/EntityNotFound.vue";
 import ArrayObjectNameTagWithLabel from "./modules/ArrayObjectNameTagWithLabel.vue";
 import ArrayObjectNamesToStringWithLabel from "./modules/ArrayObjectNamesToStringWithLabel.vue";
 import ArrayObjectNameListboxWithLabel from "./modules/ArrayObjectNameListboxWithLabel.vue";
+import ArrayObjectNameListboxWithLabelAndLoadMore from "./modules/ArrayObjectNameListboxWithLabelAndLoadMore.vue";
 import TopBar from "./modules/TopBar.vue";
 import ReportTable from "./modules/ReportTable.vue";
 import SnomedLicense from "./modules/SnomedLicense.vue";
@@ -16,10 +17,12 @@ import ObjectNameTagWithLabel from "./modules/ObjectNameTagWithLabel.vue";
 import ObjectNameWithLabel from "./modules/ObjectNameWithLabel.vue";
 import NumberWithLabel from "./modules/NumberWithLabel.vue";
 import TermCodeTable from "./modules/TermCodeTable.vue";
-import DraggableClause from "./modules/DraggableClause.vue";
-import QueryDefinition from "./modules/QueryDefinition.vue";
-import ProfileDisplay from "./modules/ProfileDisplay.vue";
 import SecondaryTree from "./modules/SecondaryTree.vue";
+import Keyword from "./modules/query/Keyword.vue";
+import Phrase from "./modules/query/Phrase.vue";
+import QueryDefinition from "./modules/query/QueryDefinition.vue";
+import Selector from "./modules/query/Selector.vue";
+import Static from "./modules/query/Static.vue";
 
 export {
   AccessDenied,
@@ -28,6 +31,7 @@ export {
   ArrayObjectNameTagWithLabel,
   ArrayObjectNamesToStringWithLabel,
   ArrayObjectNameListboxWithLabel,
+  ArrayObjectNameListboxWithLabelAndLoadMore,
   TermCodeTable,
   TextSectionHeader,
   SectionDivider,
@@ -40,8 +44,10 @@ export {
   ObjectNameTagWithLabel,
   ObjectNameWithLabel,
   NumberWithLabel,
-  DraggableClause,
-  QueryDefinition,
-  ProfileDisplay,
   SecondaryTree,
+  Keyword,
+  Phrase,
+  QueryDefinition,
+  Selector,
+  Static
 };
