@@ -53,7 +53,6 @@ export default defineComponent({
   transition: all 0.2s ease-in;
   display: flex;
   overflow-y: auto;
-  overflow: hidden;
   padding: 1.5rem;
   margin-bottom: 3rem;
   background-color: #ffffff;
