@@ -344,7 +344,7 @@ export default defineComponent({
 }
 
 #secondary-tree-bar-container {
-  height: calc(100% - 3.5rem);
+  flex: 1 1 auto;
   border-top: 1px solid #dee2e6;
 }
 

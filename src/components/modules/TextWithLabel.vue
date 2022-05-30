@@ -1,5 +1,5 @@
 <template>
-  <div class="text-with-label-container" :id="id" :style="{ width: size }">
+  <div v-if="show" class="text-with-label-container" :id="id" :style="{ width: size }">
     <strong class="label">{{ label }}: </strong>
     <span class="data break-text">{{ data ? data : "None" }}</span>
   </div>
@@ -14,7 +14,8 @@ export default defineComponent({
     label: { type: String, required: true },
     data: { type: String, required: false },
     size: { type: String, default: "100%" },
-    id: { type: String, default: "text-with-label" }
+    id: { type: String, default: "text-with-label" },
+    show: { type: Boolean, required: true }
   }
 });
 </script>
