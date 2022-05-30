@@ -23,7 +23,7 @@ describe("ObjectNameTagWithLabel.vue", () => {
 
     wrapper = shallowMount(ObjectNameTagWithLabel, {
       global: { components: { Tag }, mocks: { $store: mockStore } },
-      props: { label: "Status", data: { "@id": "http://endhealth.info/im#Active", name: "Active" }, size: "100%" }
+      props: { label: "Status", data: { "@id": "http://endhealth.info/im#Active", name: "Active" }, size: "100%", show: true }
     });
   });
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="container" :style="{ width: size }">
+  <div v-if="show" class="container" :style="{ width: size }">
     <strong class="label">{{ label }}: </strong>
     <Tag v-if="isObjectWithName" :value="data.name" :severity="getSeverity(data)" class="data-tag" />
     <span v-else class="data">None</span>
@@ -19,7 +19,8 @@ export default defineComponent({
     label: { type: String, required: true },
     data: { type: Object as PropType<TTIriRef>, required: true },
     size: { type: String, default: "100%" },
-    id: { type: String, default: "object-name-tag-with-label" }
+    id: { type: String, default: "object-name-tag-with-label" },
+    show: { type: Boolean, required: true }
   },
   computed: {
     ...mapState(["tagSeverityMatches"]),

@@ -1,5 +1,5 @@
 <template>
-  <div class="container" :style="{ width: size }" :id="id">
+  <div v-if="show" class="container" :style="{ width: size }" :id="id">
     <strong class="label">{{ label }}: </strong>
     <span v-if="data && isObjectWithName" class="data break-text">
       {{ data.name }}
@@ -19,7 +19,8 @@ export default defineComponent({
     label: { type: String, required: true },
     data: { type: Object, required: true },
     size: { type: String, default: "100%" },
-    id: { type: String, default: "object-name-with-label" }
+    id: { type: String, default: "object-name-with-label" },
+    show: { type: Boolean, required: true }
   },
   computed: {
     isObjectWithName(): boolean {

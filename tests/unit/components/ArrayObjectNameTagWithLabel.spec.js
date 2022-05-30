@@ -23,7 +23,7 @@ describe("ArraObjectNameTagWithLabel.vue", () => {
 
     wrapper = shallowMount(ArrayObjectNameTagWithLabel, {
       global: { components: { Tag }, mocks: { $store: mockStore } },
-      props: { label: "Status", size: "50%", data: [{ "@id": "http://endhealth.info/im#Active", name: "Active" }] }
+      props: { label: "Status", size: "50%", data: [{ "@id": "http://endhealth.info/im#Active", name: "Active" }], show: true }
     });
   });
 

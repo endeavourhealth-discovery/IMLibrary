@@ -8,7 +8,7 @@ describe("ObjectNameWithLabel.vue", () => {
   beforeEach(() => {
     vi.resetAllMocks();
     wrapper = shallowMount(ObjectNameWithLabel, {
-      props: { label: "Status", data: { name: "Active" }, size: "50%" }
+      props: { label: "Status", data: { name: "Active" }, size: "50%", show: true }
     });
   });
 
