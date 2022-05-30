@@ -1,5 +1,5 @@
 <template>
-  <div class="text-html-with-label-container" :style="{ width: size }">
+  <div v-if="show" class="text-html-with-label-container" :style="{ width: size }">
     <strong class="label">{{ label }}: </strong>
     <div class="text-html-container" v-html="convertedText" :id="id" />
   </div>
@@ -14,7 +14,8 @@ export default defineComponent({
     label: { type: String, required: true },
     data: { type: String, required: false },
     size: { type: String, default: "100%" },
-    id: { type: String, default: "text-html-with-label" }
+    id: { type: String, default: "text-html-with-label" },
+    show: { type: Boolean, required: true }
   },
   mounted() {
     this.init();
