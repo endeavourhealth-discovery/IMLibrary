@@ -1,6 +1,56 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.36.1070 on 2022-05-31 16:10:53.
+// Generated using typescript-generator version 2.36.1070 on 2022-05-31 17:16:22.
+
+/**
+ * Structure containing search request parameters and filters
+ */
+export interface SearchRequest {
+    /**
+     * Plain text, space separated list of terms
+     */
+    termFilter: string;
+    index: string;
+    /**
+     * List of entity status IRI's
+     */
+    statusFilter: string[];
+    /**
+     * List of entity type IRI's
+     */
+    typeFilter: string[];
+    /**
+     * List of code scheme IRI's
+     */
+    schemeFilter: string[];
+    /**
+     * Marks the results if they are descendants of any of these entities, but does not filter by them
+     */
+    markIfDescendentOf: string[];
+    /**
+     * List of IRIs that must be supertypes of the matches
+     */
+    isA: string[];
+    /**
+     * The search result page number to retrieve
+     */
+    page: number;
+    /**
+     * The number of results to retrieve per page
+     */
+    size: number;
+    from: number;
+    /**
+     * list of fields or property paths from search result summary to return 
+     */
+    select: string[];
+}
+
+export interface SearchResponse {
+    page: number;
+    count: number;
+    entities: SearchResultSummary[];
+}
 
 export interface Alias extends TTIriRef {
     alias: string;
@@ -130,9 +180,30 @@ export interface Within {
     targetFilter: Match;
 }
 
+export interface SearchResultSummary {
+    name: string;
+    iri: string;
+    code: string;
+    description: string;
+    status: TTIriRef;
+    scheme: TTIriRef;
+    entityType: TTIriRef[];
+    weighting: number;
+    match: string;
+    key: string[];
+    isA: TTIriRef[];
+    termCode: SearchTermCode[];
+}
+
 export interface TTIriRef extends TTValue, Serializable {
     name: string;
     "@id": string;
+}
+
+export interface SearchTermCode {
+    term: string;
+    code: string;
+    status: TTIriRef;
 }
 
 export interface TTValue extends Serializable {
