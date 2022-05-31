@@ -63,7 +63,7 @@
           </p>
           <p>
             <strong>Iri: </strong>
-            <span>{{ hoveredResult.iri }}</span>
+            <span style="word-break: break-all">{{ hoveredResult.iri }}</span>
           </p>
           <p v-if="hoveredResult.code">
             <strong>Code: </strong>
@@ -90,13 +90,12 @@
 </template>
 
 <script lang="ts">
-import axios, { CancelToken } from "axios";
 import { defineComponent } from "vue";
-import { getColourFromType, getFAIconFromType } from "../../helpers/modules/ConceptTypeMethods";
+import { getColourFromType, getFAIconFromType, getNamesAsStringFromTypes } from "../../helpers/modules/ConceptTypeMethods";
 import { isArrayHasLength, isObject, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
-import { ConceptAggregate, EntityReferenceNode, FiltersAsIris, TreeNode, TreeParent, TTIriRef } from "../../interfaces/Interfaces";
+import { ConceptAggregate, EntityReferenceNode, TreeNode, TreeParent, TTIriRef } from "../../interfaces/Interfaces";
 import { Models } from "../../models";
-import { EntityService, Env } from "../../services";
+import { EntityService } from "../../services";
 import { IM } from "../../vocabulary/IM";
 import { RDF } from "../../vocabulary/RDF";
 import { RDFS } from "../../vocabulary/RDFS";
@@ -314,11 +313,7 @@ export default defineComponent({
     },
 
     getConceptTypes(types: TTIriRef[]): string {
-      return types
-        .map((type: TTIriRef) => {
-          return type.name;
-        })
-        .join(", ");
+      return getNamesAsStringFromTypes(types);
     },
 
     navigate(event: any, iri: string): void {
