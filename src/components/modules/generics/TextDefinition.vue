@@ -27,10 +27,10 @@
 <script lang="ts">
 import { defineComponent } from "@vue/runtime-core";
 import { mapState } from "vuex";
-import { TTBundle } from "../../interfaces/Interfaces";
-import { isArrayHasLength, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
-import { bundleToText } from "../../helpers/modules/Transforms";
-import { isTTBundle } from "../../helpers/modules/TypeGuards";
+import { TTBundle } from "../../../interfaces/Interfaces";
+import { isArrayHasLength, isObjectHasKeys } from "../../../helpers/modules/DataTypeCheckers";
+import { bundleToText } from "../../../helpers/modules/Transforms";
+import { isTTBundle } from "../../../helpers/modules/TypeGuards";
 
 export default defineComponent({
   name: "TextDefinition",
@@ -87,14 +87,14 @@ export default defineComponent({
 
     getDefinition(): void {
       if (!this.hasData) return;
-      this.definition = bundleToText("/viewer", this.data as TTBundle, this.defaultPredicateNames, 0, true, this.conceptIri, this.blockedIris);
+      this.definition = bundleToText("/viewer", this.data, this.defaultPredicateNames, 0, true, this.conceptIri, this.blockedIris);
     },
 
     getCount(): number {
       let count = 0;
       Object.keys(this.data.entity).forEach(key => {
-        if (isArrayHasLength((this.data.entity as any)[key])) {
-          count += (this.data.entity as any)[key].length;
+        if (isArrayHasLength(this.data.entity[key])) {
+          count += this.data.entity[key].length;
         } else {
           count++;
         }

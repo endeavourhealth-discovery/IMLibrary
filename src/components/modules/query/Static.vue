@@ -9,5 +9,3 @@ export default defineComponent({
   name: "Static"
 });
 </script>
-
-<style scoped></style>

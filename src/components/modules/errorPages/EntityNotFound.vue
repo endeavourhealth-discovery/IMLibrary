@@ -12,5 +12,3 @@ export default defineComponent({
   name: "EntityNotFound"
 });
 </script>
-
-<style scoped></style>

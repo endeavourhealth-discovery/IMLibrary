@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import ArrayObjectNameListboxWithLabel from "../../../src/components/modules/ArrayObjectNameListboxWithLabel.vue";
+import ArrayObjectNameListboxWithLabel from "../../../../src/components/modules/generics/ArrayObjectNameListboxWithLabel.vue";
 import Listbox from "primevue/listbox";
 import Button from "primevue/button";
 import StyleClass from "primevue/styleclass";

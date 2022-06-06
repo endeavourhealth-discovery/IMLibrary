@@ -2,12 +2,10 @@
   <!-- Formatted TTIriRef name  -->
   <pre class="iriref selector" @click="handleClick">{{ label() }} </pre>
   <!-- Formatted TTIriRef name  -->
-
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import _ from "lodash";
 
 export default defineComponent({
   name: "Selector",
@@ -32,9 +30,9 @@ export default defineComponent({
     return {
       maxSuggestions: 6,
       hasSearched: false,
-      searchString: "",
+      searchString: ""
     };
-  },
+  }
 });
 </script>
 

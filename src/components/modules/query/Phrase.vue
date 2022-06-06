@@ -3,7 +3,7 @@
     <!-- Custom Sentences - add new ones here  -->
     <div v-if="template == 'IncludeEntity' && entity" class="horizontal">
       <Keyword> Include</Keyword>
-      <Static> {{ a }}</Static>
+      <Static> {{ determiner }}</Static>
       <Selector :path="path" :modelValue="entity" :edit="edit"></Selector>
       <Static> who</Static>
     </div>
@@ -21,7 +21,7 @@
       <!-- Operator Clause  -->
       <template v-else v-for="(child, childIndex) in children(entity)" :key="child.path">
         <div v-if="isOperator(child?.path)" class="operator horizontal">
-          <Keyword class="operator-label">{{ showOperator(path, index, childIndex) ? operator : "" }}</Keyword>
+          <Keyword class="operator-label">{{ showOperator(index, childIndex) ? operator : "" }}</Keyword>
           <div class="operator-items">
             <Phrase
               v-for="(grandChild, grandChildIndex) in children(child.value)"
@@ -60,9 +60,7 @@ export default defineComponent({
   props: ["template", "modelValue", "object", "path", "valueType", "keys", "excludedKeys", "operator", "highlighted", "index", "edit"],
   emits: ["selectedClauseUpdated"],
   methods: {
-    showOperator(path: string, index: number, childIndex: number): boolean {
-      // console.log("path", path);
-      // console.log("index", index);
+    showOperator(index: number, childIndex: number): boolean {
       if (index > 0 || childIndex > 0) return true;
       return false;
     },
@@ -73,16 +71,10 @@ export default defineComponent({
       return Object.keys(testObjecty).some(key => key == comparatorKey);
     },
     children(testObject: any) {
-      // console.log("keys", Object.keys(testObject));
       let children = Object.keys(testObject).map((key: string) => {
         const isIncludedKey = ["and", "or", "property"].includes(key);
         const isExcludedKey = ["entityType"].includes(key);
         const isNumber = typeof parseInt(key) == "number";
-        // console.log("hasIncludedKeys", hasIncludedKeys);
-        // console.log("hasExcludedKeys", hasExcludedKeys);
-        // console.log("parseInt(key)", parseInt(key));
-        // console.log("isNumber", isNumber);
-
         if ((isIncludedKey || isNumber) && !isExcludedKey) {
           return { path: key, value: testObject[key] };
         } else {
@@ -100,13 +92,10 @@ export default defineComponent({
     };
   },
   computed: {
-    a: {
-      get() {
-        const testString = this?.entity?.name;
-        if (!testString || testString == "") return "a";
-        return ["a", "e", "i", "o", "u"].some((letter: string) => letter.toLowerCase() == testString.substring(0, 1).toLowerCase()) ? "an" : "a";
-      },
-      set() {}
+    determiner() {
+      const testString = this.entity?.name;
+      if (!testString || testString == "") return "a";
+      return ["a", "e", "i", "o", "u"].some((letter: string) => letter.toLowerCase() == testString.substring(0, 1).toLowerCase()) ? "an" : "a";
     }
   },
   watch: {

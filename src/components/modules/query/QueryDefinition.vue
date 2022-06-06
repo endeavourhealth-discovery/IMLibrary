@@ -8,10 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-// import { DataSet } from "../../models/sets/DataSet";
 import Phrase from "./Phrase.vue";
-
-import _ from "lodash";
 
 export default defineComponent({
   name: "QueryDefinition",
@@ -26,8 +23,7 @@ export default defineComponent({
   data() {
     return {
       activePath: "",
-      query: this.modelValue,
-
+      query: this.modelValue
     };
   }
 });
@@ -65,9 +61,8 @@ export default defineComponent({
   border-color: #d1d5db;
 }
 
-
 .query-definition:hover {
-  box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
+  box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 </style>

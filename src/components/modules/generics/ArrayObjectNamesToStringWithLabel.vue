@@ -9,8 +9,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { isArrayHasLength, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
-import { Vocabulary } from "../../vocabulary";
+import { isArrayHasLength, isObjectHasKeys } from "../../../helpers/modules/DataTypeCheckers";
+import { Vocabulary } from "../../../vocabulary";
 
 export default defineComponent({
   name: "ArrayObjectNamesToStringWithLabel",
