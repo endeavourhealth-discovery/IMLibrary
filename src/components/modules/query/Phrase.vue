@@ -4,7 +4,7 @@
     <div v-if="template == 'IncludeEntity' && entity" class="horizontal">
       <Keyword> Include</Keyword>
       <Static> {{ determiner }}</Static>
-      <Selector :type="clause" :path="path" :modelValue="entity" :edit="edit"></Selector>
+      <Selector type="clause" :path="path" :modelValue="entity" :edit="edit"></Selector>
       <Static> who</Static>
     </div>
     <template v-else-if="template == 'subsetOf' && valueType == 'TTIriRef'">
@@ -123,7 +123,6 @@ export default defineComponent({
 </script>
 
 <style>
-
 .ml {
   margin-left: 20px;
 }
