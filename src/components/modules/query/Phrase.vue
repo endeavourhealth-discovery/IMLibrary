@@ -4,17 +4,21 @@
     <div v-if="template == 'IncludeEntity' && entity" class="horizontal">
       <Keyword> Include</Keyword>
       <Static> {{ a }}</Static>
-      <Selector :path="path" :modelValue="entity" :edit="edit"></Selector>
+      <Selector type="clause" :path="path" :modelValue="entity" :edit="edit"></Selector>
       <Static> who</Static>
     </div>
+    <template v-else-if="template == 'subsetOf' && valueType == 'TTIriRef'">
+      <Keyword> were part of the search results of </Keyword>
+      <Selector class="ml" type="clause" :path="path" :modelValue="entity"></Selector>
+    </template>
     <!-- /Custom Sentences - add new ones here -->
 
     <!-- Operator and Match Clauses-->
-    <template v-else-if="valueType == 'filter' && entity">
+    <template v-else-if="valueType == 'match' && entity">
       <!-- Match Clause -->
       <div v-if="hasKey(entity, 'property')" :class="'property horizontal' + [index > 0 ? ' ' : '']">
-        <Keyword v-if="index > 0" :class="'operator-label'"> {{ operator }}</Keyword>
-        <Selector v-if="entity" class=" " :path="path" :modelValue="entity" :edit="edit"></Selector>
+        <Keyword v-if="index > 0 || operator == 'or'" :class="'operator-label'"> {{ operator }}</Keyword>
+        <Selector v-if="entity" class="" type="clause" :path="path" :modelValue="entity" :edit="edit"></Selector>
       </div>
       <!-- Match Clause -->
 
@@ -27,13 +31,25 @@
               v-for="(grandChild, grandChildIndex) in children(child.value)"
               :object="object"
               :path="`${path}.${child?.path}[${grandChildIndex}]`"
-              valueType="filter"
+              valueType="match"
               :operator="grandChildIndex > 0 ? child.path : ''"
               :index="grandChildIndex"
               :edit="edit"
             >
             </Phrase>
           </div>
+        </div>
+        <div v-else-if="child.path == 'entityInSet'" class="inline-flex">
+          <div class="operator-label">{{ childIndex > 0 ? operator : "" }}</div>
+          <Phrase
+            v-for="(grandChild, grandChildIndex) in child.value"
+            :object="object"
+            :path="`${path}.${child.path}[${grandChildIndex}]`"
+            template="subsetOf"
+            valueType="TTIriRef"
+            :index="grandChildIndex"
+          >
+          </Phrase>
         </div>
       </template>
       <!-- Operator Clause  -->
@@ -62,8 +78,14 @@ export default defineComponent({
   methods: {
     showOperator(path: string, index: number, childIndex: number): boolean {
       // console.log("path", path);
-      // console.log("index", index);
+      // console.log("childIndex", index);
+      // console.log("operator", this.operator == "or" );
+      if ((index == 0 || childIndex == 0) && this.operator == "or") {
+        // this.operator = "either";
+        return true;
+      }
       if (index > 0 || childIndex > 0) return true;
+
       return false;
     },
     isOperator(testString: any): boolean {
@@ -78,10 +100,6 @@ export default defineComponent({
         const isIncludedKey = ["and", "or", "property"].includes(key);
         const isExcludedKey = ["entityType"].includes(key);
         const isNumber = typeof parseInt(key) == "number";
-        // console.log("hasIncludedKeys", hasIncludedKeys);
-        // console.log("hasExcludedKeys", hasExcludedKeys);
-        // console.log("parseInt(key)", parseInt(key));
-        // console.log("isNumber", isNumber);
 
         if ((isIncludedKey || isNumber) && !isExcludedKey) {
           return { path: key, value: testObject[key] };
@@ -118,6 +136,11 @@ export default defineComponent({
 </script>
 
 <style>
+
+.ml {
+  margin-left: 20px;
+}
+
 .phrase,
 .phrase .static {
   font-size: 14px !important;
