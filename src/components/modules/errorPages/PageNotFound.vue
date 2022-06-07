@@ -12,5 +12,3 @@ export default defineComponent({
   name: "PageNotFound"
 });
 </script>
-
-<style scoped></style>

@@ -1,4 +1,3 @@
-import { BuilderType } from "../../enums/modules/BuilderType";
 import { ECLComponentDetails } from "../../interfaces/modules/ECLComponentDetails";
 import { ECLComponent } from "../../enums/modules/ECLComponent";
 

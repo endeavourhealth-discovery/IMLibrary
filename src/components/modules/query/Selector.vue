@@ -6,7 +6,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import _ from "lodash";
 
 export default defineComponent({
   name: "Selector",

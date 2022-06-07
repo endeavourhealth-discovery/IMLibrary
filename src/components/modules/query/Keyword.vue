@@ -9,5 +9,3 @@ export default defineComponent({
   name: "Keyword"
 });
 </script>
-
-<style scoped></style>

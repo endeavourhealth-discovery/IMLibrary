@@ -77,7 +77,7 @@ export function ttIriToString(
   if (!inline) result += pad;
   if (withHyperlinks && (!blockedUrlIris || !blockedUrlIris.includes(iri["@id"]))) {
     const escapedUrl = iriToUrl(iri["@id"]);
-    if(iri["@id"] === seeMore){
+    if (iri["@id"] === seeMore) {
       result += `<a href="">`;
     } else {
       result += `<a target="_blank" href="${window.location.origin}${appPath}/#/concept/${escapedUrl}">`;
@@ -95,7 +95,7 @@ export function ttIriToString(
 export function ttNodeToString(
   appPath: string,
   node: any,
-  previousType: string,
+  _previousType: string,
   indent: number,
   withHyperlinks: boolean,
   iriMap?: any,
@@ -127,11 +127,10 @@ export function ttNodeToString(
         suffix = " )\n";
       }
     }
-    result = processNode(
+    result += processNode(
       appPath,
       key,
       value,
-      result,
       nodeIndent,
       iriMap,
       {
@@ -149,52 +148,46 @@ export function ttNodeToString(
   return result;
 }
 
-function processNode(
-  appPath: string,
-  key: string,
-  value: any,
-  result: string,
-  indent: number,
-  iriMap: any,
-  stringAdditions: any,
-  blockedUrlIris?: string[]
-): string {
-  const pad = stringAdditions.pad;
-  const prefix = stringAdditions.prefix;
-  const suffix = stringAdditions.suffix;
-  const withHyperlinks = stringAdditions.withHyperlinks;
+function processNode(appPath: string, key: string, value: any, indent: number, iriMap: any, stringAdditions: any, blockedUrlIris?: string[]): string {
+  let result = "";
   if (isObjectHasKeys(value, ["@id"])) {
-    result += getObjectName(key, iriMap, pad, prefix);
-    result += ttIriToString(appPath, value as TTIriRef, "object", indent, withHyperlinks, true, blockedUrlIris);
-    result += suffix;
+    result += getObjectName(key, iriMap, stringAdditions.pad, stringAdditions.prefix);
+    result += ttIriToString(appPath, value as TTIriRef, "object", indent, stringAdditions.withHyperlinks, true, blockedUrlIris);
+    result += stringAdditions.suffix;
   } else if (isArrayHasLength(value)) {
-    if (value.length === 1 && isObjectHasKeys(value[0], ["@id"])) {
-      result += getObjectName(key, iriMap, pad, prefix);
-      result += ttIriToString(appPath, value[0] as TTIriRef, "object", indent, withHyperlinks, true, blockedUrlIris);
-      result += suffix;
-    } else if ((value.length === 1 && typeof value[0] === "string") || typeof value[0] === "number") {
-      result += getObjectName(key, iriMap, pad, prefix);
-      result += String(value[0]);
-      result += suffix;
-    } else {
-      result += getObjectName(key, iriMap, pad, prefix);
-      result += "\n";
-      result += ttValueToString(appPath, value, "object", indent + 1, withHyperlinks, iriMap, blockedUrlIris);
-      if (stringAdditions.group && stringAdditions.last && result.endsWith("\n"))
-        result = result.substring(0, result.length - 1) + " )" + result.substring(result.length - 1);
-      else if (stringAdditions.group && stringAdditions.last) result += " )\n";
-    }
+    result += processNodeArray(value, key, appPath, indent, iriMap, stringAdditions, blockedUrlIris);
   } else if (isObjectHasKeys(value)) {
-    result += getObjectName(key, iriMap, pad, prefix);
+    result += getObjectName(key, iriMap, stringAdditions.pad, stringAdditions.prefix);
     result += "\n";
-    result += ttValueToString(appPath, value, "object", indent + 1, withHyperlinks, iriMap, blockedUrlIris);
+    result += ttValueToString(appPath, value, "object", indent + 1, stringAdditions.withHyperlinks, iriMap, blockedUrlIris);
     if (stringAdditions.group && stringAdditions.last && result.endsWith("\n"))
       result = result.substring(0, result.length - 1) + " )" + result.substring(result.length - 1);
     else if (stringAdditions.group && stringAdditions.last) result += " )\n";
   } else {
-    result += getObjectName(key, iriMap, pad, prefix);
-    result += ttValueToString(appPath, value, "object", indent, withHyperlinks, iriMap, blockedUrlIris);
+    result += getObjectName(key, iriMap, stringAdditions.pad, stringAdditions.prefix);
+    result += ttValueToString(appPath, value, "object", indent, stringAdditions.withHyperlinks, iriMap, blockedUrlIris);
     result += stringAdditions.suffix;
+  }
+  return result;
+}
+
+function processNodeArray(value: any[], key: string, appPath: string, indent: number, iriMap: any, stringAdditions: any, blockedUrlIris?: string[]) {
+  let result = "";
+  if (value.length === 1 && isObjectHasKeys(value[0], ["@id"])) {
+    result += getObjectName(key, iriMap, stringAdditions.pad, stringAdditions.prefix);
+    result += ttIriToString(appPath, value[0] as TTIriRef, "object", indent, stringAdditions.withHyperlinks, true, blockedUrlIris);
+    result += stringAdditions.suffix;
+  } else if ((value.length === 1 && typeof value[0] === "string") || typeof value[0] === "number") {
+    result += getObjectName(key, iriMap, stringAdditions.pad, stringAdditions.prefix);
+    result += String(value[0]);
+    result += stringAdditions.suffix;
+  } else {
+    result += getObjectName(key, iriMap, stringAdditions.pad, stringAdditions.prefix);
+    result += "\n";
+    result += ttValueToString(appPath, value, "object", indent + 1, stringAdditions.withHyperlinks, iriMap, blockedUrlIris);
+    if (stringAdditions.group && stringAdditions.last && result.endsWith("\n"))
+      result = result.substring(0, result.length - 1) + " )" + result.substring(result.length - 1);
+    else if (stringAdditions.group && stringAdditions.last) result += " )\n";
   }
   return result;
 }

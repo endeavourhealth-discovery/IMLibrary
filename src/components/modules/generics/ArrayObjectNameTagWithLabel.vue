@@ -10,9 +10,9 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { TTIriRef } from "../../interfaces/Interfaces";
-import { isArrayHasLength, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
-import LoggerService from "../../services/modules/LoggerService";
+import { TTIriRef } from "../../../interfaces/Interfaces";
+import { isArrayHasLength, isObjectHasKeys } from "../../../helpers/modules/DataTypeCheckers";
+import LoggerService from "../../../services/modules/LoggerService";
 import { mapState } from "vuex";
 
 export default defineComponent({

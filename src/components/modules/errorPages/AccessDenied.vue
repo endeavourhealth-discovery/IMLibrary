@@ -12,5 +12,3 @@ export default defineComponent({
   name: "AccessDenied"
 });
 </script>
-
-<style scoped></style>

@@ -1,6 +1,6 @@
 import { shallowMount } from "@vue/test-utils";
-import ObjectNameWithLabel from "../../../src/components/modules/ObjectNameWithLabel.vue";
-import LoggerService from "../../../src/services/modules/LoggerService";
+import ObjectNameWithLabel from "../../../../src/components/modules/generics/ObjectNameWithLabel.vue";
+import LoggerService from "../../../../src/services/modules/LoggerService";
 
 describe("ObjectNameWithLabel.vue", () => {
   let wrapper;

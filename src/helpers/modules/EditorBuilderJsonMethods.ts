@@ -116,32 +116,6 @@ export function updatePositions(build: ComponentDetails[]) {
   });
 }
 
-export function deleteItem(itemToDelete: ComponentDetails, build: ComponentDetails[], parentGroup: ComponentType, builderType: BuilderType) {
-  const index = build.findIndex(buildItem => buildItem.position === itemToDelete.position);
-  const length = build.length;
-  if (itemToDelete.position === 0) {
-    if (build.length > 1) {
-      build.shift();
-    } else {
-      build[0] = genNextOptions(-1, parentGroup, builderType, parentGroup);
-    }
-  } else {
-    if (index === length - 1) {
-      build[index] = genNextOptions(index - 1, build[index - 1].type, builderType, parentGroup);
-    } else {
-      if (build[index - 1].type === ComponentType.ADD_NEXT) {
-        build.splice(index, 1);
-        if (build[index].type === ComponentType.ADD_NEXT) {
-          build.splice(index, 1);
-        }
-      } else {
-        build.splice(index, 1);
-      }
-    }
-  }
-  updatePositions(build);
-}
-
 export function updateItem(itemToUpdate: ComponentDetails, build: ComponentDetails[]) {
   const index = build.findIndex(buildItem => buildItem.position === itemToUpdate.position);
   build[index] = itemToUpdate;
@@ -185,7 +159,6 @@ export default {
   generateNewComponent,
   updateItem,
   updatePositions,
-  deleteItem,
   addItem,
   addNextOptions,
   scrollIntoView
