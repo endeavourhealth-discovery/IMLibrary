@@ -218,18 +218,15 @@ export class Profile extends Entity {
 
     for (const key of _keys) {
       if (_operators.includes(key)) {
-        const _currentIndex = _definitionTree.length;
-        const _currentKey = key;
-
         _definitionTree.push({
           uuid: `urn:uuid:${uuid()}`,
           type: "operator",
-          include: _currentKey != "not",
-          name: _currentKey,
-          currentPath: `[${_currentIndex}]`,
-          originalName: `[${_currentKey}]`,
+          include: key != "not",
+          name: key,
+          currentPath: `[${_definitionTree.length}]`,
+          originalName: `[${key}]`,
           originalLocation: "",
-          childPath: `[${_currentKey}]`,
+          childPath: `[${key}]`,
           json: definition,
           templates: [],
           children: []
@@ -242,6 +239,12 @@ export class Profile extends Entity {
       return;
     }
 
+    this._definitionTree = this.addChildrenToDefinitionTree(_definitionTree, _operators);
+
+    console.log("UI object model (Profile.definitionTree)", _definitionTree);
+  }
+
+  private addChildrenToDefinitionTree(_definitionTree: any[], _operators: string[]) {
     //recursive addition of json clauses and their children to the definition tree:
     const _queue = _.cloneDeep(_definitionTree); //adds top level operator clauses to the queue
     while (_queue.length > 0) {
@@ -267,10 +270,7 @@ export class Profile extends Entity {
         }
       }
     }
-
-    console.log("UI object model (Profile.definitionTree)", _definitionTree);
-
-    this._definitionTree = _definitionTree;
+    return _definitionTree;
   }
 
   public toTemplates(clausePath: string): any {
