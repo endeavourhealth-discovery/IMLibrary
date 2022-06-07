@@ -1,8 +1,7 @@
 <template>
   <!-- Formatted TTIriRef name  -->
-  <pre class="iriref selector" @click="handleClick">{{ label() }} </pre>
+  <pre v-if="type == 'clause'" class="iriref selector" @click="handleClick">{{ label() }} </pre>
   <!-- Formatted TTIriRef name  -->
-
 </template>
 
 <script lang="ts">
@@ -11,7 +10,8 @@ import _ from "lodash";
 
 export default defineComponent({
   name: "Selector",
-  props: ["path", "modelValue", "edit"],
+  props: ["path", "modelValue", "edit", "type"],
+
   methods: {
     label(): any {
       let label: string = this.modelValue.name;
@@ -20,10 +20,11 @@ export default defineComponent({
     },
     handleClick(event: any): void {
       if (this.edit) {
-        (this.$refs["overlay-selector"] as any).toggle(event);
+        // (this.$refs["overlay-selector"] as any).toggle(event);
       } else {
         // #todo: open query in IM Viewer or New IM Query windowF
       }
+
       console.log("modelValue", this.modelValue);
       console.log("path", this.path);
     }
@@ -32,9 +33,9 @@ export default defineComponent({
     return {
       maxSuggestions: 6,
       hasSearched: false,
-      searchString: "",
+      searchString: ""
     };
-  },
+  }
 });
 </script>
 

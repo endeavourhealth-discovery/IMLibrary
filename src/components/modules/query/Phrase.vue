@@ -7,8 +7,8 @@
       <Selector type="clause" :path="path" :modelValue="entity" :edit="edit"></Selector>
       <Static> who</Static>
     </div>
-    <template v-else-if="template == 'subsetOf' && valueType == 'TTIriRef'">
-      <Keyword> were part of the search results of </Keyword>
+    <template v-else-if="template == 'entityInSet' && valueType == 'TTIriRef'">
+      <Keyword> were part of the final results of query </Keyword>
       <Selector class="ml" type="clause" :path="path" :modelValue="entity"></Selector>
     </template>
     <!-- /Custom Sentences - add new ones here -->
@@ -45,7 +45,7 @@
             v-for="(grandChild, grandChildIndex) in child.value"
             :object="object"
             :path="`${path}.${child.path}[${grandChildIndex}]`"
-            template="subsetOf"
+            template="entityInSet"
             valueType="TTIriRef"
             :index="grandChildIndex"
           >
