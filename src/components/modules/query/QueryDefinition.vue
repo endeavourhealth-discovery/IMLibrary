@@ -1,7 +1,7 @@
 <template>
   <div :class="'query-definition ' + [edit ? 'edit ' : '']">
     <Phrase template="IncludeEntity" :object="query" path="select.entityType" valueType="TTIriRef" :highlighted="true" :edit="edit">
-      <Phrase :object="query" path="select.filter" valueType="filter" operator="and" :highlighted="true" :edit="edit"> </Phrase>
+      <Phrase :object="query" path="select.match" valueType="match" operator="and" :highlighted="true" :edit="edit"> </Phrase>
     </Phrase>
   </div>
 </template>
@@ -9,12 +9,16 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Phrase from "./Phrase.vue";
+import { mapState } from "vuex";
 
 export default defineComponent({
   name: "QueryDefinition",
   props: ["modelValue", "edit"],
   emits: ["stopEditing"],
   components: { Phrase },
+  computed: {
+    ...mapState(["activeClausePath"])
+  },
   watch: {
     modelValue(value: any) {
       this.query = value;
@@ -40,8 +44,8 @@ export default defineComponent({
 
 .query-definition {
   width: 600px;
-  min-width: 300px;
-  max-width: 600px;
+  /* min-width: 300px; */
+  min-width: 600px;
 
   height: 100%;
   max-height: 600px;
@@ -61,7 +65,12 @@ export default defineComponent({
   border-color: #d1d5db;
 }
 
-.query-definition:hover {
+.query-definition.edit {
+  border-width: 0;
+  box-shadow: none;
+}
+
+.query-definition:not(.edit):hover {
   box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
