@@ -165,24 +165,22 @@ export class Profile extends Entity {
       const _isMatchClause = item["property"] || item["pathTo"];
 
       let _childKey = Object.keys(item).filter((item: string) => _operators.includes(item))[0];
-
       let _name;
-      if (_isMatchClause) {
-        _name = ""; //item["name"] ? item["name"] : ""
-      } else {
-        _name = _childKey; //parent.jsons.and ? "and" : "or";
-      }
-
-      const _currentKey = _isMatchClause ? `[${_childKey}]` : `[${index}]`;
-
       let _include;
-      if (_isMatchClause) {
-        _include = item["notExist"] == true ? false : true;
-      } else {
-        _include = _childKey == "not" ? false : true;
-      }
+      let _currentKey;
+      let _childPath;
 
-      let _childPath = _isMatchClause ? "" : parent.childPath + `[${index}]` + `[${_childKey}]`;
+      if (_isMatchClause) {
+        _name = "";
+        _include = !item["notExist"];
+        _currentKey = `[${_childKey}]`;
+        _childPath = "";
+      } else {
+        _name = _childKey;
+        _include = _childKey == "not" ? false : true;
+        _currentKey = `[${index}]`;
+        _childPath = parent.childPath + `[${index}]` + `[${_childKey}]`;
+      }
 
       return {
         uuid: `urn:uuid:${uuid()}`,
