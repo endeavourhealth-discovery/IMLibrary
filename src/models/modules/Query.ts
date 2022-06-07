@@ -169,6 +169,7 @@ export class Profile extends Entity {
       let _include;
       let _currentKey;
       let _childPath;
+      let _currentPath;
 
       if (_isMatchClause) {
         _name = "";
@@ -182,12 +183,18 @@ export class Profile extends Entity {
         _childPath = parent.childPath + `[${index}]` + `[${_childKey}]`;
       }
 
+      if (parent.currentPath == "") {
+        _currentPath = `children[${index.toString()}]`;
+      } else {
+        _currentPath = `${parent["currentPath"]}.children[${index.toString()}]`;
+      }
+
       return {
         uuid: `urn:uuid:${uuid()}`,
         type: _isMatchClause ? "match" : "operator",
         include: _include,
         name: _name,
-        currentPath: parent.currentPath + ".children" + +`[${index}]`,
+        currentPath: _currentPath,
         originalName: `[${index}]`,
         originalLocation: parent.childPath + `[${index}]`,
         childPath: _childPath,
@@ -195,17 +202,6 @@ export class Profile extends Entity {
         templates: [],
         children: []
       };
-    });
-
-    // populates children's currentpath (a key that tells you the path to the current object) required below by _currentItem['currentPath'] to set children
-    // path is either children[i] (first item)
-    // or [parentPath].children[i] (the rest)
-    _children.forEach((_item: any, index: number) => {
-      if (parent["currentPath"] == "") {
-        _children[index]["currentPath"] = `children[${index.toString()}]`;
-      } else {
-        _children[index]["currentPath"] = `${parent["currentPath"]}.children[${index.toString()}]`;
-      }
     });
 
     return _children;
