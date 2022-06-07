@@ -127,11 +127,10 @@ export function ttNodeToString(
         suffix = " )\n";
       }
     }
-    result = processNode(
+    result += processNode(
       appPath,
       key,
       value,
-      result,
       nodeIndent,
       iriMap,
       {
@@ -149,22 +148,14 @@ export function ttNodeToString(
   return result;
 }
 
-function processNode(
-  appPath: string,
-  key: string,
-  value: any,
-  result: string,
-  indent: number,
-  iriMap: any,
-  stringAdditions: any,
-  blockedUrlIris?: string[]
-): string {
+function processNode(appPath: string, key: string, value: any, indent: number, iriMap: any, stringAdditions: any, blockedUrlIris?: string[]): string {
+  let result = "";
   if (isObjectHasKeys(value, ["@id"])) {
     result += getObjectName(key, iriMap, stringAdditions.pad, stringAdditions.prefix);
     result += ttIriToString(appPath, value as TTIriRef, "object", indent, stringAdditions.withHyperlinks, true, blockedUrlIris);
     result += stringAdditions.suffix;
   } else if (isArrayHasLength(value)) {
-    processNodeArray(value, key, appPath, result, indent, iriMap, stringAdditions, blockedUrlIris);
+    result += processNodeArray(value, key, appPath, indent, iriMap, stringAdditions, blockedUrlIris);
   } else if (isObjectHasKeys(value)) {
     result += getObjectName(key, iriMap, stringAdditions.pad, stringAdditions.prefix);
     result += "\n";
@@ -180,16 +171,8 @@ function processNode(
   return result;
 }
 
-function processNodeArray(
-  value: any[],
-  key: string,
-  appPath: string,
-  result: string,
-  indent: number,
-  iriMap: any,
-  stringAdditions: any,
-  blockedUrlIris?: string[]
-) {
+function processNodeArray(value: any[], key: string, appPath: string, indent: number, iriMap: any, stringAdditions: any, blockedUrlIris?: string[]) {
+  let result = "";
   if (value.length === 1 && isObjectHasKeys(value[0], ["@id"])) {
     result += getObjectName(key, iriMap, stringAdditions.pad, stringAdditions.prefix);
     result += ttIriToString(appPath, value[0] as TTIriRef, "object", indent, stringAdditions.withHyperlinks, true, blockedUrlIris);
@@ -206,6 +189,7 @@ function processNodeArray(
       result = result.substring(0, result.length - 1) + " )" + result.substring(result.length - 1);
     else if (stringAdditions.group && stringAdditions.last) result += " )\n";
   }
+  return result;
 }
 
 function getObjectName(key: string, iriMap: any, pad: string, prefix: string) {
