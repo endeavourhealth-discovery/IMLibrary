@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import ArrayObjectNamesToStringWithLabel from "../../../src/components/modules/ArrayObjectNamesToStringWithLabel.vue";
+import ArrayObjectNamesToStringWithLabel from "../../../../src/components/modules/generics/ArrayObjectNamesToStringWithLabel.vue";
 
 describe("ArrayObjectNameToStringWithLabel.vue", () => {
   let wrapper;

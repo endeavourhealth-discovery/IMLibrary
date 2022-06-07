@@ -14,7 +14,7 @@ import { defineComponent, PropType } from "vue";
 export default defineComponent({
   name: "TermCodeTable",
   props: {
-    terms: { type: Array as PropType<Array<{ name: String; code: String }>>, required: true }
+    terms: { type: Array as PropType<Array<{ name: string; code: string }>>, required: true }
   }
 });
 </script>

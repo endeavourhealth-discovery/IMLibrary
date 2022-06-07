@@ -43,8 +43,8 @@
 import { defineComponent, PropType } from "vue";
 import { RouteRecordName } from "vue-router";
 import { mapState } from "vuex";
-import { isArrayHasLength, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
-import LoggerService from "../../services/modules/LoggerService";
+import { isArrayHasLength, isObjectHasKeys } from "../../../helpers/modules/DataTypeCheckers";
+import LoggerService from "../../../services/modules/LoggerService";
 
 export default defineComponent({
   name: "ArrayObjectNameListboxWithLabelAndLoadMore",

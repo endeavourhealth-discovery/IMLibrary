@@ -8,11 +8,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-// import { DataSet } from "../../models/sets/DataSet";
 import Phrase from "./Phrase.vue";
 import { mapState } from "vuex";
-
-import _ from "lodash";
 
 export default defineComponent({
   name: "QueryDefinition",

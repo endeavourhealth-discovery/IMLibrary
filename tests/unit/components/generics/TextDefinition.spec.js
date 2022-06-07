@@ -1,4 +1,4 @@
-import TextDefinition from "../../../src/components/modules/TextDefinition.vue";
+import TextDefinition from "../../../../src/components/modules/generics/TextDefinition.vue";
 import { flushPromises, shallowMount } from "@vue/test-utils";
 import Button from "primevue/button";
 import StyleClass from "primevue/styleclass";
