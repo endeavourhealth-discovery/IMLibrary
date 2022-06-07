@@ -661,108 +661,110 @@ const matchFunctions = {
   pathValueIs: pathValueIs
 } as any;
 
-export default class Templates {
-  public static toTemplates(mainEntity: any, profile: any, clausePath: string) {
-    const doesTemplateMatch = (mainEntity: any, profile: any, parentClause: any, currentClause: any, template: any): boolean => {
-      //do a depth first recursive function OR queue like below through matchIf
-      // check every child in matchIf - if it's an "all" -> use array.every, otherwise use array.some
+let _vars: any;
 
-      // if no criteria are specified
-      if (!template.meta.matchIf) return true;
-      // in order to support arguments such as #currentClause #profile, #mainEntity, #parentClause use the object vars
-      const _vars = {
-        "#mainEntity": mainEntity,
-        "#profile": profile,
-        "#currentClause": currentClause,
-        "#parentClause": parentClause,
-        "#temmplate": template
-      } as any;
-      let _shouldMatch = false;
-      const _testCriteria = (criteria: any) => {
-        const _f = matchFunctions[criteria.test];
-        let _args = criteria.input;
+function testCriteria(criteria: any) {
+  const _f = matchFunctions[criteria.test];
+  let _args = criteria.input;
 
-        //replaces args with vars
-        _args.forEach((arg: any, index: number) => {
-          if (typeof arg == "string" && arg.substring(0, 1) == "#") {
-            return (_args[index] = _vars[arg]);
-          }
-        });
-        return _f(..._args) == criteria.expect;
-      };
-
-      // #todo: add support multiple templates matching a single clause -> generate all of them
-      // #display to the user first the template with the most specificity (most matchIf requirements) or least amount of placeholders (count mutables?)
-
-      if (template.meta.matchIf.all && template.meta.matchIf.all.length) {
-        //test all criteria using "every"
-        const _criteria = template.meta.matchIf.all;
-        _shouldMatch = _criteria.every(_testCriteria);
-      } else if (template.meta.matchIf.any && template.meta.matchIf.any.length) {
-        //test all criteria using "every"
-        const _criteria = template.meta.matchIf.any;
-        _shouldMatch = _criteria.some(_testCriteria);
-      } else {
-        _shouldMatch = false;
-      }
-
-      //#todo: select multiple compatible phrases templates and pick the shortest one (currently it only picks one
-      return _shouldMatch;
-    };
-    // debugger;
-    const _queue: any[] = [];
-    const _deleteQueue = [];
-    //add all paths of templates then recursively go through each in order to populate json[]
-    const _cascadingTemplates = _.cloneDeep(CascadingTemplates);
-    _cascadingTemplates.forEach((_item: any, index: number) => _queue.push(`[${index}]`));
-    while (_queue.length > 0) {
-      const _currentItemPath = _queue.shift();
-      const _template = _.get(_cascadingTemplates, _currentItemPath);
-      const _currentClause = _.get(profile, clausePath);
-      const _parentPath = clausePath.split(".").slice(0, -1).join(".");
-      const _parentClause = _.get(profile, _parentPath);
-      //check template requirements are met
-      if (doesTemplateMatch(mainEntity, profile, _parentClause, _currentClause, _template)) {
-        const _templateFunction = templateFunctions[_template.get.function];
-        const _data: string[] = _templateFunction(mainEntity, _parentClause, _currentClause, _template.get.input);
-        // if data is a collection of arrays (e.g. a function executing itself more than once ).
-        // the data:[] key in the cascade acts as an "AND" operator clause and can contain and/or/not
-        let _currentCascade = _.get(_cascadingTemplates, _currentItemPath);
-        // if there are multiple sentences, push all sentences individually, otherwise push the single sentence
-        if (Array.isArray(_data[0])) {
-          _currentCascade.data = _data as never;
-        } else {
-          _currentCascade.data.push(_data as never);
-        }
-        //adds children to the queue
-        if (_template.children.length > 0) {
-          _template.children.forEach((_item: any, index: number) => _queue.push(_currentItemPath + `[children][${index}]`));
-        }
-      } else {
-        // remove template from cascade if not matching
-        _deleteQueue.push(_currentItemPath);
-      }
+  //replaces args with vars
+  _args.forEach((arg: any, index: number) => {
+    if (typeof arg == "string" && arg.substring(0, 1) == "#") {
+      return (_args[index] = _vars[arg]);
     }
+  });
+  return _f(..._args) == criteria.expect;
+}
 
-    // removes templates not matched
-    while (_deleteQueue.length > 0) {
-      //deletes items starting with last time to avoid shifting array indices
-      const _lastIndex = _deleteQueue.length - 1;
-      const _currentItemPath = _deleteQueue[_lastIndex];
+function doesTemplateMatch(mainEntity: any, profile: any, parentClause: any, currentClause: any, template: any): boolean {
+  //do a depth first recursive function OR queue like below through matchIf
+  // check every child in matchIf - if it's an "all" -> use array.every, otherwise use array.some
 
-      const _start: number = _currentItemPath.lastIndexOf("[");
-      const _end: number = _currentItemPath.lastIndexOf("]");
-      const _index = _currentItemPath.substring(_start + 1, _end);
-      const _parentPath = _currentItemPath.substring(0, _start);
+  // if no criteria are specified
+  if (!template.meta.matchIf) return true;
+  // in order to support arguments such as #currentClause #profile, #mainEntity, #parentClause use the object vars
+  _vars = {
+    "#mainEntity": mainEntity,
+    "#profile": profile,
+    "#currentClause": currentClause,
+    "#parentClause": parentClause,
+    "#temmplate": template
+  };
+  let _shouldMatch = false;
 
-      const _parent: any = _.get(_cascadingTemplates, _parentPath);
-      _parent.splice(_index, 1);
-      _deleteQueue.splice(_lastIndex, 1);
+  // #todo: add support multiple templates matching a single clause -> generate all of them
+  // #display to the user first the template with the most specificity (most matchIf requirements) or least amount of placeholders (count mutables?)
 
-      //does not remove object propery
-      // _.unset(_cascadingTemplates, _currentItemPath)
-    }
-
-    return _cascadingTemplates;
+  if (template.meta.matchIf.all && template.meta.matchIf.all.length) {
+    //test all criteria using "every"
+    const _criteria = template.meta.matchIf.all;
+    _shouldMatch = _criteria.every(testCriteria);
+  } else if (template.meta.matchIf.any && template.meta.matchIf.any.length) {
+    //test all criteria using "every"
+    const _criteria = template.meta.matchIf.any;
+    _shouldMatch = _criteria.some(testCriteria);
+  } else {
+    _shouldMatch = false;
   }
+
+  //#todo: select multiple compatible phrases templates and pick the shortest one (currently it only picks one
+  return _shouldMatch;
+}
+
+export function toTemplates(mainEntity: any, profile: any, clausePath: string) {
+  // debugger;
+  const _queue: any[] = [];
+  const _deleteQueue = [];
+  //add all paths of templates then recursively go through each in order to populate json[]
+  const _cascadingTemplates = _.cloneDeep(CascadingTemplates);
+  _cascadingTemplates.forEach((_item: any, index: number) => _queue.push(`[${index}]`));
+  while (_queue.length > 0) {
+    const _currentItemPath = _queue.shift();
+    const _template = _.get(_cascadingTemplates, _currentItemPath);
+    const _currentClause = _.get(profile, clausePath);
+    const _parentPath = clausePath.split(".").slice(0, -1).join(".");
+    const _parentClause = _.get(profile, _parentPath);
+    //check template requirements are met
+    if (doesTemplateMatch(mainEntity, profile, _parentClause, _currentClause, _template)) {
+      const _templateFunction = templateFunctions[_template.get.function];
+      const _data: string[] = _templateFunction(mainEntity, _parentClause, _currentClause, _template.get.input);
+      // if data is a collection of arrays (e.g. a function executing itself more than once ).
+      // the data:[] key in the cascade acts as an "AND" operator clause and can contain and/or/not
+      let _currentCascade = _.get(_cascadingTemplates, _currentItemPath);
+      // if there are multiple sentences, push all sentences individually, otherwise push the single sentence
+      if (Array.isArray(_data[0])) {
+        _currentCascade.data = _data as never;
+      } else {
+        _currentCascade.data.push(_data as never);
+      }
+      //adds children to the queue
+      if (_template.children.length > 0) {
+        _template.children.forEach((_item: any, index: number) => _queue.push(_currentItemPath + `[children][${index}]`));
+      }
+    } else {
+      // remove template from cascade if not matching
+      _deleteQueue.push(_currentItemPath);
+    }
+  }
+
+  // removes templates not matched
+  while (_deleteQueue.length > 0) {
+    //deletes items starting with last time to avoid shifting array indices
+    const _lastIndex = _deleteQueue.length - 1;
+    const _currentItemPath = _deleteQueue[_lastIndex];
+
+    const _start: number = _currentItemPath.lastIndexOf("[");
+    const _end: number = _currentItemPath.lastIndexOf("]");
+    const _index = _currentItemPath.substring(_start + 1, _end);
+    const _parentPath = _currentItemPath.substring(0, _start);
+
+    const _parent: any = _.get(_cascadingTemplates, _parentPath);
+    _parent.splice(_index, 1);
+    _deleteQueue.splice(_lastIndex, 1);
+
+    //does not remove object propery
+    // _.unset(_cascadingTemplates, _currentItemPath)
+  }
+
+  return _cascadingTemplates;
 }
