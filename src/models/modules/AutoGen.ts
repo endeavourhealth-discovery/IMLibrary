@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.36.1070 on 2022-05-31 17:16:22.
+// Generated using typescript-generator version 2.36.1070 on 2022-06-08 16:45:11.
 
 /**
  * Structure containing search request parameters and filters
@@ -60,6 +60,8 @@ export interface Argument {
     parameter: string;
     valueData: any;
     valueVariable: string;
+    valueSelect: Select;
+    valueProperty: ConceptRef;
 }
 
 export interface Compare {
@@ -75,9 +77,7 @@ export interface ConceptRef extends Alias {
     includeValueSets: boolean;
 }
 
-export interface Function {
-    id: TTIriRef;
-    name: string;
+export interface Function extends TTIriRef {
     argument: Argument[];
 }
 
@@ -87,9 +87,11 @@ export interface Heading extends TTIriRef {
 }
 
 export interface Match extends Heading {
+    subselect: Select;
     notExist: boolean;
     entityType: ConceptRef;
     entityId: ConceptRef;
+    entityInSet: ConceptRef[];
     property: ConceptRef;
     isConcept: ConceptRef[];
     inRange: Range;
@@ -102,10 +104,11 @@ export interface Match extends Heading {
     orderLimit: OrderLimit;
     optional: Match[];
     graph: TTIriRef;
-    entityInValueSet: ConceptRef;
-    inSet: TTIriRef[];
-    notInSet: TTIriRef[];
+    entityNotInSet: ConceptRef[];
+    inSet: ConceptRef[];
+    notInSet: ConceptRef[];
     isNotConcept: ConceptRef[];
+    argument: Argument[];
     entityVar: string;
     inverseOf: boolean;
     index: boolean;
@@ -131,7 +134,6 @@ export interface Query extends Heading {
     activeOnly: boolean;
     referenceDate: string;
     select: Select;
-    groupBy: Select[];
     graph: TTIriRef;
     subselect: Select[];
     usePrefixes: boolean;
@@ -156,7 +158,7 @@ export interface Select {
     property: PropertySelect[];
     match: Match;
     count: boolean;
-    groupBy: string[];
+    groupBy: PropertySelect[];
     orderLimit: OrderLimit;
 }
 
