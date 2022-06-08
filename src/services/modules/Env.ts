@@ -5,7 +5,7 @@ const Env = {
   EDITOR_URL: import.meta.env.VITE_EDITOR_URL ? (import.meta.env.VITE_EDITOR_URL as string) : "/editor/#/",
   CATALOGUE_URL: import.meta.env.VITE_CATALOGUE_URL ? (import.meta.env.VITE_CATALOGUE_URL as string) : "/catalogue/#/",
   VIEWER_URL: import.meta.env.VITE_VIEWER_URL ? (import.meta.env.VITE_VIEWER_URL as string) : "/viewer/#/",
-  VITE_NODE_API: import.meta.env.VITE_NODE_API ? (import.meta.env.VITE_NODE_API as string) : "http://localhost:3000/"
+  VITE_NODE_API: import.meta.env.VITE_NODE_API ? (import.meta.env.VITE_NODE_API as string) : "/nodeapi/"
 };
 
 Object.freeze(Env);
