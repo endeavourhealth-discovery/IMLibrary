@@ -1,16 +1,17 @@
 <template>
-  <div :class="'phrase  ' + [highlighted ? 'highlighted' : '']">
+  <div :class="'phrase   ' + [highlighted ? 'highlighted' : '']">
     <!-- Custom Sentences - add new ones here  -->
     <div v-if="template == 'IncludeEntity' && entity" class="horizontal">
       <Keyword> Include</Keyword>
-      <Static> {{ determiner }}</Static>
+      <Static> {{ a }}</Static>
       <Selector type="clause" :path="path" :modelValue="entity" :edit="edit"></Selector>
       <Static> who</Static>
     </div>
-    <template v-else-if="template == 'subsetOf' && valueType == 'TTIriRef'">
-      <Keyword> were part of the search results of </Keyword>
-      <Selector class="ml" type="clause" :path="path" :modelValue="entity"></Selector>
-    </template>
+    <div v-else-if="template == 'entityInSet' && valueType == 'TTIriRef'" class="horizontal flex-wrap">
+      <Keyword class="ml"> {{ entity?.notExist == true ? "is not" : "is" }} </Keyword>
+      <Keyword> part of the results of the search </Keyword>
+      <Selector  type="clause" :path="path" :modelValue="entity"></Selector>
+    </div>
     <!-- /Custom Sentences - add new ones here -->
 
     <!-- Operator and Match Clauses-->
@@ -25,7 +26,7 @@
       <!-- Operator Clause  -->
       <template v-else v-for="(child, childIndex) in children(entity)" :key="child.path">
         <div v-if="isOperator(child?.path)" class="operator horizontal">
-          <Keyword class="operator-label">{{ showOperator(index, childIndex) ? operator : "" }}</Keyword>
+          <Keyword class="operator-label">{{ showOperator(path, index, childIndex) ? operator : "" }}</Keyword>
           <div class="operator-items">
             <Phrase
               v-for="(grandChild, grandChildIndex) in children(child.value)"
@@ -39,13 +40,13 @@
             </Phrase>
           </div>
         </div>
-        <div v-else-if="child.path == 'entityInSet'" class="inline-flex">
+        <div v-else-if="child.path == 'entityInSet'" >
           <div class="operator-label">{{ childIndex > 0 ? operator : "" }}</div>
           <Phrase
             v-for="(grandChild, grandChildIndex) in child.value"
             :object="object"
             :path="`${path}.${child.path}[${grandChildIndex}]`"
-            template="subsetOf"
+            template="entityInSet"
             valueType="TTIriRef"
             :index="grandChildIndex"
           >
@@ -76,8 +77,16 @@ export default defineComponent({
   props: ["template", "modelValue", "object", "path", "valueType", "keys", "excludedKeys", "operator", "highlighted", "index", "edit"],
   emits: ["selectedClauseUpdated"],
   methods: {
-    showOperator(index: number, childIndex: number): boolean {
-      if ((index == 0 || childIndex == 0) && this.operator == "or") return true;
+    showOperator(path: string, index: number, childIndex: number): boolean {
+      // console.log("path", path);
+      // console.log("childIndex", index);
+      // console.log("operator", this.operator == "or" );
+      if ((index == 0 || childIndex == 0) && this.operator == "or") {
+        // this.operator = "either";
+        return true;
+      }
+      if (index > 0 || childIndex > 0) return true;
+
       return false;
     },
     isOperator(testString: any): boolean {
@@ -87,10 +96,12 @@ export default defineComponent({
       return Object.keys(testObjecty).some(key => key == comparatorKey);
     },
     children(testObject: any) {
+      // console.log("keys", Object.keys(testObject));
       let children = Object.keys(testObject).map((key: string) => {
         const isIncludedKey = ["and", "or", "property"].includes(key);
         const isExcludedKey = ["entityType"].includes(key);
         const isNumber = typeof parseInt(key) == "number";
+
         if ((isIncludedKey || isNumber) && !isExcludedKey) {
           return { path: key, value: testObject[key] };
         } else {
@@ -108,10 +119,13 @@ export default defineComponent({
     };
   },
   computed: {
-    determiner() {
-      const testString = this.entity?.name;
-      if (!testString || testString == "") return "a";
-      return ["a", "e", "i", "o", "u"].some((letter: string) => letter.toLowerCase() == testString.substring(0, 1).toLowerCase()) ? "an" : "a";
+    a: {
+      get() {
+        const testString = this?.entity?.name;
+        if (!testString || testString == "") return "a";
+        return ["a", "e", "i", "o", "u"].some((letter: string) => letter.toLowerCase() == testString.substring(0, 1).toLowerCase()) ? "an" : "a";
+      },
+      set() {}
     }
   },
   watch: {
@@ -124,7 +138,11 @@ export default defineComponent({
 
 <style>
 .ml {
-  margin-left: 20px;
+  margin-left: 10px;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 .phrase,
@@ -179,7 +197,8 @@ export default defineComponent({
 .phrase .operator,
 .phrase .property {
   position: relative;
-  padding: 0.3rem 0.5rem;
+  margin-bottom: 5px;
+  padding: 0 5px; 
   border-radius: 0.375rem;
   border-width: 1px;
   border-color: transparent;
@@ -187,8 +206,8 @@ export default defineComponent({
 
 .phrase .operator:hover,
 .phrase .property:hover {
-  background-color: rgb(156 163 175 / 0.05);
-  border-color: rgb(156 163 175);
+  background-color: rgb(156 163 175 / 0.05) !important;
+  border-color: rgb(156 163 175) !important;
 }
 
 .operator-items {
