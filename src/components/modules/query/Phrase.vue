@@ -8,9 +8,9 @@
       <Static> who</Static>
     </div>
     <div v-else-if="template == 'entityInSet' && valueType == 'TTIriRef'" class="horizontal flex-wrap">
-      <Keyword class="ml"> {{ entity?.notExist == true ? "is not" : "is" }} </Keyword>
+      <Keyword class="ml"> {{ parent?.notExist == true ? "is not" : "is" }} </Keyword>
       <Keyword> part of the results of the search </Keyword>
-      <Selector  type="clause" :path="path" :modelValue="entity"></Selector>
+      <Selector type="clause" :path="path" :modelValue="entity"></Selector>
     </div>
     <!-- /Custom Sentences - add new ones here -->
 
@@ -40,11 +40,13 @@
             </Phrase>
           </div>
         </div>
-        <div v-else-if="child.path == 'entityInSet'" >
+        <div v-else-if="child.path == 'entityInSet'">
           <div class="operator-label">{{ childIndex > 0 ? operator : "" }}</div>
+
           <Phrase
             v-for="(grandChild, grandChildIndex) in child.value"
             :object="object"
+            :parentPath="`${path}`"
             :path="`${path}.${child.path}[${grandChildIndex}]`"
             template="entityInSet"
             valueType="TTIriRef"
@@ -74,7 +76,7 @@ import _ from "lodash";
 export default defineComponent({
   name: "Phrase",
   components: { Selector, Static, Keyword },
-  props: ["template", "modelValue", "object", "path", "valueType", "keys", "excludedKeys", "operator", "highlighted", "index", "edit"],
+  props: ["template", "modelValue", "object", "path", "parentPath", "valueType", "keys", "excludedKeys", "operator", "highlighted", "index", "edit"],
   emits: ["selectedClauseUpdated"],
   methods: {
     showOperator(path: string, index: number, childIndex: number): boolean {
@@ -115,7 +117,8 @@ export default defineComponent({
   data() {
     return {
       editMode: this.edit,
-      entity: this.path ? _.get(this.object, this.path) : this.object
+      entity: this.path ? _.get(this.object, this.path) : this.object,
+      parent: this.parentPath ? _.get(this.object, this.parentPath) : null
     };
   },
   computed: {
@@ -198,7 +201,7 @@ export default defineComponent({
 .phrase .property {
   position: relative;
   margin-bottom: 5px;
-  padding: 0 5px; 
+  padding: 0 5px;
   border-radius: 0.375rem;
   border-width: 1px;
   border-color: transparent;
