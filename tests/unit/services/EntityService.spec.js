@@ -3,6 +3,8 @@ import EntityService from "../../../src/services/modules/EntityService";
 import Env from "../../../src/services/modules/Env";
 import axios from "axios";
 
+const entityService = new EntityService(axios);
+
 const api = Env.API;
 const SEARCH_PAYLOAD = {
   size: 100,
@@ -105,14 +107,14 @@ describe("EntityService.ts ___ axios success", () => {
   });
 
   it("can downloadConcept", async () => {
-    const result = await EntityService.downloadConcept("testIri", "testFormat");
+    const result = await entityService.downloadConcept("testIri", "testFormat");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/exportConcept", { params: { iri: "testIri", format: "testFormat" }, responseType: "blob" });
     expect(result).toBe("axios get return");
   });
 
   it("can get partial entity", async () => {
-    const result = await EntityService.getPartialEntity("testIri", ["pred_1", "pred_2", "pred_3"]);
+    const result = await entityService.getPartialEntity("testIri", ["pred_1", "pred_2", "pred_3"]);
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partial", { params: { iri: "testIri", predicate: "pred_1,pred_2,pred_3" } });
     expect(result).toBe("axios get return");
@@ -136,21 +138,21 @@ describe("EntityService.ts ___ axios success", () => {
       "http://endhealth.info/im#ValueSet"
     ];
     const cancelToken = axios.CancelToken.source().token;
-    const result = await EntityService.advancedSearch(request, cancelToken);
+    const result = await entityService.advancedSearch(request, cancelToken);
     expect(axios.post).toHaveBeenCalledTimes(1);
     expect(axios.post).toHaveBeenCalledWith(api + "api/entity/public/search", request, { cancelToken: cancelToken });
     expect(result).toBe("axios post return");
   });
 
   it("can get entity definition dto", async () => {
-    const result = await EntityService.getEntityDefinitionDto("testIri");
+    const result = await entityService.getEntityDefinitionDto("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/definition", { params: { iri: "testIri" } });
     expect(result).toBe("axios get return");
   });
 
   it("can get entity parents", async () => {
-    const result = await EntityService.getEntityParents("testIri");
+    const result = await entityService.getEntityParents("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/parents", { params: { iri: "testIri" } });
     expect(result).toBe("axios get return");
@@ -158,70 +160,70 @@ describe("EntityService.ts ___ axios success", () => {
 
   it("can get entity children", async () => {
     const cancelToken = axios.CancelToken.source().token;
-    const result = await EntityService.getEntityChildren("testIri", undefined, cancelToken);
+    const result = await entityService.getEntityChildren("testIri", undefined, cancelToken);
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/children", { params: { iri: "testIri" }, cancelToken: cancelToken });
     expect(result).toBe("axios get return");
   });
 
   it("can get entity usages", async () => {
-    const result = await EntityService.getEntityUsages("testIri", 1, 25);
+    const result = await entityService.getEntityUsages("testIri", 1, 25);
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/usages", { params: { iri: "testIri", page: 1, size: 25 } });
     expect(result).toBe("axios get return");
   });
 
   it("can get usages total records", async () => {
-    const result = await EntityService.getUsagesTotalRecords("testIri");
+    const result = await entityService.getUsagesTotalRecords("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/usagesTotalRecords", { params: { iri: "testIri" } });
     expect(result).toBe("axios get return");
   });
 
   it("can get entity graph", async () => {
-    const result = await EntityService.getEntityGraph("testIri");
+    const result = await entityService.getEntityGraph("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/graph", { params: { iri: "testIri" } });
     expect(result).toBe("axios get return");
   });
 
   it("can get entity term codes", async () => {
-    const result = await EntityService.getEntityTermCodes("testIri");
+    const result = await entityService.getEntityTermCodes("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/termCode", { params: { iri: "testIri" } });
     expect(result).toBe("axios get return");
   });
 
   it("can get partial bundle", async () => {
-    const result = await EntityService.getPartialEntityBundle("testIri", ["testPredicate1", "testPredicate2"]);
+    const result = await entityService.getPartialEntityBundle("testIri", ["testPredicate1", "testPredicate2"]);
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partialBundle", { params: { iri: "testIri", predicate: "testPredicate1,testPredicate2" } });
     expect(result).toBe("axios get return");
   });
 
   it("can getInferredBundle", async () => {
-    const result = await EntityService.getDefinitionBundle("testIri");
+    const result = await entityService.getDefinitionBundle("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/inferredBundle", { params: { iri: "testIri" } });
     expect(result).toBe("axios get return");
   });
 
   it("can getInferredAsString", async () => {
-    const result = await EntityService.getInferredAsString("testIri");
+    const result = await entityService.getInferredAsString("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/inferredAsString", { params: { iri: "testIri" } });
     expect(result).toBe("axios get return");
   });
 
   it("can get entity summary", async () => {
-    const result = await EntityService.getEntitySummary("testIri");
+    const result = await entityService.getEntitySummary("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/summary", { params: { iri: "testIri" } });
     expect(result).toBe("axios get return");
   });
 
   it("can get namespaces", async () => {
-    const result = await EntityService.getNamespaces();
+    const result = await entityService.getNamespaces();
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/namespaces");
     expect(result).toBe("axios get return");
@@ -229,14 +231,14 @@ describe("EntityService.ts ___ axios success", () => {
 
   it("can getEcl", async () => {
     const testBundle = { entity: "testEntity", predicates: "testPredicates" };
-    const result = await EntityService.getEcl(testBundle);
+    const result = await entityService.getEcl(testBundle);
     expect(axios.post).toHaveBeenCalledTimes(1);
     expect(axios.post).toHaveBeenCalledWith(api + "api/entity/public/ecl", testBundle);
     expect(result).toBe("axios post return");
   });
 
   it("can getSimpleMaps", async () => {
-    const result = await EntityService.getSimpleMaps("testString");
+    const result = await entityService.getSimpleMaps("testString");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/simpleMaps", { params: { iri: "testString" } });
     expect(result).toBe("axios get return");
@@ -253,14 +255,14 @@ describe("EntityService.ts ___ axios fail", () => {
   });
 
   it("can downloadConcept", async () => {
-    const result = await EntityService.downloadConcept("testIri", "testFormat");
+    const result = await entityService.downloadConcept("testIri", "testFormat");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/exportConcept", { params: { iri: "testIri", format: "testFormat" }, responseType: "blob" });
     expect(result).toStrictEqual({});
   });
 
   it("can get partial entity", async () => {
-    const result = await EntityService.getPartialEntity("testIri", ["pred_1", "pred_2", "pred_3"]);
+    const result = await entityService.getPartialEntity("testIri", ["pred_1", "pred_2", "pred_3"]);
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partial", { params: { iri: "testIri", predicate: "pred_1,pred_2,pred_3" } });
     expect(result).toStrictEqual({});
@@ -284,21 +286,21 @@ describe("EntityService.ts ___ axios fail", () => {
       "http://endhealth.info/im#ValueSet"
     ];
     const cancelToken = axios.CancelToken.source().token;
-    const result = await EntityService.advancedSearch(request, cancelToken);
+    const result = await entityService.advancedSearch(request, cancelToken);
     expect(axios.post).toHaveBeenCalledTimes(1);
     expect(axios.post).toHaveBeenCalledWith(api + "api/entity/public/search", request, { cancelToken: cancelToken });
     expect(result).toStrictEqual([]);
   });
 
   it("can get entity definition dto", async () => {
-    const result = await EntityService.getEntityDefinitionDto("testIri");
+    const result = await entityService.getEntityDefinitionDto("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/definition", { params: { iri: "testIri" } });
     expect(result).toStrictEqual({});
   });
 
   it("can get entity parents", async () => {
-    const result = await EntityService.getEntityParents("testIri");
+    const result = await entityService.getEntityParents("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/parents", { params: { iri: "testIri" } });
     expect(result).toStrictEqual([]);
@@ -306,70 +308,70 @@ describe("EntityService.ts ___ axios fail", () => {
 
   it("can get entity children", async () => {
     const cancelToken = axios.CancelToken.source().token;
-    const result = await EntityService.getEntityChildren("testIri", undefined, cancelToken);
+    const result = await entityService.getEntityChildren("testIri", undefined, cancelToken);
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/children", { params: { iri: "testIri" }, cancelToken: cancelToken });
     expect(result).toStrictEqual([]);
   });
 
   it("can get entity usages", async () => {
-    const result = await EntityService.getEntityUsages("testIri", 1, 25);
+    const result = await entityService.getEntityUsages("testIri", 1, 25);
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/usages", { params: { iri: "testIri", page: 1, size: 25 } });
     expect(result).toStrictEqual([]);
   });
 
   it("can get usages total records", async () => {
-    const result = await EntityService.getUsagesTotalRecords("testIri");
+    const result = await entityService.getUsagesTotalRecords("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/usagesTotalRecords", { params: { iri: "testIri" } });
     expect(result).toBe(0);
   });
 
   it("can get entity graph", async () => {
-    const result = await EntityService.getEntityGraph("testIri");
+    const result = await entityService.getEntityGraph("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/graph", { params: { iri: "testIri" } });
     expect(result).toStrictEqual({});
   });
 
   it("can get entity term codes", async () => {
-    const result = await EntityService.getEntityTermCodes("testIri");
+    const result = await entityService.getEntityTermCodes("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/termCode", { params: { iri: "testIri" } });
     expect(result).toStrictEqual({});
   });
 
   it("can get partial bundle", async () => {
-    const result = await EntityService.getPartialEntityBundle("testIri", ["testPredicate1", "testPredicate2"]);
+    const result = await entityService.getPartialEntityBundle("testIri", ["testPredicate1", "testPredicate2"]);
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partialBundle", { params: { iri: "testIri", predicate: "testPredicate1,testPredicate2" } });
     expect(result).toStrictEqual({});
   });
 
   it("can getInferredBundle", async () => {
-    const result = await EntityService.getDefinitionBundle("testIri");
+    const result = await entityService.getDefinitionBundle("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/inferredBundle", { params: { iri: "testIri" } });
     expect(result).toStrictEqual({});
   });
 
   it("can getInferredAsString", async () => {
-    const result = await EntityService.getInferredAsString("testIri");
+    const result = await entityService.getInferredAsString("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/inferredAsString", { params: { iri: "testIri" } });
     expect(result).toBe("");
   });
 
   it("can get entity summary", async () => {
-    const result = await EntityService.getEntitySummary("testIri");
+    const result = await entityService.getEntitySummary("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/summary", { params: { iri: "testIri" } });
     expect(result).toStrictEqual({});
   });
 
   it("can get get namespaces", async () => {
-    const result = await EntityService.getNamespaces();
+    const result = await entityService.getNamespaces();
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/namespaces");
     expect(result).toStrictEqual([]);
@@ -377,14 +379,14 @@ describe("EntityService.ts ___ axios fail", () => {
 
   it("can getEcl", async () => {
     const testBundle = { entity: "testEntity", predicates: "testPredicates" };
-    const result = await EntityService.getEcl(testBundle);
+    const result = await entityService.getEcl(testBundle);
     expect(axios.post).toHaveBeenCalledTimes(1);
     expect(axios.post).toHaveBeenCalledWith(api + "api/entity/public/ecl", testBundle);
     expect(result).toBe("");
   });
 
   it("can getSimpleMaps", async () => {
-    const result = await EntityService.getSimpleMaps("testString");
+    const result = await entityService.getSimpleMaps("testString");
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/simpleMaps", { params: { iri: "testString" } });
     expect(result).toStrictEqual([]);
