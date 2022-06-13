@@ -32,4 +32,17 @@ export default class SetService {
       return {} as SearchResponse;
     }
   }
+
+  public async publish(conceptIri: string) {
+    return this.axios.get(Env.API + "api/set/publish", {
+      params: { iri: conceptIri }
+    });
+  }
+
+  public async IMV1(conceptIri: string) {
+    return this.axios.get(Env.API + "api/set/public/export", {
+      params: { iri: conceptIri },
+      responseType: "blob"
+    });
+  }
 }
