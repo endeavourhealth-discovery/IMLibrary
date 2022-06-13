@@ -360,4 +360,50 @@ export default class EntityService {
       return {} as EntityReferenceNode;
     }
   }
+
+  public async getPartialAndTotalCount(
+    iri: string,
+    predicate: string,
+    pageIndex: number,
+    pageSize: number,
+    filters?: FiltersAsIris,
+    cancelToken?: CancelToken
+  ): Promise<any> {
+    try {
+      return await this.axios.get(this.api + "api/entity/public/partialAndTotalCount", {
+        params: { iri: iri, predicate: predicate, page: pageIndex, size: pageSize, schemeIris: filters?.schemes.join(",") },
+        cancelToken: cancelToken
+      });
+    } catch (error) {
+      return {} as any;
+    }
+  }
+
+  public async getHasMember(
+    iri: string,
+    predicate: string,
+    pageIndex: number,
+    pageSize: number,
+    filters?: FiltersAsIris,
+    cancelToken?: CancelToken
+  ): Promise<any> {
+    try {
+      return await this.axios.get(this.api + "api/entity/public/hasMember", {
+        params: { iri: iri, predicate: predicate, page: pageIndex, size: pageSize, schemeIris: filters?.schemes.join(",") },
+        cancelToken: cancelToken
+      });
+    } catch (error) {
+      return {} as any;
+    }
+  }
+
+  public async getEntityByPredicateExclusions(iri: string, predicates: string[]): Promise<TTBundle> {
+    try {
+      return await this.axios.get(this.api + "api/entity/public/entityByPredicatesExclusions", {
+        params: { iri: iri, predicates: predicates.join(",") }
+      });
+    } catch (error) {
+      return {} as TTBundle;
+    }
+  }
 }
