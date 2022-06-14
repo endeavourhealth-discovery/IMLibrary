@@ -1,7 +1,7 @@
 import uuid from "uuid-random";
 import _ from "lodash";
 
-import Templates from "./Templates";
+import { toTemplates } from "./Templates";
 import { Vocabulary } from "../../vocabulary";
 
 const { RDF, IM } = Vocabulary;
@@ -169,6 +169,7 @@ export class Profile extends Entity {
       let _include;
       let _currentKey;
       let _childPath;
+      let _currentPath;
 
       if (_isMatchClause) {
         _name = "";
@@ -182,12 +183,18 @@ export class Profile extends Entity {
         _childPath = parent.childPath + `[${index}]` + `[${_childKey}]`;
       }
 
+      if (parent.currentPath == "") {
+        _currentPath = `children[${index.toString()}]`;
+      } else {
+        _currentPath = `${parent["currentPath"]}.children[${index.toString()}]`;
+      }
+
       return {
         uuid: `urn:uuid:${uuid()}`,
         type: _isMatchClause ? "match" : "operator",
         include: _include,
         name: _name,
-        currentPath: parent.currentPath + ".children" + +`[${index}]`,
+        currentPath: _currentPath,
         originalName: `[${index}]`,
         originalLocation: parent.childPath + `[${index}]`,
         childPath: _childPath,
@@ -195,17 +202,6 @@ export class Profile extends Entity {
         templates: [],
         children: []
       };
-    });
-
-    // populates children's currentpath (a key that tells you the path to the current object) required below by _currentItem['currentPath'] to set children
-    // path is either children[i] (first item)
-    // or [parentPath].children[i] (the rest)
-    _children.forEach((_item: any, index: number) => {
-      if (parent["currentPath"] == "") {
-        _children[index]["currentPath"] = `children[${index.toString()}]`;
-      } else {
-        _children[index]["currentPath"] = `${parent["currentPath"]}.children[${index.toString()}]`;
-      }
     });
 
     return _children;
@@ -222,18 +218,15 @@ export class Profile extends Entity {
 
     for (const key of _keys) {
       if (_operators.includes(key)) {
-        const _currentIndex = _definitionTree.length;
-        const _currentKey = key;
-
         _definitionTree.push({
           uuid: `urn:uuid:${uuid()}`,
           type: "operator",
-          include: _currentKey != "not",
-          name: _currentKey,
-          currentPath: `[${_currentIndex}]`,
-          originalName: `[${_currentKey}]`,
+          include: key != "not",
+          name: key,
+          currentPath: `[${_definitionTree.length}]`,
+          originalName: `[${key}]`,
           originalLocation: "",
-          childPath: `[${_currentKey}]`,
+          childPath: `[${key}]`,
           json: definition,
           templates: [],
           children: []
@@ -246,6 +239,12 @@ export class Profile extends Entity {
       return;
     }
 
+    this._definitionTree = this.addChildrenToDefinitionTree(_definitionTree, _operators);
+
+    console.log("UI object model (Profile.definitionTree)", _definitionTree);
+  }
+
+  private addChildrenToDefinitionTree(_definitionTree: any[], _operators: string[]) {
     //recursive addition of json clauses and their children to the definition tree:
     const _queue = _.cloneDeep(_definitionTree); //adds top level operator clauses to the queue
     while (_queue.length > 0) {
@@ -271,14 +270,11 @@ export class Profile extends Entity {
         }
       }
     }
-
-    console.log("UI object model (Profile.definitionTree)", _definitionTree);
-
-    this._definitionTree = _definitionTree;
+    return _definitionTree;
   }
 
   public toTemplates(clausePath: string): any {
-    return Templates.toTemplates(this.mainEntity, this._definitionTree, clausePath);
+    return toTemplates(this.mainEntity, this._definitionTree, clausePath);
   }
 
   get asString(): string {
