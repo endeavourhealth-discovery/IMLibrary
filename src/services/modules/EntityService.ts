@@ -1,5 +1,16 @@
 import { CancelToken } from "axios";
-import { EntityReferenceNode, FiltersAsIris, TTBundle, TTIriRef, EntityDefinitionDto, GraphData, TermCode, Namespace } from "../../interfaces/Interfaces";
+import {
+  EntityReferenceNode,
+  FiltersAsIris,
+  TTBundle,
+  TTIriRef,
+  EntityDefinitionDto,
+  GraphData,
+  TermCode,
+  Namespace,
+  DataModelProperty,
+  ExportValueSet
+} from "../../interfaces/Interfaces";
 import { Models } from "../../models";
 import Env from "./Env";
 
@@ -420,6 +431,38 @@ export default class EntityService {
       return await this.axios.post(this.api + "api/entity/update", entity);
     } catch (error) {
       return {};
+    }
+  }
+
+  public async getDataModelProperties(iri: string): Promise<DataModelProperty[]> {
+    try {
+      return await this.axios.get(Env.API + "api/entity/public/dataModelProperties", {
+        params: { iri: iri }
+      });
+    } catch (error) {
+      return [] as DataModelProperty[];
+    }
+  }
+
+  public async getEntityMembers(
+    iri: string,
+    expandMembers?: boolean,
+    expandSubsets?: boolean,
+    limit?: number,
+    withHyperlinks?: boolean
+  ): Promise<ExportValueSet> {
+    try {
+      return await this.axios.get(Env.API + "api/entity/public/members", {
+        params: {
+          iri: iri,
+          expandMembers: expandMembers,
+          expandSubsets: expandSubsets,
+          limit: limit,
+          withHyperlinks: withHyperlinks
+        }
+      });
+    } catch (error) {
+      return {} as ExportValueSet;
     }
   }
 }
