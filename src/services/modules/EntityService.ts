@@ -406,4 +406,20 @@ export default class EntityService {
       return {} as TTBundle;
     }
   }
+
+  public async createEntity(entity: any): Promise<any> {
+    try {
+      return await this.axios.post(this.api + "api/entity/create", entity);
+    } catch (error) {
+      return {};
+    }
+  }
+
+  public async updateEntity(entity: any): Promise<any> {
+    try {
+      return await this.axios.post(this.api + "api/entity/update", entity);
+    } catch (error) {
+      return {};
+    }
+  }
 }
