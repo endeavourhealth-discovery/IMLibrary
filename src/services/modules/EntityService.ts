@@ -409,9 +409,19 @@ export default class EntityService {
     }
   }
 
-  public async getEntityByPredicateExclusions(iri: string, predicates: string[]): Promise<TTBundle> {
+  public async getEntityByPredicateExclusions(iri: string, predicates: string[]): Promise<any> {
     try {
-      return await this.axios.get(this.api + "api/entity/public/entityByPredicatesExclusions", {
+      return await this.axios.get(this.api + "api/entity/public/entityByPredicateExclusions", {
+        params: { iri: iri, predicates: predicates.join(",") }
+      });
+    } catch (error) {
+      return {} as any;
+    }
+  }
+
+  public async getBundleByPredicateExclusions(iri: string, predicates: string[]): Promise<TTBundle> {
+    try {
+      return await this.axios.get(this.api + "api/entity/public/bundleByPredicateExclusions", {
         params: { iri: iri, predicates: predicates.join(",") }
       });
     } catch (error) {
