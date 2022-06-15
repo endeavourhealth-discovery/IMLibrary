@@ -5,7 +5,7 @@ import Tooltip from "primevue/tooltip";
 import { library, dom } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import { ConfigService, DirectService, EntityService, SetService } from "./services";
+import { ConfigService, DirectService, EntityService, Env, LoggerService, SetService } from "./services/Services";
 
 export interface imlibraryInterface {
   install: Plugin;
@@ -29,6 +29,8 @@ const IMLibrary: imlibraryInterface = {
       app.config.globalProperties.$configService = configService;
       app.config.globalProperties.$directService = directService;
       app.config.globalProperties.$entityService = entityService;
+      app.config.globalProperties.$env = Env;
+      app.config.globalProperties.$loggerService = LoggerService;
       app.config.globalProperties.$setService = setService;
     }
     for (const key in components) {

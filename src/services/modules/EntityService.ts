@@ -1,5 +1,16 @@
 import { CancelToken } from "axios";
-import { EntityReferenceNode, FiltersAsIris, TTBundle, TTIriRef, EntityDefinitionDto, GraphData, TermCode, Namespace } from "../../interfaces/Interfaces";
+import {
+  EntityReferenceNode,
+  FiltersAsIris,
+  TTBundle,
+  TTIriRef,
+  EntityDefinitionDto,
+  GraphData,
+  TermCode,
+  Namespace,
+  DataModelProperty,
+  ExportValueSet
+} from "../../interfaces/Interfaces";
 import { Models } from "../../models";
 import Env from "./Env";
 
@@ -25,7 +36,7 @@ export default class EntityService {
     }
   }
 
-  public async getFullExportSet(iri: string): Promise<any> {
+  public async getFullExportSet(iri: string, v1: boolean): Promise<any> {
     const client = this.axios.create({
       baseURL: this.api,
       timeout: 0
@@ -33,7 +44,8 @@ export default class EntityService {
 
     return client.get("api/entity/public/setExport", {
       params: {
-        iri: iri
+        iri: iri,
+        legacy: v1
       },
       responseType: "blob"
     });
@@ -404,6 +416,54 @@ export default class EntityService {
       });
     } catch (error) {
       return {} as TTBundle;
+    }
+  }
+
+  public async createEntity(entity: any): Promise<any> {
+    try {
+      return await this.axios.post(this.api + "api/entity/create", entity);
+    } catch (error) {
+      return {};
+    }
+  }
+
+  public async updateEntity(entity: any): Promise<any> {
+    try {
+      return await this.axios.post(this.api + "api/entity/update", entity);
+    } catch (error) {
+      return {};
+    }
+  }
+
+  public async getDataModelProperties(iri: string): Promise<DataModelProperty[]> {
+    try {
+      return await this.axios.get(Env.API + "api/entity/public/dataModelProperties", {
+        params: { iri: iri }
+      });
+    } catch (error) {
+      return [] as DataModelProperty[];
+    }
+  }
+
+  public async getEntityMembers(
+    iri: string,
+    expandMembers?: boolean,
+    expandSubsets?: boolean,
+    limit?: number,
+    withHyperlinks?: boolean
+  ): Promise<ExportValueSet> {
+    try {
+      return await this.axios.get(Env.API + "api/entity/public/members", {
+        params: {
+          iri: iri,
+          expandMembers: expandMembers,
+          expandSubsets: expandSubsets,
+          limit: limit,
+          withHyperlinks: withHyperlinks
+        }
+      });
+    } catch (error) {
+      return {} as ExportValueSet;
     }
   }
 }
