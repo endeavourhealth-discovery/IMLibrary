@@ -95,7 +95,6 @@ import { getColourFromType, getFAIconFromType, getNamesAsStringFromTypes } from 
 import { isArrayHasLength, isObject, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
 import { ConceptAggregate, EntityReferenceNode, TreeNode, TreeParent, TTIriRef } from "../../interfaces/Interfaces";
 import { Models } from "../../models";
-import { EntityService } from "../../services";
 import { IM } from "../../vocabulary/IM";
 import { RDF } from "../../vocabulary/RDF";
 import { RDFS } from "../../vocabulary/RDFS";
@@ -142,11 +141,11 @@ export default defineComponent({
   methods: {
     async getConceptAggregate(iri: string): Promise<void> {
       this.loading = true;
-      this.conceptAggregate.concept = await EntityService.getPartialEntity(iri, [RDF.TYPE, RDFS.LABEL]);
+      this.conceptAggregate.concept = await this.$entityService.getPartialEntity(iri, [RDF.TYPE, RDFS.LABEL]);
 
-      this.conceptAggregate.parents = await EntityService.getEntityParents(iri);
+      this.conceptAggregate.parents = await this.$entityService.getEntityParents(iri);
 
-      this.conceptAggregate.children = await EntityService.getEntityChildren(iri);
+      this.conceptAggregate.children = await this.$entityService.getEntityChildren(iri);
       this.loading = false;
     },
 
@@ -216,7 +215,7 @@ export default defineComponent({
       if (!isObjectHasKeys(this.expandedKeys, [node.key])) {
         this.expandedKeys[node.key] = true;
       }
-      const children = await EntityService.getEntityChildren(node.data);
+      const children = await this.$entityService.getEntityChildren(node.data);
       children.forEach((child: EntityReferenceNode) => {
         if (!this.containsChild(node.children, child)) {
           node.children.push(this.createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
@@ -236,7 +235,7 @@ export default defineComponent({
         this.expandedKeys[this.root[0].key] = true;
       }
 
-      const parents = await EntityService.getEntityParents(this.root[0].data);
+      const parents = await this.$entityService.getEntityParents(this.root[0].data);
       const parentNode = this.createExpandedParentTree(parents, parentPosition);
       this.root = [] as TreeNode[];
       this.root.push(parentNode);
@@ -261,7 +260,7 @@ export default defineComponent({
     },
 
     async setExpandedParentParents(): Promise<void> {
-      const result = await EntityService.getEntityParents(this.root[0].data);
+      const result = await this.$entityService.getEntityParents(this.root[0].data);
       this.currentParent = null;
       this.alternateParents = [] as TreeParent[];
       if (!isArrayHasLength(result)) return;
@@ -302,7 +301,7 @@ export default defineComponent({
         this.overlayLocation = event;
         const x = this.$refs.altTreeOP as any;
         x.show(event);
-        this.hoveredResult = await EntityService.getEntitySummary(iri);
+        this.hoveredResult = await this.$entityService.getEntitySummary(iri);
       }
     },
 

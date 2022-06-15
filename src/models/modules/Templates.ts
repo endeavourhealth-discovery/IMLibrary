@@ -661,7 +661,7 @@ const matchFunctions = {
   pathValueIs: pathValueIs
 } as any;
 
-let _vars: any;
+let _vars = {} as any;
 
 function testCriteria(criteria: any) {
   const _f = matchFunctions[criteria.test];
@@ -688,7 +688,7 @@ function doesTemplateMatch(mainEntity: any, profile: any, parentClause: any, cur
     "#profile": profile,
     "#currentClause": currentClause,
     "#parentClause": parentClause,
-    "#temmplate": template
+    "#template": template
   };
   let _shouldMatch = false;
 
@@ -711,13 +711,7 @@ function doesTemplateMatch(mainEntity: any, profile: any, parentClause: any, cur
   return _shouldMatch;
 }
 
-export function toTemplates(mainEntity: any, profile: any, clausePath: string) {
-  // debugger;
-  const _queue: any[] = [];
-  const _deleteQueue = [];
-  //add all paths of templates then recursively go through each in order to populate json[]
-  const _cascadingTemplates = _.cloneDeep(CascadingTemplates);
-  _cascadingTemplates.forEach((_item: any, index: number) => _queue.push(`[${index}]`));
+function processQueue(_queue: any[], _cascadingTemplates: any, mainEntity: any, profile: any, clausePath: string, _deleteQueue: any[]) {
   while (_queue.length > 0) {
     const _currentItemPath = _queue.shift();
     const _template = _.get(_cascadingTemplates, _currentItemPath);
@@ -746,8 +740,9 @@ export function toTemplates(mainEntity: any, profile: any, clausePath: string) {
       _deleteQueue.push(_currentItemPath);
     }
   }
+}
 
-  // removes templates not matched
+function processDeleteQueue(_deleteQueue: any, _cascadingTemplates: any) {
   while (_deleteQueue.length > 0) {
     //deletes items starting with last time to avoid shifting array indices
     const _lastIndex = _deleteQueue.length - 1;
@@ -765,6 +760,19 @@ export function toTemplates(mainEntity: any, profile: any, clausePath: string) {
     //does not remove object propery
     // _.unset(_cascadingTemplates, _currentItemPath)
   }
+}
+
+export function toTemplates(mainEntity: any, profile: any, clausePath: string) {
+  // debugger;
+  const _queue = [] as any[];
+  const _deleteQueue = [] as any[];
+  //add all paths of templates then recursively go through each in order to populate json[]
+  const _cascadingTemplates = _.cloneDeep(CascadingTemplates);
+  _cascadingTemplates.forEach((_item: any, index: number) => _queue.push(`[${index}]`));
+  processQueue(_queue, _cascadingTemplates, mainEntity, profile, clausePath, _deleteQueue);
+
+  // removes templates not matched
+  processDeleteQueue(_deleteQueue, _cascadingTemplates);
 
   return _cascadingTemplates;
 }

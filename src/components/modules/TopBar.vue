@@ -50,7 +50,6 @@ import { defineComponent } from "vue";
 import { AccountItem } from "../../interfaces/modules/AccountItem";
 import { LoginItem } from "../../interfaces/modules/LoginItem";
 import { mapState } from "vuex";
-import { Env } from "../../services";
 
 export default defineComponent({
   name: "TopBar",
@@ -98,34 +97,34 @@ export default defineComponent({
         {
           label: "Login",
           icon: "fa-solid fa-fw fa-user",
-          url: Env.AUTH_URL + "login?returnUrl=" + this.authReturnUrl
+          url: this.$env.AUTH_URL + "login?returnUrl=" + this.authReturnUrl
         },
         {
           label: "Register",
           icon: "fa-solid fa-fw fa-user-plus",
-          url: Env.AUTH_URL + "register?returnUrl=" + this.authReturnUrl
+          url: this.$env.AUTH_URL + "register?returnUrl=" + this.authReturnUrl
         }
       ];
       this.accountItems = [
         {
           label: "My account",
           icon: "fa-solid fa-fw fa-user",
-          url: Env.AUTH_URL + "my-account?returnUrl=" + this.authReturnUrl
+          url: this.$env.AUTH_URL + "my-account?returnUrl=" + this.authReturnUrl
         },
         {
           label: "Edit account",
           icon: "fa-solid fa-fw fa-user-pen",
-          url: Env.AUTH_URL + "my-account/edit?returnUrl=" + this.authReturnUrl
+          url: this.$env.AUTH_URL + "my-account/edit?returnUrl=" + this.authReturnUrl
         },
         {
           label: "Change password",
           icon: "fa-solid fa-fw fa-user-lock",
-          url: Env.AUTH_URL + "my-account/password-edit?returnUrl=" + this.authReturnUrl
+          url: this.$env.AUTH_URL + "my-account/password-edit?returnUrl=" + this.authReturnUrl
         },
         {
           label: "Logout",
           icon: "fa-solid fa-fw fa-arrow-right-from-bracket",
-          url: Env.AUTH_URL + "logout?returnUrl=" + this.authReturnUrl
+          url: this.$env.AUTH_URL + "logout?returnUrl=" + this.authReturnUrl
         }
       ];
     },

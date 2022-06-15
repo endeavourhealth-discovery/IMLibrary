@@ -1,7 +1,7 @@
 import uuid from "uuid-random";
 import _ from "lodash";
 
-import Templates from "./Templates";
+import { toTemplates } from "./Templates";
 import { Vocabulary } from "../../vocabulary";
 
 const { RDF, IM } = Vocabulary;
@@ -274,7 +274,7 @@ export class Profile extends Entity {
   }
 
   public toTemplates(clausePath: string): any {
-    return Templates.toTemplates(this.mainEntity, this._definitionTree, clausePath);
+    return toTemplates(this.mainEntity, this._definitionTree, clausePath);
   }
 
   get asString(): string {
