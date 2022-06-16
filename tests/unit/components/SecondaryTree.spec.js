@@ -42,22 +42,33 @@ describe("SecondaryTree.vue", () => {
   ];
   const CHILDREN = [
     {
-      name: "Acquired scoliosis (disorder)",
-      hasChildren: true,
-      type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-      "@id": "http://snomed.info/sct#111266001"
-    },
-    {
-      name: "Acrodysplasia scoliosis (disorder)",
-      hasChildren: false,
-      type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-      "@id": "http://snomed.info/sct#773773006"
-    },
-    {
-      name: "Congenital scoliosis due to bony malformation (disorder)",
-      hasChildren: false,
-      type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-      "@id": "http://snomed.info/sct#205045003"
+      totalCount: 3,
+      result: [
+        {
+          "@id": "http://snomed.info/sct#111266001",
+          hasChildren: true,
+          hasGrandChildren: false,
+          name: "Acquired scoliosis (disorder)",
+          parents: [],
+          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+        },
+        {
+          "@id": "http://snomed.info/sct#773773006",
+          hasChildren: false,
+          hasGrandChildren: false,
+          name: "Acrodysplasia scoliosis (disorder)",
+          parents: [],
+          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+        },
+        {
+          "@id": "http://snomed.info/sct#205045003",
+          hasChildren: false,
+          hasGrandChildren: false,
+          name: "Congenital scoliosis due to bony malformation (disorder)",
+          parents: [],
+          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+        }
+      ]
     }
   ];
 
@@ -88,7 +99,7 @@ describe("SecondaryTree.vue", () => {
     mockEntityService = {
       getPartialEntity: vi.fn().mockResolvedValue(CONCEPT),
       getEntityParents: vi.fn().mockResolvedValue(PARENTS),
-      getEntityChildren: vi.fn().mockResolvedValue(CHILDREN),
+      getPagedChildren: vi.fn().mockResolvedValue(CHILDREN),
       getEntitySummary: vi.fn().mockResolvedValue(SUMMARY)
     };
 
@@ -112,7 +123,7 @@ describe("SecondaryTree.vue", () => {
     expect(wrapper.vm.conceptAggregate).toStrictEqual({
       concept: CONCEPT,
       parents: PARENTS,
-      children: CHILDREN
+      children: CHILDREN.result
     });
     expect(wrapper.vm.root).toStrictEqual([
       {
@@ -208,12 +219,12 @@ describe("SecondaryTree.vue", () => {
     ]);
     expect(mockEntityService.getEntityParents).toHaveBeenCalledTimes(1);
     expect(mockEntityService.getEntityParents).toHaveBeenCalledWith("http://snomed.info/sct#298382003");
-    expect(mockEntityService.getEntityChildren).toHaveBeenCalledTimes(1);
-    expect(mockEntityService.getEntityChildren).toHaveBeenCalledWith("http://snomed.info/sct#298382003");
+    expect(mockEntityService.getPagedChildren).toHaveBeenCalledTimes(1);
+    expect(mockEntityService.getPagedChildren).toHaveBeenCalledWith("http://snomed.info/sct#298382003",1,20);
     expect(wrapper.vm.conceptAggregate).toStrictEqual({
       concept: CONCEPT,
       parents: PARENTS,
-      children: CHILDREN
+      children: CHILDREN.result
     });
   });
 
@@ -222,7 +233,7 @@ describe("SecondaryTree.vue", () => {
     wrapper.vm.root = [];
     wrapper.vm.expandedKeys = {};
     wrapper.vm.selectedKey = {};
-    wrapper.vm.createTree(CONCEPT, PARENTS, CHILDREN, 0);
+    wrapper.vm.createTree(CONCEPT, PARENTS, CHILDREN.result, 0);
     expect(wrapper.vm.root).toStrictEqual([
       {
         children: [
@@ -276,7 +287,7 @@ describe("SecondaryTree.vue", () => {
     wrapper.vm.root = [];
     wrapper.vm.expandedKeys = { "Scoliosis deformity of spine (disorder)": true };
     wrapper.vm.selectedKey = {};
-    wrapper.vm.createTree(CONCEPT, PARENTS, CHILDREN, 0);
+    wrapper.vm.createTree(CONCEPT, PARENTS, CHILDREN.result, 0);
     expect(wrapper.vm.root).toStrictEqual([
       {
         children: [
@@ -417,43 +428,61 @@ describe("SecondaryTree.vue", () => {
   });
 
   it("can expandChildren ___ !key ___ resolved service", async () => {
-    mockEntityService.getEntityChildren = vi.fn().mockResolvedValue([
+    mockEntityService.getPagedChildren = vi.fn().mockResolvedValue([
       {
-        name: "Acquired kyphoscoliosis (disorder)",
-        hasChildren: true,
-        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-        "@id": "http://snomed.info/sct#405771009"
-      },
-      {
-        name: "Adolescent idiopathic scoliosis (disorder)",
-        hasChildren: true,
-        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-        "@id": "http://snomed.info/sct#203646004"
-      },
-      {
-        name: "Infantile idiopathic scoliosis of cervical spine (disorder)",
-        hasChildren: false,
-        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-        "@id": "http://snomed.info/sct#310421000119106"
-      },
-      {
-        name: "Post-surgical scoliosis (disorder)",
-        hasChildren: false,
-        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-        "@id": "http://snomed.info/sct#203647008"
-      },
-      {
-        name: "Scoliosis caused by radiation (disorder)",
-        hasChildren: false,
-        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-        "@id": "http://snomed.info/sct#47518006"
-      },
-      {
-        name: "Thoracogenic scoliosis (disorder)",
-        hasChildren: true,
-        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-        "@id": "http://snomed.info/sct#72992003"
+        totalCount: 6,
+        result: [
+          {
+            "@id": "http://snomed.info/sct#405771009",
+            hasChildren: true,
+            hasGrandChildren: false,
+            name: "Acquired kyphoscoliosis (disorder)",
+            parents: [],
+            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+          },
+          {
+            "@id": "http://snomed.info/sct#203646004",
+            hasChildren: true,
+            hasGrandChildren: false,
+            name: "Adolescent idiopathic scoliosis (disorder)",
+            parents: [],
+            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+          },
+          {
+            "@id": "http://snomed.info/sct#310421000119106",
+            hasChildren: false,
+            hasGrandChildren: false,
+            name: "Infantile idiopathic scoliosis of cervical spine (disorder)",
+            parents: [],
+            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+          },
+          {
+            "@id": "http://snomed.info/sct#203647008",
+            hasChildren: false,
+            hasGrandChildren: false,
+            name: "Post-surgical scoliosis (disorder)",
+            parents: [],
+            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+          },
+          {
+            "@id": "http://snomed.info/sct#47518006",
+            hasChildren: false,
+            hasGrandChildren: false,
+            name: "Scoliosis caused by radiation (disorder)",
+            parents: [],
+            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+          },
+          {
+            "@id": "http://snomed.info/sct#72992003",
+            hasChildren: true,
+            hasGrandChildren: false,
+            name: "Thoracogenic scoliosis (disorder)",
+            parents: [],
+            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+          }
+        ]
       }
+
     ]);
     wrapper.vm.expandedKeys = {};
     const testNode = {
@@ -470,7 +499,7 @@ describe("SecondaryTree.vue", () => {
     expect(testNode.loading).toBe(true);
     await flushPromises();
     expect(wrapper.vm.expandedKeys).toStrictEqual({ "Acquired scoliosis (disorder)": true });
-    expect(mockEntityService.getEntityChildren).toHaveBeenCalledTimes(1);
+    expect(mockEntityService.getPagedChildren).toHaveBeenCalledTimes(1);
     expect(testNode).toStrictEqual({
       children: [
         {
@@ -546,43 +575,61 @@ describe("SecondaryTree.vue", () => {
   });
 
   it("can expandChildren ___ key ___ resolved service ___ dup children", async () => {
-    mockEntityService.getEntityChildren = vi.fn().mockResolvedValue([
+    mockEntityService.getPagedChildren = vi.fn().mockResolvedValue([
       {
-        name: "Acquired kyphoscoliosis (disorder)",
-        hasChildren: true,
-        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-        "@id": "http://snomed.info/sct#405771009"
-      },
-      {
-        name: "Adolescent idiopathic scoliosis (disorder)",
-        hasChildren: true,
-        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-        "@id": "http://snomed.info/sct#203646004"
-      },
-      {
-        name: "Infantile idiopathic scoliosis of cervical spine (disorder)",
-        hasChildren: false,
-        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-        "@id": "http://snomed.info/sct#310421000119106"
-      },
-      {
-        name: "Post-surgical scoliosis (disorder)",
-        hasChildren: false,
-        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-        "@id": "http://snomed.info/sct#203647008"
-      },
-      {
-        name: "Scoliosis caused by radiation (disorder)",
-        hasChildren: false,
-        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-        "@id": "http://snomed.info/sct#47518006"
-      },
-      {
-        name: "Thoracogenic scoliosis (disorder)",
-        hasChildren: true,
-        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-        "@id": "http://snomed.info/sct#72992003"
+        totalCount: 6,
+        result: [
+          {
+            "@id": "http://snomed.info/sct#405771009",
+            hasChildren: true,
+            hasGrandChildren: false,
+            name: "Acquired kyphoscoliosis (disorder)",
+            parents: [],
+            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+          },
+          {
+            "@id": "http://snomed.info/sct#203646004",
+            hasChildren: true,
+            hasGrandChildren: false,
+            name: "Adolescent idiopathic scoliosis (disorder)",
+            parents: [],
+            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+          },
+          {
+            "@id": "http://snomed.info/sct#310421000119106",
+            hasChildren: false,
+            hasGrandChildren: false,
+            name: "Infantile idiopathic scoliosis of cervical spine (disorder)",
+            parents: [],
+            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+          },
+          {
+            "@id": "http://snomed.info/sct#203647008",
+            hasChildren: false,
+            hasGrandChildren: false,
+            name: "Post-surgical scoliosis (disorder)",
+            parents: [],
+            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+          },
+          {
+            "@id": "http://snomed.info/sct#47518006",
+            hasChildren: false,
+            hasGrandChildren: false,
+            name: "Scoliosis caused by radiation (disorder)",
+            parents: [],
+            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+          },
+          {
+            "@id": "http://snomed.info/sct#72992003",
+            hasChildren: true,
+            hasGrandChildren: false,
+            name: "Thoracogenic scoliosis (disorder)",
+            parents: [],
+            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+          }
+        ]
       }
+
     ]);
     wrapper.vm.expandedKeys = { "Acquired scoliosis (disorder)": true };
     const testNode = {
@@ -610,7 +657,7 @@ describe("SecondaryTree.vue", () => {
     expect(testNode.loading).toBe(true);
     await flushPromises();
     expect(wrapper.vm.expandedKeys).toStrictEqual({ "Acquired scoliosis (disorder)": true });
-    expect(mockEntityService.getEntityChildren).toHaveBeenCalledTimes(1);
+    expect(mockEntityService.getPagedChildren).toHaveBeenCalledTimes(1);
     expect(testNode).toStrictEqual({
       children: [
         {
