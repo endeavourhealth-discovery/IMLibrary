@@ -40,8 +40,7 @@ describe("SecondaryTree.vue", () => {
       "@id": "http://snomed.info/sct#699699005"
     }
   ];
-  const CHILDREN = [
-    {
+  const CHILDREN = {
       totalCount: 3,
       result: [
         {
@@ -69,8 +68,7 @@ describe("SecondaryTree.vue", () => {
           type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
         }
       ]
-    }
-  ];
+    };
 
   const SUMMARY = {
     name: "Acquired scoliosis",
@@ -424,12 +422,11 @@ describe("SecondaryTree.vue", () => {
     wrapper.vm.selectedKey = { "Scoliosis of lumbar spine (disorder)": true };
     wrapper.vm.onNodeSelect();
     await wrapper.vm.$nextTick();
-    expect(wrapper.vm.selectedKey).toStrictEqual({ "Scoliosis deformity of spine (disorder)": true });
+    expect(wrapper.vm.selectedKey).toStrictEqual({ "Scoliosis of lumbar spine (disorder)": true });
   });
 
   it("can expandChildren ___ !key ___ resolved service", async () => {
-    mockEntityService.getPagedChildren = vi.fn().mockResolvedValue([
-      {
+    mockEntityService.getPagedChildren = vi.fn().mockResolvedValue({
         totalCount: 6,
         result: [
           {
@@ -481,9 +478,7 @@ describe("SecondaryTree.vue", () => {
             type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
           }
         ]
-      }
-
-    ]);
+      });
     wrapper.vm.expandedKeys = {};
     const testNode = {
       key: "Acquired scoliosis (disorder)",
@@ -575,8 +570,7 @@ describe("SecondaryTree.vue", () => {
   });
 
   it("can expandChildren ___ key ___ resolved service ___ dup children", async () => {
-    mockEntityService.getPagedChildren = vi.fn().mockResolvedValue([
-      {
+    mockEntityService.getPagedChildren = vi.fn().mockResolvedValue({
         totalCount: 6,
         result: [
           {
@@ -628,9 +622,7 @@ describe("SecondaryTree.vue", () => {
             type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
           }
         ]
-      }
-
-    ]);
+      });
     wrapper.vm.expandedKeys = { "Acquired scoliosis (disorder)": true };
     const testNode = {
       key: "Acquired scoliosis (disorder)",

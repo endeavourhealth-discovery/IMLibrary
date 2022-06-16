@@ -41,6 +41,8 @@
           @mouseover="showPopup($event, slotProps.node.data, slotProps.node)"
           @mouseleave="hidePopup($event)"
         >
+          <ProgressSpinner v-if="slotProps.node.loading" />
+          <span class="tree-node-label">{{ slotProps.node.label }}</span>
         </div>
         <div v-else
             class="tree-row"
