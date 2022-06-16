@@ -328,7 +328,7 @@ export default class EntityService {
 
   public async addTaskAction(entityIri: string, taskIri: string): Promise<any> {
     try {
-      return await this.axios.get(this.api + "api/entity/task/action", {
+      return await this.axios.post(this.api + "api/entity/task/action", {
         params: {
           entityIri: entityIri,
           taskIri: taskIri
@@ -344,6 +344,31 @@ export default class EntityService {
       return await this.axios.post(this.api + "api/entity/task", entity);
     } catch (error) {
       return {} as any;
+    }
+  }
+
+  public async getTaskActions(taskIri: string): Promise<any> {
+    try {
+      return await this.axios.get(this.api + "api/entity/task/action", { params: { taskIri: taskIri } });
+    } catch (error) {
+      return {} as any;
+    }
+  }
+
+  public async getUnmapped(term?: string, status?: string[], scheme?: string[], type?: string[], usage?: number, limit?: number): Promise<any[]> {
+    try {
+      return await this.axios.get(this.api + "api/entity/public/unmapped", {
+        params: {
+          term: term,
+          status: status?.join(","),
+          scheme: scheme?.join(","),
+          type: type?.join(","),
+          usage: usage,
+          limit: limit
+        }
+      });
+    } catch (error) {
+      return [] as any[];
     }
   }
 
