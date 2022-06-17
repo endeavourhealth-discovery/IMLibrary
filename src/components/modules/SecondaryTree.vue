@@ -141,7 +141,8 @@ export default defineComponent({
       hoveredResult: {} as Models.Search.ConceptSummary | any,
       overlayLocation: {} as any,
       loading: false,
-      totalCount: 0
+      totalCount: 0,
+      pageSize: 20
     };
   },
   async mounted() {
@@ -160,7 +161,7 @@ export default defineComponent({
 
       this.conceptAggregate.parents = await this.$entityService.getEntityParents(iri);
 
-      const pagedChildren = await this.$entityService.getPagedChildren(iri, 1,20);
+      const pagedChildren = await this.$entityService.getPagedChildren(iri, 1,this.pageSize);
       this.totalCount = pagedChildren.totalCount;
       this.conceptAggregate.children = pagedChildren.result;
       this.loading = false;
@@ -172,7 +173,7 @@ export default defineComponent({
       children.forEach((child: EntityReferenceNode) => {
         selectedConcept.children.push(this.createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
       });
-      if(this.totalCount >= 20){
+      if(this.totalCount >= this.pageSize){
         selectedConcept.children.push(this.createLoadMoreNode(selectedConcept,2,this.totalCount))
       }
       this.root = [] as TreeNode[];
@@ -373,17 +374,16 @@ export default defineComponent({
     },
 
     async loadMore(node: any){
-      const pageSize = 20;
-      if (node.nextPage * pageSize < node.totalCount) {
-        const children = await this.$entityService.getPagedChildren(node.parentNode.data, node.nextPage, pageSize);
+      if (node.nextPage * this.pageSize < node.totalCount) {
+        const children = await this.$entityService.getPagedChildren(node.parentNode.data, node.nextPage, this.pageSize);
         node.parentNode.children.pop();
         children.result.forEach((child:any) => {
           node.parentNode.children.push(this.createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
         });
         node.nextPage = node.nextPage + 1;
         node.parentNode.children.push(this.createLoadMoreNode(node.parentNode,node.nextPage,node.totalCount));
-      } else if (node.nextPage * pageSize > node.totalCount) {
-        const children = await this.$entityService.getPagedChildren(node.parentNode.data, node.nextPage, pageSize);
+      } else if (node.nextPage * this.pageSize > node.totalCount) {
+        const children = await this.$entityService.getPagedChildren(node.parentNode.data, node.nextPage, this.pageSize);
         node.parentNode.children.pop();
         children.result.forEach((child:any) => {
           node.parentNode.children.push(this.createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
