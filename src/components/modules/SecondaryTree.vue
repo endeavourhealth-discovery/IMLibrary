@@ -253,13 +253,13 @@ export default defineComponent({
       if (!isObjectHasKeys(this.expandedKeys, [node.key])) {
         this.expandedKeys[node.key] = true;
       }
-      const children = await this.$entityService.getPagedChildren(node.data, 1, 20);
+      const children = await this.$entityService.getPagedChildren(node.data, 1, this.pageSize);
       children.result.forEach((child: EntityReferenceNode) => {
         if (!this.containsChild(node.children, child)) {
           node.children.push(this.createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
         }
       });
-      if(children.totalCount >= 20){
+      if(children.totalCount >= this.pageSize){
         node.children.push(this.createLoadMoreNode(node,2,children.totalCount))
       }
       node.loading = false;
