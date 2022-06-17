@@ -30,7 +30,7 @@
           <div class="operator-items">
             <Phrase
               v-for="(grandChild, grandChildIndex) in children(child.value)"
-              :object="object"
+              :object="data"
               :path="`${path}.${child?.path}[${grandChildIndex}]`"
               valueType="match"
               :operator="grandChildIndex > 0 ? child.path : ''"
@@ -45,7 +45,7 @@
 
           <Phrase
             v-for="(grandChild, grandChildIndex) in child.value"
-            :object="object"
+            :object="data"
             :parentPath="`${path}`"
             :path="`${path}.${child.path}[${grandChildIndex}]`"
             template="entityInSet"
@@ -118,7 +118,8 @@ export default defineComponent({
     return {
       editMode: this.edit,
       entity: this.path ? _.get(this.object, this.path) : this.object,
-      parent: this.parentPath ? _.get(this.object, this.parentPath) : null
+      parent: this.parentPath ? _.get(this.object, this.parentPath) : null,
+      data: this.object
     };
   },
   computed: {
@@ -134,6 +135,10 @@ export default defineComponent({
   watch: {
     edit(newValue: boolean) {
       this.editMode = newValue;
+    },
+    object(newValue: any) {
+      this.data = newValue;
+      this.entity = this.path ? _.get(newValue, this.path) : newValue;
     }
   }
 });
