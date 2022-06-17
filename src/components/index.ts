@@ -23,6 +23,7 @@ import Phrase from "./modules/query/Phrase.vue";
 import QueryDefinition from "./modules/query/QueryDefinition.vue";
 import Selector from "./modules/query/Selector.vue";
 import Static from "./modules/query/Static.vue";
+import OverlaySummary from "./modules/OverlaySummary.vue";
 
 export {
   AccessDenied,
@@ -49,5 +50,6 @@ export {
   Phrase,
   QueryDefinition,
   Selector,
-  Static
+  Static,
+  OverlaySummary
 };
