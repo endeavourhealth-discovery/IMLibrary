@@ -33,6 +33,12 @@ export function isValueSet(conceptTypes: TTIriRef[]): boolean {
   );
 }
 
+export function isTask(conceptTypes: TTIriRef[]): boolean {
+  return (
+    isOfTypes(conceptTypes, Vocabulary.IM.TASK) || isOfTypes(conceptTypes, Vocabulary.IM.MAPPING_TASK) || isOfTypes(conceptTypes, Vocabulary.IM.UPDATE_TASK)
+  );
+}
+
 export function isProperty(conceptTypes: TTIriRef[]): boolean {
   return isOfTypes(conceptTypes, Vocabulary.RDF.PROPERTY);
 }
@@ -57,7 +63,7 @@ export function getFAIconFromType(conceptTypes: TTIriRef[]): string[] {
   if (isOfTypes(conceptTypes, Vocabulary.SHACL.NODESHAPE)) {
     return ["fa-solid", "fa-diagram-project"];
   }
-  if (isOfTypes(conceptTypes, Vocabulary.IM.TASK)) {
+  if (isTask(conceptTypes)) {
     return ["fa-solid", "fa-clipboard-check"];
   }
   if (isProperty(conceptTypes)) {
@@ -81,7 +87,7 @@ export function getColourFromType(conceptTypes: TTIriRef[]): string {
   if (isOfTypes(conceptTypes, Vocabulary.SHACL.NODESHAPE)) {
     return bgsFixed[0];
   }
-  if (isOfTypes(conceptTypes, Vocabulary.IM.TASK)) {
+  if (isTask(conceptTypes)) {
     return bgsFixed[6];
   }
   if (isProperty(conceptTypes)) {

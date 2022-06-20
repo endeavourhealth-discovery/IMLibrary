@@ -18,7 +18,11 @@ export class IM {
   public static DEFINITION = IM.NAMESPACE + "definition";
   public static USAGE_STATS = IM.NAMESPACE + "usageStats";
   public static HAS_TERM_CODE = IM.NAMESPACE + "hasTermCode";
+
+  // task
   public static IN_TASK = IM.NAMESPACE + "inTask";
+  public static MAPPING_TASK = IM.NAMESPACE + "MappingTask";
+  public static UPDATE_TASK = IM.NAMESPACE + "UpdateTask";
 
   // mapping
   public static HAS_MAP = IM.NAMESPACE + "hasMap";
