@@ -68,7 +68,7 @@ export default class EntityService {
       return await this.axios.get(this.api + "api/entity/public/partial", {
         params: {
           iri: iri,
-          predicate: predicates.join(",")
+          predicates: predicates.join(",")
         }
       });
     } catch (error) {
@@ -93,7 +93,7 @@ export default class EntityService {
       return await this.axios.get(this.api + "api/entity/public/partialBundle", {
         params: {
           iri: iri,
-          predicate: predicates.join(",")
+          predicates: predicates.join(",")
         }
       });
     } catch (error) {
@@ -133,10 +133,10 @@ export default class EntityService {
     }
   }
 
-  public async advancedSearch(request: Models.Search.SearchRequest, cancelToken: CancelToken): Promise<Models.Search.ConceptSummary[]> {
+  public async advancedSearch(request: Models.Search.SearchRequest, controller: AbortController): Promise<Models.Search.ConceptSummary[]> {
     try {
       return await this.axios.post(this.api + "api/entity/public/search", request, {
-        cancelToken: cancelToken
+        signal: controller.signal
       });
     } catch (error) {
       return [] as Models.Search.ConceptSummary[];

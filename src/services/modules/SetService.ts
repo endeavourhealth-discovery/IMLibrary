@@ -21,12 +21,12 @@ export default class SetService {
     });
   }
 
-  public async ECLSearch(searchString: string, includeLegacy: boolean, limit: number, cancelToken: CancelToken): Promise<SearchResponse> {
+  public async ECLSearch(searchString: string, includeLegacy: boolean, limit: number, controller: AbortController): Promise<SearchResponse> {
     try {
       return await this.axios.post(Env.API + "api/set/public/eclSearch", searchString, {
         headers: { "Content-Type": "text/plain" },
         params: { includeLegacy: includeLegacy, limit: limit },
-        cancelToken: cancelToken
+        signal: controller.signal
       });
     } catch (error) {
       return {} as SearchResponse;

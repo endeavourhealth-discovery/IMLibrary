@@ -116,7 +116,7 @@ describe("EntityService.ts ___ axios success", () => {
   it("can get partial entity", async () => {
     const result = await entityService.getPartialEntity("testIri", ["pred_1", "pred_2", "pred_3"]);
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partial", { params: { iri: "testIri", predicate: "pred_1,pred_2,pred_3" } });
+    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partial", { params: { iri: "testIri", predicates: "pred_1,pred_2,pred_3" } });
     expect(result).toBe("axios get return");
   });
 
@@ -197,7 +197,9 @@ describe("EntityService.ts ___ axios success", () => {
   it("can get partial bundle", async () => {
     const result = await entityService.getPartialEntityBundle("testIri", ["testPredicate1", "testPredicate2"]);
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partialBundle", { params: { iri: "testIri", predicate: "testPredicate1,testPredicate2" } });
+    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partialBundle", {
+      params: { iri: "testIri", predicates: "testPredicate1,testPredicate2" }
+    });
     expect(result).toBe("axios get return");
   });
 
@@ -264,7 +266,7 @@ describe("EntityService.ts ___ axios fail", () => {
   it("can get partial entity", async () => {
     const result = await entityService.getPartialEntity("testIri", ["pred_1", "pred_2", "pred_3"]);
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partial", { params: { iri: "testIri", predicate: "pred_1,pred_2,pred_3" } });
+    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partial", { params: { iri: "testIri", predicates: "pred_1,pred_2,pred_3" } });
     expect(result).toStrictEqual({});
   });
 
@@ -345,7 +347,9 @@ describe("EntityService.ts ___ axios fail", () => {
   it("can get partial bundle", async () => {
     const result = await entityService.getPartialEntityBundle("testIri", ["testPredicate1", "testPredicate2"]);
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partialBundle", { params: { iri: "testIri", predicate: "testPredicate1,testPredicate2" } });
+    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partialBundle", {
+      params: { iri: "testIri", predicates: "testPredicate1,testPredicate2" }
+    });
     expect(result).toStrictEqual({});
   });
 
