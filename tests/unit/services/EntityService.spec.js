@@ -137,10 +137,10 @@ describe("EntityService.ts ___ axios success", () => {
       "http://endhealth.info/im#QueryTemplate",
       "http://endhealth.info/im#ValueSet"
     ];
-    const cancelToken = axios.CancelToken.source().token;
-    const result = await entityService.advancedSearch(request, cancelToken);
+    const controller = new AbortController();
+    const result = await entityService.advancedSearch(request, controller);
     expect(axios.post).toHaveBeenCalledTimes(1);
-    expect(axios.post).toHaveBeenCalledWith(api + "api/entity/public/search", request, { cancelToken: cancelToken });
+    expect(axios.post).toHaveBeenCalledWith(api + "api/entity/public/search", request, { signal: controller.signal });
     expect(result).toBe("axios post return");
   });
 
@@ -287,10 +287,10 @@ describe("EntityService.ts ___ axios fail", () => {
       "http://endhealth.info/im#QueryTemplate",
       "http://endhealth.info/im#ValueSet"
     ];
-    const cancelToken = axios.CancelToken.source().token;
-    const result = await entityService.advancedSearch(request, cancelToken);
+    const controller = new AbortController();
+    const result = await entityService.advancedSearch(request, controller);
     expect(axios.post).toHaveBeenCalledTimes(1);
-    expect(axios.post).toHaveBeenCalledWith(api + "api/entity/public/search", request, { cancelToken: cancelToken });
+    expect(axios.post).toHaveBeenCalledWith(api + "api/entity/public/search", request, { signal: controller.signal });
     expect(result).toStrictEqual([]);
   });
 

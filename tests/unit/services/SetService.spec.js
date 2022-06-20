@@ -32,13 +32,13 @@ describe("SetService.ts ___ axios success", () => {
   });
 
   it("can get ECLSearch", async () => {
-    const cancelToken = axios.CancelToken.source().token;
-    const result = await setService.ECLSearch("testString", false, 1000, cancelToken);
+    const controller = new AbortController();
+    const result = await setService.ECLSearch("testString", false, 1000, controller);
     expect(axios.post).toBeCalledTimes(1);
     expect(axios.post).toHaveBeenCalledWith(Env.API + "api/set/public/eclSearch", "testString", {
       headers: { "Content-Type": "text/plain" },
       params: { includeLegacy: false, limit: 1000 },
-      cancelToken: cancelToken
+      signal: controller.signal
     });
     expect(result).toBe("axios post return");
   });
@@ -68,13 +68,13 @@ describe("SetService.ts ___ axios fail", () => {
   });
 
   it("can get ECLSearch", async () => {
-    const cancelToken = axios.CancelToken.source().token;
-    const result = await setService.ECLSearch("testString", false, 1000, cancelToken);
+    const controller = new AbortController();
+    const result = await setService.ECLSearch("testString", false, 1000, controller);
     expect(axios.post).toBeCalledTimes(1);
     expect(axios.post).toHaveBeenCalledWith(Env.API + "api/set/public/eclSearch", "testString", {
       headers: { "Content-Type": "text/plain" },
       params: { includeLegacy: false, limit: 1000 },
-      cancelToken: cancelToken
+      signal: controller.signal
     });
     expect(result).toStrictEqual({});
   });
