@@ -1,4 +1,3 @@
-import { CancelToken } from "axios";
 import {
   EntityReferenceNode,
   FiltersAsIris,
@@ -183,22 +182,22 @@ export default class EntityService {
     }
   }
 
-  public async getEntityChildren(iri: string, filters?: FiltersAsIris, cancelToken?: CancelToken): Promise<EntityReferenceNode[]> {
+  public async getEntityChildren(iri: string, filters?: FiltersAsIris, controller?: AbortController): Promise<EntityReferenceNode[]> {
     try {
       return await this.axios.get(this.api + "api/entity/public/children", {
         params: { iri: iri, schemeIris: filters?.schemes.join(",") },
-        cancelToken: cancelToken
+        signal: controller?.signal
       });
     } catch (error) {
       return [] as EntityReferenceNode[];
     }
   }
 
-  public async getPagedChildren(iri: string, pageIndex: number, pageSize: number, filters?: FiltersAsIris, cancelToken?: CancelToken): Promise<any> {
+  public async getPagedChildren(iri: string, pageIndex: number, pageSize: number, filters?: FiltersAsIris, controller?: AbortController): Promise<any> {
     try {
       return await this.axios.get(this.api + "api/entity/public/childrenPaged", {
         params: { iri: iri, page: pageIndex, size: pageSize, schemeIris: filters?.schemes.join(",") },
-        cancelToken: cancelToken
+        signal: controller?.signal
       });
     } catch (error) {
       return {} as any;
@@ -380,10 +379,10 @@ export default class EntityService {
     }
   }
 
-  public async getMappingSuggestions(request: Models.Search.SearchRequest, cancelToken: CancelToken): Promise<Models.Search.ConceptSummary[]> {
+  public async getMappingSuggestions(request: Models.Search.SearchRequest, controller: AbortController): Promise<Models.Search.ConceptSummary[]> {
     try {
       return await this.axios.post(this.api + "api/entity/public/search", request, {
-        cancelToken: cancelToken
+        signal: controller.signal
       });
     } catch (error) {
       return [] as Models.Search.ConceptSummary[];
@@ -404,12 +403,12 @@ export default class EntityService {
     pageIndex: number,
     pageSize: number,
     filters?: FiltersAsIris,
-    cancelToken?: CancelToken
+    controller?: AbortController
   ): Promise<any> {
     try {
       return await this.axios.get(this.api + "api/entity/public/partialAndTotalCount", {
         params: { iri: iri, predicate: predicate, page: pageIndex, size: pageSize, schemeIris: filters?.schemes.join(",") },
-        cancelToken: cancelToken
+        signal: controller?.signal
       });
     } catch (error) {
       return {} as any;
@@ -422,12 +421,12 @@ export default class EntityService {
     pageIndex: number,
     pageSize: number,
     filters?: FiltersAsIris,
-    cancelToken?: CancelToken
+    controller?: AbortController
   ): Promise<any> {
     try {
       return await this.axios.get(this.api + "api/entity/public/hasMember", {
         params: { iri: iri, predicate: predicate, page: pageIndex, size: pageSize, schemeIris: filters?.schemes.join(",") },
-        cancelToken: cancelToken
+        signal: controller?.signal
       });
     } catch (error) {
       return {} as any;
