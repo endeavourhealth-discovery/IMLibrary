@@ -159,10 +159,10 @@ describe("EntityService.ts ___ axios success", () => {
   });
 
   it("can get entity children", async () => {
-    const cancelToken = axios.CancelToken.source().token;
-    const result = await entityService.getEntityChildren("testIri", undefined, cancelToken);
+    const controller = new AbortController();
+    const result = await entityService.getEntityChildren("testIri", undefined, controller);
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/children", { params: { iri: "testIri" }, cancelToken: cancelToken });
+    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/children", { params: { iri: "testIri" }, signal: controller.signal });
     expect(result).toBe("axios get return");
   });
 
@@ -309,10 +309,10 @@ describe("EntityService.ts ___ axios fail", () => {
   });
 
   it("can get entity children", async () => {
-    const cancelToken = axios.CancelToken.source().token;
-    const result = await entityService.getEntityChildren("testIri", undefined, cancelToken);
+    const controller = new AbortController();
+    const result = await entityService.getEntityChildren("testIri", undefined, controller);
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/children", { params: { iri: "testIri" }, cancelToken: cancelToken });
+    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/children", { params: { iri: "testIri" }, signal: controller.signal });
     expect(result).toStrictEqual([]);
   });
 
