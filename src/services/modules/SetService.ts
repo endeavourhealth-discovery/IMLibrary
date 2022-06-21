@@ -1,5 +1,4 @@
-import { CancelToken } from "axios";
-import { SearchResponse } from "../../interfaces/Interfaces";
+import { SearchResponse, SimpleMap } from "../../interfaces/Interfaces";
 import Env from "./Env";
 
 export default class SetService {
@@ -30,6 +29,14 @@ export default class SetService {
       });
     } catch (error) {
       return {} as SearchResponse;
+    }
+  }
+
+  public async evaluateEcl(ecl: string, controller: AbortController): Promise<SimpleMap[]> {
+    try {
+      return await this.axios.post(Env.API + "api/set/public/evaluateEcl", ecl, { headers: { ContentType: "text/plain" }, signal: controller.signal });
+    } catch (error) {
+      return [] as SimpleMap[];
     }
   }
 
