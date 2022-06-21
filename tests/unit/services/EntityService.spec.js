@@ -116,7 +116,7 @@ describe("EntityService.ts ___ axios success", () => {
   it("can get partial entity", async () => {
     const result = await entityService.getPartialEntity("testIri", ["pred_1", "pred_2", "pred_3"]);
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partial", { params: { iri: "testIri", predicate: "pred_1,pred_2,pred_3" } });
+    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partial", { params: { iri: "testIri", predicates: "pred_1,pred_2,pred_3" } });
     expect(result).toBe("axios get return");
   });
 
@@ -137,10 +137,10 @@ describe("EntityService.ts ___ axios success", () => {
       "http://endhealth.info/im#QueryTemplate",
       "http://endhealth.info/im#ValueSet"
     ];
-    const cancelToken = axios.CancelToken.source().token;
-    const result = await entityService.advancedSearch(request, cancelToken);
+    const controller = new AbortController();
+    const result = await entityService.advancedSearch(request, controller);
     expect(axios.post).toHaveBeenCalledTimes(1);
-    expect(axios.post).toHaveBeenCalledWith(api + "api/entity/public/search", request, { cancelToken: cancelToken });
+    expect(axios.post).toHaveBeenCalledWith(api + "api/entity/public/search", request, { signal: controller.signal });
     expect(result).toBe("axios post return");
   });
 
@@ -159,10 +159,10 @@ describe("EntityService.ts ___ axios success", () => {
   });
 
   it("can get entity children", async () => {
-    const cancelToken = axios.CancelToken.source().token;
-    const result = await entityService.getEntityChildren("testIri", undefined, cancelToken);
+    const controller = new AbortController();
+    const result = await entityService.getEntityChildren("testIri", undefined, controller);
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/children", { params: { iri: "testIri" }, cancelToken: cancelToken });
+    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/children", { params: { iri: "testIri" }, signal: controller.signal });
     expect(result).toBe("axios get return");
   });
 
@@ -197,7 +197,9 @@ describe("EntityService.ts ___ axios success", () => {
   it("can get partial bundle", async () => {
     const result = await entityService.getPartialEntityBundle("testIri", ["testPredicate1", "testPredicate2"]);
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partialBundle", { params: { iri: "testIri", predicate: "testPredicate1,testPredicate2" } });
+    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partialBundle", {
+      params: { iri: "testIri", predicates: "testPredicate1,testPredicate2" }
+    });
     expect(result).toBe("axios get return");
   });
 
@@ -264,7 +266,7 @@ describe("EntityService.ts ___ axios fail", () => {
   it("can get partial entity", async () => {
     const result = await entityService.getPartialEntity("testIri", ["pred_1", "pred_2", "pred_3"]);
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partial", { params: { iri: "testIri", predicate: "pred_1,pred_2,pred_3" } });
+    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partial", { params: { iri: "testIri", predicates: "pred_1,pred_2,pred_3" } });
     expect(result).toStrictEqual({});
   });
 
@@ -285,10 +287,10 @@ describe("EntityService.ts ___ axios fail", () => {
       "http://endhealth.info/im#QueryTemplate",
       "http://endhealth.info/im#ValueSet"
     ];
-    const cancelToken = axios.CancelToken.source().token;
-    const result = await entityService.advancedSearch(request, cancelToken);
+    const controller = new AbortController();
+    const result = await entityService.advancedSearch(request, controller);
     expect(axios.post).toHaveBeenCalledTimes(1);
-    expect(axios.post).toHaveBeenCalledWith(api + "api/entity/public/search", request, { cancelToken: cancelToken });
+    expect(axios.post).toHaveBeenCalledWith(api + "api/entity/public/search", request, { signal: controller.signal });
     expect(result).toStrictEqual([]);
   });
 
@@ -307,10 +309,10 @@ describe("EntityService.ts ___ axios fail", () => {
   });
 
   it("can get entity children", async () => {
-    const cancelToken = axios.CancelToken.source().token;
-    const result = await entityService.getEntityChildren("testIri", undefined, cancelToken);
+    const controller = new AbortController();
+    const result = await entityService.getEntityChildren("testIri", undefined, controller);
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/children", { params: { iri: "testIri" }, cancelToken: cancelToken });
+    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/children", { params: { iri: "testIri" }, signal: controller.signal });
     expect(result).toStrictEqual([]);
   });
 
@@ -345,7 +347,9 @@ describe("EntityService.ts ___ axios fail", () => {
   it("can get partial bundle", async () => {
     const result = await entityService.getPartialEntityBundle("testIri", ["testPredicate1", "testPredicate2"]);
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partialBundle", { params: { iri: "testIri", predicate: "testPredicate1,testPredicate2" } });
+    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/partialBundle", {
+      params: { iri: "testIri", predicates: "testPredicate1,testPredicate2" }
+    });
     expect(result).toStrictEqual({});
   });
 

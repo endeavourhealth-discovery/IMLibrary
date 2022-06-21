@@ -41,34 +41,34 @@ describe("SecondaryTree.vue", () => {
     }
   ];
   const CHILDREN = {
-      totalCount: 3,
-      result: [
-        {
-          "@id": "http://snomed.info/sct#111266001",
-          hasChildren: true,
-          hasGrandChildren: false,
-          name: "Acquired scoliosis (disorder)",
-          parents: [],
-          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-        },
-        {
-          "@id": "http://snomed.info/sct#773773006",
-          hasChildren: false,
-          hasGrandChildren: false,
-          name: "Acrodysplasia scoliosis (disorder)",
-          parents: [],
-          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-        },
-        {
-          "@id": "http://snomed.info/sct#205045003",
-          hasChildren: false,
-          hasGrandChildren: false,
-          name: "Congenital scoliosis due to bony malformation (disorder)",
-          parents: [],
-          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-        }
-      ]
-    };
+    totalCount: 3,
+    result: [
+      {
+        "@id": "http://snomed.info/sct#111266001",
+        hasChildren: true,
+        hasGrandChildren: false,
+        name: "Acquired scoliosis (disorder)",
+        parents: [],
+        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+      },
+      {
+        "@id": "http://snomed.info/sct#773773006",
+        hasChildren: false,
+        hasGrandChildren: false,
+        name: "Acrodysplasia scoliosis (disorder)",
+        parents: [],
+        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+      },
+      {
+        "@id": "http://snomed.info/sct#205045003",
+        hasChildren: false,
+        hasGrandChildren: false,
+        name: "Congenital scoliosis due to bony malformation (disorder)",
+        parents: [],
+        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+      }
+    ]
+  };
 
   const SUMMARY = {
     name: "Acquired scoliosis",
@@ -218,7 +218,7 @@ describe("SecondaryTree.vue", () => {
     expect(mockEntityService.getEntityParents).toHaveBeenCalledTimes(1);
     expect(mockEntityService.getEntityParents).toHaveBeenCalledWith("http://snomed.info/sct#298382003");
     expect(mockEntityService.getPagedChildren).toHaveBeenCalledTimes(1);
-    expect(mockEntityService.getPagedChildren).toHaveBeenCalledWith("http://snomed.info/sct#298382003",1,20);
+    expect(mockEntityService.getPagedChildren).toHaveBeenCalledWith("http://snomed.info/sct#298382003", 1, 20);
     expect(wrapper.vm.conceptAggregate).toStrictEqual({
       concept: CONCEPT,
       parents: PARENTS,
@@ -419,66 +419,75 @@ describe("SecondaryTree.vue", () => {
 
   it("can handle onNodeSelect", async () => {
     await flushPromises();
-    wrapper.vm.selectedKey = { "Scoliosis of lumbar spine (disorder)": true };
-    wrapper.vm.onNodeSelect();
+    wrapper.vm.selectedKey = { "Scoliosis deformity of spine (disorder)": true };
+    wrapper.vm.onNodeSelect({
+      children: [],
+      color: "#c3ba4588",
+      data: "http://snomed.info/sct#298382003",
+      key: "Scoliosis deformity of spine (disorder)",
+      label: "Scoliosis deformity of spine (disorder)",
+      leaf: true,
+      loading: false,
+      typeIcon: ["fa-solid", "fa-lightbulb"]
+    });
     await wrapper.vm.$nextTick();
-    expect(wrapper.vm.selectedKey).toStrictEqual({ "Scoliosis of lumbar spine (disorder)": true });
+    expect(wrapper.vm.selectedKey).toStrictEqual({ "Scoliosis deformity of spine (disorder)": true });
   });
 
   it("can expandChildren ___ !key ___ resolved service", async () => {
     mockEntityService.getPagedChildren = vi.fn().mockResolvedValue({
-        totalCount: 6,
-        result: [
-          {
-            "@id": "http://snomed.info/sct#405771009",
-            hasChildren: true,
-            hasGrandChildren: false,
-            name: "Acquired kyphoscoliosis (disorder)",
-            parents: [],
-            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-          },
-          {
-            "@id": "http://snomed.info/sct#203646004",
-            hasChildren: true,
-            hasGrandChildren: false,
-            name: "Adolescent idiopathic scoliosis (disorder)",
-            parents: [],
-            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-          },
-          {
-            "@id": "http://snomed.info/sct#310421000119106",
-            hasChildren: false,
-            hasGrandChildren: false,
-            name: "Infantile idiopathic scoliosis of cervical spine (disorder)",
-            parents: [],
-            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-          },
-          {
-            "@id": "http://snomed.info/sct#203647008",
-            hasChildren: false,
-            hasGrandChildren: false,
-            name: "Post-surgical scoliosis (disorder)",
-            parents: [],
-            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-          },
-          {
-            "@id": "http://snomed.info/sct#47518006",
-            hasChildren: false,
-            hasGrandChildren: false,
-            name: "Scoliosis caused by radiation (disorder)",
-            parents: [],
-            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-          },
-          {
-            "@id": "http://snomed.info/sct#72992003",
-            hasChildren: true,
-            hasGrandChildren: false,
-            name: "Thoracogenic scoliosis (disorder)",
-            parents: [],
-            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-          }
-        ]
-      });
+      totalCount: 6,
+      result: [
+        {
+          "@id": "http://snomed.info/sct#405771009",
+          hasChildren: true,
+          hasGrandChildren: false,
+          name: "Acquired kyphoscoliosis (disorder)",
+          parents: [],
+          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+        },
+        {
+          "@id": "http://snomed.info/sct#203646004",
+          hasChildren: true,
+          hasGrandChildren: false,
+          name: "Adolescent idiopathic scoliosis (disorder)",
+          parents: [],
+          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+        },
+        {
+          "@id": "http://snomed.info/sct#310421000119106",
+          hasChildren: false,
+          hasGrandChildren: false,
+          name: "Infantile idiopathic scoliosis of cervical spine (disorder)",
+          parents: [],
+          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+        },
+        {
+          "@id": "http://snomed.info/sct#203647008",
+          hasChildren: false,
+          hasGrandChildren: false,
+          name: "Post-surgical scoliosis (disorder)",
+          parents: [],
+          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+        },
+        {
+          "@id": "http://snomed.info/sct#47518006",
+          hasChildren: false,
+          hasGrandChildren: false,
+          name: "Scoliosis caused by radiation (disorder)",
+          parents: [],
+          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+        },
+        {
+          "@id": "http://snomed.info/sct#72992003",
+          hasChildren: true,
+          hasGrandChildren: false,
+          name: "Thoracogenic scoliosis (disorder)",
+          parents: [],
+          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+        }
+      ]
+    });
     wrapper.vm.expandedKeys = {};
     const testNode = {
       key: "Acquired scoliosis (disorder)",
@@ -571,58 +580,58 @@ describe("SecondaryTree.vue", () => {
 
   it("can expandChildren ___ key ___ resolved service ___ dup children", async () => {
     mockEntityService.getPagedChildren = vi.fn().mockResolvedValue({
-        totalCount: 6,
-        result: [
-          {
-            "@id": "http://snomed.info/sct#405771009",
-            hasChildren: true,
-            hasGrandChildren: false,
-            name: "Acquired kyphoscoliosis (disorder)",
-            parents: [],
-            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-          },
-          {
-            "@id": "http://snomed.info/sct#203646004",
-            hasChildren: true,
-            hasGrandChildren: false,
-            name: "Adolescent idiopathic scoliosis (disorder)",
-            parents: [],
-            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-          },
-          {
-            "@id": "http://snomed.info/sct#310421000119106",
-            hasChildren: false,
-            hasGrandChildren: false,
-            name: "Infantile idiopathic scoliosis of cervical spine (disorder)",
-            parents: [],
-            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-          },
-          {
-            "@id": "http://snomed.info/sct#203647008",
-            hasChildren: false,
-            hasGrandChildren: false,
-            name: "Post-surgical scoliosis (disorder)",
-            parents: [],
-            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-          },
-          {
-            "@id": "http://snomed.info/sct#47518006",
-            hasChildren: false,
-            hasGrandChildren: false,
-            name: "Scoliosis caused by radiation (disorder)",
-            parents: [],
-            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-          },
-          {
-            "@id": "http://snomed.info/sct#72992003",
-            hasChildren: true,
-            hasGrandChildren: false,
-            name: "Thoracogenic scoliosis (disorder)",
-            parents: [],
-            type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-          }
-        ]
-      });
+      totalCount: 6,
+      result: [
+        {
+          "@id": "http://snomed.info/sct#405771009",
+          hasChildren: true,
+          hasGrandChildren: false,
+          name: "Acquired kyphoscoliosis (disorder)",
+          parents: [],
+          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+        },
+        {
+          "@id": "http://snomed.info/sct#203646004",
+          hasChildren: true,
+          hasGrandChildren: false,
+          name: "Adolescent idiopathic scoliosis (disorder)",
+          parents: [],
+          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+        },
+        {
+          "@id": "http://snomed.info/sct#310421000119106",
+          hasChildren: false,
+          hasGrandChildren: false,
+          name: "Infantile idiopathic scoliosis of cervical spine (disorder)",
+          parents: [],
+          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+        },
+        {
+          "@id": "http://snomed.info/sct#203647008",
+          hasChildren: false,
+          hasGrandChildren: false,
+          name: "Post-surgical scoliosis (disorder)",
+          parents: [],
+          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+        },
+        {
+          "@id": "http://snomed.info/sct#47518006",
+          hasChildren: false,
+          hasGrandChildren: false,
+          name: "Scoliosis caused by radiation (disorder)",
+          parents: [],
+          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+        },
+        {
+          "@id": "http://snomed.info/sct#72992003",
+          hasChildren: true,
+          hasGrandChildren: false,
+          name: "Thoracogenic scoliosis (disorder)",
+          parents: [],
+          type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+        }
+      ]
+    });
     wrapper.vm.expandedKeys = { "Acquired scoliosis (disorder)": true };
     const testNode = {
       key: "Acquired scoliosis (disorder)",
