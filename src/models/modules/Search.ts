@@ -23,8 +23,15 @@ export class SearchRequest {
   isA!: string[];
   select!: string[];
   sortBy!: SortBy;
+  sortField!: string;
+  sortDirection!: SortDirection;
   page!: number;
   size!: number;
+}
+
+export enum SortDirection {
+  ASC = "ASC",
+  DESC = "DESC"
 }
 
 export class SearchResponse {
