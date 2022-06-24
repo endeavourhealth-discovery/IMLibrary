@@ -1,16 +1,16 @@
 import { TTIriRef } from "../../interfaces/modules/TTIriRef";
 import { SortBy } from "../../enums/modules/SortBy";
 
-export class ConceptSummary {
-  name = "";
-  iri = "";
-  scheme = {} as TTIriRef;
-  code = "";
-  entityType = [] as TTIriRef[];
-  isDescendentOf = [] as TTIriRef[];
-  weighting = 0;
-  match = "";
-  status = {} as TTIriRef;
+export interface ConceptSummary {
+  name: string;
+  iri: string;
+  scheme: TTIriRef;
+  code: string;
+  entityType: TTIriRef[];
+  isDescendentOf: TTIriRef[];
+  weighting: number;
+  match: string;
+  status: TTIriRef;
 }
 
 export class SearchRequest {
