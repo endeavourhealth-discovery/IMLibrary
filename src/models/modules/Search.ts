@@ -34,8 +34,8 @@ export enum SortDirection {
   DESC = "DESC"
 }
 
-export class SearchResponse {
-  page!: number;
-  count!: number;
-  entities!: ConceptSummary[];
+export interface SearchResponse {
+  page: number;
+  count: number;
+  entities: ConceptSummary[];
 }
