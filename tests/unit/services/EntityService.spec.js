@@ -121,7 +121,7 @@ describe("EntityService.ts ___ axios success", () => {
   });
 
   it("can post advancedSearch", async () => {
-    const request = new SearchRequest();
+    const request = {};
     request.page = 1;
     request.schemeFilter = ["http://snomed.info/sct#", "http://endhealth.info/im#"];
     request.size = 100;
@@ -271,7 +271,7 @@ describe("EntityService.ts ___ axios fail", () => {
   });
 
   it("can post advancedSearch", async () => {
-    const request = new SearchRequest();
+    const request = {};
     request.page = 1;
     request.schemeFilter = ["http://snomed.info/sct#", "http://endhealth.info/im#"];
     request.size = 100;

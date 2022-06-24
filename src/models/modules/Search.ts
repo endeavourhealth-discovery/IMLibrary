@@ -13,20 +13,20 @@ export interface ConceptSummary {
   status: TTIriRef;
 }
 
-export class SearchRequest {
-  termFilter!: string;
-  statusFilter!: string[];
-  typeFilter!: string[];
-  schemeFilter!: string[];
-  descendentFilter!: string[];
-  markIfDescendentOf!: string[];
-  isA!: string[];
-  select!: string[];
-  sortBy!: SortBy;
-  sortField!: string;
-  sortDirection!: SortDirection;
-  page!: number;
-  size!: number;
+export interface SearchRequest {
+  termFilter: string;
+  statusFilter: string[];
+  typeFilter: string[];
+  schemeFilter: string[];
+  descendentFilter: string[];
+  markIfDescendentOf: string[];
+  isA: string[];
+  select: string[];
+  sortBy: SortBy;
+  sortField: string;
+  sortDirection: SortDirection;
+  page: number;
+  size: number;
 }
 
 export enum SortDirection {
