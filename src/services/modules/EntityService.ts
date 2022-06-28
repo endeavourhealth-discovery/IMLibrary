@@ -327,12 +327,7 @@ export default class EntityService {
 
   public async addTaskAction(entityIri: string, taskIri: string): Promise<any> {
     try {
-      return await this.axios.post(this.api + "api/entity/task/action", {
-        params: {
-          entityIri: entityIri,
-          taskIri: taskIri
-        }
-      });
+      return await this.axios.post(this.api + "api/entity/task/action", null, { params: { entityIri: entityIri, taskIri: taskIri } });
     } catch (error) {
       return {} as any;
     }
