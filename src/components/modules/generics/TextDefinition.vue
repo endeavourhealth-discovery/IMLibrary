@@ -31,6 +31,7 @@ import { TTBundle } from "../../../interfaces/Interfaces";
 import { isArrayHasLength, isObjectHasKeys } from "../../../helpers/modules/DataTypeCheckers";
 import { bundleToText } from "../../../helpers/modules/Transforms";
 import { isTTBundle } from "../../../helpers/modules/TypeGuards";
+import { Config } from "../../../config/Config";
 
 export default defineComponent({
   name: "TextDefinition",
@@ -87,6 +88,9 @@ export default defineComponent({
 
     getDefinition(): void {
       if (!this.hasData) return;
+      for (const value of Config.TEXT_DEFINITION_EXCLUDE_PREDICATES) {
+        if (this.data.entity[value]) delete this.data.entity[value];
+      }
       this.definition = bundleToText("/viewer", this.data, this.defaultPredicateNames, 0, true, this.conceptIri, this.blockedIris);
     },
 
