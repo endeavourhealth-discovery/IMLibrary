@@ -18,6 +18,7 @@ export class IM {
   public static DEFINITION = IM.NAMESPACE + "definition";
   public static USAGE_STATS = IM.NAMESPACE + "usageStats";
   public static HAS_TERM_CODE = IM.NAMESPACE + "hasTermCode";
+  public static ORDER = IM.NAMESPACE + "order";
 
   // task
   public static IN_TASK = IM.NAMESPACE + "inTask";
