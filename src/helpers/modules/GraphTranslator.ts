@@ -21,6 +21,12 @@ function getPropertyIri(nested: any): string {
   if (isObjectHasKeys(nested, [Vocabulary.SHACL.CLASS])) {
     return nested[Vocabulary.SHACL.CLASS][0]["@id"];
   }
+  if (isObjectHasKeys(nested, [Vocabulary.SHACL.NODE])) {
+    return nested[Vocabulary.SHACL.NODE][0]["@id"];
+  }
+  if (isObjectHasKeys(nested, [Vocabulary.OWL.CLASS])) {
+    return nested[Vocabulary.OWL.CLASS][0]["@id"];
+  }
   if (isObjectHasKeys(nested, [Vocabulary.SHACL.DATATYPE])) {
     return nested[Vocabulary.SHACL.DATATYPE][0]["@id"];
   }
@@ -31,6 +37,14 @@ function getPropertyIri(nested: any): string {
 function getPropertyName(nested: any): string {
   if (isObjectHasKeys(nested, [Vocabulary.SHACL.CLASS])) {
     return nested[Vocabulary.SHACL.CLASS][0].name || getNameFromIri(nested[Vocabulary.SHACL.CLASS][0]["@id"]);
+  }
+
+  if (isObjectHasKeys(nested, [Vocabulary.SHACL.NODE])) {
+    return nested[Vocabulary.SHACL.NODE][0].name || getNameFromIri(nested[Vocabulary.SHACL.NODE][0]["@id"]);
+  }
+
+  if (isObjectHasKeys(nested, [Vocabulary.OWL.CLASS])) {
+    return nested[Vocabulary.OWL.CLASS][0].name || getNameFromIri(nested[Vocabulary.OWL.CLASS][0]["@id"]);
   }
 
   if (isObjectHasKeys(nested, [Vocabulary.SHACL.DATATYPE])) {
