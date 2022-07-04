@@ -20,14 +20,6 @@ export default class ConfigService {
     }
   }
 
-  public async getFilterDefaults(): Promise<FilterDefaultsConfig> {
-    try {
-      return await this.axios.get(Env.API + "api/config/public/filterDefaults");
-    } catch (error) {
-      return {} as FilterDefaultsConfig;
-    }
-  }
-
   public async getDashboardLayout(name: string): Promise<DashboardLayout[]> {
     try {
       return await this.axios.get(Env.API + "api/config/public/dashboardLayout", {
@@ -40,27 +32,35 @@ export default class ConfigService {
     }
   }
 
-  public async getDefaultPredicateNames(): Promise<any> {
-    try {
-      return await this.axios.get(Env.API + "api/config/public/defaultPredicateNames");
-    } catch (error) {
-      return {} as any;
-    }
-  }
+  // public async getFilterDefaults(): Promise<FilterDefaultsConfig> {
+  //   try {
+  //     return await this.axios.get(Env.API + "api/config/public/filterDefaults");
+  //   } catch (error) {
+  //     return {} as FilterDefaultsConfig;
+  //   }
+  // }
 
-  public async getGraphExcludePredicates(): Promise<any> {
-    try {
-      return await this.axios.get(Env.API + "api/config/public/graphExcludePredicates");
-    } catch (error) {
-      return [] as string[];
-    }
-  }
+  // public async getDefaultPredicateNames(): Promise<any> {
+  //   try {
+  //     return await this.axios.get(Env.API + "api/config/public/defaultPredicateNames");
+  //   } catch (error) {
+  //     return {} as any;
+  //   }
+  // }
 
-  public async getXmlSchemaDataTypes(): Promise<any> {
-    try {
-      return await this.axios.get(Env.API + "api/config/public/xmlSchemaDataTypes");
-    } catch (error) {
-      return [] as string[];
-    }
-  }
+  // public async getGraphExcludePredicates(): Promise<any> {
+  //   try {
+  //     return await this.axios.get(Env.API + "api/config/public/graphExcludePredicates");
+  //   } catch (error) {
+  //     return [] as string[];
+  //   }
+  // }
+
+  // public async getXmlSchemaDataTypes(): Promise<any> {
+  //   try {
+  //     return await this.axios.get(Env.API + "api/config/public/xmlSchemaDataTypes");
+  //   } catch (error) {
+  //     return [] as string[];
+  //   }
+  // }
 }

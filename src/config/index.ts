@@ -1,3 +1,3 @@
-import * as Config from "./Config";
+import * as Config from "./Values";
 
 export { Config };

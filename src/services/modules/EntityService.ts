@@ -1,3 +1,4 @@
+import { Config } from "../../config";
 import {
   EntityReferenceNode,
   FiltersAsIris,
@@ -11,6 +12,8 @@ import {
   ExportValueSet
 } from "../../interfaces/Interfaces";
 import { Models } from "../../models";
+import { IM } from "../../vocabulary/IM";
+import { RDFS } from "../../vocabulary/RDFS";
 import Env from "./Env";
 
 export default class EntityService {
@@ -199,6 +202,20 @@ export default class EntityService {
         params: { iri: iri, page: pageIndex, size: pageSize, schemeIris: filters?.schemes.join(",") },
         signal: controller?.signal
       });
+    } catch (error) {
+      return {} as any;
+    }
+  }
+
+  public async getFilterOptions(): Promise<any> {
+    try {
+      const schemeOptions = await this.getNamespaces();
+      const statusOptions = await this.getEntityChildren(IM.STATUS);
+      const typeOptions = (await this.getPartialEntities(Config.Values.FILTER_DEFAULTS.typeOptions, [RDFS.LABEL])).map(typeOption => {
+        return { "@id": typeOption["@id"], name: typeOption[RDFS.LABEL] };
+      });
+      
+      return { status: statusOptions, schemes: schemeOptions, types: typeOptions };
     } catch (error) {
       return {} as any;
     }
