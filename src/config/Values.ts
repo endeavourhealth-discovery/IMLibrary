@@ -1,21 +1,18 @@
 import { SortDirection } from "../models/modules/Search";
+import { RDF } from "../vocabulary/RDF";
+import { RDFS } from "../vocabulary/RDFS";
+import { IM } from "../vocabulary/IM";
+import { SHACL } from "../vocabulary/SHACL";
 
 export class Values {
   // Text definition exclusion list
-  public static TEXT_DEFINITION_EXCLUDE_PREDICATES = ["http://www.w3.org/ns/shacl#property"] as string[];
+  public static TEXT_DEFINITION_EXCLUDE_PREDICATES = [SHACL.PROPERTY] as string[];
 
   // Default filters for search
   public static FILTER_DEFAULTS = {
-    schemeOptions: ["http://endhealth.info/im#", "http://snomed.info/sct#"],
-    statusOptions: ["http://endhealth.info/im#Active", "http://endhealth.info/im#Draft"],
-    typeOptions: [
-      "http://endhealth.info/im#Concept",
-      "http://endhealth.info/im#ValueSet",
-      "http://endhealth.info/im#ConceptSet",
-      "http://endhealth.info/im#DataModelEntity",
-      "http://endhealth.info/im#dataModelProperty",
-      "http://endhealth.info/im#Query"
-    ],
+    schemeOptions: [IM.NAMESPACE, IM.DOMAIN + "sct#"],
+    statusOptions: [IM.ACTIVE, IM.DRAFT],
+    typeOptions: [IM.CONCEPT, IM.VALUE_SET, IM.CONCEPT_SET, IM.DATAMODEL_ENTITY, IM.DATAMODEL_PROPERTY, IM.QUERY, RDFS.CLASS, RDF.PROPERTY],
     sortFields: [{ label: "Usage", value: "weighting" }],
     sortDirections: [
       { label: "Descending", value: SortDirection.DESC },
@@ -25,19 +22,19 @@ export class Values {
 
   // Graph predicate exclusion list
   public static GRAPH_EXCLUDE_PREDICATES = [
-    "http://endhealth.info/im#matchedTo",
-    "http://endhealth.info/im#query",
-    "http://endhealth.info/im#select",
-    "http://www.w3.org/2000/01/rdf-schema#label",
-    "http://endhealth.info/im#status",
-    "http://endhealth.info/im#Status",
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "http://www.w3.org/2000/01/rdf-schema#comment",
-    "http://endhealth.info/im#isChildOf",
-    "http://endhealth.info/im#hasChildren",
-    "http://endhealth.info/im#definition",
-    "http://endhealth.info/im#usageStats",
-    "http://endhealth.info/im#isA"
+    RDF.TYPE,
+    RDFS.COMMENT,
+    RDFS.LABEL,
+    IM.STATUS,
+    IM.HAS_STATUS,
+    IM.MATCHED_TO,
+    IM.QUERY,
+    IM.SELECT,
+    IM.IS_CHILD_OF,
+    IM.HAS_CHILDREN,
+    IM.DEFINITION,
+    IM.USAGE_STATS,
+    IM.IS_A
   ];
 
   // Default predicate names - Predicate name overrides for display purposes
