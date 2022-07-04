@@ -1,10 +1,10 @@
 import { BuilderType } from "../../enums/modules/BuilderType";
-import { ComponentDetails } from "../../interfaces/modules/ComponentDetails";
-import { ComponentType } from "../../enums/modules/ComponentType";
-import { NextComponentSummary } from "../../interfaces/modules/NextComponentSummary";
+import { QueryComponentType } from "../../enums/Enums";
+import { QueryComponentDetails } from "../../interfaces/modules/QueryComponentDetails";
+import { QueryNextComponentSummary } from "../../interfaces/modules/QueryNextComponentSummary";
 
 export function generateNewComponent(
-  type: ComponentType,
+  type: QueryComponentType,
   position: number,
   data: any,
   builderType: BuilderType,
@@ -12,78 +12,45 @@ export function generateNewComponent(
 ) {
   let result;
   switch (type) {
-    case ComponentType.LOGIC:
+    case QueryComponentType.LOGIC:
       result = {
-        id: ComponentType.LOGIC + "_" + position,
+        id: QueryComponentType.LOGIC + "_" + position,
         value: data,
         position: position,
-        type: ComponentType.LOGIC,
+        type: QueryComponentType.LOGIC,
         json: {},
         builderType: builderType,
         showButtons: showButtons
       };
       break;
-    case ComponentType.ENTITY:
+    case QueryComponentType.SELECT:
       result = {
-        id: ComponentType.ENTITY + "_" + position,
+        id: QueryComponentType.SELECT + "_" + position,
         value: data,
         position: position,
-        type: ComponentType.ENTITY,
+        type: QueryComponentType.SELECT,
         json: {},
         builderType: builderType,
         showButtons: showButtons
       };
       break;
-    case ComponentType.QUANTIFIER:
+    case QueryComponentType.MATCH:
       result = {
-        id: ComponentType.QUANTIFIER + "_" + position,
+        id: QueryComponentType.MATCH + "_" + position,
         value: data,
         position: position,
-        type: ComponentType.QUANTIFIER,
+        type: QueryComponentType.MATCH,
         json: {},
         builderType: builderType,
         showButtons: showButtons
       };
       break;
-    case ComponentType.REFINEMENT:
+    case QueryComponentType.PROPERTY:
       result = {
-        id: ComponentType.REFINEMENT + "_" + position,
+        id: QueryComponentType.PROPERTY + "_" + position,
         value: data,
         position: position,
-        type: ComponentType.REFINEMENT,
-        json: {},
-        builderType: builderType,
-        showButtons: showButtons
-      };
-      break;
-    case ComponentType.PROPERTY:
-      result = {
-        id: ComponentType.PROPERTY + "_" + position,
-        value: data,
-        position: position,
-        type: ComponentType.PROPERTY,
-        json: {},
-        builderType: builderType,
-        showButtons: showButtons
-      };
-      break;
-    case ComponentType.DEFINITION:
-      result = {
-        id: ComponentType.DEFINITION + "_" + position,
-        value: data,
-        position: position,
-        type: ComponentType.DEFINITION,
-        json: {},
-        builderType: builderType,
-        showButtons: showButtons
-      };
-      break;
-    case ComponentType.HAS_MEMBER:
-      result = {
-        id: ComponentType.HAS_MEMBER + "_" + position,
-        value: data,
-        position: position,
-        type: ComponentType.HAS_MEMBER,
+        type: QueryComponentType.PROPERTY,
         json: {},
         builderType: builderType,
         showButtons: showButtons
@@ -95,7 +62,7 @@ export function generateNewComponent(
   return result;
 }
 
-export function genNextOptions(position: number, previous: ComponentType, builderType: BuilderType, group?: ComponentType): ComponentDetails {
+export function genNextOptions(position: number, previous: QueryComponentType, builderType: BuilderType, group?: QueryComponentType): QueryComponentDetails {
   return {
     id: "addNext_" + (position + 1),
     value: {
@@ -104,31 +71,31 @@ export function genNextOptions(position: number, previous: ComponentType, builde
       parentGroup: group
     },
     position: position + 1,
-    type: ComponentType.ADD_NEXT,
+    type: QueryComponentType.ADD_NEXT,
     json: {},
     builderType: builderType
   };
 }
 
-export function updatePositions(build: ComponentDetails[]) {
-  build.forEach((item: ComponentDetails, index: number) => {
+export function updatePositions(build: QueryComponentDetails[]) {
+  build.forEach((item: QueryComponentDetails, index: number) => {
     item.position = index;
   });
 }
 
-export function updateItem(itemToUpdate: ComponentDetails, build: ComponentDetails[]) {
+export function updateItem(itemToUpdate: QueryComponentDetails, build: QueryComponentDetails[]) {
   const index = build.findIndex(buildItem => buildItem.position === itemToUpdate.position);
   build[index] = itemToUpdate;
 }
 
-export function addNextOptions(previousComponent: NextComponentSummary, build: ComponentDetails[], builderType: BuilderType): ComponentDetails {
+export function addNextOptions(previousComponent: QueryNextComponentSummary, build: QueryComponentDetails[], builderType: BuilderType): QueryComponentDetails {
   const nextOptionsComponent = genNextOptions(
     previousComponent.previousPosition,
     previousComponent.previousComponentType,
     builderType,
     previousComponent.parentGroup
   );
-  if (previousComponent.previousPosition !== build.length - 1 && build[previousComponent.previousPosition + 1].type === ComponentType.ADD_NEXT) {
+  if (previousComponent.previousPosition !== build.length - 1 && build[previousComponent.previousPosition + 1].type === QueryComponentType.ADD_NEXT) {
     build[previousComponent.previousPosition + 1] = nextOptionsComponent;
   } else {
     build.splice(previousComponent.previousPosition + 1, 0, nextOptionsComponent);
@@ -137,14 +104,14 @@ export function addNextOptions(previousComponent: NextComponentSummary, build: C
   return nextOptionsComponent;
 }
 
-export function scrollIntoView(component: ComponentDetails) {
+export function scrollIntoView(component: QueryComponentDetails) {
   const itemToScrollTo = document.getElementById(component.id);
   itemToScrollTo?.scrollIntoView();
 }
 
 export function addItem(
-  itemToAdd: { selectedType: ComponentType; position: number; value: any },
-  build: ComponentDetails[],
+  itemToAdd: { selectedType: QueryComponentType; position: number; value: any },
+  build: QueryComponentDetails[],
   builderType: BuilderType,
   showButtons: { minus: boolean; plus: boolean }
 ) {
