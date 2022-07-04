@@ -1,3 +1,4 @@
+import { Config } from "../../config";
 import {
   EntityReferenceNode,
   FiltersAsIris,
@@ -11,6 +12,8 @@ import {
   ExportValueSet
 } from "../../interfaces/Interfaces";
 import { Models } from "../../models";
+import { IM } from "../../vocabulary/IM";
+import { RDFS } from "../../vocabulary/RDFS";
 import Env from "./Env";
 
 export default class EntityService {
@@ -204,6 +207,20 @@ export default class EntityService {
     }
   }
 
+  public async getFilterOptions(): Promise<any> {
+    try {
+      const schemeOptions = await this.getNamespaces();
+      const statusOptions = await this.getEntityChildren(IM.STATUS);
+      const typeOptions = (await this.getPartialEntities(Config.Values.FILTER_DEFAULTS.typeOptions, [RDFS.LABEL])).map(typeOption => {
+        return { "@id": typeOption["@id"], name: typeOption[RDFS.LABEL] };
+      });
+      
+      return { status: statusOptions, schemes: schemeOptions, types: typeOptions };
+    } catch (error) {
+      return {} as any;
+    }
+  }
+
   public async getEntityUsages(iri: string, pageIndex: number, pageSize: number): Promise<TTIriRef[]> {
     try {
       return await this.axios.get(this.api + "api/entity/public/usages", {
@@ -327,12 +344,7 @@ export default class EntityService {
 
   public async addTaskAction(entityIri: string, taskIri: string): Promise<any> {
     try {
-      return await this.axios.post(this.api + "api/entity/task/action", {
-        params: {
-          entityIri: entityIri,
-          taskIri: taskIri
-        }
-      });
+      return await this.axios.post(this.api + "api/entity/task/action", null, { params: { entityIri: entityIri, taskIri: taskIri } });
     } catch (error) {
       return {} as any;
     }

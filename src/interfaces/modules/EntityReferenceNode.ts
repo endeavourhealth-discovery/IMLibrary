@@ -6,4 +6,5 @@ export interface EntityReferenceNode {
   hasGrandChildren: boolean;
   name: string;
   type: TTIriRef[];
+  orderNumber: number;
 }

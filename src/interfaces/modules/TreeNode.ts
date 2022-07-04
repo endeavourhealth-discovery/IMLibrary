@@ -7,4 +7,5 @@ export interface TreeNode {
   leaf: boolean;
   children: Array<TreeNode>;
   loading: boolean;
+  order?: number | undefined;
 }
