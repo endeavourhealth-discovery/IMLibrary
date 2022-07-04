@@ -11,26 +11,6 @@ describe("SetService.ts ___ axios success", () => {
     axios.post = vi.fn().mockResolvedValue("axios post return");
   });
 
-  it("can download ___ !v1 && !expanded", async () => {
-    const result = await setService.download("testIri", false, false);
-    expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(Env.API + "api/set/public/download", {
-      params: { iri: "testIri", expandMembers: false, v1: false, format: "excel" },
-      responseType: "blob"
-    });
-    expect(result).toBe("axios get return");
-  });
-
-  it("can download ___ v1 &&  expanded", async () => {
-    const result = await setService.download("testIri", true, true);
-    expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(Env.API + "api/set/public/download", {
-      params: { iri: "testIri", expandMembers: true, v1: true, format: "excel" },
-      responseType: "blob"
-    });
-    expect(result).toBe("axios get return");
-  });
-
   it("can get ECLSearch", async () => {
     const controller = new AbortController();
     const result = await setService.ECLSearch("testString", false, 1000, controller);

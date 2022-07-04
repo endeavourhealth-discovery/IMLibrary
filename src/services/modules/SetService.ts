@@ -9,18 +9,6 @@ export default class SetService {
     this.axios = axios;
   }
 
-  public async download(conceptIri: string, expanded: boolean, v1: boolean) {
-    return this.axios.get(Env.API + "api/set/public/download", {
-      params: {
-        iri: conceptIri,
-        expandMembers: expanded,
-        v1: expanded && v1,
-        format: "excel"
-      },
-      responseType: "blob"
-    });
-  }
-
   public async ECLSearch(searchString: string, includeLegacy: boolean, limit: number, controller: AbortController): Promise<SearchResponse> {
     try {
       return await this.axios.post(Env.API + "api/set/public/eclSearch", searchString, {
