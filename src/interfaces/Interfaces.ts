@@ -29,6 +29,8 @@ import { ModuleItem } from "./modules/ModuleItem";
 import { Namespace } from "./modules/Namespace";
 import { NextComponentSummary } from "./modules/NextComponentSummary";
 import { ProcessedDataModelProperty } from "./modules/ProcessedDataModelProperty";
+import { QueryComponentDetails } from "./modules/QueryComponentDetails";
+import { QueryNextComponentSummary } from "./modules/QueryNextComponentSummary";
 import { RecentActivityItem } from "./modules/RecentActivityItem";
 import { SearchResponse } from "./modules/SearchResponse";
 import { SimpleCount } from "./modules/SimpleCount";
@@ -77,6 +79,8 @@ export {
   type Namespace,
   type NextComponentSummary,
   type ProcessedDataModelProperty,
+  type QueryComponentDetails,
+  type QueryNextComponentSummary,
   type RecentActivityItem,
   type SearchResponse,
   type SimpleCount,
