@@ -32,6 +32,7 @@ import { isArrayHasLength, isObjectHasKeys } from "../../../helpers/modules/Data
 import { bundleToText } from "../../../helpers/modules/Transforms";
 import { isTTBundle } from "../../../helpers/modules/TypeGuards";
 import { Values } from "../../../config/Values";
+import { Config } from "../../../config";
 
 export default defineComponent({
   name: "TextDefinition",
@@ -53,7 +54,7 @@ export default defineComponent({
         return false;
       }
     },
-    ...mapState(["blockedIris", "defaultPredicateNames", "textDefinitionStartExpanded", "conceptIri"])
+    ...mapState(["textDefinitionStartExpanded", "conceptIri"])
   },
   mounted() {
     this.init();
@@ -91,7 +92,7 @@ export default defineComponent({
       for (const value of Values.TEXT_DEFINITION_EXCLUDE_PREDICATES) {
         if (this.data.entity[value]) delete this.data.entity[value];
       }
-      this.definition = bundleToText("/viewer", this.data, this.defaultPredicateNames, 0, true, this.conceptIri, this.blockedIris);
+      this.definition = bundleToText("/viewer", this.data, Config.Values.DEFAULT_PREDICATE_NAMES, 0, true, this.conceptIri, Config.Values.XML_SCHEMA_DATATYPES);
     },
 
     getCount(): number {
