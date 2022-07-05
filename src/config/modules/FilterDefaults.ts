@@ -2,7 +2,7 @@ import { SortDirection } from "../../models/modules/Search";
 import { IM, RDF, RDFS, SHACL } from "../../vocabulary/Vocabulary";
 
 const FILTER_DEFAULTS = {
-  schemeOptions: [IM.NAMESPACE, IM.DOMAIN + "sct#"],
+  schemeOptions: [IM.NAMESPACE, "http://snomed.info/sct#"],
   statusOptions: [IM.ACTIVE, IM.DRAFT],
   typeOptions: [IM.CONCEPT, IM.VALUE_SET, IM.CONCEPT_SET, SHACL.NODESHAPE, IM.DATAMODEL_PROPERTY, IM.QUERY, RDFS.CLASS, RDF.PROPERTY],
   sortFields: [{ label: "Usage", value: "weighting" }],
