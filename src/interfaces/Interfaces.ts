@@ -5,6 +5,7 @@ import { ChartOptions } from "./modules/ChartOptions";
 import { ChartTableNode } from "./modules/ChartTableNode";
 import { ComponentDetails } from "./modules/ComponentDetails";
 import { ConceptAggregate } from "./modules/ConceptAggregate";
+import { ConceptSummary } from "./modules/ConceptSummary";
 import { DashboardLayout } from "./modules/DashboardLayout";
 import { DataModelProperty } from "./modules/DataModelProperty";
 import { Dataset } from "./modules/Dataset";
@@ -32,6 +33,7 @@ import { ProcessedDataModelProperty } from "./modules/ProcessedDataModelProperty
 import { QueryComponentDetails } from "./modules/QueryComponentDetails";
 import { QueryNextComponentSummary } from "./modules/QueryNextComponentSummary";
 import { RecentActivityItem } from "./modules/RecentActivityItem";
+import { SearchRequest } from "./modules/SearchRequest";
 import { SearchResponse } from "./modules/SearchResponse";
 import { SimpleCount } from "./modules/SimpleCount";
 import { SimpleMap } from "./modules/SimpleMap";
@@ -55,6 +57,7 @@ export {
   type ChartTableNode,
   type ComponentDetails,
   type ConceptAggregate,
+  type ConceptSummary,
   type DashboardLayout,
   type DataModelProperty,
   type Dataset,
@@ -82,6 +85,7 @@ export {
   type QueryComponentDetails,
   type QueryNextComponentSummary,
   type RecentActivityItem,
+  type SearchRequest,
   type SearchResponse,
   type SimpleCount,
   type SimpleMap,

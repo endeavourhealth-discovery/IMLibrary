@@ -1,4 +1,4 @@
-import { SortDirection } from "../models/modules/Search";
+import { SortDirection } from "../enums/modules/SortDirection";
 import { RDF } from "../vocabulary/RDF";
 import { RDFS } from "../vocabulary/RDFS";
 import { IM } from "../vocabulary/IM";

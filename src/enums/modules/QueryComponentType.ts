@@ -2,7 +2,7 @@ export enum QueryComponentType {
   BUILDER = "Builder",
   ADD_NEXT = "AddNext",
   LOGIC = "Logic",
-  SELECT = "Select",
   PROPERTY = "Property",
-  MATCH = "Match"
+  MATCH = "Match",
+  ENTITY_TYPE = "EntityType"
 }

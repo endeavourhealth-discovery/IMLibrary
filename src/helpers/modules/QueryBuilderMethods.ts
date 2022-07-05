@@ -23,17 +23,6 @@ export function generateNewComponent(
         showButtons: showButtons
       };
       break;
-    case QueryComponentType.SELECT:
-      result = {
-        id: QueryComponentType.SELECT + "_" + position,
-        value: data,
-        position: position,
-        type: QueryComponentType.SELECT,
-        json: {},
-        builderType: builderType,
-        showButtons: showButtons
-      };
-      break;
     case QueryComponentType.MATCH:
       result = {
         id: QueryComponentType.MATCH + "_" + position,
@@ -56,6 +45,16 @@ export function generateNewComponent(
         showButtons: showButtons
       };
       break;
+    case QueryComponentType.ENTITY_TYPE:
+      result = {
+        id: QueryComponentType.ENTITY_TYPE + "_" + position,
+        value: data,
+        position: position,
+        type: QueryComponentType.ENTITY_TYPE,
+        json: {},
+        builderType: builderType,
+        showButtons: showButtons
+      };
     default:
       throw new Error(`helper function generateNewComponent encountered an unexpected component type: ${type}`);
   }

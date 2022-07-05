@@ -85,4 +85,9 @@ export class IM {
   public static ACTIVE = IM.NAMESPACE + "Active";
   public static DRAFT = IM.NAMESPACE + "Draft";
   public static INACTIVE = IM.NAMESPACE + "Inactive";
+
+  //query
+  public static PROPERTY = IM.NAMESPACE + "property";
+  public static MATCH = IM.NAMESPACE + "match";
+  public static ENTITY_TYPE = IM.NAMESPACE + "entityType";
 }
