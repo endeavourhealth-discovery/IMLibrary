@@ -212,10 +212,10 @@ export default class EntityService {
     try {
       const schemeOptions = await this.getNamespaces();
       const statusOptions = await this.getEntityChildren(IM.STATUS);
-      const typeOptions = (await this.getPartialEntities(Config.Values.FILTER_DEFAULTS.typeOptions, [RDFS.LABEL])).map(typeOption => {
+      const typeOptions = (await this.getPartialEntities(Config.FilterDefaults.typeOptions, [RDFS.LABEL])).map(typeOption => {
         return { "@id": typeOption["@id"], name: typeOption[RDFS.LABEL] };
       });
-      
+
       return { status: statusOptions, schemes: schemeOptions, types: typeOptions };
     } catch (error) {
       return {} as any;
