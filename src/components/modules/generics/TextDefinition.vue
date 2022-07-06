@@ -31,6 +31,8 @@ import { TTBundle } from "../../../interfaces/Interfaces";
 import { isArrayHasLength, isObjectHasKeys } from "../../../helpers/modules/DataTypeCheckers";
 import { bundleToText } from "../../../helpers/modules/Transforms";
 import { isTTBundle } from "../../../helpers/modules/TypeGuards";
+import { Config } from "../../../config";
+import { IM } from "../../../vocabulary/Vocabulary";
 
 export default defineComponent({
   name: "TextDefinition",
@@ -52,7 +54,7 @@ export default defineComponent({
         return false;
       }
     },
-    ...mapState(["blockedIris", "defaultPredicateNames", "textDefinitionStartExpanded", "conceptIri"])
+    ...mapState(["textDefinitionStartExpanded", "conceptIri"])
   },
   mounted() {
     this.init();
@@ -87,7 +89,13 @@ export default defineComponent({
 
     getDefinition(): void {
       if (!this.hasData) return;
-      this.definition = bundleToText("/viewer", this.data, this.defaultPredicateNames, 0, true, this.conceptIri, this.blockedIris);
+      for (const value of Config.TextDefinitionExcludePredicates) {
+        if (this.data.entity[value]) delete this.data.entity[value];
+      }
+      if (isObjectHasKeys(this.data.entity, [IM.DEFINITION, IM.HAS_MEMBER])) {
+        delete this.data.entity[IM.HAS_MEMBER];
+      }
+      this.definition = bundleToText("/viewer", this.data, Config.DefaultPredicateNames, 0, true, this.conceptIri, Config.XmlSchemaDatatypes);
     },
 
     getCount(): number {

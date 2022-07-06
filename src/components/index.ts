@@ -21,8 +21,12 @@ import SecondaryTree from "./modules/SecondaryTree.vue";
 import Keyword from "./modules/query/Keyword.vue";
 import Phrase from "./modules/query/Phrase.vue";
 import QueryDefinition from "./modules/query/QueryDefinition.vue";
+import Node from "./modules/query/Node.vue";
+import NodeCard from "./modules/query/NodeCard.vue";
+import NodeIcon from "./modules/query/NodeIcon.vue";
 import Selector from "./modules/query/Selector.vue";
 import Static from "./modules/query/Static.vue";
+import OverlaySummary from "./modules/OverlaySummary.vue";
 
 export {
   AccessDenied,
@@ -49,5 +53,6 @@ export {
   Phrase,
   QueryDefinition,
   Selector,
-  Static
+  Static,
+  OverlaySummary
 };

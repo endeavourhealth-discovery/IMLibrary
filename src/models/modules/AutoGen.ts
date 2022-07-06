@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.36.1070 on 2022-06-08 16:45:11.
+// Generated using typescript-generator version 2.36.1070 on 2022-06-14 16:12:15.
 
 /**
  * Structure containing search request parameters and filters
@@ -62,6 +62,7 @@ export interface Argument {
     valueVariable: string;
     valueSelect: Select;
     valueProperty: ConceptRef;
+    valueType: TTIriRef;
 }
 
 export interface Compare {
@@ -71,10 +72,11 @@ export interface Compare {
     valueSelect: string;
 }
 
-export interface ConceptRef extends Alias {
+export interface ConceptRef extends TTIriRef {
     includeSubtypes: boolean;
     includeSupertypes: boolean;
     includeValueSets: boolean;
+    alias: string;
 }
 
 export interface Function extends TTIriRef {
@@ -121,9 +123,8 @@ export interface OrderLimit {
     test: Match[];
 }
 
-export interface PropertySelect extends TTIriRef {
+export interface PropertySelect extends ConceptRef {
     inverseOf: boolean;
-    alias: string;
     function: Function;
     select: Select;
 }

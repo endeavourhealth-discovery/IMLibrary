@@ -18,7 +18,12 @@ export class IM {
   public static DEFINITION = IM.NAMESPACE + "definition";
   public static USAGE_STATS = IM.NAMESPACE + "usageStats";
   public static HAS_TERM_CODE = IM.NAMESPACE + "hasTermCode";
+  public static ORDER = IM.NAMESPACE + "order";
+
+  // task
   public static IN_TASK = IM.NAMESPACE + "inTask";
+  public static MAPPING_TASK = IM.NAMESPACE + "MappingTask";
+  public static UPDATE_TASK = IM.NAMESPACE + "UpdateTask";
 
   // mapping
   public static HAS_MAP = IM.NAMESPACE + "hasMap";
@@ -32,12 +37,12 @@ export class IM {
   public static SOME_OF = IM.NAMESPACE + "someOf";
   public static MAPPED_TO = IM.NAMESPACE + "mappedTo";
   public static MAPPED_FROM = IM.NAMESPACE + "mappedFrom";
+  public static SELECT = IM.NAMESPACE + "select";
   //maps assurance levels
   public static NATIONALLY_ASSURED_UK = IM.NAMESPACE + "NationallyAssuredUK";
 
   public static QUERY_SET = IM.NAMESPACE + "QuerySet";
   public static QUERY_TEMPLATE = IM.NAMESPACE + "QueryTemplate";
-  public static VALUE_SET = IM.NAMESPACE + "ValueSet";
   public static HAS_MEMBER = IM.NAMESPACE + "hasMember";
   public static SET = IM.NAMESPACE + "Set";
   public static RECORD_TYPE = IM.NAMESPACE + "RecordType";
@@ -67,7 +72,7 @@ export class IM {
 
   // High level types
   public static CONCEPT = IM.NAMESPACE + "Concept";
-  public static VALUESET = IM.NAMESPACE + "ValueSet";
+  public static VALUE_SET = IM.NAMESPACE + "ValueSet";
   public static CONCEPT_SET = IM.NAMESPACE + "ConceptSet";
   public static DATAMODEL_ENTITY = IM.NAMESPACE + "DataModelEntity";
   public static DATAMODEL_PROPERTY = IM.NAMESPACE + "dataModelProperty";

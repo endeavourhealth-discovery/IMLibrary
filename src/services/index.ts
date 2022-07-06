@@ -1,5 +1,3 @@
-import LoggerService from "./modules/LoggerService";
-import Env from "./modules/Env";
-import EntityService from "./modules/EntityService";
+import * as Services from "./Services";
 
-export { Env, LoggerService, EntityService };
+export { Services };

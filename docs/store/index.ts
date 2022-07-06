@@ -13,7 +13,6 @@ export default createStore({
     isLoggedIn: false as boolean,
     snomedLicenseAccepted: "false",
     snomedReturnUrl: "http://localhost:3000/components/snomed-license.html",
-    blockedIris: [] as string[],
     selectedEntityType: "",
     conceptActivePanel: 0,
     arrayObjectNameListboxWithLabelStartExpanded: ["Label"],
@@ -22,13 +21,9 @@ export default createStore({
       { "@id": IM.DRAFT, severity: "warning" },
       { "@id": IM.INACTIVE, severity: "danger" }
     ],
-    defaultPredicateNames: [],
     textDefinitionStartExpanded: ["Definition"]
   },
   mutations: {
-    updateBlockedIris(state, blockedIris) {
-      state.blockedIris = blockedIris;
-    },
     updateConceptIri(state, conceptIri) {
       state.conceptIri = conceptIri;
     },

@@ -1,10 +1,15 @@
-import axios from "axios";
 import Env from "./Env";
 
 export default class QueryService {
-  public static async querySummary(iri: string): Promise<any> {
+  axios: any;
+
+  constructor(axios: any) {
+    this.axios = axios;
+  }
+
+  public async querySummary(iri: string): Promise<any> {
     try {
-      return await axios.get(Env.VITE_NODE_API + "node_api/query/public/querySummary", {
+      return await this.axios.get(Env.VITE_NODE_API + "node_api/query/public/querySummary", {
         params: {
           iri: iri
         }
@@ -14,9 +19,9 @@ export default class QueryService {
     }
   }
 
-  public static async definition(iri: string): Promise<any> {
+  public async definition(iri: string): Promise<any> {
     try {
-      return await axios.get(Env.VITE_NODE_API + "node_api/query/public/definition", {
+      return await this.axios.get(Env.VITE_NODE_API + "node_api/query/public/definition", {
         params: {
           iri: iri
         }
@@ -26,13 +31,30 @@ export default class QueryService {
     }
   }
 
-  public static async getRichDefinition(iri: string): Promise<any> {
+  public async getRichDefinition(iri: string): Promise<any> {
     try {
-      return await axios.get(Env.VITE_NODE_API + "node_api/query/public/richDefinition", {
+      return await this.axios.get(Env.VITE_NODE_API + "node_api/query/public/richDefinition", {
         params: {
           iri: iri
         }
       });
+    } catch (error) {
+      return {} as any;
+    }
+  }
+
+  public async generateSQL(conceptIri: string) {
+    return this.axios.get(Env.VITE_NODE_API + "node_api/query/public/getSQL", {
+      params: {
+        iri: conceptIri
+      },
+      responseType: "text"
+    });
+  }
+
+  public async queryIM(query: any): Promise<{ entities: any[]; "@context": any }> {
+    try {
+      return await this.axios.post(Env.API + "api/query/public/queryIM", query);
     } catch (error) {
       return {} as any;
     }
