@@ -1,27 +1,13 @@
 <template>
-  <div :class="'node relative ' + [highlighted ? 'highlighted ' : ''] + [connector ? ' connector' : '']">
+  <div :class="'node ' + [highlighted ? 'highlighted ' : ''] + [connector ? ' connector' : '']">
     <!-- Custom Sentences - add new ones here  -->
     <template v-if="template == 'MainEntity' && entity">
-      <NodeCard  icon="user" :title="entity.name" />
-      <Node class="mt-2 pl-5" :object="object" path="select.match" valueType="operator" operator="and" :highlighted="true" :edit="edit"> </Node>
+      <NodeCard icon="user" :title="entity.name" />
+      <Node class="mt-2 pl-5" :object="data" path="select.match" valueType="operator" operator="and" :highlighted="true" :edit="edit"> </Node>
     </template>
-    <div v-else-if="template == 'entityInSet' && valueType == 'TTIriRef'" class="relative flex mt-10 ">
-      <div class="connector-v flex-col relative">
-        <div class="circle"></div>
-        <div class="line-v"></div>
-        <!-- <div class="operatorlabel absolute rounded-sm text-lg text-gray-700 font-bold">{{ operator }}</div> -->
-      </div>
-
-      <NodeCard class="relative -top-3 ml-5 mb-3">
-        <template #header>
-          <NodeIcon :class="`node-icon`" strokewidth="2" width="20" height="20" icon="search" />
-          <div class="ml-4 text-blue-700 font-medium text-2xl">{{ entity.name }}</div>
-        </template>
-      </NodeCard>
-    </div>
 
     <div v-else-if="template == 'leafEntity'" class="flex relative">
-      <div class="connector-v flex-col relative">
+      <div class="connector-v">
         <div class="circle"></div>
         <div v-if="showLineV(index, indexCount, -1, -1)" class="line-v"></div>
         <!-- <div v-if="index > 0 || operator == 'or'" class="operatorlabel absolute rounded-sm text-lg text-gray-700 font-bold">{{ operator }}</div> -->
@@ -30,9 +16,8 @@
         v-if="hasKey(entity, 'entityInSet')"
         icon="search"
         :title="'is part of the results of the search ' + entity?.entityInSet[0].name"
-        class="relative"
       />
-      <NodeCard v-else icon="document_text" :title="entity.displayText || 'Undefined Criteria'" class="relative" />
+      <NodeCard v-else icon="document_text" :title="entity.displayText || 'Undefined Criteria'" />
     </div>
     <!-- /Custom Sentences - add new ones here -->
 
@@ -40,18 +25,18 @@
     <template v-if="entity && children(entity).length" v-for="(child, childIndex) in children(entity)" :key="child?.path">
       <div class="connector operator horizontal">
         <!-- Connector -->
-        <div class="flex-col relative">
+        <div class="connector-h">
           <div class="circle"></div>
           <div v-if="showLineV(index, indexCount, childIndex, children(entity).length)" class="line-v"></div>
         </div>
         <div class="line-h"></div>
-        <!-- Connector -->
+        <!-- /Connector -->
 
         <!-- Operator Children -->
         <div v-if="children(child.value).length" class="operator-items">
           <Node
             v-for="(grandChild, grandChildIndex) in children(child.value)"
-            :object="object"
+            :object="data"
             :path="`${path}[${child?.path}].${grandChild?.path}`"
             valueType="match"
             :operator="grandChildIndex > 0 ? child.path : ''"
@@ -62,17 +47,17 @@
           >
           </Node>
         </div>
-        <!--  Operator Children  -->
+        <!--  /Operator Children  -->
 
         <!-- Leaf Child -->
         <template v-else>
-          <Node :object="object" :path="`${path}[${child?.path}]`" valueType="match" :edit="edit" template="leafEntity"> </Node>
+          <Node :object="data" :path="`${path}[${child?.path}]`" valueType="match" :edit="edit" template="leafEntity"> </Node>
         </template>
-        <!-- Leaf Child  -->
+        <!-- /Leaf Child  -->
       </div>
     </template>
 
-    <!--  Clause  -->
+    <!--  /Clause  -->
 
     <!-- Child Nodes -->
     <slot> </slot>
@@ -166,6 +151,7 @@ export default defineComponent({
   },
   data() {
     return {
+      data: this.object,
       editMode: this.edit,
       entity: this.path ? _.get(this.object, this.path) : this.object,
       parent: this.parentPath ? _.get(this.object, this.parentPath) : null
@@ -184,6 +170,10 @@ export default defineComponent({
   watch: {
     edit(newValue: boolean) {
       this.editMode = newValue;
+    },
+    object(newValue: any) {
+      this.data = newValue;
+      this.entity = this.path ? _.get(newValue, this.path) : newValue;
     }
   }
 });
@@ -201,8 +191,6 @@ export default defineComponent({
   min-width: 10px;
   margin-left: 5px;
   min-height: calc(100% - 25px);
-  /* flex-grow: 1; */
-  /* min-height: 5px; */
   border-left: 3px solid #cbd5e1;
 }
 
@@ -212,18 +200,8 @@ export default defineComponent({
 }
 
 .circle {
-  /* width: 12px;
-  height: 12px;
-  position: absolute;
-  left: -10px;
-  top: 5px;
-  z-index: 2;
-  border-radius: 50%;
-  border: 1px solid #475569;
-  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.13); */
   margin: 3px 3px 5px 0px;
   background-color: #cbd5e1;
-  /* background-color: #334155; */
   min-width: 13px;
   min-height: 13px;
   width: 13px;
@@ -236,27 +214,9 @@ export default defineComponent({
   box-sizing: border-box;
 }
 
-.node-icon {
-  color: #2563eb;
-  min-height: 20px;
-  min-width: 20px;
-  /* left: -43px; */
-  /* top: -1px */
-}
-
 .circle.middle {
   top: calc(50% + 10px);
 }
-
-/* .connector:after {
-  content: "";
-  height: 80%;
-  border-left: solid 3px #d1d5db;
-  position: absolute;
-  left: -5px;
-  top: 0;
-  z-index: 1;
-} */
 
 .connector-text {
   padding-top: 5px;
@@ -318,24 +278,14 @@ export default defineComponent({
 
 .iriref {
   display: flex;
-  /* margin-left: 10px; */
 }
 
 .node .operator,
 .node .property {
-  position: relative;
-  /* margin-bottom: 5px; */
-  /* padding: 0 5px; */
   border-radius: 0.375rem;
   border-width: 1px;
   border-color: transparent;
 }
-
-/* .node .operator:hover,
-.node .property:hover {
-  background-color: rgb(156 163 175 / 0.05) !important;
-  border-color: rgb(156 163 175) !important;
-} */
 
 .operator-items {
   display: flex;

@@ -1,5 +1,5 @@
 <template>
-  <div :class="'query-definition relative ' + [edit ? 'edit ' : '']">
+  <div :class="'query-definition ' + [edit ? 'edit ' : '']">
     <Node template="MainEntity" :object="query" path="select.entityType" valueType="TTIriRef" :highlighted="true" operator="and" :edit="edit">
       <!-- <Node :object="query" path="select.match" valueType="match" operator="and" :highlighted="true" :edit="edit"> </Node> -->
     </Node>
@@ -44,12 +44,9 @@ export default defineComponent({
 
 .query-definition {
   width: 600px;
-  /* min-width: 300px; */
   min-width: 600px;
-
   height: 100%;
   max-height: 600px;
-
   transition: all 0.2s ease-in;
   display: flex;
   overflow-y: auto;
