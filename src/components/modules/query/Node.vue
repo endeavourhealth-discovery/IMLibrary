@@ -96,7 +96,7 @@ export default defineComponent({
   ],
   emits: ["selectedClauseUpdated"],
   methods: {
-    showLineV(index, indexCount, childIndex, childIndexCount): boolean {
+    showLineV(index: number, indexCount: number, childIndex: number, childIndexCount: number): boolean {
       if (childIndexCount > 0 && childIndex < childIndexCount - 1) {
         return true;
       } else if (index == indexCount - 1) {

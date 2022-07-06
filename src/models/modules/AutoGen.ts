@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.36.1070 on 2022-06-14 16:12:15.
+// Generated using typescript-generator version 2.36.1070 on 2022-07-05 15:52:29.
 
 /**
  * Structure containing search request parameters and filters
@@ -44,6 +44,8 @@ export interface SearchRequest {
      * list of fields or property paths from search result summary to return 
      */
     select: string[];
+    sortField: string;
+    sortDirection: string;
 }
 
 export interface SearchResponse {
@@ -81,6 +83,8 @@ export interface ConceptRef extends TTIriRef {
 
 export interface Function extends TTIriRef {
     argument: Argument[];
+    conceptMap: { [index: string]: TTIriRef };
+    defaultConcept: TTIriRef;
 }
 
 export interface Heading extends TTIriRef {
@@ -89,30 +93,20 @@ export interface Heading extends TTIriRef {
 }
 
 export interface Match extends Heading {
-    subselect: Select;
+    pathTo: ConceptRef[];
     notExist: boolean;
     entityType: ConceptRef;
     entityId: ConceptRef;
     entityInSet: ConceptRef[];
-    property: ConceptRef;
-    isConcept: ConceptRef[];
-    inRange: Range;
-    value: Compare;
-    function: Function;
-    within: Within;
-    match: Match;
+    property: PropertyValue[];
     and: Match[];
     or: Match[];
     orderLimit: OrderLimit;
-    optional: Match[];
     graph: TTIriRef;
     entityNotInSet: ConceptRef[];
-    inSet: ConceptRef[];
-    notInSet: ConceptRef[];
-    isNotConcept: ConceptRef[];
-    argument: Argument[];
     entityVar: string;
-    inverseOf: boolean;
+    orProperty: PropertyValue[];
+    testProperty: PropertyValue[];
     index: boolean;
 }
 
@@ -127,6 +121,23 @@ export interface PropertySelect extends ConceptRef {
     inverseOf: boolean;
     function: Function;
     select: Select;
+}
+
+export interface PropertyValue extends ConceptRef {
+    pathTo: ConceptRef[];
+    inverseOf: boolean;
+    isConcept: ConceptRef[];
+    inRange: Range;
+    value: Compare;
+    function: Function;
+    within: Within;
+    optional: boolean;
+    inSet: ConceptRef[];
+    notInSet: ConceptRef[];
+    isNotConcept: ConceptRef[];
+    notExist: boolean;
+    argument: Argument[];
+    match: Match;
 }
 
 export interface Query extends Heading {
@@ -157,7 +168,7 @@ export interface Select {
     entityId: ConceptRef;
     entityIn: TTIriRef;
     property: PropertySelect[];
-    match: Match;
+    match: Match[];
     count: boolean;
     groupBy: PropertySelect[];
     orderLimit: OrderLimit;
@@ -170,9 +181,6 @@ export interface SetDocument {
 }
 
 export interface SetFactory {
-}
-
-export interface Summariser {
 }
 
 export interface Within {
