@@ -70,14 +70,11 @@ import { defineComponent } from "vue";
 
 import NodeCard from "./NodeCard.vue";
 import NodeIcon from "./NodeIcon.vue";
-import Static from "./Static.vue";
-import Selector from "./Selector.vue";
-import Keyword from "./Keyword.vue";
 import _ from "lodash";
 
 export default defineComponent({
   name: "Node",
-  components: { Selector, Static, Keyword, NodeIcon, NodeCard },
+  components: { NodeIcon, NodeCard },
   props: [
     "indexCount",
     "template",
