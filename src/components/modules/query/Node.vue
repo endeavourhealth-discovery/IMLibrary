@@ -2,7 +2,7 @@
   <div :class="'node ' + [highlighted ? 'highlighted ' : ''] + [connector ? ' connector' : '']">
     <!-- Custom Sentences - add new ones here  -->
     <template v-if="template == 'MainEntity' && entity">
-      <NodeCard icon="user" :title="entity.name" />
+      <NodeCard icon="user" :title="entity.name"> </NodeCard>
       <Node class="mt-2 pl-5" :object="data" path="select.match" valueType="operator" operator="and" :highlighted="true" :edit="edit"> </Node>
     </template>
 
@@ -15,9 +15,11 @@
       <NodeCard
         v-if="hasKey(entity, 'entityInSet')"
         icon="search"
-        :title="'is part of the results of the search ' + entity?.entityInSet[0].name"
-      />
-      <NodeCard v-else icon="document_text" :title="entity.displayText || 'Undefined Criteria'" />
+        :title="'is ' + [entity?.notExist ? 'not ' : ''] + 'part of the results of the search ' + entity?.entityInSet[0].name"
+      >
+      </NodeCard>
+
+      <NodeCard v-else icon="document_text" :title="entity.displayText || 'Undefined Criteria'"> </NodeCard>
     </div>
     <!-- /Custom Sentences - add new ones here -->
 
