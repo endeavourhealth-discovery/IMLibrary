@@ -4,5 +4,7 @@ export enum QueryComponentType {
   LOGIC = "Logic",
   PROPERTY = "Property",
   MATCH = "Match",
-  ENTITY_TYPE = "EntityType"
+  ENTITY_TYPE = "EntityType",
+  ENTITY = "Entity",
+  PROPERTY_GROUP = "PropertyGroup"
 }

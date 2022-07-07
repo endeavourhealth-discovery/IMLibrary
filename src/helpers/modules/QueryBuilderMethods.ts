@@ -55,6 +55,29 @@ export function generateNewComponent(
         builderType: builderType,
         showButtons: showButtons
       };
+      break;
+    case QueryComponentType.PROPERTY_GROUP:
+      result = {
+        id: QueryComponentType.PROPERTY_GROUP + "_" + position,
+        value: data,
+        position: position,
+        type: QueryComponentType.PROPERTY_GROUP,
+        json: {},
+        builderType: builderType,
+        showButtons: showButtons
+      };
+      break;
+    case QueryComponentType.ENTITY:
+      result = {
+        id: QueryComponentType.ENTITY + "_" + position,
+        value: data,
+        position: position,
+        type: QueryComponentType.ENTITY,
+        json: {},
+        builderType: builderType,
+        showButtons: showButtons
+      };
+      break;
     default:
       throw new Error(`helper function generateNewComponent encountered an unexpected component type: ${type}`);
   }
