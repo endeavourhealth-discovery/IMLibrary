@@ -220,7 +220,7 @@ export default defineComponent({
 
     createTreeNode(conceptName: string, conceptIri: string, conceptTypes: TTIriRef[], hasChildren: boolean): TreeNode {
       return {
-        key: conceptName,
+        key: conceptIri,
         label: conceptName,
         typeIcon: getFAIconFromType(conceptTypes),
         color: getColourFromType(conceptTypes),

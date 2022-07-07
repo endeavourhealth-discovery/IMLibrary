@@ -4,7 +4,6 @@ import {
   FiltersAsIris,
   TTBundle,
   TTIriRef,
-  EntityDefinitionDto,
   GraphData,
   TermCode,
   Namespace,
@@ -125,18 +124,6 @@ export default class EntityService {
     }
   }
 
-  public async getInferredAsString(iri: string): Promise<string> {
-    try {
-      return await this.axios.get(this.api + "api/entity/public/inferredAsString", {
-        params: {
-          iri: iri
-        }
-      });
-    } catch (error) {
-      return "";
-    }
-  }
-
   public async advancedSearch(request: Models.Search.SearchRequest, controller: AbortController): Promise<Models.Search.ConceptSummary[]> {
     try {
       return await this.axios.post(this.api + "api/entity/public/search", request, {
@@ -154,26 +141,6 @@ export default class EntityService {
       });
     } catch (error) {
       return [] as TTIriRef[];
-    }
-  }
-
-  public async getParentHierarchy(iri: string): Promise<EntityReferenceNode> {
-    try {
-      return await this.axios.get(this.api + "api/entity/public/parentHierarchy", {
-        params: { iri: iri }
-      });
-    } catch (error) {
-      return {} as EntityReferenceNode;
-    }
-  }
-
-  public async getEntityDefinitionDto(iri: string): Promise<EntityDefinitionDto> {
-    try {
-      return await this.axios.get(this.api + "api/entity/public/definition", {
-        params: { iri: iri }
-      });
-    } catch (error) {
-      return {} as EntityDefinitionDto;
     }
   }
 
@@ -352,14 +319,6 @@ export default class EntityService {
     }
   }
 
-  public async createTask(entity: any): Promise<any> {
-    try {
-      return await this.axios.post(this.api + "api/entity/task", entity);
-    } catch (error) {
-      return {} as any;
-    }
-  }
-
   public async getTaskActions(taskIri: string): Promise<any> {
     try {
       return await this.axios.get(this.api + "api/entity/task/action", { params: { taskIri: taskIri } });
@@ -380,14 +339,6 @@ export default class EntityService {
           limit: limit
         }
       });
-    } catch (error) {
-      return [] as any[];
-    }
-  }
-
-  public async getPredefinedList(listPath: string): Promise<TTIriRef[]> {
-    try {
-      return await this.axios.get(this.api + "api/entity/public/" + listPath);
     } catch (error) {
       return [] as any[];
     }
