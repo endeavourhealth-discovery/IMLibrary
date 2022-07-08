@@ -1,4 +1,3 @@
-import { SearchRequest } from "../../../src/models/modules/Search";
 import EntityService from "../../../src/services/modules/EntityService";
 import Env from "../../../src/services/modules/Env";
 import axios from "axios";

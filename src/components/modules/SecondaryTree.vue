@@ -36,7 +36,8 @@
       :loading="loading"
     >
       <template #default="slotProps">
-        <div v-if="slotProps.node.data === 'loadMore'"
+        <div
+          v-if="slotProps.node.data === 'loadMore'"
           class="tree-row"
           @mouseover="showPopup($event, slotProps.node.data, slotProps.node)"
           @mouseleave="hidePopup($event)"
@@ -44,13 +45,14 @@
           <ProgressSpinner v-if="slotProps.node.loading" />
           <span class="tree-node-label">{{ slotProps.node.label }}</span>
         </div>
-        <div v-else
-            class="tree-row"
-            @mouseover="showPopup($event, slotProps.node.data, slotProps.node)"
-            @mouseleave="hidePopup($event)"
-            @click="navigate($event, slotProps.node.data)"
-            @dblclick="onDblClick(slotProps.node.data)"
-            v-tooltip.top="'CTRL+click to navigate'"
+        <div
+          v-else
+          class="tree-row"
+          @mouseover="showPopup($event, slotProps.node.data, slotProps.node)"
+          @mouseleave="hidePopup($event)"
+          @click="navigate($event, slotProps.node.data)"
+          @dblclick="onDblClick(slotProps.node.data)"
+          v-tooltip.top="'CTRL+click to navigate'"
         >
           <span v-if="!slotProps.node.loading">
             <div :style="'color:' + slotProps.node.color">
@@ -107,8 +109,7 @@
 import { defineComponent } from "vue";
 import { getColourFromType, getFAIconFromType, getNamesAsStringFromTypes } from "../../helpers/modules/ConceptTypeMethods";
 import { isArrayHasLength, isObject, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
-import { ConceptAggregate, EntityReferenceNode, TreeNode, TreeParent, TTIriRef } from "../../interfaces/Interfaces";
-import { Models } from "../../models";
+import { ConceptAggregate, ConceptSummary, EntityReferenceNode, TreeNode, TreeParent, TTIriRef } from "../../interfaces/Interfaces";
 import { IM } from "../../vocabulary/IM";
 import { RDF } from "../../vocabulary/RDF";
 import { RDFS } from "../../vocabulary/RDFS";
@@ -138,7 +139,7 @@ export default defineComponent({
       currentParent: {} as TreeParent | null,
       alternateParents: [] as TreeParent[],
       parentPosition: 0,
-      hoveredResult: {} as Models.Search.ConceptSummary | any,
+      hoveredResult: {} as ConceptSummary | any,
       overlayLocation: {} as any,
       loading: false,
       totalCount: 0,
@@ -161,7 +162,7 @@ export default defineComponent({
 
       this.conceptAggregate.parents = await this.$entityService.getEntityParents(iri);
 
-      const pagedChildren = await this.$entityService.getPagedChildren(iri, 1,this.pageSize);
+      const pagedChildren = await this.$entityService.getPagedChildren(iri, 1, this.pageSize);
       this.totalCount = pagedChildren.totalCount;
       this.conceptAggregate.children = pagedChildren.result;
       this.loading = false;
@@ -173,8 +174,8 @@ export default defineComponent({
       children.forEach((child: EntityReferenceNode) => {
         selectedConcept.children.push(this.createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
       });
-      if(this.totalCount >= this.pageSize){
-        selectedConcept.children.push(this.createLoadMoreNode(selectedConcept,2,this.totalCount))
+      if (this.totalCount >= this.pageSize) {
+        selectedConcept.children.push(this.createLoadMoreNode(selectedConcept, 2, this.totalCount));
       }
       this.root = [] as TreeNode[];
       this.setParents(parentHierarchy, parentPosition);
@@ -259,8 +260,8 @@ export default defineComponent({
           node.children.push(this.createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
         }
       });
-      if(children.totalCount >= this.pageSize){
-        node.children.push(this.createLoadMoreNode(node,2,children.totalCount))
+      if (children.totalCount >= this.pageSize) {
+        node.children.push(this.createLoadMoreNode(node, 2, children.totalCount));
       }
       node.loading = false;
     },
@@ -331,17 +332,18 @@ export default defineComponent({
       }
     },
 
-    async onNodeSelect(node:any): Promise<void> {
-      if(node.data === "loadMore"){
+    async onNodeSelect(node: any): Promise<void> {
+      if (node.data === "loadMore") {
         await this.loadMore(node);
-      } else {}
+      } else {
+      }
       await this.$nextTick();
       this.selectedKey = {} as any;
       this.selectedKey[this.conceptAggregate.concept[RDFS.LABEL]] = true;
     },
 
-    async showPopup(event: any, iri?: string, node?:any): Promise<void> {
-      if(iri === "loadMore"){
+    async showPopup(event: any, iri?: string, node?: any): Promise<void> {
+      if (iri === "loadMore") {
         this.overlayLocation = event;
         const x = this.$refs.altTreeOP as any;
         x.show(event);
@@ -373,19 +375,19 @@ export default defineComponent({
       this.$router.push({ name: this.$route.name || undefined, params: { selectedIri: iri } });
     },
 
-    async loadMore(node: any){
+    async loadMore(node: any) {
       if (node.nextPage * this.pageSize < node.totalCount) {
         const children = await this.$entityService.getPagedChildren(node.parentNode.data, node.nextPage, this.pageSize);
         node.parentNode.children.pop();
-        children.result.forEach((child:any) => {
+        children.result.forEach((child: any) => {
           node.parentNode.children.push(this.createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
         });
         node.nextPage = node.nextPage + 1;
-        node.parentNode.children.push(this.createLoadMoreNode(node.parentNode,node.nextPage,node.totalCount));
+        node.parentNode.children.push(this.createLoadMoreNode(node.parentNode, node.nextPage, node.totalCount));
       } else if (node.nextPage * this.pageSize > node.totalCount) {
         const children = await this.$entityService.getPagedChildren(node.parentNode.data, node.nextPage, this.pageSize);
         node.parentNode.children.pop();
-        children.result.forEach((child:any) => {
+        children.result.forEach((child: any) => {
           node.parentNode.children.push(this.createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
         });
       } else {

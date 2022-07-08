@@ -1,4 +1,4 @@
-import { SortDirection } from "../../models/modules/Search";
+import { SortDirection } from "../../enums/modules/SortDirection";
 import { IM, RDF, RDFS, SHACL } from "../../vocabulary/Vocabulary";
 
 const FILTER_DEFAULTS = {

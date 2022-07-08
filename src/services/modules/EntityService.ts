@@ -8,9 +8,10 @@ import {
   TermCode,
   Namespace,
   DataModelProperty,
-  ExportValueSet
+  ExportValueSet,
+  SearchRequest,
+  ConceptSummary
 } from "../../interfaces/Interfaces";
-import { Models } from "../../models";
 import { IM } from "../../vocabulary/IM";
 import { RDFS } from "../../vocabulary/RDFS";
 import Env from "./Env";
@@ -124,13 +125,25 @@ export default class EntityService {
     }
   }
 
-  public async advancedSearch(request: Models.Search.SearchRequest, controller: AbortController): Promise<Models.Search.ConceptSummary[]> {
+  public async getInferredAsString(iri: string): Promise<string> {
+    try {
+      return await this.axios.get(this.api + "api/entity/public/inferredAsString", {
+        params: {
+          iri: iri
+        }
+      });
+    } catch (error) {
+      return "";
+    }
+  }
+
+  public async advancedSearch(request: SearchRequest, controller: AbortController): Promise<ConceptSummary[]> {
     try {
       return await this.axios.post(this.api + "api/entity/public/search", request, {
         signal: controller.signal
       });
     } catch (error) {
-      return [] as Models.Search.ConceptSummary[];
+      return [] as ConceptSummary[];
     }
   }
 
@@ -234,13 +247,13 @@ export default class EntityService {
     }
   }
 
-  public async getEntitySummary(iri: string): Promise<Models.Search.ConceptSummary> {
+  public async getEntitySummary(iri: string): Promise<ConceptSummary> {
     try {
       return await this.axios.get(this.api + "api/entity/public/summary", {
         params: { iri: iri }
       });
     } catch (error) {
-      return {} as Models.Search.ConceptSummary;
+      return {} as ConceptSummary;
     }
   }
 
@@ -344,13 +357,21 @@ export default class EntityService {
     }
   }
 
-  public async getMappingSuggestions(request: Models.Search.SearchRequest, controller: AbortController): Promise<Models.Search.ConceptSummary[]> {
+  public async getPredefinedList(listPath: string): Promise<TTIriRef[]> {
+    try {
+      return await this.axios.get(this.api + "api/entity/public/" + listPath);
+    } catch (error) {
+      return [] as any[];
+    }
+  }
+
+  public async getMappingSuggestions(request: SearchRequest, controller: AbortController): Promise<ConceptSummary[]> {
     try {
       return await this.axios.post(this.api + "api/entity/public/search", request, {
         signal: controller.signal
       });
     } catch (error) {
-      return [] as Models.Search.ConceptSummary[];
+      return [] as ConceptSummary[];
     }
   }
 
