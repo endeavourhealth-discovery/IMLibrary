@@ -11,7 +11,6 @@ import { DataModelProperty } from "./modules/DataModelProperty";
 import { Dataset } from "./modules/Dataset";
 import { DefinitionConfig } from "./modules/DefinitionConfig";
 import { ECLComponentDetails } from "./modules/ECLComponentDetails";
-import { EntityDefinitionDto } from "./modules/EntityDefinitionDto";
 import { EntityReferenceNode } from "./modules/EntityReferenceNode";
 import { ExportValueSet } from "./modules/ExportValueSet";
 import { FilterDefaultsConfig } from "./modules/FilterDefaultsConfig";
@@ -63,7 +62,6 @@ export {
   type Dataset,
   type DefinitionConfig,
   type ECLComponentDetails,
-  type EntityDefinitionDto,
   type EntityReferenceNode,
   type ExportValueSet,
   type FilterDefaultsConfig,

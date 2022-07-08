@@ -4,7 +4,6 @@ import {
   FiltersAsIris,
   TTBundle,
   TTIriRef,
-  EntityDefinitionDto,
   GraphData,
   TermCode,
   Namespace,
@@ -39,7 +38,7 @@ export default class EntityService {
     }
   }
 
-  public async getFullExportSet(iri: string, core: boolean, legacy: boolean): Promise<any> {
+  public async getFullExportSet(iri: string, core: boolean, legacy: boolean, flat: boolean): Promise<any> {
     const client = this.axios.create({
       baseURL: this.api,
       timeout: 0
@@ -49,7 +48,8 @@ export default class EntityService {
       params: {
         iri: iri,
         core: core,
-        legacy: legacy
+        legacy: legacy,
+        flat: flat
       },
       responseType: "blob"
     });
@@ -154,26 +154,6 @@ export default class EntityService {
       });
     } catch (error) {
       return [] as TTIriRef[];
-    }
-  }
-
-  public async getParentHierarchy(iri: string): Promise<EntityReferenceNode> {
-    try {
-      return await this.axios.get(this.api + "api/entity/public/parentHierarchy", {
-        params: { iri: iri }
-      });
-    } catch (error) {
-      return {} as EntityReferenceNode;
-    }
-  }
-
-  public async getEntityDefinitionDto(iri: string): Promise<EntityDefinitionDto> {
-    try {
-      return await this.axios.get(this.api + "api/entity/public/definition", {
-        params: { iri: iri }
-      });
-    } catch (error) {
-      return {} as EntityDefinitionDto;
     }
   }
 
@@ -347,14 +327,6 @@ export default class EntityService {
   public async addTaskAction(entityIri: string, taskIri: string): Promise<any> {
     try {
       return await this.axios.post(this.api + "api/entity/task/action", null, { params: { entityIri: entityIri, taskIri: taskIri } });
-    } catch (error) {
-      return {} as any;
-    }
-  }
-
-  public async createTask(entity: any): Promise<any> {
-    try {
-      return await this.axios.post(this.api + "api/entity/task", entity);
     } catch (error) {
       return {} as any;
     }

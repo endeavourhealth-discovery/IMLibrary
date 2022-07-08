@@ -1,21 +1,21 @@
 <template>
   <div :class="'query-definition ' + [edit ? 'edit ' : '']">
-    <Phrase template="IncludeEntity" :object="query" path="select.entityType" valueType="TTIriRef" :highlighted="true" :edit="edit">
-      <Phrase :object="query" path="select.match" valueType="match" operator="and" :highlighted="true" :edit="edit"> </Phrase>
-    </Phrase>
+    <Node template="MainEntity" :object="query" path="select.entityType" valueType="TTIriRef" :highlighted="true" operator="and" :edit="edit">
+      <!-- <Node :object="query" path="select.match" valueType="match" operator="and" :highlighted="true" :edit="edit"> </Node> -->
+    </Node>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Phrase from "./Phrase.vue";
+import Node from "./Node.vue";
 import { mapState } from "vuex";
 
 export default defineComponent({
   name: "QueryDefinition",
   props: ["modelValue", "edit"],
   emits: ["stopEditing"],
-  components: { Phrase },
+  components: { Node },
   computed: {
     ...mapState(["activeClausePath"])
   },
@@ -44,12 +44,9 @@ export default defineComponent({
 
 .query-definition {
   width: 600px;
-  /* min-width: 300px; */
   min-width: 600px;
-
   height: 100%;
   max-height: 600px;
-
   transition: all 0.2s ease-in;
   display: flex;
   overflow-y: auto;
@@ -70,8 +67,8 @@ export default defineComponent({
   box-shadow: none;
 }
 
-.query-definition:not(.edit):hover {
+/* .query-definition:not(.edit):hover {
   box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
+} */
 </style>

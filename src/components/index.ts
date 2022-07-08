@@ -18,12 +18,8 @@ import ObjectNameWithLabel from "./modules/generics/ObjectNameWithLabel.vue";
 import NumberWithLabel from "./modules/generics/NumberWithLabel.vue";
 import TermCodeTable from "./modules/TermCodeTable.vue";
 import SecondaryTree from "./modules/SecondaryTree.vue";
-import Keyword from "./modules/query/Keyword.vue";
-import Phrase from "./modules/query/Phrase.vue";
-import QueryDefinition from "./modules/query/QueryDefinition.vue";
-import Selector from "./modules/query/Selector.vue";
-import Static from "./modules/query/Static.vue";
 import OverlaySummary from "./modules/OverlaySummary.vue";
+import QueryDefinition from "./modules/query/QueryDefinition.vue";
 
 export {
   AccessDenied,
@@ -46,10 +42,6 @@ export {
   ObjectNameWithLabel,
   NumberWithLabel,
   SecondaryTree,
-  Keyword,
-  Phrase,
-  QueryDefinition,
-  Selector,
-  Static,
-  OverlaySummary
+  OverlaySummary,
+  QueryDefinition
 };
