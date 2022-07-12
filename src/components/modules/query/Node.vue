@@ -7,11 +7,6 @@
     </template>
 
     <div v-else-if="template == 'leafEntity'" class="flex relative">
-      <!-- <div class="connector-v">
-        <div class="circle"></div>
-        <div v-if="showLineV(index, indexCount, -1, -1)" class="line-v"></div>
-      </div> -->
-
       <NodeCard
         v-if="hasKey(entity, 'entityInSet')"
         icon="search"
@@ -28,10 +23,14 @@
     <template v-if="entity && children(entity).length" v-for="(child, childIndex) in children(entity)" :key="child?.path">
       <div class="connector operator horizontal">
         <!-- Connector -->
-        <div class="connector-h">
+        <div class="connector-h relative">
           <div class="circle"></div>
-          <div v-if="showLineV(index, indexCount, childIndex, children(entity).length)" class="line-v"></div>
+          <template v-if="showLineV(index, indexCount, childIndex, children(entity).length)">
+            <div class="line-v"></div>
+            <div :class="'operator-label ' + getOperatorLabel(child)">{{ getOperatorLabel(child) }}</div>
+          </template>
         </div>
+        <div v-if="!isOperator(entity)" class="line-h"></div>
         <!-- /Connector -->
 
         <!-- Operator Children -->
@@ -39,10 +38,12 @@
           <!-- Connector -->
           <div v-for="(grandChild, grandChildIndex) in children(child.value)" class="flex">
             <div v-if="showConnector(grandChildIndex, children(child.value).length)" class="connector flex">
-              <div class="connector-h">
+              <div class="connector-h relative">
                 <div class="circle"></div>
-                <!-- {{ childIndex }} {{ children(entity).length }} {{ grandChildIndex }} {{children(child.value).length }} -->
-                <div v-if="showLineV(childIndex, children(entity).length, grandChildIndex, children(child.value).length)" class="line-v"></div>
+                <template v-if="showLineV(childIndex, children(entity).length, grandChildIndex, children(child.value).length)">
+                  <div class="line-v"></div>
+                  <div :class="'operator-label ' + getOperatorLabel(grandChild)">{{ getOperatorLabel(child) }}</div>
+                </template>
               </div>
               <div class="line-h"></div>
             </div>
@@ -154,6 +155,15 @@ export default defineComponent({
     hasKey(testObjecty: any, comparatorKey: string): boolean {
       return Object.keys(testObjecty).some(key => key == comparatorKey);
     },
+    getOperatorLabel(object: any): string {
+      if (object?.value?.or) {
+        return "or";
+      } else if (object?.value?.property) {
+        return "and";
+      } else {
+        return "and";
+      }
+    },
     children(testObject: any): any {
       // console.log("keys", Object.keys(testObject));
       if (Array.isArray(testObject)) {
@@ -209,9 +219,10 @@ export default defineComponent({
 
 <style>
 .line-h {
-  min-width: 10px;
-  margin: 9px 3px 0 0;
-  border-top: 3px solid #d1d5db;
+  min-width: 15px;
+  width: 15px;
+  margin: 9px 1px 0 0;
+  border-top: 2px solid #cbd5e1;
 }
 
 .line-v {
@@ -219,7 +230,7 @@ export default defineComponent({
   min-width: 10px;
   margin-left: 5px;
   min-height: calc(100% - 25px);
-  border-left: 3px solid #cbd5e1;
+  border-left: 2px solid #cbd5e1;
 }
 
 .operatorlabel {
@@ -229,7 +240,8 @@ export default defineComponent({
 
 .circle {
   margin: 3px 3px 5px 0px;
-  background-color: #cbd5e1;
+  /* background-color: #94a3b8; */
+  border: 2px solid #475569;
   min-width: 13px;
   min-height: 13px;
   width: 13px;
@@ -288,6 +300,7 @@ export default defineComponent({
 .node.highlighted .operator-label,
 .node.highlighted .keyword {
   font-weight: 600;
+  /* color: #7e22ce; */
   color: #7e22ce;
 }
 
@@ -322,6 +335,16 @@ export default defineComponent({
 
 .operator-label {
   min-width: 30px;
+  position: absolute;
+  top: calc(50% - 3px);
+}
+
+.operator-label.and {
+  left: -22px;
+}
+
+.operator-label.or {
+  left: -15px;
 }
 
 .operator-items:first-child {
