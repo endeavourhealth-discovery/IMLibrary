@@ -212,6 +212,7 @@ export default defineComponent({
     object(newValue: any) {
       this.data = newValue;
       this.entity = this.path ? _.get(newValue, this.path) : newValue;
+      this.parent = this.parentPath ? _.get(this.object, this.parentPath) : null;
     }
   }
 });
