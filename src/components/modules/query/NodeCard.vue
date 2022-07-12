@@ -1,5 +1,5 @@
 <template>
-  <div :class="'node-card '">
+  <div :class="'node-card '" @click="onClick">
     <div class="node-card-header">
       <NodeIcon :class="`node-icon`" strokewidth="2" width="20" height="20" :icon="icon" />
       <div class="node-card-title">{{ title }}</div>
@@ -12,10 +12,16 @@
 import { defineComponent } from "vue";
 import NodeIcon from "./NodeIcon.vue";
 
+
 export default defineComponent({
   name: "NodeCard",
-  props: ["icon", "title"],
-  components: { NodeIcon }
+  props: ["icon", "title", "object"],
+  components: { NodeIcon },
+  methods: {
+    onClick() {
+      console.log(this.object);
+    }
+  }
 });
 </script>
 

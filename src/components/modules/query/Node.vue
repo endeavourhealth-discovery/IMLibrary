@@ -2,24 +2,25 @@
   <div :class="'node ' + [highlighted ? 'highlighted ' : ''] + [connector ? ' connector' : '']">
     <!-- Custom Sentences - add new ones here  -->
     <template v-if="template == 'MainEntity' && entity">
-      <NodeCard icon="user" :title="entity.name"> </NodeCard>
-      <Node class="mt-2 pl-5" :object="data" path="select.match" valueType="operator" operator="and" :highlighted="true" :edit="edit"> </Node>
+      <NodeCard icon="user" :title="entity.name" :object="entity"> </NodeCard>
+      <Node class="mt-2 pl-5" :object="data" path="select.match" operator="and" :highlighted="true" :edit="edit"> </Node>
     </template>
 
     <div v-else-if="template == 'leafEntity'" class="flex relative">
-      <div class="connector-v">
+      <!-- <div class="connector-v">
         <div class="circle"></div>
         <div v-if="showLineV(index, indexCount, -1, -1)" class="line-v"></div>
-        <!-- <div v-if="index > 0 || operator == 'or'" class="operatorlabel absolute rounded-sm text-lg text-gray-700 font-bold">{{ operator }}</div> -->
-      </div>
+      </div> -->
+
       <NodeCard
         v-if="hasKey(entity, 'entityInSet')"
         icon="search"
         :title="'is ' + [entity?.notExist ? 'not ' : ''] + 'part of the results of the search ' + entity?.entityInSet[0].name"
+        :object="entity"
       >
       </NodeCard>
-
-      <NodeCard v-else icon="document_text" :title="entity.displayText || 'Undefined Criteria'"> </NodeCard>
+      <template v-else-if="isOperator(entity)"> </template>
+      <NodeCard v-else icon="document_text" :title="entity.displayText || 'Undefined Criteria'" :object="entity"> </NodeCard>
     </div>
     <!-- /Custom Sentences - add new ones here -->
 
@@ -31,29 +32,39 @@
           <div class="circle"></div>
           <div v-if="showLineV(index, indexCount, childIndex, children(entity).length)" class="line-v"></div>
         </div>
-        <div class="line-h"></div>
         <!-- /Connector -->
 
         <!-- Operator Children -->
         <div v-if="children(child.value).length" class="operator-items">
-          <Node
-            v-for="(grandChild, grandChildIndex) in children(child.value)"
-            :object="data"
-            :path="`${path}[${child?.path}].${grandChild?.path}`"
-            valueType="match"
-            :operator="grandChildIndex > 0 ? child.path : ''"
-            :index="grandChildIndex"
-            :edit="edit"
-            :indexCount="children(child.value).length"
-            template="leafEntity"
-          >
-          </Node>
+          <!-- Connector -->
+          <div v-for="(grandChild, grandChildIndex) in children(child.value)" class="flex">
+            <div v-if="showConnector(grandChildIndex, children(child.value).length)" class="connector flex">
+              <div class="connector-h">
+                <div class="circle"></div>
+                <!-- {{ childIndex }} {{ children(entity).length }} {{ grandChildIndex }} {{children(child.value).length }} -->
+                <div v-if="showLineV(childIndex, children(entity).length, grandChildIndex, children(child.value).length)" class="line-v"></div>
+              </div>
+              <div class="line-h"></div>
+            </div>
+
+            <Node
+              :object="data"
+              :path="`${path}[${child?.path}].${grandChild?.path}`"
+              :operator="grandChildIndex > 0 ? child.path : ''"
+              :index="grandChildIndex"
+              :edit="edit"
+              :indexCount="children(child.value).length"
+              template="leafEntity"
+            >
+            </Node>
+          </div>
+          <!-- /Connector -->
         </div>
         <!--  /Operator Children  -->
 
         <!-- Leaf Child -->
         <template v-else>
-          <Node :object="data" :path="`${path}[${child?.path}]`" valueType="match" :edit="edit" template="leafEntity"> </Node>
+          <Node :object="data" :path="`${path}[${child?.path}]`" :edit="edit" template="leafEntity"> </Node>
         </template>
         <!-- /Leaf Child  -->
       </div>
@@ -79,6 +90,7 @@ export default defineComponent({
   components: { NodeIcon, NodeCard },
   props: [
     "indexCount",
+    "index",
     "template",
     "connector",
     "modelValue",
@@ -90,7 +102,6 @@ export default defineComponent({
     "excludedKeys",
     "operator",
     "highlighted",
-    "index",
     "edit"
   ],
   emits: ["selectedClauseUpdated"],
@@ -104,7 +115,7 @@ export default defineComponent({
       } else if (!index && !indexCount) {
         return false;
       } else {
-        return true;
+        return false;
       }
     },
     showOperator(path: string, index: number, childIndex: number): boolean {
@@ -119,8 +130,26 @@ export default defineComponent({
 
       return false;
     },
-    isOperator(testString: any): boolean {
-      return ["and", "or"].includes(testString);
+    showConnector(index: any, indexCount: number): boolean {
+      if (indexCount == 1) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    showLineH(index: number, indexCount: number): boolean {
+      if (index == indexCount - 1) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    isOperator(testObject: any): boolean {
+      if ((this.hasKey(testObject, "and") || this.hasKey(testObject, "or")) && Object.keys(testObject).length == 1) {
+        return true;
+      } else {
+        return false;
+      }
     },
     hasKey(testObjecty: any, comparatorKey: string): boolean {
       return Object.keys(testObjecty).some(key => key == comparatorKey);
