@@ -40,13 +40,15 @@ export default defineComponent({
 
 .node-card-header {
   display: inline-flex;
-  position: relative;
+    position: relative;
+
 }
 .node-card-title {
-  margin-left: 1rem;
-  color: #334155;
-  font-size: 1.5rem;
-  line-height: 2rem;
+  margin-left: 10px;
+  margin-top: 2px;
+  color: #0f172a;
+  font-size: 14px;
+  line-height: 16px;
   font-weight: 500;
 }
 
