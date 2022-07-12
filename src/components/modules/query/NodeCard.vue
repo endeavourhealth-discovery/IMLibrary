@@ -1,10 +1,24 @@
 <template>
-  <div :class="'node-card '" @click="onClick">
-    <div class="node-card-header">
+  <div :class="'node-card '">
+    <div :class="'node-card-header ' + [expanded ? 'expanded' : '']" @click="onClick">
       <NodeIcon :class="`node-icon`" strokewidth="2" width="20" height="20" :icon="icon" />
       <div class="node-card-title" v-html="richTitle()"></div>
+      <div class="node-chevron">
+        <NodeIcon class="icon" strokewidth="2" width="20" height="20" :icon="expanded ? 'chevron_up' : 'chevron_down'" />
+      </div>
     </div>
-    <div class="node-card-body"><slot></slot></div>
+    <div v-if="expanded" class="node-card-body">
+      <!-- <div class="tabs flex space-x-3">
+        <div v-for="tab in tabs" :key="tab.label" :class="'tab-item ' + [activeTab == tab.label ? 'active' : '']" @click="activeTab = tab.label">
+          {{ tab.label }}
+        </div>
+      </div> -->
+      <div v-if="activeTab == 'Prettified'" class="tab-content prettified">
+      </div>
+      <div v-if="activeTab == 'Raw JSON'" class="tab-content json">
+        {{ definition }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -15,15 +29,21 @@ import jp from "jsonpath";
 
 export default defineComponent({
   name: "NodeCard",
-  props: ["icon", "title", "object"],
+  props: ["icon", "title", "definition"],
   components: { NodeIcon },
+  data() {
+    return {
+      activeTab: "Prettified",
+      tabs: [{ label: "Prettified" }, { label: "Raw JSON" }],
+      expanded: false
+    };
+  },
   methods: {
     richTitle() {
       //populates title with hyperlinks to IM Viewer
       let html: string = `<div>${this.title}</div>`;
-      const definition = this.object;
       const jsonQuery = `$..[?(@.name && @.@id)]`;
-      const names = jp.nodes(definition, jsonQuery);
+      const names = jp.nodes(this.definition, jsonQuery);
       names.forEach((item: any) => {
         const url = `https://dev.endhealth.co.uk/viewer/#/concept/${encodeURIComponent(item?.value["@id"])}`;
         const name = item?.value?.name;
@@ -32,13 +52,60 @@ export default defineComponent({
       return html;
     },
     onClick() {
-      console.log(this.object);
+      this.expanded = !this.expanded;
+      console.log(this.definition);
     }
   }
 });
 </script>
 
 <style scoped>
+
+.tab-content {
+  background-color: #f8fafc;
+  border: 1px solid #475569;
+  border-radius: 5px;
+  padding: 6px;
+
+}
+
+.node-card-body .tabs {
+  margin-top: 10px;
+  margin-left: 30px;
+}
+
+.tabs .tab-item {
+  font-weight: 500;
+  border-radius: 20px;
+  padding: 5px 10px;
+  /* border-bottom: transparent 2px solid; */
+}
+.tabs .tab-item.active {
+  background-color: #2563eb;
+  color: #fff;
+  /* border-bottom: #0f172a 2px solid; */
+}
+
+.node-icon {
+  color: #2563eb;
+  min-height: 20px;
+  min-width: 20px;
+}
+.node-chevron {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  color: #374151;
+  min-height: 20px;
+  min-width: 20px;
+}
+
+.node-chevron .icon {
+  border: #d1d5db 1px solid;
+  border-radius: 50%;
+  padding: 2px;
+}
+
 .node-card {
   position: relative;
   display: inline-flex;
@@ -54,6 +121,11 @@ export default defineComponent({
 .node-card-header {
   display: inline-flex;
   position: relative;
+  width: 100%;
+}
+.node-card-header.expanded {
+  padding-bottom: 10px;
+  /* border-bottom: 1px solid #d1d5db; */
 }
 .node-card-title {
   margin-left: 10px;
