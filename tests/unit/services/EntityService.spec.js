@@ -1,4 +1,3 @@
-import { SearchRequest } from "../../../src/models/modules/Search";
 import EntityService from "../../../src/services/modules/EntityService";
 import Env from "../../../src/services/modules/Env";
 import axios from "axios";
@@ -144,13 +143,6 @@ describe("EntityService.ts ___ axios success", () => {
     expect(result).toBe("axios post return");
   });
 
-  it("can get entity definition dto", async () => {
-    const result = await entityService.getEntityDefinitionDto("testIri");
-    expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/definition", { params: { iri: "testIri" } });
-    expect(result).toBe("axios get return");
-  });
-
   it("can get entity parents", async () => {
     const result = await entityService.getEntityParents("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
@@ -210,12 +202,7 @@ describe("EntityService.ts ___ axios success", () => {
     expect(result).toBe("axios get return");
   });
 
-  it("can getInferredAsString", async () => {
-    const result = await entityService.getInferredAsString("testIri");
-    expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/inferredAsString", { params: { iri: "testIri" } });
-    expect(result).toBe("axios get return");
-  });
+
 
   it("can get entity summary", async () => {
     const result = await entityService.getEntitySummary("testIri");
@@ -294,13 +281,6 @@ describe("EntityService.ts ___ axios fail", () => {
     expect(result).toStrictEqual([]);
   });
 
-  it("can get entity definition dto", async () => {
-    const result = await entityService.getEntityDefinitionDto("testIri");
-    expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/definition", { params: { iri: "testIri" } });
-    expect(result).toStrictEqual({});
-  });
-
   it("can get entity parents", async () => {
     const result = await entityService.getEntityParents("testIri");
     expect(axios.get).toHaveBeenCalledTimes(1);
@@ -358,13 +338,6 @@ describe("EntityService.ts ___ axios fail", () => {
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/inferredBundle", { params: { iri: "testIri" } });
     expect(result).toStrictEqual({});
-  });
-
-  it("can getInferredAsString", async () => {
-    const result = await entityService.getInferredAsString("testIri");
-    expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/inferredAsString", { params: { iri: "testIri" } });
-    expect(result).toBe("");
   });
 
   it("can get entity summary", async () => {

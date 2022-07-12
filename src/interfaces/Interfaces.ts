@@ -5,12 +5,12 @@ import { ChartOptions } from "./modules/ChartOptions";
 import { ChartTableNode } from "./modules/ChartTableNode";
 import { ComponentDetails } from "./modules/ComponentDetails";
 import { ConceptAggregate } from "./modules/ConceptAggregate";
+import { ConceptSummary } from "./modules/ConceptSummary";
 import { DashboardLayout } from "./modules/DashboardLayout";
 import { DataModelProperty } from "./modules/DataModelProperty";
 import { Dataset } from "./modules/Dataset";
 import { DefinitionConfig } from "./modules/DefinitionConfig";
 import { ECLComponentDetails } from "./modules/ECLComponentDetails";
-import { EntityDefinitionDto } from "./modules/EntityDefinitionDto";
 import { EntityReferenceNode } from "./modules/EntityReferenceNode";
 import { ExportValueSet } from "./modules/ExportValueSet";
 import { FilterDefaultsConfig } from "./modules/FilterDefaultsConfig";
@@ -29,7 +29,10 @@ import { ModuleItem } from "./modules/ModuleItem";
 import { Namespace } from "./modules/Namespace";
 import { NextComponentSummary } from "./modules/NextComponentSummary";
 import { ProcessedDataModelProperty } from "./modules/ProcessedDataModelProperty";
+import { QueryComponentDetails } from "./modules/QueryComponentDetails";
+import { QueryNextComponentSummary } from "./modules/QueryNextComponentSummary";
 import { RecentActivityItem } from "./modules/RecentActivityItem";
+import { SearchRequest } from "./modules/SearchRequest";
 import { SearchResponse } from "./modules/SearchResponse";
 import { SimpleCount } from "./modules/SimpleCount";
 import { SimpleMap } from "./modules/SimpleMap";
@@ -53,12 +56,12 @@ export {
   type ChartTableNode,
   type ComponentDetails,
   type ConceptAggregate,
+  type ConceptSummary,
   type DashboardLayout,
   type DataModelProperty,
   type Dataset,
   type DefinitionConfig,
   type ECLComponentDetails,
-  type EntityDefinitionDto,
   type EntityReferenceNode,
   type ExportValueSet,
   type FilterDefaultsConfig,
@@ -77,7 +80,10 @@ export {
   type Namespace,
   type NextComponentSummary,
   type ProcessedDataModelProperty,
+  type QueryComponentDetails,
+  type QueryNextComponentSummary,
   type RecentActivityItem,
+  type SearchRequest,
   type SearchResponse,
   type SimpleCount,
   type SimpleMap,

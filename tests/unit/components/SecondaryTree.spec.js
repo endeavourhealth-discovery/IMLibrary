@@ -130,7 +130,7 @@ describe("SecondaryTree.vue", () => {
             children: [],
             color: "#c3ba4588",
             data: "http://snomed.info/sct#111266001",
-            key: "Acquired scoliosis (disorder)",
+            key: "http://snomed.info/sct#111266001",
             label: "Acquired scoliosis (disorder)",
             leaf: false,
             loading: false,
@@ -140,7 +140,7 @@ describe("SecondaryTree.vue", () => {
             children: [],
             color: "#c3ba4588",
             data: "http://snomed.info/sct#773773006",
-            key: "Acrodysplasia scoliosis (disorder)",
+            key: "http://snomed.info/sct#773773006",
             label: "Acrodysplasia scoliosis (disorder)",
             leaf: true,
             loading: false,
@@ -150,7 +150,7 @@ describe("SecondaryTree.vue", () => {
             children: [],
             color: "#c3ba4588",
             data: "http://snomed.info/sct#205045003",
-            key: "Congenital scoliosis due to bony malformation (disorder)",
+            key: "http://snomed.info/sct#205045003",
             label: "Congenital scoliosis due to bony malformation (disorder)",
             leaf: true,
             loading: false,
@@ -159,15 +159,15 @@ describe("SecondaryTree.vue", () => {
         ],
         color: "#c3ba4588",
         data: "http://snomed.info/sct#298382003",
-        key: "Scoliosis deformity of spine (disorder)",
+        key: "http://snomed.info/sct#298382003",
         label: "Scoliosis deformity of spine (disorder)",
         leaf: true,
         loading: false,
         typeIcon: ["fa-solid", "fa-lightbulb"]
       }
     ]);
-    expect(wrapper.vm.expandedKeys).toStrictEqual({ "Scoliosis deformity of spine (disorder)": true });
-    expect(wrapper.vm.selectedKey).toStrictEqual({ "Scoliosis deformity of spine (disorder)": true });
+    expect(wrapper.vm.expandedKeys).toStrictEqual({ "http://snomed.info/sct#298382003": true });
+    expect(wrapper.vm.selectedKey).toStrictEqual({ "http://snomed.info/sct#298382003": true });
     expect(wrapper.vm.currentParent).toStrictEqual({ iri: "http://snomed.info/sct#64217002", listPosition: 0, name: "Curvature of spine (disorder)" });
     expect(wrapper.vm.alternateParents).toStrictEqual([
       { iri: "http://snomed.info/sct#928000", listPosition: 1, name: "Disorder of musculoskeletal system (disorder)" },
@@ -239,7 +239,7 @@ describe("SecondaryTree.vue", () => {
             children: [],
             color: "#c3ba4588",
             data: "http://snomed.info/sct#111266001",
-            key: "Acquired scoliosis (disorder)",
+            key: "http://snomed.info/sct#111266001",
             label: "Acquired scoliosis (disorder)",
             leaf: false,
             loading: false,
@@ -249,7 +249,7 @@ describe("SecondaryTree.vue", () => {
             children: [],
             color: "#c3ba4588",
             data: "http://snomed.info/sct#773773006",
-            key: "Acrodysplasia scoliosis (disorder)",
+            key: "http://snomed.info/sct#773773006",
             label: "Acrodysplasia scoliosis (disorder)",
             leaf: true,
             loading: false,
@@ -259,7 +259,7 @@ describe("SecondaryTree.vue", () => {
             children: [],
             color: "#c3ba4588",
             data: "http://snomed.info/sct#205045003",
-            key: "Congenital scoliosis due to bony malformation (disorder)",
+            key: "http://snomed.info/sct#205045003",
             label: "Congenital scoliosis due to bony malformation (disorder)",
             leaf: true,
             loading: false,
@@ -268,7 +268,7 @@ describe("SecondaryTree.vue", () => {
         ],
         color: "#c3ba4588",
         data: "http://snomed.info/sct#298382003",
-        key: "Scoliosis deformity of spine (disorder)",
+        key: "http://snomed.info/sct#298382003",
         label: "Scoliosis deformity of spine (disorder)",
         leaf: true,
         loading: false,
@@ -276,14 +276,14 @@ describe("SecondaryTree.vue", () => {
       }
     ]);
     expect(wrapper.vm.setParents).toHaveBeenCalledTimes(1);
-    expect(wrapper.vm.selectedKey).toStrictEqual({ "Scoliosis deformity of spine (disorder)": true });
-    expect(wrapper.vm.expandedKeys).toStrictEqual({ "Scoliosis deformity of spine (disorder)": true });
+    expect(wrapper.vm.selectedKey).toStrictEqual({ "http://snomed.info/sct#298382003": true });
+    expect(wrapper.vm.expandedKeys).toStrictEqual({ "http://snomed.info/sct#298382003": true });
   });
 
   it("can createTree ___  selected in expanded", async () => {
     wrapper.vm.setParents = vi.fn();
     wrapper.vm.root = [];
-    wrapper.vm.expandedKeys = { "Scoliosis deformity of spine (disorder)": true };
+    wrapper.vm.expandedKeys = { "http://snomed.info/sct#298382003": true };
     wrapper.vm.selectedKey = {};
     wrapper.vm.createTree(CONCEPT, PARENTS, CHILDREN.result, 0);
     expect(wrapper.vm.root).toStrictEqual([
@@ -293,7 +293,7 @@ describe("SecondaryTree.vue", () => {
             children: [],
             color: "#c3ba4588",
             data: "http://snomed.info/sct#111266001",
-            key: "Acquired scoliosis (disorder)",
+            key: "http://snomed.info/sct#111266001",
             label: "Acquired scoliosis (disorder)",
             leaf: false,
             loading: false,
@@ -303,7 +303,7 @@ describe("SecondaryTree.vue", () => {
             children: [],
             color: "#c3ba4588",
             data: "http://snomed.info/sct#773773006",
-            key: "Acrodysplasia scoliosis (disorder)",
+            key: "http://snomed.info/sct#773773006",
             label: "Acrodysplasia scoliosis (disorder)",
             leaf: true,
             loading: false,
@@ -313,7 +313,7 @@ describe("SecondaryTree.vue", () => {
             children: [],
             color: "#c3ba4588",
             data: "http://snomed.info/sct#205045003",
-            key: "Congenital scoliosis due to bony malformation (disorder)",
+            key: "http://snomed.info/sct#205045003",
             label: "Congenital scoliosis due to bony malformation (disorder)",
             leaf: true,
             loading: false,
@@ -322,7 +322,7 @@ describe("SecondaryTree.vue", () => {
         ],
         color: "#c3ba4588",
         data: "http://snomed.info/sct#298382003",
-        key: "Scoliosis deformity of spine (disorder)",
+        key: "http://snomed.info/sct#298382003",
         label: "Scoliosis deformity of spine (disorder)",
         leaf: true,
         loading: false,
@@ -330,8 +330,8 @@ describe("SecondaryTree.vue", () => {
       }
     ]);
     expect(wrapper.vm.setParents).toHaveBeenCalledTimes(1);
-    expect(wrapper.vm.selectedKey).toStrictEqual({ "Scoliosis deformity of spine (disorder)": true });
-    expect(wrapper.vm.expandedKeys).toStrictEqual({ "Scoliosis deformity of spine (disorder)": true });
+    expect(wrapper.vm.selectedKey).toStrictEqual({ "http://snomed.info/sct#298382003": true });
+    expect(wrapper.vm.expandedKeys).toStrictEqual({ "http://snomed.info/sct#298382003": true });
   });
 
   it("setsParents ___ length === 1", () => {
@@ -409,7 +409,7 @@ describe("SecondaryTree.vue", () => {
       children: [],
       color: "#c3ba4588",
       data: "http://snomed.info/sct#298382003",
-      key: "Scoliosis deformity of spine (disorder)",
+      key: "http://snomed.info/sct#298382003",
       label: "Scoliosis deformity of spine (disorder)",
       leaf: true,
       loading: false,
@@ -490,7 +490,7 @@ describe("SecondaryTree.vue", () => {
     });
     wrapper.vm.expandedKeys = {};
     const testNode = {
-      key: "Acquired scoliosis (disorder)",
+      key: "http://snomed.info/sct#111266001",
       label: "Acquired scoliosis (disorder)",
       typeIcon: ["fa-solid", "fa-lightbulb"],
       color: "#c3ba4588",
@@ -502,7 +502,7 @@ describe("SecondaryTree.vue", () => {
     wrapper.vm.expandChildren(testNode);
     expect(testNode.loading).toBe(true);
     await flushPromises();
-    expect(wrapper.vm.expandedKeys).toStrictEqual({ "Acquired scoliosis (disorder)": true });
+    expect(wrapper.vm.expandedKeys).toStrictEqual({ "http://snomed.info/sct#111266001": true });
     expect(mockEntityService.getPagedChildren).toHaveBeenCalledTimes(1);
     expect(testNode).toStrictEqual({
       children: [
@@ -510,7 +510,7 @@ describe("SecondaryTree.vue", () => {
           children: [],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#405771009",
-          key: "Acquired kyphoscoliosis (disorder)",
+          key: "http://snomed.info/sct#405771009",
           label: "Acquired kyphoscoliosis (disorder)",
           leaf: false,
           loading: false,
@@ -520,7 +520,7 @@ describe("SecondaryTree.vue", () => {
           children: [],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#203646004",
-          key: "Adolescent idiopathic scoliosis (disorder)",
+          key: "http://snomed.info/sct#203646004",
           label: "Adolescent idiopathic scoliosis (disorder)",
           leaf: false,
           loading: false,
@@ -530,7 +530,7 @@ describe("SecondaryTree.vue", () => {
           children: [],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#310421000119106",
-          key: "Infantile idiopathic scoliosis of cervical spine (disorder)",
+          key: "http://snomed.info/sct#310421000119106",
           label: "Infantile idiopathic scoliosis of cervical spine (disorder)",
           leaf: true,
           loading: false,
@@ -540,7 +540,7 @@ describe("SecondaryTree.vue", () => {
           children: [],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#203647008",
-          key: "Post-surgical scoliosis (disorder)",
+          key: "http://snomed.info/sct#203647008",
           label: "Post-surgical scoliosis (disorder)",
           leaf: true,
           loading: false,
@@ -550,7 +550,7 @@ describe("SecondaryTree.vue", () => {
           children: [],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#47518006",
-          key: "Scoliosis caused by radiation (disorder)",
+          key: "http://snomed.info/sct#47518006",
           label: "Scoliosis caused by radiation (disorder)",
           leaf: true,
           loading: false,
@@ -560,7 +560,7 @@ describe("SecondaryTree.vue", () => {
           children: [],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#72992003",
-          key: "Thoracogenic scoliosis (disorder)",
+          key: "http://snomed.info/sct#72992003",
           label: "Thoracogenic scoliosis (disorder)",
           leaf: false,
           loading: false,
@@ -569,7 +569,7 @@ describe("SecondaryTree.vue", () => {
       ],
       color: "#c3ba4588",
       data: "http://snomed.info/sct#111266001",
-      key: "Acquired scoliosis (disorder)",
+      key: "http://snomed.info/sct#111266001",
       label: "Acquired scoliosis (disorder)",
       leaf: false,
       loading: false,
@@ -632,9 +632,9 @@ describe("SecondaryTree.vue", () => {
         }
       ]
     });
-    wrapper.vm.expandedKeys = { "Acquired scoliosis (disorder)": true };
+    wrapper.vm.expandedKeys = { "http://snomed.info/sct#111266001": true };
     const testNode = {
-      key: "Acquired scoliosis (disorder)",
+      key: "http://snomed.info/sct#111266001",
       label: "Acquired scoliosis (disorder)",
       typeIcon: ["fa-solid", "fa-lightbulb"],
       color: "#c3ba4588",
@@ -646,7 +646,7 @@ describe("SecondaryTree.vue", () => {
           children: [],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#405771009",
-          key: "Acquired kyphoscoliosis (disorder)",
+          key: "http://snomed.info/sct#405771009",
           label: "Acquired kyphoscoliosis (disorder)",
           leaf: false,
           loading: false,
@@ -657,7 +657,7 @@ describe("SecondaryTree.vue", () => {
     wrapper.vm.expandChildren(testNode);
     expect(testNode.loading).toBe(true);
     await flushPromises();
-    expect(wrapper.vm.expandedKeys).toStrictEqual({ "Acquired scoliosis (disorder)": true });
+    expect(wrapper.vm.expandedKeys).toStrictEqual({ "http://snomed.info/sct#111266001": true });
     expect(mockEntityService.getPagedChildren).toHaveBeenCalledTimes(1);
     expect(testNode).toStrictEqual({
       children: [
@@ -665,7 +665,7 @@ describe("SecondaryTree.vue", () => {
           children: [],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#405771009",
-          key: "Acquired kyphoscoliosis (disorder)",
+          key: "http://snomed.info/sct#405771009",
           label: "Acquired kyphoscoliosis (disorder)",
           leaf: false,
           loading: false,
@@ -675,7 +675,7 @@ describe("SecondaryTree.vue", () => {
           children: [],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#203646004",
-          key: "Adolescent idiopathic scoliosis (disorder)",
+          key: "http://snomed.info/sct#203646004",
           label: "Adolescent idiopathic scoliosis (disorder)",
           leaf: false,
           loading: false,
@@ -685,7 +685,7 @@ describe("SecondaryTree.vue", () => {
           children: [],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#310421000119106",
-          key: "Infantile idiopathic scoliosis of cervical spine (disorder)",
+          key: "http://snomed.info/sct#310421000119106",
           label: "Infantile idiopathic scoliosis of cervical spine (disorder)",
           leaf: true,
           loading: false,
@@ -695,7 +695,7 @@ describe("SecondaryTree.vue", () => {
           children: [],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#203647008",
-          key: "Post-surgical scoliosis (disorder)",
+          key: "http://snomed.info/sct#203647008",
           label: "Post-surgical scoliosis (disorder)",
           leaf: true,
           loading: false,
@@ -705,7 +705,7 @@ describe("SecondaryTree.vue", () => {
           children: [],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#47518006",
-          key: "Scoliosis caused by radiation (disorder)",
+          key: "http://snomed.info/sct#47518006",
           label: "Scoliosis caused by radiation (disorder)",
           leaf: true,
           loading: false,
@@ -715,7 +715,7 @@ describe("SecondaryTree.vue", () => {
           children: [],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#72992003",
-          key: "Thoracogenic scoliosis (disorder)",
+          key: "http://snomed.info/sct#72992003",
           label: "Thoracogenic scoliosis (disorder)",
           leaf: false,
           loading: false,
@@ -724,7 +724,7 @@ describe("SecondaryTree.vue", () => {
       ],
       color: "#c3ba4588",
       data: "http://snomed.info/sct#111266001",
-      key: "Acquired scoliosis (disorder)",
+      key: "http://snomed.info/sct#111266001",
       label: "Acquired scoliosis (disorder)",
       leaf: false,
       loading: false,
@@ -811,7 +811,7 @@ describe("SecondaryTree.vue", () => {
     wrapper.vm.expandedKeys = {};
     wrapper.vm.createExpandedParentTree = vi.fn().mockReturnValue({
       data: {
-        key: "Curvature of spine (disorder)",
+        key: "http://snomed.info/sct#64217002",
         label: "Curvature of spine (disorder)",
         typeIcon: "fa-solid fa-fw fa-lightbulb",
         color: "#c3ba4588",
@@ -820,7 +820,7 @@ describe("SecondaryTree.vue", () => {
         loading: false,
         children: [
           {
-            key: "Scoliosis deformity of spine (disorder)",
+            key: "http://snomed.info/sct#298382003",
             label: "Scoliosis deformity of spine (disorder)",
             typeIcon: "fa-solid fa-fw fa-lightbulb",
             color: "#c3ba4588",
@@ -829,7 +829,7 @@ describe("SecondaryTree.vue", () => {
             loading: false,
             children: [
               {
-                key: "Acquired scoliosis (disorder)",
+                key: "http://snomed.info/sct#111266001",
                 label: "Acquired scoliosis (disorder)",
                 typeIcon: "fa-solid fa-fw fa-lightbulb",
                 color: "#c3ba4588",
@@ -847,7 +847,7 @@ describe("SecondaryTree.vue", () => {
     wrapper.vm.expandParents(0);
     await flushPromises();
     await wrapper.vm.$nextTick();
-    expect(wrapper.vm.expandedKeys).toStrictEqual({ "Scoliosis deformity of spine (disorder)": true });
+    expect(wrapper.vm.expandedKeys).toStrictEqual({ "http://snomed.info/sct#298382003": true });
     expect(mockEntityService.getEntityParents).toHaveBeenCalledTimes(1);
     expect(wrapper.vm.createExpandedParentTree).toHaveBeenCalledTimes(1);
     expect(wrapper.vm.setExpandedParentParents).toHaveBeenCalledTimes(1);
@@ -861,7 +861,7 @@ describe("SecondaryTree.vue", () => {
                   children: [],
                   color: "#c3ba4588",
                   data: "http://snomed.info/sct#111266001",
-                  key: "Acquired scoliosis (disorder)",
+                  key: "http://snomed.info/sct#111266001",
                   label: "Acquired scoliosis (disorder)",
                   leaf: false,
                   loading: false,
@@ -870,7 +870,7 @@ describe("SecondaryTree.vue", () => {
               ],
               color: "#c3ba4588",
               data: "http://snomed.info/sct#298382003",
-              key: "Scoliosis deformity of spine (disorder)",
+              key: "http://snomed.info/sct#298382003",
               label: "Scoliosis deformity of spine (disorder)",
               leaf: true,
               loading: false,
@@ -879,7 +879,7 @@ describe("SecondaryTree.vue", () => {
           ],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#64217002",
-          key: "Curvature of spine (disorder)",
+          key: "http://snomed.info/sct#64217002",
           label: "Curvature of spine (disorder)",
           leaf: false,
           loading: false,
@@ -890,10 +890,10 @@ describe("SecondaryTree.vue", () => {
   });
 
   it("can expandParents ___ key", async () => {
-    wrapper.vm.expandedKeys = { "Scoliosis deformity of spine (disorder)": true };
+    wrapper.vm.expandedKeys = { "http://snomed.info/sct#298382003": true };
     wrapper.vm.createExpandedParentTree = vi.fn().mockReturnValue({
       data: {
-        key: "Curvature of spine (disorder)",
+        key: "http://snomed.info/sct#64217002",
         label: "Curvature of spine (disorder)",
         typeIcon: "fa-solid fa-fw fa-lightbulb",
         color: "#c3ba4588",
@@ -902,7 +902,7 @@ describe("SecondaryTree.vue", () => {
         loading: false,
         children: [
           {
-            key: "Scoliosis deformity of spine (disorder)",
+            key: "http://snomed.info/sct#298382003",
             label: "Scoliosis deformity of spine (disorder)",
             typeIcon: "fa-solid fa-fw fa-lightbulb",
             color: "#c3ba4588",
@@ -911,7 +911,7 @@ describe("SecondaryTree.vue", () => {
             loading: false,
             children: [
               {
-                key: "Acquired scoliosis (disorder)",
+                key: "http://snomed.info/sct#111266001",
                 label: "Acquired scoliosis (disorder)",
                 typeIcon: "fa-solid fa-fw fa-lightbulb",
                 color: "#c3ba4588",
@@ -929,7 +929,7 @@ describe("SecondaryTree.vue", () => {
     wrapper.vm.expandParents(0);
     await flushPromises();
     await wrapper.vm.$nextTick();
-    expect(wrapper.vm.expandedKeys).toStrictEqual({ "Scoliosis deformity of spine (disorder)": true });
+    expect(wrapper.vm.expandedKeys).toStrictEqual({ "http://snomed.info/sct#298382003": true });
     expect(mockEntityService.getEntityParents).toHaveBeenCalledTimes(1);
     expect(wrapper.vm.createExpandedParentTree).toHaveBeenCalledTimes(1);
     expect(wrapper.vm.setExpandedParentParents).toHaveBeenCalledTimes(1);
@@ -943,7 +943,7 @@ describe("SecondaryTree.vue", () => {
                   children: [],
                   color: "#c3ba4588",
                   data: "http://snomed.info/sct#111266001",
-                  key: "Acquired scoliosis (disorder)",
+                  key: "http://snomed.info/sct#111266001",
                   label: "Acquired scoliosis (disorder)",
                   leaf: false,
                   loading: false,
@@ -952,7 +952,7 @@ describe("SecondaryTree.vue", () => {
               ],
               color: "#c3ba4588",
               data: "http://snomed.info/sct#298382003",
-              key: "Scoliosis deformity of spine (disorder)",
+              key: "http://snomed.info/sct#298382003",
               label: "Scoliosis deformity of spine (disorder)",
               leaf: true,
               loading: false,
@@ -961,7 +961,7 @@ describe("SecondaryTree.vue", () => {
           ],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#64217002",
-          key: "Curvature of spine (disorder)",
+          key: "http://snomed.info/sct#64217002",
           label: "Curvature of spine (disorder)",
           leaf: false,
           loading: false,
@@ -1007,7 +1007,7 @@ describe("SecondaryTree.vue", () => {
               children: [],
               color: "#c3ba4588",
               data: "http://snomed.info/sct#111266001",
-              key: "Acquired scoliosis (disorder)",
+              key: "http://snomed.info/sct#111266001",
               label: "Acquired scoliosis (disorder)",
               leaf: false,
               loading: false,
@@ -1017,7 +1017,7 @@ describe("SecondaryTree.vue", () => {
               children: [],
               color: "#c3ba4588",
               data: "http://snomed.info/sct#773773006",
-              key: "Acrodysplasia scoliosis (disorder)",
+              key: "http://snomed.info/sct#773773006",
               label: "Acrodysplasia scoliosis (disorder)",
               leaf: true,
               loading: false,
@@ -1027,7 +1027,7 @@ describe("SecondaryTree.vue", () => {
               children: [],
               color: "#c3ba4588",
               data: "http://snomed.info/sct#205045003",
-              key: "Congenital scoliosis due to bony malformation (disorder)",
+              key: "http://snomed.info/sct#205045003",
               label: "Congenital scoliosis due to bony malformation (disorder)",
               leaf: true,
               loading: false,
@@ -1036,7 +1036,7 @@ describe("SecondaryTree.vue", () => {
           ],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#298382003",
-          key: "Scoliosis deformity of spine (disorder)",
+          key: "http://snomed.info/sct#298382003",
           label: "Scoliosis deformity of spine (disorder)",
           leaf: true,
           loading: false,
@@ -1045,17 +1045,17 @@ describe("SecondaryTree.vue", () => {
       ],
       color: "#c3ba4588",
       data: "http://snomed.info/sct#12903001",
-      key: "Acquired curvature of spine (disorder)",
+      key: "http://snomed.info/sct#12903001",
       label: "Acquired curvature of spine (disorder)",
       leaf: false,
       loading: false,
       typeIcon: ["fa-solid", "fa-lightbulb"]
     });
-    expect(wrapper.vm.expandedKeys).toStrictEqual({ "Acquired curvature of spine (disorder)": true, "Scoliosis deformity of spine (disorder)": true });
+    expect(wrapper.vm.expandedKeys).toStrictEqual({ "http://snomed.info/sct#12903001": true, "http://snomed.info/sct#298382003": true });
   });
 
   it("can createExpandedParentTree ___ existingExpandedKey", () => {
-    wrapper.vm.expandedKeys["Acquired curvature of spine (disorder)"] = true;
+    wrapper.vm.expandedKeys["http://snomed.info/sct#12903001"] = true;
     expect(
       wrapper.vm.createExpandedParentTree(
         [
@@ -1082,7 +1082,7 @@ describe("SecondaryTree.vue", () => {
               children: [],
               color: "#c3ba4588",
               data: "http://snomed.info/sct#111266001",
-              key: "Acquired scoliosis (disorder)",
+              key: "http://snomed.info/sct#111266001",
               label: "Acquired scoliosis (disorder)",
               leaf: false,
               loading: false,
@@ -1092,7 +1092,7 @@ describe("SecondaryTree.vue", () => {
               children: [],
               color: "#c3ba4588",
               data: "http://snomed.info/sct#773773006",
-              key: "Acrodysplasia scoliosis (disorder)",
+              key: "http://snomed.info/sct#773773006",
               label: "Acrodysplasia scoliosis (disorder)",
               leaf: true,
               loading: false,
@@ -1102,7 +1102,7 @@ describe("SecondaryTree.vue", () => {
               children: [],
               color: "#c3ba4588",
               data: "http://snomed.info/sct#205045003",
-              key: "Congenital scoliosis due to bony malformation (disorder)",
+              key: "http://snomed.info/sct#205045003",
               label: "Congenital scoliosis due to bony malformation (disorder)",
               leaf: true,
               loading: false,
@@ -1111,7 +1111,7 @@ describe("SecondaryTree.vue", () => {
           ],
           color: "#c3ba4588",
           data: "http://snomed.info/sct#298382003",
-          key: "Scoliosis deformity of spine (disorder)",
+          key: "http://snomed.info/sct#298382003",
           label: "Scoliosis deformity of spine (disorder)",
           leaf: true,
           loading: false,
@@ -1120,13 +1120,13 @@ describe("SecondaryTree.vue", () => {
       ],
       color: "#c3ba4588",
       data: "http://snomed.info/sct#12903001",
-      key: "Acquired curvature of spine (disorder)",
+      key: "http://snomed.info/sct#12903001",
       label: "Acquired curvature of spine (disorder)",
       leaf: false,
       loading: false,
       typeIcon: ["fa-solid", "fa-lightbulb"]
     });
-    expect(wrapper.vm.expandedKeys).toStrictEqual({ "Acquired curvature of spine (disorder)": true, "Scoliosis deformity of spine (disorder)": true });
+    expect(wrapper.vm.expandedKeys).toStrictEqual({ "http://snomed.info/sct#12903001": true, "http://snomed.info/sct#298382003": true });
   });
 
   it("can setExpandedParentParents ___ length === 0", async () => {

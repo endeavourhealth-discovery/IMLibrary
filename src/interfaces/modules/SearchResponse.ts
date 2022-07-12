@@ -1,4 +1,4 @@
-import { ConceptSummary } from "../../models/modules/Search";
+import { ConceptSummary } from "./ConceptSummary";
 
 export interface SearchResponse {
   entities: ConceptSummary[];
