@@ -6,7 +6,7 @@
       <Node class="mt-2 pl-5" :object="data" path="select.match" operator="and" :highlighted="true" :edit="edit"> </Node>
     </template>
 
-    <div v-else-if="template == 'leafEntity'" class="flex relative">
+    <div v-else-if="template == 'leafEntity'">
       <NodeCard
         v-if="hasKey(entity, 'entityInSet')"
         icon="search"
@@ -23,7 +23,7 @@
     <template v-if="entity && children(entity).length" v-for="(child, childIndex) in children(entity)" :key="child?.path">
       <div class="connector operator horizontal">
         <!-- Connector -->
-        <div class="connector-h relative">
+        <div class="connector-h ">
           <div class="circle"></div>
           <template v-if="showLineV(index, indexCount, childIndex, children(entity).length)">
             <div class="line-v"></div>
@@ -36,9 +36,9 @@
         <!-- Operator Children -->
         <div v-if="children(child.value).length" class="operator-items">
           <!-- Connector -->
-          <div v-for="(grandChild, grandChildIndex) in children(child.value)" class="flex">
-            <div v-if="showConnector(grandChildIndex, children(child.value).length)" class="connector flex">
-              <div class="connector-h relative">
+          <div v-for="(grandChild, grandChildIndex) in children(child.value)" class="operator-item">
+            <div v-if="showConnector(grandChildIndex, children(child.value).length)" class="connector ">
+              <div class="connector-h ">
                 <div class="circle"></div>
                 <template v-if="showLineV(childIndex, children(entity).length, grandChildIndex, children(child.value).length)">
                   <div class="line-v"></div>
@@ -218,6 +218,21 @@ export default defineComponent({
 </script>
 
 <style>
+.operator-item {
+  display: flex;
+}
+.connector {
+  display: flex;
+}
+
+.connector-h {
+  position: relative;
+}
+
+.flex {
+  display: flex;
+}
+
 .line-h {
   min-width: 15px;
   width: 15px;
