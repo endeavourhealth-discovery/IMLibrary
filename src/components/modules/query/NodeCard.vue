@@ -3,7 +3,7 @@
     <div :class="'node-card-header ' + [expanded ? 'expanded' : '']" @click="onClick">
       <NodeIcon :class="`node-icon`" strokewidth="2" width="20" height="20" :icon="icon" />
       <div class="node-card-title" v-html="richTitle()"></div>
-      <div class="node-chevron">
+      <div v-if="allowExpansion" class="node-chevron">
         <NodeIcon class="icon" strokewidth="2" width="20" height="20" :icon="expanded ? 'chevron_up' : 'chevron_down'" />
       </div>
     </div>
@@ -13,8 +13,24 @@
           {{ tab.label }}
         </div>
       </div> -->
-      <div v-if="activeTab == 'Prettified'" class="tab-content prettified">
+      <div v-if="activeTab == 'Prettified' && definition?.pathTo" class="tab-content prettified">
+        <div class="pathTo">
+          <span class="ml10"> {{ definition?.pathTo[0]?.name }} </span>
+          <NodeIcon class="ml10 arrow-right" strokewidth="3" width="14" height="14" icon="arrow_right" />
+          <div class="ml10"> {{ definition?.entityType?.name }} </div>
+        </div>
+        <!-- <div class="properties ml20">
+          <template v-if="definition?.property" v-for="prop in definition?.property">
+            <NodeIcon class="ml10 arrow-right" strokewidth="3" width="14" height="14" icon="arrow_right" />
+            <span class="ml10"> {{ prop?.name }} </span>
+            <div v-if="prop?.inSet" class="inSet">
+              <NodeIcon class="ml10 arrow-right" strokewidth="3" width="14" height="14" icon="arrow_right" />
+              <div class="inSet-item" v-for="set in prop?.inSet" > {{ set?.name }} </div>
+            </div>
+          </template>
+        </div> -->
       </div>
+      <div v-else-if="activeTab == 'Prettified' && definition?.alias" class="tab-content prettified"></div>
       <div v-if="activeTab == 'Raw JSON'" class="tab-content json">
         {{ definition }}
       </div>
@@ -29,7 +45,7 @@ import jp from "jsonpath";
 
 export default defineComponent({
   name: "NodeCard",
-  props: ["icon", "title", "definition"],
+  props: ["icon", "title", "definition", "allowExpansion"],
   components: { NodeIcon },
   data() {
     return {
@@ -60,13 +76,33 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.ml20 {
+  margin-left: 20px;
+}
+.ml10 {
+  margin-left: 10px;
+}
+.arrow-right {
+  margin-top: 4px;
+  margin-left: 5px;
+  color: #1d4ed8;
+}
+
+
+.properties,
+.pathTo {
+  display: flex;
+  /* flex-direction: column; */
+}
+.inSet {
+  display: flex;
+}
 
 .tab-content {
   background-color: #f8fafc;
   border: 1px solid #475569;
   border-radius: 5px;
   padding: 6px;
-
 }
 
 .node-card-body .tabs {
