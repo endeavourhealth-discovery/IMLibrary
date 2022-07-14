@@ -193,7 +193,7 @@ export default class EntityService {
     try {
       const schemeOptions = await this.getNamespaces();
       const statusOptions = await this.getEntityChildren(IM.STATUS);
-      const typeOptions = (await this.getPartialEntities(Config.FilterDefaults.typeOptions, [RDFS.LABEL])).map(typeOption => {
+      const typeOptions = (await this.getPartialEntities(Config.EntityTypes, [RDFS.LABEL])).map(typeOption => {
         return { "@id": typeOption["@id"], name: typeOption[RDFS.LABEL] };
       });
 
@@ -484,6 +484,22 @@ export default class EntityService {
       });
     } catch (error) {
       return {} as ExportValueSet;
+    }
+  }
+
+  public async getShape(iri: string): Promise<any> {
+    try {
+      return await this.axios.get(Env.API + "api/entity/public/entityAsPlainJson", { params: { iri: iri } });
+    } catch (error) {
+      return {} as any;
+    }
+  }
+
+  public async getShapeFromType(iri: string): Promise<TTIriRef> {
+    try {
+      return await this.axios.get(Env.API + "api/entity/public/shapeFromType", { params: { iri: iri } });
+    } catch (error) {
+      return {} as TTIriRef;
     }
   }
 }
