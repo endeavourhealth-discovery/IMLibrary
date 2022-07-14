@@ -90,4 +90,9 @@ export class IM {
   public static PROPERTY = IM.NAMESPACE + "property";
   public static MATCH = IM.NAMESPACE + "match";
   public static ENTITY_TYPE = IM.NAMESPACE + "entityType";
+
+  //shapes
+  public static CONCEPT_SHAPE = IM.NAMESPACE + "ConceptShape";
+  public static PROPERTY_SHAPE = IM.NAMESPACE + "PropertyShape";
+  public static EDITOR_CONCEPT_SHAPE = IM.NAMESPACE + "Editor_ConceptShape";
 }
