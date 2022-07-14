@@ -15,8 +15,10 @@
       >
       </NodeCard>
       <template v-else-if="isOperator(entity)"> </template>
-      <NodeCard v-else-if="entity?.displayText" icon="document_text" :title="entity.displayText" :definition="entity" :allowExpansion="true"> </NodeCard>
+      
+      <NodeCard :data="data" :path="path" v-else-if="entity?.displayText" icon="document_text" :title="entity.displayText" :definition="entity" :allowExpansion="true"></NodeCard>
       <NodeCard v-else icon="question_mark_circle" title="Undefined Criteria" :definition="entity"> </NodeCard>
+    
     </div>
     <!-- /Custom Sentences - add new ones here -->
 

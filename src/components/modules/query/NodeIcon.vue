@@ -7,6 +7,7 @@
       <path stroke-linecap="round" stroke-linejoin="round" :stroke-width="strokewidth" :d="icons[icon + '_default']"></path>
     </template>
   </svg>
+  
 </template>
 
 <script lang="ts">
