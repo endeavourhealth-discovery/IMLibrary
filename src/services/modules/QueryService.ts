@@ -59,4 +59,20 @@ export default class QueryService {
       return {} as any;
     }
   }
+
+  public async checkValidation(value: any, validationIri: string): Promise<boolean> {
+    try {
+      return await this.axios.get(Env.API + "api/query/public/checkValidation", { params: { value: value, validationIri: validationIri } });
+    } catch (error) {
+      return false;
+    }
+  }
+
+  public async getQueryFromFunctionIri(iri: string): Promise<any> {
+    try {
+      return await this.axios.get(Env.API + "api/query/public/getQueryFromFunctionIri", { params: { iri: iri } });
+    } catch (error) {
+      return {} as any;
+    }
+  }
 }

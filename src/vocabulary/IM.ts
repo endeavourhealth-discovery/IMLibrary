@@ -95,4 +95,9 @@ export class IM {
   public static CONCEPT_SHAPE = IM.NAMESPACE + "ConceptShape";
   public static PROPERTY_SHAPE = IM.NAMESPACE + "PropertyShape";
   public static EDITOR_CONCEPT_SHAPE = IM.NAMESPACE + "Editor_ConceptShape";
+
+  //editor components
+  public static LABEL_COMPONENT = IM.NAMESPACE + "Label";
+  public static TEXT_INPUT_COMPONENT = IM.NAMESPACE + "textInput";
+  public static HTML_EDITOR_COMPONENT = IM.NAMESPACE + "htmlEditor";
 }
