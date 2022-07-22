@@ -227,11 +227,20 @@ function removeGroupNumber(arr: any[]) {
   }
 }
 
+export function mapToObject(args: Map<any, any>) {
+  const argsAsObject = {} as any;
+  args.forEach((value, key) => {
+    argsAsObject[key] = value;
+  });
+  return argsAsObject;
+}
+
 export default {
   bundleToText,
   ttArrayToString,
   ttIriToString,
   ttNodeToString,
   ttValueToString,
-  termToString
+  termToString,
+  mapToObject
 };
