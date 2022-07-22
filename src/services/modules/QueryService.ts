@@ -1,4 +1,7 @@
+import { QueryRequest } from "../../interfaces/modules/QueryRequest";
 import Env from "./Env";
+import { isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
+import { mapToObject } from "../../helpers/modules/Transforms";
 
 export default class QueryService {
   axios: any;
@@ -52,27 +55,35 @@ export default class QueryService {
     });
   }
 
-  public async queryIM(query: any): Promise<{ entities: any[]; "@context": any }> {
+  public async queryIM(query: QueryRequest): Promise<{ entities: any[]; "@context": any }> {
     try {
       return await this.axios.post(Env.API + "api/query/public/queryIM", query);
     } catch (error) {
-      return {} as any;
+      return undefined as any;
     }
   }
 
   public async checkValidation(value: any, validationIri: string): Promise<boolean> {
     try {
-      return await this.axios.get(Env.API + "api/query/public/checkValidation", { params: { value: value, validationIri: validationIri } });
+      return await this.axios.get(Env.API + "api/query/public/booleanQueryIM", { params: { testVariables: value, iri: validationIri } });
     } catch (error) {
       return false;
     }
   }
 
-  public async getQueryFromFunctionIri(iri: string): Promise<any> {
+  public async runFunction(iri: string, args?: Map<string, any>): Promise<any> {
     try {
-      return await this.axios.get(Env.API + "api/query/public/getQueryFromFunctionIri", { params: { iri: iri } });
+      if (args && args.size > 1) {
+        const replacedArgs = mapToObject(args);
+        const result = await this.axios.post(Env.API + "api/function/public/callFunction", {
+          functionIri: iri,
+          arguments: replacedArgs
+        });
+        if (isObjectHasKeys(replacedArgs, ["fieldName"])) return result[replacedArgs.fieldName];
+        else return result;
+      } else return await this.axios.post(Env.API + "api/function/public/callFunction", { functionIri: iri });
     } catch (error) {
-      return {} as any;
+      return undefined;
     }
   }
 }

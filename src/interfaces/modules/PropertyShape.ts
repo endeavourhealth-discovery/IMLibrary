@@ -1,3 +1,4 @@
+import { Argument } from "../../models/modules/AutoGen";
 import { TTIriRef } from "./TTIriRef";
 
 export interface PropertyShape {
@@ -18,4 +19,6 @@ export interface PropertyShape {
   componentType: TTIriRef;
   validation: TTIriRef;
   search: TTIriRef;
+  argument: Argument[];
+  valueVariable: string;
 }

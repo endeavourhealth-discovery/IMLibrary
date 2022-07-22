@@ -100,4 +100,13 @@ export class IM {
   public static LABEL_COMPONENT = IM.NAMESPACE + "Label";
   public static TEXT_INPUT_COMPONENT = IM.NAMESPACE + "textInput";
   public static HTML_EDITOR_COMPONENT = IM.NAMESPACE + "htmlEditor";
+  public static ENTITY_MULTI_SEARCH_COMPONENT = IM.NAMESPACE + "entitySearch";
+  public static ENTITY_SINGLE_SEARCH_COMPONENT = IM.NAMESPACE + "entitySingleSearch";
+  public static ENTITY_MULTI_DROPDOWN_COMPONENT = IM.NAMESPACE + "entityMultiSelect";
+  public static ENTITY_SINGLE_DROPDOWN_COMPONENT = IM.NAMESPACE + "EntityComboBox";
+
+  //argument options
+  public static VALUE_TEXT = IM.NAMESPACE + "valueText";
+  public static VALUE_VARIABLE = IM.NAMESPACE + "valueVariable";
+  public static VALUE_IRI = IM.NAMESPACE + "valueIri";
 }
