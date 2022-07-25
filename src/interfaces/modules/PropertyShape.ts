@@ -21,4 +21,5 @@ export interface PropertyShape {
   search: TTIriRef;
   argument: Argument[];
   valueVariable: string;
+  select: TTIriRef[];
 }

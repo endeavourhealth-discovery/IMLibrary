@@ -86,4 +86,12 @@ export default class QueryService {
       return undefined;
     }
   }
+
+  public async entityQuery(query: QueryRequest) {
+    try {
+      return await this.axios.post(Env.API + "api/query/public/entityQuery", query);
+    } catch (error) {
+      return [];
+    }
+  }
 }

@@ -5,7 +5,7 @@ export interface ComponentDetails {
   id: string;
   value: any;
   position: number;
-  type: any;
+  type: ComponentType;
   json: any;
   builderType: BuilderType;
   showButtons?: { minus: boolean; plus: boolean };

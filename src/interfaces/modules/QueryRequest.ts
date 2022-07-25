@@ -5,7 +5,7 @@ export interface QueryRequest {
   page: number;
   pageSize: number;
   textSearch: string;
-  focusVariables: Map<string, string>;
+  argument: any;
   query: Query;
   queryIri: TTIriRef;
   referenceDate: string;
