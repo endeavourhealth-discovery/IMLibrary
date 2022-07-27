@@ -3,6 +3,7 @@ export class IM {
   public static NAMESPACE = IM.DOMAIN + "im#";
   public static PREFIX = "im";
   public static IRI = "@id";
+  public static ID = IM.NAMESPACE + "id";
   public static CONCEPT_SET_GROUP = IM.NAMESPACE + "ConceptSetGroup";
   public static CODE = IM.NAMESPACE + "code";
   public static SCHEME = IM.NAMESPACE + "scheme";
@@ -102,11 +103,15 @@ export class IM {
   public static HTML_EDITOR_COMPONENT = IM.NAMESPACE + "htmlEditor";
   public static ENTITY_MULTI_SEARCH_COMPONENT = IM.NAMESPACE + "entitySearch";
   public static ENTITY_SINGLE_SEARCH_COMPONENT = IM.NAMESPACE + "entitySingleSearch";
-  public static ENTITY_MULTI_DROPDOWN_COMPONENT = IM.NAMESPACE + "entityMultiSelect";
-  public static ENTITY_SINGLE_DROPDOWN_COMPONENT = IM.NAMESPACE + "EntityComboBox";
+  public static ENTITY_COMBOBOX_COMPONENT = IM.NAMESPACE + "EntityComboBox";
+  public static ENTITY_DROPDOWN_COMPONENT = IM.NAMESPACE + "EntityComboBox";
 
   //argument options
   public static VALUE_TEXT = IM.NAMESPACE + "valueText";
   public static VALUE_VARIABLE = IM.NAMESPACE + "valueVariable";
   public static VALUE_IRI = IM.NAMESPACE + "valueIri";
+
+  // IM1
+  public static IM_1_ID = IM.NAMESPACE + "im1Id";
+  public static IM_1_SCHEME = IM.NAMESPACE + "im1Scheme";
 }

@@ -9,9 +9,9 @@ export enum ComponentType {
   QUANTIFIER = "Quantifier",
   PROPERTY = "Property",
   GROUP = "Group",
-  ENTITY_MULTI_DROPDOWN = "EntityMultiDropdown",
+  ENTITY_COMBOBOX = "EntityComboBox",
   ENTITY_MULTI_SEARCH = "EntityMultiSearch",
-  ENTITY_SINGLE_DROPDOWN = "EntitySingleDropdown",
+  ENTITY_DROPDOWN = "EntityDropdown",
   HTML_SINGLE_SELECT = "HtmlSingleSelect",
   STRING_SINGLE_DISPLAY = "StringSingleDisplay",
   STRING_SINGLE_SELECT = "StringSingleSelect"
