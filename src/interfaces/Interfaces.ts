@@ -34,6 +34,7 @@ import { PropertyGroup } from "./modules/PropertyGroup";
 import { PropertyShape } from "./modules/PropertyShape";
 import { QueryComponentDetails } from "./modules/QueryComponentDetails";
 import { QueryNextComponentSummary } from "./modules/QueryNextComponentSummary";
+import { QueryRequest } from "./modules/QueryRequest";
 import { RecentActivityItem } from "./modules/RecentActivityItem";
 import { SearchRequest } from "./modules/SearchRequest";
 import { SearchResponse } from "./modules/SearchResponse";
@@ -88,6 +89,7 @@ export {
   type PropertyShape,
   type QueryComponentDetails,
   type QueryNextComponentSummary,
+  type QueryRequest,
   type RecentActivityItem,
   type SearchRequest,
   type SearchResponse,

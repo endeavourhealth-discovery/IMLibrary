@@ -12,7 +12,7 @@ export enum ComponentType {
   ENTITY_COMBOBOX = "EntityComboBox",
   ENTITY_MULTI_SEARCH = "EntityMultiSearch",
   ENTITY_DROPDOWN = "EntityDropdown",
-  HTML_SINGLE_SELECT = "HtmlSingleSelect",
-  STRING_SINGLE_DISPLAY = "StringSingleDisplay",
-  STRING_SINGLE_SELECT = "StringSingleSelect"
+  HTML_INPUT = "HtmlInput",
+  TEXT_DISPLAY = "TextDisplay",
+  TEXT_INPUT = "TextInput"
 }

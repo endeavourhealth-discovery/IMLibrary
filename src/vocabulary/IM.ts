@@ -98,13 +98,13 @@ export class IM {
   public static EDITOR_CONCEPT_SHAPE = IM.NAMESPACE + "Editor_ConceptShape";
 
   //editor components
-  public static LABEL_COMPONENT = IM.NAMESPACE + "Label";
+  public static TEXT_DISPLAY_COMPONENT = IM.NAMESPACE + "textDisplay";
   public static TEXT_INPUT_COMPONENT = IM.NAMESPACE + "textInput";
-  public static HTML_EDITOR_COMPONENT = IM.NAMESPACE + "htmlEditor";
-  public static ENTITY_MULTI_SEARCH_COMPONENT = IM.NAMESPACE + "entitySearch";
-  public static ENTITY_SINGLE_SEARCH_COMPONENT = IM.NAMESPACE + "entitySingleSearch";
-  public static ENTITY_COMBOBOX_COMPONENT = IM.NAMESPACE + "EntityComboBox";
-  public static ENTITY_DROPDOWN_COMPONENT = IM.NAMESPACE + "EntityComboBox";
+  public static HTML_INPUT_COMPONENT = IM.NAMESPACE + "htmlInput";
+  public static ENTITY_MULTI_SEARCH_COMPONENT = IM.NAMESPACE + "entityMultiSearch";
+  public static ENTITY_SEARCH_COMPONENT = IM.NAMESPACE + "entitySearch";
+  public static ENTITY_COMBOBOX_COMPONENT = IM.NAMESPACE + "entityComboBox";
+  public static ENTITY_DROPDOWN_COMPONENT = IM.NAMESPACE + "entityDropdown";
 
   //argument options
   public static VALUE_TEXT = IM.NAMESPACE + "valueText";
