@@ -89,6 +89,17 @@ export function generateNewComponent(
         showButtons: showButtons
       };
       break;
+    case ComponentType.ENTITY_SEARCH:
+      result = {
+        id: ComponentType.ENTITY_SEARCH + "_" + position,
+        value: data,
+        position: position,
+        type: ComponentType.ENTITY_SEARCH,
+        json: {},
+        builderType: builderType,
+        showButtons: showButtons
+      };
+      break;
     default:
       throw new Error(`helper function generateNewComponent encountered an unexpected component type: ${type}`);
   }

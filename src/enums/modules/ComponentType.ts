@@ -14,5 +14,6 @@ export enum ComponentType {
   ENTITY_DROPDOWN = "EntityDropdown",
   HTML_INPUT = "HtmlInput",
   TEXT_DISPLAY = "TextDisplay",
-  TEXT_INPUT = "TextInput"
+  TEXT_INPUT = "TextInput",
+  ENTITY_SEARCH = "EntitySearch"
 }
