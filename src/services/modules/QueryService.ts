@@ -87,11 +87,12 @@ export default class QueryService {
     }
   }
 
-  public async entityQuery(query: QueryRequest) {
+  public async entityQuery(query: QueryRequest, controller?: AbortController) {
     try {
-      return await this.axios.post(Env.API + "api/query/public/entityQuery", query);
+      if (controller) return await this.axios.post(Env.API + "api/query/public/entityQuery", query, { signal: controller.signal });
+      else return await this.axios.post(Env.API + "api/query/public/entityQuery", query);
     } catch (error) {
-      return [];
+      return undefined;
     }
   }
 }

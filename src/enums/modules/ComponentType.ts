@@ -8,12 +8,14 @@ export enum ComponentType {
   REFINEMENT = "Refinement",
   QUANTIFIER = "Quantifier",
   PROPERTY = "Property",
-  GROUP = "Group",
+  STEPS_GROUP = "StepsGroup",
+  ARRAY_BUILDER = "ArrayBuilder",
   ENTITY_COMBOBOX = "EntityComboBox",
   ENTITY_MULTI_SEARCH = "EntityMultiSearch",
   ENTITY_DROPDOWN = "EntityDropdown",
   HTML_INPUT = "HtmlInput",
   TEXT_DISPLAY = "TextDisplay",
   TEXT_INPUT = "TextInput",
-  ENTITY_SEARCH = "EntitySearch"
+  ENTITY_SEARCH = "EntitySearch",
+  BUILDER_CHILD_WRAPPER = "BuilderChildWrapper"
 }

@@ -105,6 +105,8 @@ export class IM {
   public static ENTITY_SEARCH_COMPONENT = IM.NAMESPACE + "entitySearch";
   public static ENTITY_COMBOBOX_COMPONENT = IM.NAMESPACE + "entityComboBox";
   public static ENTITY_DROPDOWN_COMPONENT = IM.NAMESPACE + "entityDropdown";
+  public static STEPS_GROUP_COMPONENT = IM.NAMESPACE + "stepsGroup";
+  public static ARRAY_BUILDER_COMPONENT = IM.NAMESPACE + "arrayBuilder";
 
   //argument options
   public static VALUE_TEXT = IM.NAMESPACE + "valueText";

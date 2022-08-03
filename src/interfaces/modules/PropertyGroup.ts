@@ -1,4 +1,5 @@
 import { PropertyShape } from "./PropertyShape";
+import { TTIriRef } from "./TTIriRef";
 
 export interface PropertyGroup {
   label: string;
@@ -8,4 +9,7 @@ export interface PropertyGroup {
   minCount: number;
   maxCount: number;
   property: PropertyShape[];
+  componentType: TTIriRef;
+  subGroup: PropertyGroup[];
+  path: TTIriRef;
 }
