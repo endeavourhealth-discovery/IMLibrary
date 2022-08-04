@@ -60,7 +60,7 @@ export function ttValueToString(
 }
 
 export function termToString(node: any, indent: number): string {
-  return indentSize.repeat(indent) + node[IM.CODE] + "\n";
+  return indentSize.repeat(indent) + node[RDFS.LABEL] + "\n";
 }
 
 export function ttIriToString(
