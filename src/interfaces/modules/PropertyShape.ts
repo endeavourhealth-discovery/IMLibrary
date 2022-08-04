@@ -22,4 +22,5 @@ export interface PropertyShape {
   argument: Argument[];
   valueVariable: string;
   select: TTIriRef[];
+  builderChild: boolean;
 }

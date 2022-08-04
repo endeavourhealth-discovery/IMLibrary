@@ -17,5 +17,6 @@ export enum ComponentType {
   TEXT_DISPLAY = "TextDisplay",
   TEXT_INPUT = "TextInput",
   ENTITY_SEARCH = "EntitySearch",
-  BUILDER_CHILD_WRAPPER = "BuilderChildWrapper"
+  BUILDER_CHILD_WRAPPER = "BuilderChildWrapper",
+  ENTITY_AUTO_COMPLETE = "EntityAutoComplete"
 }

@@ -33,6 +33,8 @@ function processComponentType(type: TTIriRef): any {
       return ComponentType.ENTITY_COMBOBOX;
     case IM.ENTITY_DROPDOWN_COMPONENT:
       return ComponentType.ENTITY_DROPDOWN;
+    case IM.ENTITY_AUTO_COMPLETE_COMPONENT:
+      return ComponentType.ENTITY_AUTO_COMPLETE;
     default:
       throw new Error("Invalid component type encountered in shape group" + type["@id"]);
   }

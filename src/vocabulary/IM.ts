@@ -107,6 +107,7 @@ export class IM {
   public static ENTITY_DROPDOWN_COMPONENT = IM.NAMESPACE + "entityDropdown";
   public static STEPS_GROUP_COMPONENT = IM.NAMESPACE + "stepsGroup";
   public static ARRAY_BUILDER_COMPONENT = IM.NAMESPACE + "arrayBuilder";
+  public static ENTITY_AUTO_COMPLETE_COMPONENT = IM.NAMESPACE + "entityAutoComplete";
 
   //argument options
   public static VALUE_TEXT = IM.NAMESPACE + "valueText";
