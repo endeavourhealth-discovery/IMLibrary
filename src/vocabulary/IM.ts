@@ -69,6 +69,7 @@ export class IM {
   public static CONCEPT_TYPES = IM.NAMESPACE + "ontologyConceptTypes";
   public static CONCEPT_SCHEMES = IM.NAMESPACE + "ontologyConceptSchemes";
   public static CONCEPT_STATUS = IM.NAMESPACE + "ontologyConceptStatus";
+  public static HAS_VALUE = IM.NAMESPACE + "hasValue";
 
   // High level types
   public static CONCEPT = IM.NAMESPACE + "Concept";
