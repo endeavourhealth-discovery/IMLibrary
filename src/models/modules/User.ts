@@ -6,6 +6,7 @@ export default class User {
   password: string;
   avatar: string;
   id: string;
+  roles: string[];
 
   constructor(
     username: string,
@@ -13,7 +14,8 @@ export default class User {
     lastName: string,
     email: string,
     password: string,
-    avatar: string
+    avatar: string,
+    roles: string[]
   ) {
     this.username = username;
     this.firstName = firstName;
@@ -22,6 +24,7 @@ export default class User {
     this.password = password;
     this.avatar = avatar;
     this.id = "";
+    this.roles = roles || [];
   }
 
   setId(id: string): void {

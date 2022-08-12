@@ -48,7 +48,8 @@ export default class AuthService {
         user.attributes["custom:surname"],
         user.attributes.email,
         "",
-        user.attributes["custom:avatar"]
+        user.attributes["custom:avatar"],
+        user.signInUserSession?.accessToken?.payload["cognito:groups"] || []
       );
       signedInUser.setId(user.attributes.sub);
       return new CustomAlert(200, "Login successful", undefined, signedInUser);
@@ -101,7 +102,8 @@ export default class AuthService {
           updateResults.attributes["custom:surname"],
           updateResults.attributes.email,
           "",
-          updateResults.attributes["custom:avatar"]
+          updateResults.attributes["custom:avatar"],
+          updateResults.signInUserSession?.accessToken?.payload["cognito:groups"] || []
         );
         updatedUser.setId(updateResults.attributes.sub);
         return new CustomAlert(200, "User updated successfully", undefined, updatedUser);
@@ -165,13 +167,15 @@ export default class AuthService {
   async getCurrentAuthenticatedUser(): Promise<Models.CustomAlert> {
     try {
       const cognitoUser = await this.auth.currentAuthenticatedUser();
+
       const authenticatedUser = new User(
         cognitoUser.username,
         cognitoUser.attributes["custom:forename"],
         cognitoUser.attributes["custom:surname"],
         cognitoUser.attributes.email,
         "",
-        cognitoUser.attributes["custom:avatar"]
+        cognitoUser.attributes["custom:avatar"],
+        cognitoUser.signInUserSession?.accessToken?.payload["cognito:groups"] || []
       );
       authenticatedUser.setId(cognitoUser.attributes.sub);
       return new CustomAlert(200, "User authenticated successfully", undefined, authenticatedUser);
