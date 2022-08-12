@@ -22,16 +22,24 @@ export default class FilerService {
     }
   }
 
-  public async createFolder(container: string, name: string): Promise<boolean> {
-    try {
-      return await this.axios.post(this.api + "api/filer/folder/create", null, {
-        params: {
-          container: container,
-          name: name
-        }
-      });
-    } catch (error) {
-      return false;
-    }
+  public async createFolder(container: string, name: string): Promise<string> {
+    return this.axios.post(this.api + "api/filer/folder/create", null, {
+      params: {
+        container: container,
+        name: name
+      }
+    });
+  }
+
+  public async downloadDeltas(): Promise<any> {
+    return this.axios.get(this.api + "api/filer/deltas/download", { responseType: "blob" });
+    // const client = this.axios.create({
+    //   baseURL: this.api,
+    //   timeout: 0
+    // });
+    //
+    // return client.get("api/filer/deltas/download", {
+    //   responseType: "blob"
+    // });
   }
 }
