@@ -167,6 +167,7 @@ export default defineComponent({
   height: 100%;
   flex: 0 1 auto;
   overflow: auto;
+  width: 100%;
 }
 
 #topbar-end {
