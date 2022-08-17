@@ -8,18 +8,14 @@ export default class FilerService {
     this.axios = axios;
   }
 
-  public async moveFolder(entity: string, oldFolder: string, newFolder: string): Promise<boolean> {
-    try {
-      return await this.axios.post(this.api + "api/filer/folder/move", null, {
-        params: {
-          entity: entity,
-          oldFolder: oldFolder,
-          newFolder: newFolder
-        }
-      });
-    } catch (error) {
-      return false;
-    }
+  public moveFolder(entity: string, oldFolder: string, newFolder: string): Promise<void> {
+    return this.axios.post(this.api + "api/filer/folder/move", null, {
+      params: {
+        entity: entity,
+        oldFolder: oldFolder,
+        newFolder: newFolder
+      }
+    });
   }
 
   public async createFolder(container: string, name: string): Promise<string> {
@@ -33,13 +29,5 @@ export default class FilerService {
 
   public async downloadDeltas(): Promise<any> {
     return this.axios.get(this.api + "api/filer/deltas/download", { responseType: "blob" });
-    // const client = this.axios.create({
-    //   baseURL: this.api,
-    //   timeout: 0
-    // });
-    //
-    // return client.get("api/filer/deltas/download", {
-    //   responseType: "blob"
-    // });
   }
 }
