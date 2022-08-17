@@ -1,4 +1,4 @@
-import { flushPromises, shallowMount } from "@vue/test-utils";
+import { flushPromises, mount } from "@vue/test-utils";
 import SecondaryTree from "@/components/modules/SecondaryTree.vue";
 import Button from "primevue/button";
 import Tree from "primevue/tree";
@@ -101,7 +101,7 @@ describe("SecondaryTree.vue", () => {
       getEntitySummary: vi.fn().mockResolvedValue(SUMMARY)
     };
 
-    wrapper = shallowMount(SecondaryTree, {
+    wrapper = mount(SecondaryTree, {
       global: {
         components: { Button, Tree, ProgressSpinner, OverlayPanel },
         mocks: { $toast: mockToast, $route: mockRoute, $router: mockRouter, $entityService: mockEntityService },
@@ -1271,7 +1271,10 @@ describe("SecondaryTree.vue", () => {
   });
 
   it("can navigate ___ other", () => {
-    wrapper.vm.navigate({ shiftKey: true }, "testIri");
+      // allow setting of scroll properties
+      Object.defineProperty(HTMLElement.prototype, 'scrollHeight', {configurable: true, value: 100});
+
+      wrapper.vm.navigate({ shiftKey: true }, "testIri");
     expect(mockRouter.push).not.toHaveBeenCalled();
   });
 });

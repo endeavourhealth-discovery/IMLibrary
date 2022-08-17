@@ -125,7 +125,7 @@ export class Profile extends Entity {
     super(entity);
 
     //parse definition
-    if (entity["http://endhealth.info/im#definition"]) {
+    if (entity["http://endhealth.info/im#definition"] && (typeof entity["http://endhealth.info/im#definition"] == 'string')) {
       try {
         const _definition = JSON.parse(entity["http://endhealth.info/im#definition"]);
         this["http://endhealth.info/im#definition"] = _definition;
