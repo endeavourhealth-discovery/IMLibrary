@@ -10,8 +10,14 @@ export function processArguments(property: PropertyShape, valueVariableMap?: Map
     if (arg.parameter === "this" && !arg.valueIri) key = property.path["@id"];
     else key = arg.parameter;
     if (arg.valueIri) value = arg.valueIri["@id"];
-    else if (arg.valueVariable) value = valueVariableMap?.get(arg.valueVariable);
-    else if (arg.valueText) value = arg.valueText;
+    else if (arg.valueVariable) {
+      if (!valueVariableMap) throw new Error("missing valueVariableMap while processing arguments with a valueProperty");
+      if (property.builderChild && valueVariableMap && valueVariableMap.has(arg.valueVariable + property.order)) {
+        value = valueVariableMap.get(arg.valueVariable + property.order);
+      } else {
+        value = valueVariableMap.get(arg.valueVariable);
+      }
+    } else if (arg.valueText) value = arg.valueText;
     result.set(key, value);
   });
   return result;
