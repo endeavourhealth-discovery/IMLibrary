@@ -12,3 +12,4 @@ testResults.json
 node
 .env
 im-library-1.0.0.tgz
+package-lock.json
