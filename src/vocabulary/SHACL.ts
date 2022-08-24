@@ -12,4 +12,5 @@ export class SHACL {
   public static OR = SHACL.NAMESPACE + "or";
   public static AND = SHACL.NAMESPACE + "and";
   public static NOT = SHACL.NAMESPACE + "not";
+  public static PARAMETER = SHACL.NAMESPACE + "parameter";
 }

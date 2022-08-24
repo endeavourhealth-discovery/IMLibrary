@@ -15,6 +15,7 @@ import { EntityReferenceNode } from "./modules/EntityReferenceNode";
 import { ExportValueSet } from "./modules/ExportValueSet";
 import { FilterDefaultsConfig } from "./modules/FilterDefaultsConfig";
 import { FiltersAsIris } from "./modules/FiltersAsIris";
+import { FormGenerator } from "./modules/FormGenerator";
 import GraphData from "./modules/GraphData";
 import { HistoryItem } from "./modules/HistoryItem";
 import { InstanceHistoryItem } from "./modules/InstanceHistoryItem";
@@ -29,8 +30,11 @@ import { ModuleItem } from "./modules/ModuleItem";
 import { Namespace } from "./modules/Namespace";
 import { NextComponentSummary } from "./modules/NextComponentSummary";
 import { ProcessedDataModelProperty } from "./modules/ProcessedDataModelProperty";
+import { PropertyGroup } from "./modules/PropertyGroup";
+import { PropertyShape } from "./modules/PropertyShape";
 import { QueryComponentDetails } from "./modules/QueryComponentDetails";
 import { QueryNextComponentSummary } from "./modules/QueryNextComponentSummary";
+import { QueryRequest } from "./modules/QueryRequest";
 import { RecentActivityItem } from "./modules/RecentActivityItem";
 import { SearchRequest } from "./modules/SearchRequest";
 import { SearchResponse } from "./modules/SearchResponse";
@@ -66,6 +70,7 @@ export {
   type ExportValueSet,
   type FilterDefaultsConfig,
   type FiltersAsIris,
+  type FormGenerator,
   type GraphData,
   type HistoryItem,
   type InstanceHistoryItem,
@@ -80,8 +85,11 @@ export {
   type Namespace,
   type NextComponentSummary,
   type ProcessedDataModelProperty,
+  type PropertyGroup,
+  type PropertyShape,
   type QueryComponentDetails,
   type QueryNextComponentSummary,
+  type QueryRequest,
   type RecentActivityItem,
   type SearchRequest,
   type SearchResponse,

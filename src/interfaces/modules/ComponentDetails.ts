@@ -1,5 +1,8 @@
+import { EditorMode } from "../../enums/Enums";
 import { BuilderType } from "../../enums/modules/BuilderType";
 import { ComponentType } from "../../enums/modules/ComponentType";
+import { PropertyGroup } from "./PropertyGroup";
+import { PropertyShape } from "./PropertyShape";
 
 export interface ComponentDetails {
   id: string;
@@ -7,6 +10,7 @@ export interface ComponentDetails {
   position: number;
   type: ComponentType;
   json: any;
-  builderType: BuilderType;
   showButtons?: { minus: boolean; plus: boolean };
+  shape: PropertyShape | PropertyGroup;
+  mode: EditorMode;
 }

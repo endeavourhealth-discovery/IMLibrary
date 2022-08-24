@@ -2,100 +2,36 @@ import { BuilderType } from "../../enums/modules/BuilderType";
 import { ComponentDetails } from "../../interfaces/modules/ComponentDetails";
 import { ComponentType } from "../../enums/modules/ComponentType";
 import { NextComponentSummary } from "../../interfaces/modules/NextComponentSummary";
+import { PropertyGroup, PropertyShape } from "../../interfaces/Interfaces";
+import { EditorMode } from "../../enums/Enums";
 
 export function generateNewComponent(
   type: ComponentType,
   position: number,
   data: any,
-  builderType: BuilderType,
-  showButtons: { minus: boolean; plus: boolean }
-) {
-  let result;
-  switch (type) {
-    case ComponentType.LOGIC:
-      result = {
-        id: ComponentType.LOGIC + "_" + position,
-        value: data,
-        position: position,
-        type: ComponentType.LOGIC,
-        json: {},
-        builderType: builderType,
-        showButtons: showButtons
-      };
-      break;
-    case ComponentType.ENTITY:
-      result = {
-        id: ComponentType.ENTITY + "_" + position,
-        value: data,
-        position: position,
-        type: ComponentType.ENTITY,
-        json: {},
-        builderType: builderType,
-        showButtons: showButtons
-      };
-      break;
-    case ComponentType.QUANTIFIER:
-      result = {
-        id: ComponentType.QUANTIFIER + "_" + position,
-        value: data,
-        position: position,
-        type: ComponentType.QUANTIFIER,
-        json: {},
-        builderType: builderType,
-        showButtons: showButtons
-      };
-      break;
-    case ComponentType.REFINEMENT:
-      result = {
-        id: ComponentType.REFINEMENT + "_" + position,
-        value: data,
-        position: position,
-        type: ComponentType.REFINEMENT,
-        json: {},
-        builderType: builderType,
-        showButtons: showButtons
-      };
-      break;
-    case ComponentType.PROPERTY:
-      result = {
-        id: ComponentType.PROPERTY + "_" + position,
-        value: data,
-        position: position,
-        type: ComponentType.PROPERTY,
-        json: {},
-        builderType: builderType,
-        showButtons: showButtons
-      };
-      break;
-    case ComponentType.DEFINITION:
-      result = {
-        id: ComponentType.DEFINITION + "_" + position,
-        value: data,
-        position: position,
-        type: ComponentType.DEFINITION,
-        json: {},
-        builderType: builderType,
-        showButtons: showButtons
-      };
-      break;
-    case ComponentType.HAS_MEMBER:
-      result = {
-        id: ComponentType.HAS_MEMBER + "_" + position,
-        value: data,
-        position: position,
-        type: ComponentType.HAS_MEMBER,
-        json: {},
-        builderType: builderType,
-        showButtons: showButtons
-      };
-      break;
-    default:
-      throw new Error(`helper function generateNewComponent encountered an unexpected component type: ${type}`);
-  }
-  return result;
+  shape: PropertyShape | PropertyGroup,
+  showButtons: { minus: boolean; plus: boolean },
+  mode: EditorMode
+): ComponentDetails {
+  return {
+    id: type + "_" + position,
+    value: data,
+    position: position,
+    type: type,
+    json: {},
+    showButtons: showButtons,
+    shape: shape,
+    mode: mode
+  };
 }
 
-export function genNextOptions(position: number, previous: ComponentType, builderType: BuilderType, group?: ComponentType): ComponentDetails {
+export function genNextOptions(
+  position: number,
+  previous: ComponentType,
+  shape: PropertyGroup | PropertyShape,
+  mode: EditorMode,
+  group?: ComponentType
+): ComponentDetails {
   return {
     id: "addNext_" + (position + 1),
     value: {
@@ -106,7 +42,8 @@ export function genNextOptions(position: number, previous: ComponentType, builde
     position: position + 1,
     type: ComponentType.ADD_NEXT,
     json: {},
-    builderType: builderType
+    shape: shape,
+    mode: mode
   };
 }
 
@@ -121,11 +58,17 @@ export function updateItem(itemToUpdate: ComponentDetails, build: ComponentDetai
   build[index] = itemToUpdate;
 }
 
-export function addNextOptions(previousComponent: NextComponentSummary, build: ComponentDetails[], builderType: BuilderType): ComponentDetails {
+export function addNextOptions(
+  previousComponent: NextComponentSummary,
+  build: ComponentDetails[],
+  shape: PropertyGroup | PropertyShape,
+  mode: EditorMode
+): ComponentDetails {
   const nextOptionsComponent = genNextOptions(
     previousComponent.previousPosition,
     previousComponent.previousComponentType,
-    builderType,
+    shape,
+    mode,
     previousComponent.parentGroup
   );
   if (previousComponent.previousPosition !== build.length - 1 && build[previousComponent.previousPosition + 1].type === ComponentType.ADD_NEXT) {
@@ -145,10 +88,11 @@ export function scrollIntoView(component: ComponentDetails) {
 export function addItem(
   itemToAdd: { selectedType: ComponentType; position: number; value: any },
   build: ComponentDetails[],
-  builderType: BuilderType,
-  showButtons: { minus: boolean; plus: boolean }
+  showButtons: { minus: boolean; plus: boolean },
+  shape: PropertyGroup | PropertyShape,
+  mode: EditorMode
 ) {
-  const newComponent = generateNewComponent(itemToAdd.selectedType, itemToAdd.position, itemToAdd.value, builderType, showButtons);
+  const newComponent = generateNewComponent(itemToAdd.selectedType, itemToAdd.position, itemToAdd.value, shape, showButtons, mode);
   if (!newComponent) return;
   build.splice(itemToAdd.position, 0, newComponent);
   updatePositions(build);

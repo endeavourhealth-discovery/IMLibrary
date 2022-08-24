@@ -3,6 +3,7 @@ export class IM {
   public static NAMESPACE = IM.DOMAIN + "im#";
   public static PREFIX = "im";
   public static IRI = "@id";
+  public static ID = IM.NAMESPACE + "id";
   public static CONCEPT_SET_GROUP = IM.NAMESPACE + "ConceptSetGroup";
   public static CODE = IM.NAMESPACE + "code";
   public static SCHEME = IM.NAMESPACE + "scheme";
@@ -55,6 +56,7 @@ export class IM {
   public static TASK = IM.NAMESPACE + "Task";
 
   public static STATS_REPORT_ENTRY = IM.NAMESPACE + "hasStatsReportEntry";
+  public static FAVOURITES = IM.NAMESPACE + "Favourites";
 
   public static MODULE_ONTOLOGY = IM.NAMESPACE + "DiscoveryOntology";
   public static MODULE_SETS = IM.NAMESPACE + "Sets";
@@ -91,4 +93,33 @@ export class IM {
   public static PROPERTY = IM.NAMESPACE + "property";
   public static MATCH = IM.NAMESPACE + "match";
   public static ENTITY_TYPE = IM.NAMESPACE + "entityType";
+
+  //shapes
+  public static CONCEPT_SHAPE = IM.NAMESPACE + "ConceptShape";
+  public static PROPERTY_SHAPE = IM.NAMESPACE + "PropertyShape";
+  public static EDITOR_CONCEPT_SHAPE = IM.NAMESPACE + "Editor_ConceptShape";
+
+  //editor components
+  public static TEXT_DISPLAY_COMPONENT = IM.NAMESPACE + "textDisplay";
+  public static TEXT_INPUT_COMPONENT = IM.NAMESPACE + "textInput";
+  public static HTML_INPUT_COMPONENT = IM.NAMESPACE + "htmlInput";
+  public static ENTITY_MULTI_SEARCH_COMPONENT = IM.NAMESPACE + "entityMultiSearch";
+  public static ENTITY_SEARCH_COMPONENT = IM.NAMESPACE + "entitySearch";
+  public static ENTITY_COMBOBOX_COMPONENT = IM.NAMESPACE + "entityComboBox";
+  public static ENTITY_DROPDOWN_COMPONENT = IM.NAMESPACE + "entityDropdown";
+  public static STEPS_GROUP_COMPONENT = IM.NAMESPACE + "stepsGroup";
+  public static ARRAY_BUILDER_COMPONENT = IM.NAMESPACE + "arrayBuilder";
+  public static ENTITY_AUTO_COMPLETE_COMPONENT = IM.NAMESPACE + "entityAutoComplete";
+  public static MEMBERS_BUILDER = IM.NAMESPACE + "membersBuilder";
+
+  //argument options
+  public static VALUE_TEXT = IM.NAMESPACE + "valueText";
+  public static VALUE_VARIABLE = IM.NAMESPACE + "valueVariable";
+  public static VALUE_IRI = IM.NAMESPACE + "valueIri";
+
+  // IM1
+  public static IM_1_ID = IM.NAMESPACE + "im1Id";
+  public static IM_1_SCHEME = IM.NAMESPACE + "im1Scheme";
+
+  public static ENTITY_TYPES = IM.NAMESPACE + "EntityTypes";
 }

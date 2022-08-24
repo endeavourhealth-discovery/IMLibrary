@@ -7,5 +7,17 @@ export enum ComponentType {
   HAS_MEMBER = "HasMember",
   REFINEMENT = "Refinement",
   QUANTIFIER = "Quantifier",
-  PROPERTY = "Property"
+  PROPERTY = "Property",
+  STEPS_GROUP = "StepsGroup",
+  ARRAY_BUILDER = "ArrayBuilder",
+  ENTITY_COMBOBOX = "EntityComboBox",
+  ENTITY_MULTI_SEARCH = "EntityMultiSearch",
+  ENTITY_DROPDOWN = "EntityDropdown",
+  HTML_INPUT = "HtmlInput",
+  TEXT_DISPLAY = "TextDisplay",
+  TEXT_INPUT = "TextInput",
+  ENTITY_SEARCH = "EntitySearch",
+  BUILDER_CHILD_WRAPPER = "BuilderChildWrapper",
+  ENTITY_AUTO_COMPLETE = "EntityAutoComplete",
+  MEMBERS_BUILDER = "MembersBuilder"
 }

@@ -9,6 +9,7 @@ import Sorters from "./modules/Sorters";
 import Transforms from "./modules/Transforms";
 import UserMethods from "./modules/UserMethods";
 import EditorBuilderJsonMethods from "./modules/EditorBuilderJsonMethods";
+import EditorMethods from "./modules/EditorMethods";
 import TypeGuards from "./modules/TypeGuards";
 import EntityValidator from "./modules/EntityValidator";
 import EclSearchBuilderMethods from "./modules/EclSearchBuilderMethods.ts";
@@ -21,6 +22,7 @@ export default {
   CopyConceptToClipboard,
   DataTypeCheckers,
   ContainerDimensionGetters,
+  EditorMethods,
   GraphTranslator,
   Sorters,
   Transforms,
