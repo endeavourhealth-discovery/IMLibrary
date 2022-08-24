@@ -19,5 +19,6 @@ export enum ComponentType {
   ENTITY_SEARCH = "EntitySearch",
   BUILDER_CHILD_WRAPPER = "BuilderChildWrapper",
   ENTITY_AUTO_COMPLETE = "EntityAutoComplete",
-  MEMBERS_BUILDER = "MembersBuilder"
+  MEMBERS_BUILDER = "MembersBuilder",
+  COMPONENT_GROUP = "ComponentGroup"
 }

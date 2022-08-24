@@ -41,8 +41,12 @@ function processComponentType(type: TTIriRef): any {
       return ComponentType.ENTITY_DROPDOWN;
     case IM.ENTITY_AUTO_COMPLETE_COMPONENT:
       return ComponentType.ENTITY_AUTO_COMPLETE;
+    case IM.COMPONENT_GROUP:
+      return ComponentType.COMPONENT_GROUP;
+    case IM.MEMBERS_BUILDER:
+      return ComponentType.MEMBERS_BUILDER;
     default:
-      throw new Error("Invalid component type encountered in shape group" + type["@id"]);
+      throw new Error("Invalid component type encountered while processing component types" + type["@id"]);
   }
 }
 

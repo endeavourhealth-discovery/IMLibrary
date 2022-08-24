@@ -111,6 +111,7 @@ export class IM {
   public static ARRAY_BUILDER_COMPONENT = IM.NAMESPACE + "arrayBuilder";
   public static ENTITY_AUTO_COMPLETE_COMPONENT = IM.NAMESPACE + "entityAutoComplete";
   public static MEMBERS_BUILDER = IM.NAMESPACE + "membersBuilder";
+  public static COMPONENT_GROUP = IM.NAMESPACE + "componentGroup";
 
   //argument options
   public static VALUE_TEXT = IM.NAMESPACE + "valueText";
