@@ -18,5 +18,6 @@ export enum ComponentType {
   TEXT_INPUT = "TextInput",
   ENTITY_SEARCH = "EntitySearch",
   BUILDER_CHILD_WRAPPER = "BuilderChildWrapper",
-  ENTITY_AUTO_COMPLETE = "EntityAutoComplete"
+  ENTITY_AUTO_COMPLETE = "EntityAutoComplete",
+  MEMBERS_BUILDER = "MembersBuilder"
 }

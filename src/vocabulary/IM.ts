@@ -56,6 +56,7 @@ export class IM {
   public static TASK = IM.NAMESPACE + "Task";
 
   public static STATS_REPORT_ENTRY = IM.NAMESPACE + "hasStatsReportEntry";
+  public static FAVOURITES = IM.NAMESPACE + "Favourites";
 
   public static MODULE_ONTOLOGY = IM.NAMESPACE + "DiscoveryOntology";
   public static MODULE_SETS = IM.NAMESPACE + "Sets";
@@ -108,6 +109,7 @@ export class IM {
   public static STEPS_GROUP_COMPONENT = IM.NAMESPACE + "stepsGroup";
   public static ARRAY_BUILDER_COMPONENT = IM.NAMESPACE + "arrayBuilder";
   public static ENTITY_AUTO_COMPLETE_COMPONENT = IM.NAMESPACE + "entityAutoComplete";
+  public static MEMBERS_BUILDER = IM.NAMESPACE + "membersBuilder";
 
   //argument options
   public static VALUE_TEXT = IM.NAMESPACE + "valueText";
@@ -117,4 +119,6 @@ export class IM {
   // IM1
   public static IM_1_ID = IM.NAMESPACE + "im1Id";
   public static IM_1_SCHEME = IM.NAMESPACE + "im1Scheme";
+
+  public static ENTITY_TYPES = IM.NAMESPACE + "EntityTypes";
 }
