@@ -17,7 +17,7 @@ export function processArguments(property: PropertyShape, valueVariableMap?: Map
       } else {
         value = valueVariableMap.get(arg.valueVariable);
       }
-    } else if (arg.valueText) value = arg.valueText;
+    } else if (arg.valueData) value = arg.valueData;
     result.set(key, value);
   });
   return result;
