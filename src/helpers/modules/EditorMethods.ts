@@ -45,6 +45,8 @@ function processComponentType(type: TTIriRef): any {
       return ComponentType.COMPONENT_GROUP;
     case IM.MEMBERS_BUILDER:
       return ComponentType.MEMBERS_BUILDER;
+    case IM.STEPS_GROUP_COMPONENT:
+      return ComponentType.STEPS_GROUP;
     default:
       throw new Error("Invalid component type encountered while processing component types" + type["@id"]);
   }
