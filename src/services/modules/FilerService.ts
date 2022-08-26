@@ -11,9 +11,18 @@ export default class FilerService {
   public moveFolder(entity: string, oldFolder: string, newFolder: string): Promise<void> {
     return this.axios.post(this.api + "api/filer/folder/move", null, {
       params: {
-        entity: entity,
-        oldFolder: oldFolder,
-        newFolder: newFolder
+        entity,
+        oldFolder,
+        newFolder
+      }
+    });
+  }
+
+  public addToFolder(entity: string, folder: string): Promise<void> {
+    return this.axios.post(this.api + "api/filer/folder/add", null, {
+      params: {
+        entity,
+        folder
       }
     });
   }
@@ -29,5 +38,14 @@ export default class FilerService {
 
   public async downloadDeltas(): Promise<any> {
     return this.axios.get(this.api + "api/filer/deltas/download", { responseType: "blob" });
+  }
+
+  public async fileEntity(entity: any, graph: string, crud: string): Promise<void> {
+    return this.axios.post(this.api + "api/filer/file/entity", entity, {
+      params: {
+        graph,
+        crud
+      }
+    });
   }
 }

@@ -73,7 +73,7 @@ export default class QueryService {
 
   public async runFunction(iri: string, args?: Map<string, any>): Promise<any> {
     try {
-      if (args && args.size > 1) {
+      if (args && args.size > 0) {
         const replacedArgs = mapToObject(args);
         const result = await this.axios.post(Env.API + "api/function/public/callFunction", {
           functionIri: iri,
