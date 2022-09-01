@@ -489,7 +489,7 @@ export default class EntityService {
 
   public async getShape(iri: string): Promise<any> {
     try {
-      return await this.axios.get(Env.API + "api/entity/public/entityAsPlainJson", { params: { iri: iri, depth: 6 } });
+      return await this.axios.get(Env.API + "api/entity/public/entityAsPlainJson", { params: { iri: iri, depth: 10 } });
     } catch (error) {
       return {} as any;
     }
