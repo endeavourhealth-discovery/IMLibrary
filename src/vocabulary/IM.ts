@@ -112,6 +112,10 @@ export class IM {
   public static ENTITY_AUTO_COMPLETE_COMPONENT = IM.NAMESPACE + "entityAutoComplete";
   public static MEMBERS_BUILDER = IM.NAMESPACE + "membersBuilder";
   public static COMPONENT_GROUP = IM.NAMESPACE + "componentGroup";
+  public static ARRAY_BUILDER_WITH_DROPDOWN = IM.NAMESPACE + "arrayBuilderWithDropdown";
+
+  //editor validations
+  public static VALIDATION_HAS_PARENT = IM.NAMESPACE + "Validation_hasParent";
 
   //argument options
   public static VALUE_TEXT = IM.NAMESPACE + "valueText";

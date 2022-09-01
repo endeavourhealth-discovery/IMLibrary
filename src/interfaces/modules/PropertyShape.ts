@@ -18,6 +18,7 @@ export interface PropertyShape {
   isTextValue: string;
   componentType: TTIriRef;
   validation: TTIriRef;
+  validationErrorMessage: string;
   search: TTIriRef;
   argument: Argument[];
   valueVariable: string;
