@@ -14,6 +14,7 @@ import TypeGuards from "./modules/TypeGuards";
 import EntityValidator from "./modules/EntityValidator";
 import EclSearchBuilderMethods from "./modules/EclSearchBuilderMethods.ts";
 import QueryBuilderMethods from "./modules/QueryBuilderMethods";
+import UtililityMethods from "./modules/UtilityMethods"
 
 export default {
   ChartRescale,
@@ -31,5 +32,6 @@ export default {
   TypeGuards,
   EntityValidator,
   EclSearchBuilderMethods,
-  QueryBuilderMethods
+  QueryBuilderMethods,
+  UtililityMethods
 };

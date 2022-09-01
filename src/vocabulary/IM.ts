@@ -125,6 +125,11 @@ export class IM {
   // IM1
   public static IM_1_ID = IM.NAMESPACE + "im1Id";
   public static IM_1_SCHEME = IM.NAMESPACE + "im1Scheme";
-
   public static ENTITY_TYPES = IM.NAMESPACE + "EntityTypes";
+
+  // CRUD
+  public static UPDATE_ALL = IM.NAMESPACE + "UpdateAll";
+  public static ADD_QUADS = IM.NAMESPACE + "AddQuads";
+  public static UPDATE_PREDICATES = IM.NAMESPACE + "UpdatePredicates";
+  public static DELETE_ALL = IM.NAMESPACE + "DeleteAll";
 }
