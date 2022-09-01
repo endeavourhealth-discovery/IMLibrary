@@ -20,5 +20,7 @@ export enum ComponentType {
   BUILDER_CHILD_WRAPPER = "BuilderChildWrapper",
   ENTITY_AUTO_COMPLETE = "EntityAutoComplete",
   MEMBERS_BUILDER = "MembersBuilder",
-  COMPONENT_GROUP = "ComponentGroup"
+  COMPONENT_GROUP = "ComponentGroup",
+  ARRAY_BUILDER_WITH_DROPDOWN = "ArrayBuilderWithDropdown",
+  BUILDER_DROPDOWN_CHILD_WRAPPER = "BuilderDropdownChildWrapper"
 }
