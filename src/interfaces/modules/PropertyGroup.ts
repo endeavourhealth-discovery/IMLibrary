@@ -12,4 +12,8 @@ export interface PropertyGroup {
   componentType: TTIriRef;
   subGroup: PropertyGroup[];
   path: TTIriRef;
+  validation: TTIriRef;
+  validationErrorMessage: string;
+  function: TTIriRef;
+  builderChild: boolean;
 }
