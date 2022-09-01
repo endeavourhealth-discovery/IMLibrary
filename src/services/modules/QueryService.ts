@@ -63,9 +63,9 @@ export default class QueryService {
     }
   }
 
-  public async checkValidation(value: any, validationIri: string): Promise<boolean> {
+  public async checkValidation(validationIri: string, data: any): Promise<boolean> {
     try {
-      return await this.axios.get(Env.API + "api/query/public/booleanQueryIM", { params: { testVariables: value, iri: validationIri } });
+      return await this.axios.post(Env.API + "node_api/validation/public/validate", data, { params: { iri: validationIri } });
     } catch (error) {
       return false;
     }
