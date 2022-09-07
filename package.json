@@ -1,7 +1,7 @@
 {
   "name": "im-library",
   "version": "1.0.0",
-  "main": "dist/im-library.es.js",
+  "main": "./dist/im-library.es.js",
   "scripts": {
     "build:dev": "rimraf dist && rimraf build && vue-tsc && vite build && shx mkdir ./build && shx cp -R ./dist ./build/dist && shx cp ./package.json ./build",
     "build:production": "npm run build:dev && npm pack",
@@ -47,9 +47,7 @@
   "types": "./dist/types/index.d.ts",
   "module": "./dist/im-library.es.js",
   "exports": {
-    ".": {
-      "import": "./dist/im-library.es.js"
-    },
+    ".": "./dist/im-library.es.js",
     "./dist/style.css": "./dist/style.css"
   },
   "dependencies": {
