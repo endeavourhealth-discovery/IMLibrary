@@ -116,6 +116,7 @@ export class IM {
 
   //editor validations
   public static VALIDATION_HAS_PARENT = IM.NAMESPACE + "Validation_hasParent";
+  public static VALIDATION_IS_DEFINITION = IM.NAMESPACE + "Validation_isDefinition";
 
   //argument options
   public static VALUE_TEXT = IM.NAMESPACE + "valueText";
