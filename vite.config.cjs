@@ -1,7 +1,7 @@
-const path = require("path");
-const { defineConfig } = require("vite");
+import {defineConfig} from "vite";
 import vue from "@vitejs/plugin-vue";
 import { esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
+import * as path from 'path';
 
 const config = {
   all: {
