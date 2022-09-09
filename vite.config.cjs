@@ -1,16 +1,29 @@
-const path = require("path");
-const { defineConfig } = require("vite");
+import {defineConfig} from "vite";
 import vue from "@vitejs/plugin-vue";
 import { esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
+import * as path from 'path';
+
+const config = {
+  all: {
+    entry: path.resolve(__dirname, "src/index.ts"),
+    name: "im-library",
+    fileName: () => `im-library.js`,
+  },
+  api: {
+    entry: path.resolve(__dirname, "src/index-api.ts"),
+    name: "api",
+    fileName: () => `api.js`,
+  },
+};
+
+const currentConfig = config[process.env.LIB_NAME] || config.all;
 
 module.exports = defineConfig({
   plugins: [vue()], // to process SFC
   build: {
     lib: {
-      entry: path.resolve(__dirname, "src/index.ts"),
-      name: "im-library",
+      ...currentConfig,
       formats: ["es"], // adding 'umd' requires globals set to every external module
-      fileName: (format) => `im-library.${format}.js`,
     },
     rollupOptions: {
       // external modules won't be bundled into your library
