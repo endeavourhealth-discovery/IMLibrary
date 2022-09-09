@@ -4,6 +4,7 @@ import { PieChartData } from "./modules/PieChartData";
 import User from "./modules/User";
 import * as Workflow from "./modules/Workflow";
 import * as Query from "./modules/Query";
+import * as QueryBuilder from "./modules/QueryBuilder";
 import * as AutoGen from "./modules/AutoGen";
 
-export { APIError, CustomAlert, PieChartData, User, Workflow, Query, AutoGen };
+export { APIError, CustomAlert, PieChartData, User, Workflow, Query, AutoGen, QueryBuilder };
