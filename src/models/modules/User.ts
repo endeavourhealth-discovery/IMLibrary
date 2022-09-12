@@ -6,17 +6,9 @@ export default class User {
   password: string;
   avatar: string;
   id: string;
-  roles: string[];
+  roles?: string[];
 
-  constructor(
-    username: string,
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
-    avatar: string,
-    roles: string[]
-  ) {
+  constructor(username: string, firstName: string, lastName: string, email: string, password: string, avatar: string, roles?: string[]) {
     this.username = username;
     this.firstName = firstName;
     this.lastName = lastName;
