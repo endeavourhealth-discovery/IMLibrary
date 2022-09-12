@@ -1,3 +1,4 @@
+import { Field } from "../../interfaces/modules/QueryBuilder";
 import Env from "./Env";
 
 export default class ClassService {
@@ -8,7 +9,7 @@ export default class ClassService {
     this.axios = axios;
   }
 
-  public async getClassProperties(className: string): Promise<any> {
+  public async getClassProperties(className: string): Promise<Field[]> {
     try {
       return await this.axios.get(this.api + "api/class/public/classProperties", {
         params: {
@@ -16,7 +17,7 @@ export default class ClassService {
         }
       });
     } catch (error) {
-      return {} as any;
+      return [] as Field[];
     }
   }
 }
