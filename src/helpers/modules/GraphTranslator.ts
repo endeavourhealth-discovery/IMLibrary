@@ -64,15 +64,22 @@ function getNameFromIri(iri: string): string {
 }
 
 function addMaps(firstNode: TTGraphData, entity: any, key: string) {
+  let preNode = {
+    name: "middle-node-" + key,
+    iri: "",
+    relToParent: "mapped to",
+    children: [],
+    _children: []
+  }  as TTGraphData;
   entity[key].forEach((nested: any) => {
     Object.keys(nested).forEach(predicate => {
       nested[predicate].forEach((element: any) => {
         if (isObjectHasKeys(element, [Vocabulary.IM.MAPPED_TO])) {
           element[Vocabulary.IM.MAPPED_TO].forEach((mappedTo: any) => {
-            firstNode.children.push({
+            preNode.children.push({
               name: mappedTo.name,
               iri: mappedTo["@id"],
-              relToParent: "mapped to",
+              relToParent: mappedTo.name,
               children: [],
               _children: []
             });
@@ -81,58 +88,90 @@ function addMaps(firstNode: TTGraphData, entity: any, key: string) {
       });
     });
   });
+  if(preNode.children.length > 1){
+    firstNode.children.push(preNode);
+  } else {
+    preNode.children[0].relToParent = "mapped to";
+    firstNode.children.push(preNode.children[0]);
+  }
 }
 
 function addProperties(firstNode: TTGraphData, entity: any, key: string) {
   entity[key].forEach((nested: any) => {
-    firstNode.children.push({
-      name: getPropertyName(nested),
-      iri: getPropertyIri(nested),
-      relToParent: nested[Vocabulary.SHACL.PATH][0].name,
-      children: [],
-      _children: []
-    });
+    addChild(firstNode, getPropertyName(nested), getPropertyIri(nested), nested[Vocabulary.SHACL.PATH][0].name);
   });
 }
 
 function addRoles(firstNode: TTGraphData, entity: any, key: string, predicates: any) {
+  let preNodes= [] as TTGraphData[];
   entity[key].forEach((nested: any) => {
     Object.keys(nested).forEach(predicate => {
       if (predicate !== "http://endhealth.info/im#groupNumber" && isArrayHasLength(nested[predicate])) {
-        nested[predicate].forEach((role: any) => {
-          firstNode.children.push({
-            name: role.name,
-            iri: role["@id"],
+        if(!preNodes.some(n => n.iri === predicate))
+        {
+          preNodes.push({
+            name: "middle-node-" + key,
+            iri: "",
             relToParent: predicates[predicate] || predicate,
             children: [],
             _children: []
-          });
+          }  as TTGraphData);
+        }
+        nested[predicate].forEach((role: any) => {
+          let index = preNodes.findIndex(n => n.relToParent === predicates[predicate] || predicate);
+          addChild(preNodes[index], role.name, role["@id"], role.name);
         });
       }
     });
   });
+  preNodes.forEach(node => {
+    if(node.children.length === 1){
+      node.children[0].relToParent = node.relToParent;
+      firstNode.children.push(node.children[0]);
+    } else if(node.children.length >= 1){
+      firstNode.children.push(node);
+    }
+  });
 }
 
 function addArray(firstNode: TTGraphData, entity: any, key: string, predicates: any) {
+  let preNode = {
+    name: "middle-node-" + key,
+    iri: "",
+    relToParent: predicates[key],
+    children: [],
+    _children: []
+  }  as TTGraphData;
   entity[key].forEach((nested: any) => {
-    if (isObjectHasKeys(nested)) {
-      firstNode.children.push({
-        name: nested[Vocabulary.RDFS.LABEL] || nested.name || getNameFromIri(nested["@id"]),
-        iri: nested["@id"],
-        relToParent: predicates[key],
-        children: [],
-        _children: []
-      });
+    if(entity[key].length > 1){
+      if (isObjectHasKeys(nested)) {
+        addChild(preNode, nested[Vocabulary.RDFS.LABEL] || nested.name || getNameFromIri(nested["@id"]), nested["@id"], nested[Vocabulary.RDFS.LABEL] || nested.name || getNameFromIri(nested["@id"]));
+      } else {
+        addChild(preNode, nested, "", nested);
+      }
     } else {
-      firstNode.children.push({
-        name: nested,
-        iri: "",
-        relToParent: getNameFromIri(key),
-        children: [],
-        _children: []
-      });
+      if (isObjectHasKeys(nested)) {
+        addChild(firstNode, nested[Vocabulary.RDFS.LABEL] || nested.name || getNameFromIri(nested["@id"]), nested["@id"], predicates[key]);
+      } else {
+        addChild(firstNode, nested, "", nested);
+      }
     }
   });
+  if(entity[key].length > 1 && !firstNode.children.some((c: any) => c.relToParent === preNode.relToParent)) {
+    firstNode.children.push(preNode);
+  }
+}
+
+function addChild(parent: any, name:string, iri:string, relToParent:string ) {
+  if(!parent.children.some((c: any) => c.relToParent === relToParent)) {
+    parent.children.push({
+      name: name,
+      iri: iri,
+      relToParent: relToParent,
+      children: [],
+      _children: []
+    });
+  }
 }
 
 function addNodes(entity: any, keys: string[], firstNode: TTGraphData, predicates: any): void {
@@ -154,13 +193,7 @@ function addNodes(entity: any, keys: string[], firstNode: TTGraphData, predicate
             break;
         }
       } else {
-        firstNode.children.push({
-          name: entity[key].name || entity[key],
-          iri: entity[key]["@id"],
-          relToParent: predicates[key] || getNameFromIri(key),
-          children: [],
-          _children: []
-        });
+        addChild(firstNode, entity[key].name || entity[key], entity[key]["@id"], predicates[key] || getNameFromIri(key))
       }
     });
   }
@@ -170,10 +203,8 @@ export function hasNodeChildrenByName(data: TTGraphData, name: string): boolean 
   const nodes = [] as TTGraphData[];
   findNodeByName(data, name, nodes);
 
-  if (isArrayHasLength(nodes) && (isArrayHasLength(nodes[0].children) || isArrayHasLength(nodes[0]._children))) {
-    return true;
-  }
-  return false;
+  return isArrayHasLength(nodes) && (isArrayHasLength(nodes[0].children) || isArrayHasLength(nodes[0]._children));
+
 }
 
 function findNodeByName(data: TTGraphData, name: string, nodes: TTGraphData[]): void {
@@ -206,5 +237,6 @@ export default {
   translateFromEntityBundle,
   hasNodeChildrenByName,
   findNodeByName,
-  toggleNodeByName
+  toggleNodeByName,
+  addNodes
 };
