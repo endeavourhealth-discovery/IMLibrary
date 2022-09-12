@@ -55,9 +55,21 @@ export default class EntityService {
     });
   }
 
-  public async getSimpleMaps(iri: string): Promise<any[]> {
+  public async getMatchedFrom(iri: string): Promise<any[]> {
     try {
-      return await this.axios.get(this.api + "api/entity/public/simpleMaps", {
+      return await this.axios.get(this.api + "api/entity/public/matchedFrom", {
+        params: {
+          iri: iri
+        }
+      });
+    } catch (error) {
+      return [] as any[];
+    }
+  }
+
+  public async getMatchedTo(iri: string): Promise<any[]> {
+    try {
+      return await this.axios.get(this.api + "api/entity/public/matchedTo", {
         params: {
           iri: iri
         }
