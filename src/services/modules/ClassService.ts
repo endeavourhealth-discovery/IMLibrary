@@ -1,4 +1,4 @@
-import { Field } from "../../models/modules/QueryBuilder";
+import { Field } from "../../interfaces/modules/QueryBuilder";
 import Env from "./Env";
 
 export default class ClassService {

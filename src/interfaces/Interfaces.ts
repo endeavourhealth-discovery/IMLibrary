@@ -51,6 +51,7 @@ import { TTIriRef } from "./modules/TTIriRef";
 import { UPRN } from "./modules/Uprn";
 import { UprnSearchResponse } from "./modules/UprnSearchResponse";
 import { ValueSetMember } from "./modules/ValueSetMember";
+import { Field, GenericType, QueryObject } from "../interfaces/modules/QueryBuilder";
 
 export {
   type AccountItem,
@@ -105,5 +106,8 @@ export {
   type TTIriRef,
   type UPRN,
   type UprnSearchResponse,
-  type ValueSetMember
+  type ValueSetMember,
+  type Field,
+  type GenericType,
+  type QueryObject
 };

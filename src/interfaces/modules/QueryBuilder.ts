@@ -9,3 +9,11 @@ export interface GenericType {
   rawType: string;
   typeName: string;
 }
+
+export interface QueryObject {
+  key: number;
+  label: string;
+  type: string | GenericType;
+  value?: any;
+  properties?: QueryObject[];
+}
