@@ -6,6 +6,7 @@ import ProgressSpinner from "primevue/progressspinner";
 import OverlayPanel from "primevue/overlaypanel";
 import Tooltip from "primevue/tooltip";
 import { vi } from "vitest";
+import { setupServer } from "msw/node";
 
 describe("SecondaryTree.vue", () => {
   let wrapper;
@@ -84,6 +85,21 @@ describe("SecondaryTree.vue", () => {
     isDescendentOf: [],
     match: "629792015"
   };
+
+  const restHandlers = [];
+  const server = setupServer(...restHandlers);
+
+  beforeAll(() => {
+    server.listen({ onUnhandledRequest: "error" });
+  });
+
+  afterAll(() => {
+    server.close();
+  });
+
+  afterEach(() => {
+    server.resetHandlers();
+  });
 
   beforeEach(async () => {
     vi.resetAllMocks();
@@ -1271,10 +1287,10 @@ describe("SecondaryTree.vue", () => {
   });
 
   it("can navigate ___ other", () => {
-      // allow setting of scroll properties
-      Object.defineProperty(HTMLElement.prototype, 'scrollHeight', {configurable: true, value: 100});
+    // allow setting of scroll properties
+    Object.defineProperty(HTMLElement.prototype, "scrollHeight", { configurable: true, value: 100 });
 
-      wrapper.vm.navigate({ shiftKey: true }, "testIri");
+    wrapper.vm.navigate({ shiftKey: true }, "testIri");
     expect(mockRouter.push).not.toHaveBeenCalled();
   });
 });

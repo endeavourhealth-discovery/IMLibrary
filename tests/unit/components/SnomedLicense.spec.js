@@ -4,16 +4,32 @@ import Dialog from "primevue/dialog";
 import Button from "primevue/button";
 import PrimeVue from "primevue/config";
 import { expect, vi } from "vitest";
+import { setupServer } from "msw/node";
 
 describe("SnomedLicense.vue", () => {
   let wrapper;
   let mockStore;
   let mockLocation;
 
+  const restHandlers = [];
+  const server = setupServer(...restHandlers);
+
+  beforeAll(() => {
+    server.listen({ onUnhandledRequest: "error" });
+  });
+
+  afterAll(() => {
+    server.close();
+  });
+
+  afterEach(() => {
+    server.resetHandlers();
+  });
+
   beforeEach(() => {
     mockStore = {
       state: { snomedLicenseAccepted: "false", snomedReturnUrl: "testUrl" },
-      commit: vi.fn(),
+      commit: vi.fn()
     };
     mockLocation = { href: "" };
     location = window.location;
@@ -23,8 +39,8 @@ describe("SnomedLicense.vue", () => {
       global: {
         plugins: [PrimeVue],
         components: { Dialog, Button },
-        mocks: { $store: mockStore },
-      },
+        mocks: { $store: mockStore }
+      }
     });
   });
 
@@ -48,10 +64,7 @@ describe("SnomedLicense.vue", () => {
     wrapper.vm.submitAgree();
     await wrapper.vm.$nextTick();
     expect(mockStore.commit).toBeCalledTimes(1);
-    expect(mockStore.commit).toBeCalledWith(
-      "updateSnomedLicenseAccepted",
-      "true"
-    );
+    expect(mockStore.commit).toBeCalledWith("updateSnomedLicenseAccepted", "true");
     expect(window.location.href).toBe("testUrl");
   });
 
