@@ -1,104 +1,27 @@
 import EntityService from "../../../src/services/modules/EntityService";
 import Env from "../../../src/services/modules/Env";
 import axios from "axios";
+import { setupServer } from "msw/node";
 
 const entityService = new EntityService(axios);
 
 const api = Env.API;
-const SEARCH_PAYLOAD = {
-  size: 100,
-  query: {
-    bool: {
-      must: [
-        {
-          match_phrase_prefix: {
-            name: "scolios"
-          }
-        }
-      ],
-      filter: [
-        {
-          bool: {
-            should: [
-              {
-                match_phrase: {
-                  "scheme.@id": "http://snomed.info/sct#"
-                }
-              },
-              {
-                match_phrase: {
-                  "scheme.@id": "http://endhealth.info/im#"
-                }
-              }
-            ],
-            minimum_should_match: 1
-          }
-        },
-        {
-          bool: {
-            should: [
-              {
-                match_phrase: {
-                  "status.@id": "http://endhealth.info/im#Active"
-                }
-              },
-              {
-                match_phrase: {
-                  "status.@id": "http://endhealth.info/im#Draft"
-                }
-              }
-            ],
-            minimum_should_match: 1
-          }
-        },
-        {
-          bool: {
-            should: [
-              {
-                match_phrase: {
-                  "entityType.@id": "http://www.w3.org/ns/shacl#NodeShape"
-                }
-              },
-              {
-                match_phrase: {
-                  "entityType.@id": "http://endhealth.info/im#Concept"
-                }
-              },
-              {
-                match_phrase: {
-                  "entityType.@id": "http://endhealth.info/im#ConceptSet"
-                }
-              },
-              {
-                match_phrase: {
-                  "entityType.@id": "http://endhealth.info/im#Folder"
-                }
-              },
-              {
-                match_phrase: {
-                  "entityType.@id": "http://endhealth.info/im#ConceptSetGroup"
-                }
-              },
-              {
-                match_phrase: {
-                  "entityType.@id": "http://endhealth.info/im#QueryTemplate"
-                }
-              },
-              {
-                match_phrase: {
-                  "entityType.@id": "http://endhealth.info/im#ValueSet"
-                }
-              }
-            ],
-            minimum_should_match: 1
-          }
-        }
-      ]
-    }
-  }
-};
 
 describe("EntityService.ts ___ axios success", () => {
+  const restHandlers = [];
+  const server = setupServer(...restHandlers);
+
+  beforeAll(() => {
+    server.listen({ onUnhandledRequest: "error" });
+  });
+
+  afterAll(() => {
+    server.close();
+  });
+
+  afterEach(() => {
+    server.resetHandlers();
+  });
   beforeEach(() => {
     vi.resetAllMocks();
     axios.get = vi.fn().mockResolvedValue("axios get return");
@@ -201,8 +124,6 @@ describe("EntityService.ts ___ axios success", () => {
     expect(axios.get).toHaveBeenCalledWith(api + "api/entity/public/inferredBundle", { params: { iri: "testIri" } });
     expect(result).toBe("axios get return");
   });
-
-
 
   it("can get entity summary", async () => {
     const result = await entityService.getEntitySummary("testIri");
