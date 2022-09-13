@@ -15,5 +15,5 @@ export interface QueryObject {
   label: string;
   type: string | GenericType;
   value?: any;
-  properties?: QueryObject[];
+  children?: QueryObject[];
 }
