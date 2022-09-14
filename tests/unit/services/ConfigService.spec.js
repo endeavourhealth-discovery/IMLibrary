@@ -2,11 +2,27 @@ import ConfigService from "../../../src/services/modules/ConfigService";
 import axios from "axios";
 import Env from "../../../src/services/modules/Env";
 import { vi } from "vitest";
+import { setupServer } from "msw/node";
 
 let configService;
 
 describe("ConfigService.ts ___ axios success", () => {
   const api = Env.API;
+
+  const restHandlers = [];
+  const server = setupServer(...restHandlers);
+
+  beforeAll(() => {
+    server.listen({ onUnhandledRequest: "error" });
+  });
+
+  afterAll(() => {
+    server.close();
+  });
+
+  afterEach(() => {
+    server.resetHandlers();
+  });
 
   beforeEach(() => {
     axios.get = vi.fn().mockResolvedValue(["test config"]);
