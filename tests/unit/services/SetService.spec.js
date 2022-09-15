@@ -1,10 +1,26 @@
 import SetService from "../../../src/services/modules/SetService";
 import axios from "axios";
 import Env from "../../../src/services/modules/Env";
+import { setupServer } from "msw/node";
 
 const setService = new SetService(axios);
 
 describe("SetService.ts ___ axios success", () => {
+  const restHandlers = [];
+  const server = setupServer(...restHandlers);
+
+  beforeAll(() => {
+    server.listen({ onUnhandledRequest: "error" });
+  });
+
+  afterAll(() => {
+    server.close();
+  });
+
+  afterEach(() => {
+    server.resetHandlers();
+  });
+
   beforeEach(() => {
     vi.resetAllMocks();
     axios.get = vi.fn().mockResolvedValue("axios get return");

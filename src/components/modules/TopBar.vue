@@ -12,7 +12,7 @@
         class="p-button-rounded p-button-text p-button-plain p-button-lg p-button-icon-only topbar-end-button"
         @click="openAppsOverlay"
       />
-      <OverlayPanel ref="appsO">
+      <OverlayPanel ref="appsOP">
         <div class="flex flex-row flex-wrap gap-1 justify-content-start">
           <Button
             v-for="item in appItems"
@@ -45,99 +45,105 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { computed, ref, Ref, onMounted } from "vue";
 import { AccountItem } from "../../interfaces/modules/AccountItem";
 import { LoginItem } from "../../interfaces/modules/LoginItem";
-import { mapState } from "vuex";
+import { useStore } from "vuex";
+import { Env } from "../../services/Services";
 
-export default defineComponent({
-  name: "TopBar",
-  computed: mapState(["currentUser", "isLoggedIn", "authReturnUrl"]),
-  mounted() {
-    this.setUserMenuItems();
-    this.setAppMenuItems();
-  },
-  data() {
-    return {
-      loading: false,
-      request: {} as { cancel: any; msg: string },
-      searchText: "",
-      loginItems: [] as LoginItem[],
-      accountItems: [] as AccountItem[],
-      appItems: [] as { icon: string; url: string; label: string }[]
-    };
-  },
-  methods: {
-    toLandingPage() {
-      window.location.href = "/";
-    },
-    navigate(url: string) {
-      window.open(url);
-    },
-    getItems(): LoginItem[] | AccountItem[] {
-      if (this.isLoggedIn) {
-        return this.accountItems;
-      } else {
-        return this.loginItems;
-      }
-    },
-    openUserMenu(event: any): void {
-      (this.$refs.userMenu as any).toggle(event);
-    },
-    getUrl(item: string): string {
-      const url = new URL(`/src/assets/avatars/${item}`, import.meta.url);
-      return url.href;
-    },
-    openAppsOverlay(event: any) {
-      (this.$refs.appsO as any).toggle(event);
-    },
-    setUserMenuItems(): void {
-      this.loginItems = [
-        {
-          label: "Login",
-          icon: "fa-solid fa-fw fa-user",
-          url: this.$env.AUTH_URL + "login?returnUrl=" + this.authReturnUrl
-        },
-        {
-          label: "Register",
-          icon: "fa-solid fa-fw fa-user-plus",
-          url: this.$env.AUTH_URL + "register?returnUrl=" + this.authReturnUrl
-        }
-      ];
-      this.accountItems = [
-        {
-          label: "My account",
-          icon: "fa-solid fa-fw fa-user",
-          url: this.$env.AUTH_URL + "my-account?returnUrl=" + this.authReturnUrl
-        },
-        {
-          label: "Edit account",
-          icon: "fa-solid fa-fw fa-user-pen",
-          url: this.$env.AUTH_URL + "my-account/edit?returnUrl=" + this.authReturnUrl
-        },
-        {
-          label: "Change password",
-          icon: "fa-solid fa-fw fa-user-lock",
-          url: this.$env.AUTH_URL + "my-account/password-edit?returnUrl=" + this.authReturnUrl
-        },
-        {
-          label: "Logout",
-          icon: "fa-solid fa-fw fa-arrow-right-from-bracket",
-          url: this.$env.AUTH_URL + "logout?returnUrl=" + this.authReturnUrl
-        }
-      ];
-    },
-    setAppMenuItems() {
-      this.appItems = [
-        { label: "Directory", icon: "fa-solid fa-folder-open", url: "/" },
-        { label: "Creator", icon: "fa-solid fa-circle-plus", url: "/editor/#/creator" },
-        { label: "Editor", icon: "fa-solid fa-pen-to-square", url: "/editor/#/editor" },
-        { label: "Mapper", icon: "fa-solid fa-diagram-project", url: "/editor/#/mapper" }
-      ];
-    }
-  }
+const store = useStore();
+const currentUser = computed(() => store.state.currentUser);
+const isLoggedIn = computed(() => store.state.isLoggedIn);
+const authReturnUrl = computed(() => store.state.authReturnUrl);
+
+let loading = ref(false);
+let loginItems: Ref<LoginItem[]> = ref([]);
+let accountItems: Ref<AccountItem[]> = ref([]);
+let appItems: Ref<{ icon: string; url: string; label: string }[]> = ref([]);
+
+const userMenu = ref();
+const appsOP = ref();
+
+onMounted(() => {
+  setUserMenuItems();
+  setAppMenuItems();
 });
+
+function toLandingPage() {
+  window.location.href = "/";
+}
+
+function navigate(url: string) {
+  window.open(url);
+}
+
+function getItems(): LoginItem[] | AccountItem[] {
+  if (isLoggedIn.value) {
+    return accountItems.value;
+  } else {
+    return loginItems.value;
+  }
+}
+
+function openUserMenu(event: any): void {
+  (userMenu.value as any).toggle(event);
+}
+
+function getUrl(item: string): string {
+  const url = new URL(`/src/assets/avatars/${item}`, import.meta.url);
+  return url.href;
+}
+
+function openAppsOverlay(event: any) {
+  (appsOP.value as any).toggle(event);
+}
+
+function setUserMenuItems(): void {
+  loginItems.value = [
+    {
+      label: "Login",
+      icon: "fa-solid fa-fw fa-user",
+      url: Env.AUTH_URL + "login?returnUrl=" + authReturnUrl.value
+    },
+    {
+      label: "Register",
+      icon: "fa-solid fa-fw fa-user-plus",
+      url: Env.AUTH_URL + "register?returnUrl=" + authReturnUrl.value
+    }
+  ];
+  accountItems.value = [
+    {
+      label: "My account",
+      icon: "fa-solid fa-fw fa-user",
+      url: Env.AUTH_URL + "my-account?returnUrl=" + authReturnUrl.value
+    },
+    {
+      label: "Edit account",
+      icon: "fa-solid fa-fw fa-user-pen",
+      url: Env.AUTH_URL + "my-account/edit?returnUrl=" + authReturnUrl.value
+    },
+    {
+      label: "Change password",
+      icon: "fa-solid fa-fw fa-user-lock",
+      url: Env.AUTH_URL + "my-account/password-edit?returnUrl=" + authReturnUrl.value
+    },
+    {
+      label: "Logout",
+      icon: "fa-solid fa-fw fa-arrow-right-from-bracket",
+      url: Env.AUTH_URL + "logout?returnUrl=" + authReturnUrl.value
+    }
+  ];
+}
+
+function setAppMenuItems() {
+  appItems.value = [
+    { label: "Directory", icon: "fa-solid fa-folder-open", url: "/" },
+    { label: "Creator", icon: "fa-solid fa-circle-plus", url: "/editor/#/creator" },
+    { label: "Editor", icon: "fa-solid fa-pen-to-square", url: "/editor/#/editor" },
+    { label: "Mapper", icon: "fa-solid fa-diagram-project", url: "/editor/#/mapper" }
+  ];
+}
 </script>
 
 <style scoped>
