@@ -16,4 +16,5 @@ export interface QueryObject {
   type: string | GenericType;
   value?: any;
   children?: QueryObject[];
+  selectable?: boolean;
 }
