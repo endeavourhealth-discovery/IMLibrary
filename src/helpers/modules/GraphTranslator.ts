@@ -89,10 +89,14 @@ function addMaps(firstNode: TTGraphData, entity: any, key: string) {
     });
   });
   if(preNode.children.length > 1){
-    firstNode.children.push(preNode);
+    if(!firstNode.children.some((c: any) => c.relToParent === preNode.relToParent)){
+      firstNode.children.push(preNode);
+    }
   } else {
     preNode.children[0].relToParent = "mapped to";
-    firstNode.children.push(preNode.children[0]);
+    if(!firstNode.children.some((c: any) => c.relToParent === preNode.children[0].relToParent)){
+      firstNode.children.push(preNode.children[0]);
+    }
   }
 }
 
@@ -103,33 +107,24 @@ function addProperties(firstNode: TTGraphData, entity: any, key: string) {
 }
 
 function addRoles(firstNode: TTGraphData, entity: any, key: string, predicates: any) {
-  let preNodes= [] as TTGraphData[];
   entity[key].forEach((nested: any) => {
+    const groupID = nested["http://endhealth.info/im#groupNumber"];
+    let preNode ={
+      name: "middle-node-" + groupID,
+      iri: "",
+      relToParent: "Group Number " + groupID,
+      children: [],
+      _children: []
+    };
     Object.keys(nested).forEach(predicate => {
       if (predicate !== "http://endhealth.info/im#groupNumber" && isArrayHasLength(nested[predicate])) {
-        if(!preNodes.some(n => n.iri === predicate))
-        {
-          preNodes.push({
-            name: "middle-node-" + key,
-            iri: "",
-            relToParent: predicates[predicate] || predicate,
-            children: [],
-            _children: []
-          }  as TTGraphData);
-        }
         nested[predicate].forEach((role: any) => {
-          let index = preNodes.findIndex(n => n.relToParent === predicates[predicate] || predicate);
-          addChild(preNodes[index], role.name, role["@id"], role.name);
+          addChild(preNode, role.name, role["@id"], predicates[predicate] || predicate);
         });
       }
     });
-  });
-  preNodes.forEach(node => {
-    if(node.children.length === 1){
-      node.children[0].relToParent = node.relToParent;
-      firstNode.children.push(node.children[0]);
-    } else if(node.children.length >= 1){
-      firstNode.children.push(node);
+    if(!firstNode.children.some((c: any) => c.relToParent === "Group Number " + groupID)) {
+      firstNode.children.push(preNode);
     }
   });
 }
