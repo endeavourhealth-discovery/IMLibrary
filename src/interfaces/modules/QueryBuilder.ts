@@ -4,6 +4,11 @@ export interface Field {
   genericType: string | GenericType;
 }
 
+export interface FieldUI {
+  name: string;
+  simplifiedType: SimplifiedType;
+}
+
 export interface GenericType {
   actualTypeArguments: string[];
   rawType: string;
@@ -13,8 +18,13 @@ export interface GenericType {
 export interface QueryObject {
   key: number;
   label: string;
-  type: string | GenericType;
+  type: SimplifiedType;
   value?: any;
   children?: QueryObject[];
   selectable?: boolean;
+}
+
+export interface SimplifiedType {
+  firstType: string;
+  secondType?: string;
 }
