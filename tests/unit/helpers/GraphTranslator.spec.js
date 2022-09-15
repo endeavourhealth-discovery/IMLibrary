@@ -786,25 +786,33 @@ describe("GraphTranslator", () => {
           },
           {
             _children: [],
-            children: [],
-            iri: undefined,
-            name: "Substance",
+            children: [
+              {
+                _children: [],
+                children: [],
+                iri: undefined,
+                name: "Substance",
+                relToParent: "Substance",
+              },
+              {
+                _children: [],
+                children: [],
+                iri: undefined,
+                name: "Substances",
+                relToParent: "Substances",
+              },
+              {
+                _children: [],
+                children: [],
+                iri: undefined,
+                name: "Substance (substance)",
+                relToParent: "Substance (substance)",
+              }
+            ],
+            iri: "",
+            name: "middle-node-" + "http://endhealth.info/im#hasTermCode",
             relToParent: "has term code",
-          },
-          {
-            _children: [],
-            children: [],
-            iri: undefined,
-            name: "Substances",
-            relToParent: "has term code",
-          },
-          {
-            _children: [],
-            children: [],
-            iri: undefined,
-            name: "Substance (substance)",
-            relToParent: "has term code",
-          },
+          }
         ],
         iri: "http://snomed.info/sct#105590001",
         name: "Substance",
