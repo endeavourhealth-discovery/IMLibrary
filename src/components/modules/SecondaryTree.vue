@@ -11,6 +11,7 @@
         @mouseenter="showPopup($event, altParent.iri)"
         @mouseleave="hidePopup($event)"
         class="p-button-text p-button-plain"
+        data-unit="alt-parent"
       />
     </div>
     <div class="flex flex-row justify-contents-start" id="secondary-tree-parents-bar">
@@ -22,6 +23,7 @@
         @mouseenter="showPopup($event, currentParent?.iri)"
         @mouseleave="hidePopup($event)"
         class="p-button-text p-button-plain"
+        data-unit="parent"
       />
     </div>
     <Tree
@@ -105,302 +107,310 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { onMounted, ref, Ref, watch, nextTick, inject, onBeforeUnmount } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { getColourFromType, getFAIconFromType, getNamesAsStringFromTypes } from "../../helpers/modules/ConceptTypeMethods";
 import { isArrayHasLength, isObject, isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
 import { ConceptAggregate, ConceptSummary, EntityReferenceNode, TreeNode, TreeParent, TTIriRef } from "../../interfaces/Interfaces";
 import { IM } from "../../vocabulary/IM";
 import { RDF } from "../../vocabulary/RDF";
 import { RDFS } from "../../vocabulary/RDFS";
+import { EntityService } from "../../services/Services";
 
-export default defineComponent({
-  name: "SecondaryTree",
-  props: { conceptIri: { type: String, required: true } },
-  watch: {
-    async conceptIri(newValue) {
-      this.selectedKey = {};
-      this.alternateParents = [];
-      this.expandedKeys = {};
-      await this.getConceptAggregate(newValue);
-      await this.createTree(this.conceptAggregate.concept, this.conceptAggregate.parents, this.conceptAggregate.children, this.parentPosition);
-    },
+const props = defineProps({
+  conceptIri: { type: String, required: true }
+});
+const axios = inject("axios");
 
-    loading(newValue) {
-      if (newValue) this.hidePopup(this.overlayLocation);
-    }
-  },
-  data() {
-    return {
-      conceptAggregate: {} as ConceptAggregate,
-      root: [] as TreeNode[],
-      expandedKeys: {} as any,
-      selectedKey: {} as any,
-      currentParent: {} as TreeParent | null,
-      alternateParents: [] as TreeParent[],
-      parentPosition: 0,
-      hoveredResult: {} as ConceptSummary | any,
-      overlayLocation: {} as any,
-      loading: false,
-      totalCount: 0,
-      pageSize: 20
-    };
-  },
-  async mounted() {
-    await this.getConceptAggregate(this.conceptIri);
-    await this.createTree(this.conceptAggregate.concept, this.conceptAggregate.parents, this.conceptAggregate.children, 0);
-  },
-  beforeUnmount() {
-    if (isObject(this.overlayLocation) && isArrayHasLength(Object.keys(this.overlayLocation))) {
-      this.hidePopup(this.overlayLocation);
-    }
-  },
-  methods: {
-    async getConceptAggregate(iri: string): Promise<void> {
-      this.loading = true;
-      this.conceptAggregate.concept = await this.$entityService.getPartialEntity(iri, [RDF.TYPE, RDFS.LABEL]);
+const router = useRouter();
+const route = useRoute();
+const entityService = new EntityService(axios);
 
-      this.conceptAggregate.parents = await this.$entityService.getEntityParents(iri);
+let conceptAggregate: Ref<ConceptAggregate> = ref({} as ConceptAggregate);
+let root: Ref<TreeNode[]> = ref([]);
+let expandedKeys: Ref<any> = ref({});
+let selectedKey: Ref<any> = ref({});
+let currentParent: Ref<TreeParent | null> = ref(null);
+let alternateParents: Ref<TreeParent[]> = ref([]);
+let parentPosition = ref(0);
+let hoveredResult: Ref<ConceptSummary> = ref({} as ConceptSummary);
+let overlayLocation: Ref<any> = ref({});
+let loading = ref(false);
+let totalCount = ref(0);
+let pageSize = ref(20);
 
-      const pagedChildren = await this.$entityService.getPagedChildren(iri, 1, this.pageSize);
-      this.totalCount = pagedChildren.totalCount;
-      this.conceptAggregate.children = pagedChildren.result;
-      this.loading = false;
-    },
+const altTreeOP = ref();
 
-    async createTree(concept: any, parentHierarchy: EntityReferenceNode[], children: EntityReferenceNode[], parentPosition: number): Promise<void> {
-      this.loading = true;
-      const selectedConcept = this.createTreeNode(concept[RDFS.LABEL], concept[IM.IRI], concept[RDF.TYPE], concept.hasChildren);
-      children.forEach((child: EntityReferenceNode) => {
-        selectedConcept.children.push(this.createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
-      });
-      if (this.totalCount >= this.pageSize) {
-        selectedConcept.children.push(this.createLoadMoreNode(selectedConcept, 2, this.totalCount));
-      }
-      this.root = [] as TreeNode[];
-      this.setParents(parentHierarchy, parentPosition);
-      this.root.push(selectedConcept);
-      if (!isObjectHasKeys(this.expandedKeys, [selectedConcept.key])) {
-        this.expandedKeys[selectedConcept.key] = true;
-      }
-      this.selectedKey[selectedConcept.key] = true;
-      this.loading = false;
-    },
+watch(
+  () => props.conceptIri,
+  async newValue => {
+    selectedKey.value = {};
+    alternateParents.value = [];
+    expandedKeys.value = {};
+    await getConceptAggregate(newValue);
+    await createTree(conceptAggregate.value.concept, conceptAggregate.value.parents, conceptAggregate.value.children, parentPosition.value);
+  }
+);
 
-    setParents(parentHierarchy: EntityReferenceNode[], parentPosition: number): void {
-      if (isArrayHasLength(parentHierarchy)) {
-        if (parentHierarchy.length === 1) {
-          this.currentParent = {
-            name: parentHierarchy[parentPosition].name,
-            iri: parentHierarchy[parentPosition]["@id"],
-            listPosition: 0
-          };
-          this.alternateParents = [] as TreeParent[];
-        } else {
-          for (let i = 0; i < parentHierarchy.length; i++) {
-            if (i === parentPosition) {
-              this.currentParent = {
-                name: parentHierarchy[parentPosition].name,
-                iri: parentHierarchy[parentPosition]["@id"],
-                listPosition: i
-              };
-            } else {
-              this.alternateParents.push({
-                name: parentHierarchy[i].name,
-                iri: parentHierarchy[i]["@id"],
-                listPosition: i
-              });
-            }
-          }
-        }
-      } else {
-        this.currentParent = null;
-        this.alternateParents = [] as TreeParent[];
-      }
-    },
+watch(loading, newValue => {
+  if (newValue) hidePopup(overlayLocation.value);
+});
 
-    createTreeNode(conceptName: string, conceptIri: string, conceptTypes: TTIriRef[], hasChildren: boolean): TreeNode {
-      return {
-        key: conceptIri,
-        label: conceptName,
-        typeIcon: getFAIconFromType(conceptTypes),
-        color: getColourFromType(conceptTypes),
-        data: conceptIri,
-        leaf: !hasChildren,
-        loading: false,
-        children: [] as TreeNode[]
-      };
-    },
+onMounted(async () => {
+  await getConceptAggregate(props.conceptIri);
+  await createTree(conceptAggregate.value.concept, conceptAggregate.value.parents, conceptAggregate.value.children, 0);
+});
 
-    createLoadMoreNode(parentNode: TreeNode, nextPage: number, totalCount: number): any {
-      return {
-        key: "loadMore" + parentNode.data,
-        label: "Load more...",
-        typeIcon: null,
-        color: null,
-        data: "loadMore",
-        leaf: true,
-        loading: false,
-        children: [] as TreeNode[],
-        parentNode: parentNode,
-        nextPage: nextPage,
-        totalCount: totalCount,
-        style: "font-weight: bold;"
-      };
-    },
-
-    async expandChildren(node: TreeNode): Promise<void> {
-      node.loading = true;
-      if (!isObjectHasKeys(this.expandedKeys, [node.key])) {
-        this.expandedKeys[node.key] = true;
-      }
-      const children = await this.$entityService.getPagedChildren(node.data, 1, this.pageSize);
-      children.result.forEach((child: EntityReferenceNode) => {
-        if (!this.containsChild(node.children, child)) {
-          node.children.push(this.createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
-        }
-      });
-      if (children.totalCount >= this.pageSize) {
-        node.children.push(this.createLoadMoreNode(node, 2, children.totalCount));
-      }
-      node.loading = false;
-    },
-
-    containsChild(nodeChildren: TreeNode[], child: EntityReferenceNode): boolean {
-      return nodeChildren.some(nodeChild => nodeChild.data === child["@id"]);
-    },
-
-    async expandParents(parentPosition: number): Promise<void> {
-      this.loading = true;
-      if (!isArrayHasLength(this.root)) return;
-      if (!isObjectHasKeys(this.expandedKeys, [this.root[0].key])) {
-        this.expandedKeys[this.root[0].key] = true;
-      }
-
-      const parents = await this.$entityService.getEntityParents(this.root[0].data);
-      const parentNode = this.createExpandedParentTree(parents, parentPosition);
-      this.root = [] as TreeNode[];
-      this.root.push(parentNode);
-      await this.setExpandedParentParents();
-      // this refreshes the keys so they start open if children and parents were both expanded
-      this.expandedKeys = { ...this.expandedKeys };
-      this.loading = false;
-    },
-
-    createExpandedParentTree(parents: any, parentPosition: number): TreeNode {
-      let parentNode = {} as TreeNode;
-      for (let i = 0; i < parents.length; i++) {
-        if (i === parentPosition) {
-          parentNode = this.createTreeNode(parents[i].name, parents[i]["@id"], parents[i].type, true);
-          parentNode.children.push(this.root[0]);
-          if (!isObjectHasKeys(this.expandedKeys, [parentNode.key])) {
-            this.expandedKeys[parentNode.key] = true;
-          }
-        }
-      }
-      return parentNode;
-    },
-
-    async setExpandedParentParents(): Promise<void> {
-      const result = await this.$entityService.getEntityParents(this.root[0].data);
-      this.currentParent = null;
-      this.alternateParents = [] as TreeParent[];
-      if (!isArrayHasLength(result)) return;
-      if (result.length === 1) {
-        this.parentPosition = 0;
-        this.currentParent = {
-          name: result[0].name,
-          iri: result[0]["@id"],
-          listPosition: 0
-        };
-      } else {
-        for (let i = 0; i < result.length; i++) {
-          if (i === 0) {
-            this.currentParent = {
-              name: result[i].name,
-              iri: result[i]["@id"],
-              listPosition: i
-            };
-          } else {
-            this.alternateParents.push({
-              name: result[i].name,
-              iri: result[i]["@id"],
-              listPosition: i
-            });
-          }
-        }
-      }
-    },
-
-    async onNodeSelect(node: any): Promise<void> {
-      if (node.data === "loadMore") {
-        await this.loadMore(node);
-      } else {
-      }
-      await this.$nextTick();
-      this.selectedKey = {} as any;
-      this.selectedKey[this.conceptAggregate.concept[RDFS.LABEL]] = true;
-    },
-
-    async showPopup(event: any, iri?: string, node?: any): Promise<void> {
-      if (iri === "loadMore") {
-        this.overlayLocation = event;
-        const x = this.$refs.altTreeOP as any;
-        x.show(event);
-        this.hoveredResult.iri = "load";
-        this.hoveredResult.name = node.parentNode.label;
-      } else if (iri) {
-        this.overlayLocation = event;
-        const x = this.$refs.altTreeOP as any;
-        x.show(event);
-        this.hoveredResult = await this.$entityService.getEntitySummary(iri);
-      }
-    },
-
-    hidePopup(event: any): void {
-      const x = this.$refs.altTreeOP as any;
-      x.hide(event);
-      this.overlayLocation = {} as any;
-    },
-
-    getConceptTypes(types: TTIriRef[]): string {
-      return getNamesAsStringFromTypes(types);
-    },
-
-    navigate(event: any, iri: string): void {
-      if (event.metaKey || event.ctrlKey) this.$router.push({ name: this.$route.name || undefined, params: { selectedIri: iri } });
-    },
-
-    onDblClick(iri: string) {
-      this.$router.push({ name: this.$route.name || undefined, params: { selectedIri: iri } });
-    },
-
-    async loadMore(node: any) {
-      if (node.nextPage * this.pageSize < node.totalCount) {
-        const children = await this.$entityService.getPagedChildren(node.parentNode.data, node.nextPage, this.pageSize);
-        node.parentNode.children.pop();
-        children.result.forEach((child: any) => {
-          node.parentNode.children.push(this.createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
-        });
-        node.nextPage = node.nextPage + 1;
-        node.parentNode.children.push(this.createLoadMoreNode(node.parentNode, node.nextPage, node.totalCount));
-      } else if (node.nextPage * this.pageSize > node.totalCount) {
-        const children = await this.$entityService.getPagedChildren(node.parentNode.data, node.nextPage, this.pageSize);
-        node.parentNode.children.pop();
-        children.result.forEach((child: any) => {
-          node.parentNode.children.push(this.createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
-        });
-      } else {
-        node.parentNode.children.pop();
-      }
-    },
-
-    onNodeCollapse(node: any) {
-      node.children = [];
-      node.leaf = false;
-    }
+onBeforeUnmount(() => {
+  if (isObject(overlayLocation.value) && isArrayHasLength(Object.keys(overlayLocation.value))) {
+    hidePopup(overlayLocation.value);
   }
 });
+
+async function getConceptAggregate(iri: string): Promise<void> {
+  loading.value = true;
+  conceptAggregate.value.concept = await entityService.getPartialEntity(iri, [RDF.TYPE, RDFS.LABEL]);
+
+  conceptAggregate.value.parents = await entityService.getEntityParents(iri);
+
+  const pagedChildren = await entityService.getPagedChildren(iri, 1, pageSize.value);
+  totalCount.value = pagedChildren.totalCount;
+  conceptAggregate.value.children = pagedChildren.result;
+  loading.value = false;
+}
+
+async function createTree(concept: any, parentHierarchy: EntityReferenceNode[], children: EntityReferenceNode[], parentPosition: number): Promise<void> {
+  loading.value = true;
+  const selectedConcept = createTreeNode(concept[RDFS.LABEL], concept[IM.IRI], concept[RDF.TYPE], concept.hasChildren);
+  children.forEach((child: EntityReferenceNode) => {
+    selectedConcept.children.push(createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
+  });
+  if (totalCount.value >= pageSize.value) {
+    selectedConcept.children.push(createLoadMoreNode(selectedConcept, 2, totalCount.value));
+  }
+  root.value = [] as TreeNode[];
+  setParents(parentHierarchy, parentPosition);
+  root.value.push(selectedConcept);
+  if (!isObjectHasKeys(expandedKeys, [selectedConcept.key])) {
+    expandedKeys.value[selectedConcept.key] = true;
+  }
+  selectedKey.value[selectedConcept.key] = true;
+  loading.value = false;
+}
+
+function setParents(parentHierarchy: EntityReferenceNode[], parentPosition: number): void {
+  if (isArrayHasLength(parentHierarchy)) {
+    if (parentHierarchy.length === 1) {
+      currentParent.value = {
+        name: parentHierarchy[parentPosition].name,
+        iri: parentHierarchy[parentPosition]["@id"],
+        listPosition: 0
+      };
+      alternateParents.value = [] as TreeParent[];
+    } else {
+      for (let i = 0; i < parentHierarchy.length; i++) {
+        if (i === parentPosition) {
+          currentParent.value = {
+            name: parentHierarchy[parentPosition].name,
+            iri: parentHierarchy[parentPosition]["@id"],
+            listPosition: i
+          };
+        } else {
+          alternateParents.value.push({
+            name: parentHierarchy[i].name,
+            iri: parentHierarchy[i]["@id"],
+            listPosition: i
+          });
+        }
+      }
+    }
+  } else {
+    currentParent.value = null;
+    alternateParents.value = [] as TreeParent[];
+  }
+}
+
+function createTreeNode(conceptName: string, conceptIri: string, conceptTypes: TTIriRef[], hasChildren: boolean): TreeNode {
+  return {
+    key: conceptIri,
+    label: conceptName,
+    typeIcon: getFAIconFromType(conceptTypes),
+    color: getColourFromType(conceptTypes),
+    data: conceptIri,
+    leaf: !hasChildren,
+    loading: false,
+    children: [] as TreeNode[]
+  };
+}
+
+function createLoadMoreNode(parentNode: TreeNode, nextPage: number, totalCount: number): any {
+  return {
+    key: "loadMore" + parentNode.data,
+    label: "Load more...",
+    typeIcon: null,
+    color: null,
+    data: "loadMore",
+    leaf: true,
+    loading: false,
+    children: [] as TreeNode[],
+    parentNode: parentNode,
+    nextPage: nextPage,
+    totalCount: totalCount,
+    style: "font-weight: bold;"
+  };
+}
+
+async function expandChildren(node: TreeNode): Promise<void> {
+  node.loading = true;
+  if (!isObjectHasKeys(expandedKeys.value, [node.key])) {
+    expandedKeys.value[node.key] = true;
+  }
+  const children = await entityService.getPagedChildren(node.data, 1, pageSize.value);
+  children.result.forEach((child: EntityReferenceNode) => {
+    if (!containsChild(node.children, child)) {
+      node.children.push(createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
+    }
+  });
+  if (children.totalCount >= pageSize.value) {
+    node.children.push(createLoadMoreNode(node, 2, children.totalCount));
+  }
+  node.loading = false;
+}
+
+function containsChild(nodeChildren: TreeNode[], child: EntityReferenceNode): boolean {
+  return nodeChildren.some(nodeChild => nodeChild.data === child["@id"]);
+}
+
+async function expandParents(parentPosition: number): Promise<void> {
+  loading.value = true;
+  if (!isArrayHasLength(root.value)) return;
+  if (!isObjectHasKeys(expandedKeys.value, [root.value[0].key])) {
+    expandedKeys.value[root.value[0].key] = true;
+  }
+
+  const parents = await entityService.getEntityParents(root.value[0].data);
+  const parentNode = createExpandedParentTree(parents, parentPosition);
+  root.value = [] as TreeNode[];
+  root.value.push(parentNode);
+  await setExpandedParentParents();
+  // this refreshes the keys so they start open if children and parents were both expanded
+  expandedKeys.value = { ...expandedKeys.value };
+  loading.value = false;
+}
+
+function createExpandedParentTree(parents: any, parentPosition: number): TreeNode {
+  let parentNode = {} as TreeNode;
+  for (let i = 0; i < parents.length; i++) {
+    if (i === parentPosition) {
+      parentNode = createTreeNode(parents[i].name, parents[i]["@id"], parents[i].type, true);
+      parentNode.children.push(root.value[0]);
+      if (!isObjectHasKeys(expandedKeys.value, [parentNode.key])) {
+        expandedKeys.value[parentNode.key] = true;
+      }
+    }
+  }
+  return parentNode;
+}
+
+async function setExpandedParentParents(): Promise<void> {
+  const result = await entityService.getEntityParents(root.value[0].data);
+  currentParent.value = null;
+  alternateParents.value = [] as TreeParent[];
+  if (!isArrayHasLength(result)) return;
+  if (result.length === 1) {
+    parentPosition.value = 0;
+    currentParent.value = {
+      name: result[0].name,
+      iri: result[0]["@id"],
+      listPosition: 0
+    };
+  } else {
+    for (let i = 0; i < result.length; i++) {
+      if (i === 0) {
+        currentParent.value = {
+          name: result[i].name,
+          iri: result[i]["@id"],
+          listPosition: i
+        };
+      } else {
+        alternateParents.value.push({
+          name: result[i].name,
+          iri: result[i]["@id"],
+          listPosition: i
+        });
+      }
+    }
+  }
+}
+
+async function onNodeSelect(node: any): Promise<void> {
+  if (node.data === "loadMore") {
+    await loadMore(node);
+  } else {
+  }
+  await nextTick();
+  selectedKey.value = {};
+  selectedKey.value[conceptAggregate.value.concept[RDFS.LABEL]] = true;
+}
+
+async function showPopup(event: any, iri?: string, node?: any): Promise<void> {
+  if (iri === "loadMore") {
+    overlayLocation.value = event;
+    const x = altTreeOP.value as any;
+    x.show(event);
+    hoveredResult.value.iri = "load";
+    hoveredResult.value.name = node.parentNode.label;
+  } else if (iri) {
+    overlayLocation.value = event;
+    const x = altTreeOP.value as any;
+    x.show(event);
+    hoveredResult.value = await entityService.getEntitySummary(iri);
+  }
+}
+
+function hidePopup(event: any): void {
+  const x = altTreeOP.value as any;
+  x.hide(event);
+  overlayLocation.value = {} as any;
+}
+
+function getConceptTypes(types: TTIriRef[]): string {
+  return getNamesAsStringFromTypes(types);
+}
+
+function navigate(event: any, iri: string): void {
+  if (event.metaKey || event.ctrlKey) router.push({ name: route.name || undefined, params: { selectedIri: iri } });
+}
+
+function onDblClick(iri: string) {
+  router.push({ name: route.name || undefined, params: { selectedIri: iri } });
+}
+
+async function loadMore(node: any) {
+  if (node.nextPage * pageSize.value < node.totalCount) {
+    const children = await entityService.getPagedChildren(node.parentNode.data, node.nextPage, pageSize.value);
+    node.parentNode.children.pop();
+    children.result.forEach((child: any) => {
+      node.parentNode.children.push(createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
+    });
+    node.nextPage = node.nextPage + 1;
+    node.parentNode.children.push(createLoadMoreNode(node.parentNode, node.nextPage, node.totalCount));
+  } else if (node.nextPage * pageSize.value > node.totalCount) {
+    const children = await entityService.getPagedChildren(node.parentNode.data, node.nextPage, pageSize.value);
+    node.parentNode.children.pop();
+    children.result.forEach((child: any) => {
+      node.parentNode.children.push(createTreeNode(child.name, child["@id"], child.type, child.hasChildren));
+    });
+  } else {
+    node.parentNode.children.pop();
+  }
+}
+
+function onNodeCollapse(node: any) {
+  node.children = [];
+  node.leaf = false;
+}
 </script>
 
 <style scoped>

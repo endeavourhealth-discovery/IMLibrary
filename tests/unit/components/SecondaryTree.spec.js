@@ -5,86 +5,113 @@ import Tree from "primevue/tree";
 import ProgressSpinner from "primevue/progressspinner";
 import OverlayPanel from "primevue/overlaypanel";
 import Tooltip from "primevue/tooltip";
+import axios from "axios";
+import EntityService from "../../../src/services/modules/EntityService";
 import { vi } from "vitest";
 import { setupServer } from "msw/node";
 
+const CONCEPT = {
+  "@id": "http://snomed.info/sct#298382003",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": [{ "@id": "http://www.w3.org/2002/07/owl#Class", name: "Class" }],
+  "http://www.w3.org/2000/01/rdf-schema#label": "Scoliosis deformity of spine (disorder)"
+};
+const PARENTS = [
+  {
+    name: "Curvature of spine (disorder)",
+    hasChildren: false,
+    type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
+    "@id": "http://snomed.info/sct#64217002"
+  },
+  {
+    name: "Disorder of musculoskeletal system (disorder)",
+    hasChildren: false,
+    type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
+    "@id": "http://snomed.info/sct#928000"
+  },
+  {
+    name: "Disorder of vertebral column (disorder)",
+    hasChildren: false,
+    type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
+    "@id": "http://snomed.info/sct#699699005"
+  }
+];
+const CHILDREN = {
+  totalCount: 3,
+  result: [
+    {
+      "@id": "http://snomed.info/sct#111266001",
+      hasChildren: true,
+      hasGrandChildren: false,
+      name: "Acquired scoliosis (disorder)",
+      parents: [],
+      type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+    },
+    {
+      "@id": "http://snomed.info/sct#773773006",
+      hasChildren: false,
+      hasGrandChildren: false,
+      name: "Acrodysplasia scoliosis (disorder)",
+      parents: [],
+      type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+    },
+    {
+      "@id": "http://snomed.info/sct#205045003",
+      hasChildren: false,
+      hasGrandChildren: false,
+      name: "Congenital scoliosis due to bony malformation (disorder)",
+      parents: [],
+      type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
+    }
+  ]
+};
+
+const SUMMARY = {
+  name: "Acquired scoliosis",
+  iri: "http://snomed.info/sct#111266001",
+  code: "111266001",
+  description: "Acquired scoliosis (disorder)",
+  status: { name: "Active", "@id": "http://endhealth.info/im#Active" },
+  scheme: { name: "Snomed-CT namespace", "@id": "http://snomed.info/sct#" },
+  entityType: [
+    { name: "Ontological Concept", "@id": "http://endhealth.info/im#Concept" },
+    { name: "Organisation  (record type)", "@id": "http://endhealth.info/im#Organisation" }
+  ],
+  isDescendentOf: [],
+  match: "629792015"
+};
+
+const mockPush = vi.fn();
+const mockGo = vi.fn();
+const mockRoute = { name: "Concept" };
+
+vi.mock("vue-router", () => ({
+  useRouter: () => ({
+    push: mockPush,
+    go: mockGo
+  }),
+  useRoute: () => mockRoute
+}));
+
+// const mockEntityService = () => ({
+//   getPartialEntity: vi.fn().mockResolvedValue(CONCEPT),
+//   getEntityParents: vi.fn().mockResolvedValue(PARENTS),
+//   getPagedChildren: vi.fn().mockResolvedValue(CHILDREN),
+//   getEntitySummary: vi.fn().mockResolvedValue(SUMMARY)
+// });
+
+// vi.mock("../../../src/services/modules/EntityService", () => {
+//   return {
+//     default: vi.fn().mockImplementation(() => mockEntityService)
+//   };
+// });
+
 describe("SecondaryTree.vue", () => {
   let wrapper;
-  let mockToast;
-  let mockRoute;
-  let mockRouter;
   let mockRef;
-  let mockEntityService;
-
-  const CONCEPT = {
-    "@id": "http://snomed.info/sct#298382003",
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": [{ "@id": "http://www.w3.org/2002/07/owl#Class", name: "Class" }],
-    "http://www.w3.org/2000/01/rdf-schema#label": "Scoliosis deformity of spine (disorder)"
-  };
-  const PARENTS = [
-    {
-      name: "Curvature of spine (disorder)",
-      hasChildren: false,
-      type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-      "@id": "http://snomed.info/sct#64217002"
-    },
-    {
-      name: "Disorder of musculoskeletal system (disorder)",
-      hasChildren: false,
-      type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-      "@id": "http://snomed.info/sct#928000"
-    },
-    {
-      name: "Disorder of vertebral column (disorder)",
-      hasChildren: false,
-      type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }],
-      "@id": "http://snomed.info/sct#699699005"
-    }
-  ];
-  const CHILDREN = {
-    totalCount: 3,
-    result: [
-      {
-        "@id": "http://snomed.info/sct#111266001",
-        hasChildren: true,
-        hasGrandChildren: false,
-        name: "Acquired scoliosis (disorder)",
-        parents: [],
-        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-      },
-      {
-        "@id": "http://snomed.info/sct#773773006",
-        hasChildren: false,
-        hasGrandChildren: false,
-        name: "Acrodysplasia scoliosis (disorder)",
-        parents: [],
-        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-      },
-      {
-        "@id": "http://snomed.info/sct#205045003",
-        hasChildren: false,
-        hasGrandChildren: false,
-        name: "Congenital scoliosis due to bony malformation (disorder)",
-        parents: [],
-        type: [{ name: "Class", "@id": "http://www.w3.org/2002/07/owl#Class" }]
-      }
-    ]
-  };
-
-  const SUMMARY = {
-    name: "Acquired scoliosis",
-    iri: "http://snomed.info/sct#111266001",
-    code: "111266001",
-    description: "Acquired scoliosis (disorder)",
-    status: { name: "Active", "@id": "http://endhealth.info/im#Active" },
-    scheme: { name: "Snomed-CT namespace", "@id": "http://snomed.info/sct#" },
-    entityType: [
-      { name: "Ontological Concept", "@id": "http://endhealth.info/im#Concept" },
-      { name: "Organisation  (record type)", "@id": "http://endhealth.info/im#Organisation" }
-    ],
-    isDescendentOf: [],
-    match: "629792015"
-  };
+  let getPartialEntitySpy;
+  let getEntityParentsSpy;
+  let getPagedChildrenSpy;
+  let getEntitySummarySpy;
 
   const restHandlers = [];
   const server = setupServer(...restHandlers);
@@ -103,26 +130,18 @@ describe("SecondaryTree.vue", () => {
 
   beforeEach(async () => {
     vi.resetAllMocks();
-    mockToast = {
-      add: vi.fn()
-    };
     mockRef = { render: () => {}, methods: { show: vi.fn(), hide: vi.fn() } };
-    mockRoute = { name: "Concept" };
-    mockRouter = { push: vi.fn() };
-
-    mockEntityService = {
-      getPartialEntity: vi.fn().mockResolvedValue(CONCEPT),
-      getEntityParents: vi.fn().mockResolvedValue(PARENTS),
-      getPagedChildren: vi.fn().mockResolvedValue(CHILDREN),
-      getEntitySummary: vi.fn().mockResolvedValue(SUMMARY)
-    };
+    getPartialEntitySpy = vi.spyOn(EntityService.prototype, "getPartialEntity").mockResolvedValue(CONCEPT);
+    getEntityParentsSpy = vi.spyOn(EntityService.prototype, "getEntityParents").mockResolvedValue(PARENTS);
+    getPagedChildrenSpy = vi.spyOn(EntityService.prototype, "getPagedChildren").mockResolvedValue(CHILDREN);
+    getEntitySummarySpy = vi.spyOn(EntityService.prototype, "getEntitySummary").mockResolvedValue(SUMMARY);
 
     wrapper = mount(SecondaryTree, {
       global: {
         components: { Button, Tree, ProgressSpinner, OverlayPanel },
-        mocks: { $toast: mockToast, $route: mockRoute, $router: mockRouter, $entityService: mockEntityService },
         stubs: { OverlayPanel: mockRef, FontAwesomeIcon: true },
-        directives: { Tooltip: Tooltip }
+        directives: { Tooltip: Tooltip },
+        provide: { axios: axios }
       },
       props: { conceptIri: "http://snomed.info/sct#298382003" }
     });
@@ -182,8 +201,8 @@ describe("SecondaryTree.vue", () => {
         typeIcon: ["fa-solid", "fa-lightbulb"]
       }
     ]);
-    expect(wrapper.vm.expandedKeys).toStrictEqual({ "http://snomed.info/sct#298382003": true });
-    expect(wrapper.vm.selectedKey).toStrictEqual({ "http://snomed.info/sct#298382003": true });
+    expect(wrapper.vm.expandedKeys).toStrictEqual(new Map().set("http://snomed.info/sct#298382003", true));
+    expect(wrapper.vm.selectedKey).toStrictEqual(new Map().set("http://snomed.info/sct#298382003", true));
     expect(wrapper.vm.currentParent).toStrictEqual({ iri: "http://snomed.info/sct#64217002", listPosition: 0, name: "Curvature of spine (disorder)" });
     expect(wrapper.vm.alternateParents).toStrictEqual([
       { iri: "http://snomed.info/sct#928000", listPosition: 1, name: "Disorder of musculoskeletal system (disorder)" },
@@ -824,7 +843,7 @@ describe("SecondaryTree.vue", () => {
   });
 
   it("can expandParents ___ no key", async () => {
-    wrapper.vm.expandedKeys = {};
+    wrapper.vm.expandedKeys.clear;
     wrapper.vm.createExpandedParentTree = vi.fn().mockReturnValue({
       data: {
         key: "http://snomed.info/sct#64217002",
@@ -863,8 +882,8 @@ describe("SecondaryTree.vue", () => {
     wrapper.vm.expandParents(0);
     await flushPromises();
     await wrapper.vm.$nextTick();
-    expect(wrapper.vm.expandedKeys).toStrictEqual({ "http://snomed.info/sct#298382003": true });
-    expect(mockEntityService.getEntityParents).toHaveBeenCalledTimes(1);
+    expect(wrapper.vm.expandedKeys).toStrictEqual(new Map().set("http://snomed.info/sct#298382003", true));
+    expect(getEntityParentsSpy).toHaveBeenCalledTimes(1);
     expect(wrapper.vm.createExpandedParentTree).toHaveBeenCalledTimes(1);
     expect(wrapper.vm.setExpandedParentParents).toHaveBeenCalledTimes(1);
     expect(wrapper.vm.root).toStrictEqual([
@@ -906,7 +925,7 @@ describe("SecondaryTree.vue", () => {
   });
 
   it("can expandParents ___ key", async () => {
-    wrapper.vm.expandedKeys = { "http://snomed.info/sct#298382003": true };
+    wrapper.vm.expandedKeys["http://snomed.info/sct#298382003"] = true;
     wrapper.vm.createExpandedParentTree = vi.fn().mockReturnValue({
       data: {
         key: "http://snomed.info/sct#64217002",
@@ -945,8 +964,8 @@ describe("SecondaryTree.vue", () => {
     wrapper.vm.expandParents(0);
     await flushPromises();
     await wrapper.vm.$nextTick();
-    expect(wrapper.vm.expandedKeys).toStrictEqual({ "http://snomed.info/sct#298382003": true });
-    expect(mockEntityService.getEntityParents).toHaveBeenCalledTimes(1);
+    expect(wrapper.vm.expandedKeys).toStrictEqual({ "http://snomed.info/sct#298382003": true, "http://snomed.info/sct#64217002": true });
+    expect(getEntityParentsSpy).toHaveBeenCalledTimes(1);
     expect(wrapper.vm.createExpandedParentTree).toHaveBeenCalledTimes(1);
     expect(wrapper.vm.setExpandedParentParents).toHaveBeenCalledTimes(1);
     expect(wrapper.vm.root).toStrictEqual([
@@ -989,11 +1008,11 @@ describe("SecondaryTree.vue", () => {
 
   it("can expandParents ___ no root", async () => {
     wrapper.vm.root = undefined;
-    mockEntityService.getEntityParents = vi.fn().mockRejectedValue(false);
+    getEntityParentsSpy.mockRejectedValue(false);
     wrapper.vm.expandParents(0);
     await flushPromises();
     await wrapper.vm.$nextTick();
-    expect(mockEntityService.getEntityParents).not.toHaveBeenCalled();
+    expect(getEntityParentsSpy).not.toHaveBeenCalled();
   });
 
   it("can createExpandedParentTree", () => {
@@ -1151,11 +1170,11 @@ describe("SecondaryTree.vue", () => {
       { iri: "http://snomed.info/sct#928000", listPosition: 1, name: "Disorder of musculoskeletal system (disorder)" },
       { iri: "http://snomed.info/sct#699699005", listPosition: 2, name: "Disorder of vertebral column (disorder)" }
     ]);
-    mockEntityService.getEntityParents = vi.fn().mockResolvedValue([]);
+    getEntityParentsSpy.mockResolvedValue([]);
     wrapper.vm.setExpandedParentParents();
     await flushPromises();
-    expect(mockEntityService.getEntityParents).toHaveBeenCalledTimes(1);
-    expect(mockEntityService.getEntityParents).toHaveBeenCalledWith("http://snomed.info/sct#298382003");
+    expect(getEntityParentsSpy).toHaveBeenCalledTimes(1);
+    expect(getEntityParentsSpy).toHaveBeenCalledWith("http://snomed.info/sct#298382003");
     expect(wrapper.vm.currentParent).toBe(null);
     expect(wrapper.vm.alternateParents).toStrictEqual([]);
   });
@@ -1166,7 +1185,7 @@ describe("SecondaryTree.vue", () => {
       { iri: "http://snomed.info/sct#928000", listPosition: 1, name: "Disorder of musculoskeletal system (disorder)" },
       { iri: "http://snomed.info/sct#699699005", listPosition: 2, name: "Disorder of vertebral column (disorder)" }
     ]);
-    mockEntityService.getEntityParents = vi.fn().mockResolvedValue([
+    getEntityParentsSpy.mockImplementation(() => [
       {
         "@id": "http://endhealth.info/im#InformationModel",
         hasChildren: false,
@@ -1176,8 +1195,8 @@ describe("SecondaryTree.vue", () => {
     ]);
     wrapper.vm.setExpandedParentParents();
     await flushPromises();
-    expect(mockEntityService.getEntityParents).toHaveBeenCalledTimes(1);
-    expect(mockEntityService.getEntityParents).toHaveBeenCalledWith("http://snomed.info/sct#298382003");
+    expect(getEntityParentsSpy).toHaveBeenCalledTimes(1);
+    expect(getEntityParentsSpy).toHaveBeenCalledWith("http://snomed.info/sct#298382003");
     expect(wrapper.vm.currentParent).toStrictEqual({ iri: "http://endhealth.info/im#InformationModel", listPosition: 0, name: "Information Model" });
     expect(wrapper.vm.alternateParents).toStrictEqual([]);
   });
@@ -1188,7 +1207,7 @@ describe("SecondaryTree.vue", () => {
       { iri: "http://snomed.info/sct#928000", listPosition: 1, name: "Disorder of musculoskeletal system (disorder)" },
       { iri: "http://snomed.info/sct#699699005", listPosition: 2, name: "Disorder of vertebral column (disorder)" }
     ]);
-    mockEntityService.getEntityParents = vi.fn().mockResolvedValue([
+    getEntityParentsSpy.mockResolvedValue([
       {
         name: "Curvature of spine (disorder)",
         hasChildren: false,
@@ -1225,8 +1244,8 @@ describe("SecondaryTree.vue", () => {
     ]);
     wrapper.vm.setExpandedParentParents();
     await flushPromises();
-    expect(mockEntityService.getEntityParents).toHaveBeenCalledTimes(1);
-    expect(mockEntityService.getEntityParents).toHaveBeenCalledWith("http://snomed.info/sct#298382003");
+    expect(getEntityParentsSpy).toHaveBeenCalledTimes(1);
+    expect(getEntityParentsSpy).toHaveBeenCalledWith("http://snomed.info/sct#298382003");
     expect(wrapper.vm.currentParent).toStrictEqual({ iri: "http://snomed.info/sct#64217002", listPosition: 0, name: "Curvature of spine (disorder)" });
     expect(wrapper.vm.alternateParents).toStrictEqual([
       { iri: "http://snomed.info/sct#928000", listPosition: 1, name: "Disorder of musculoskeletal system (disorder)" },
@@ -1263,8 +1282,8 @@ describe("SecondaryTree.vue", () => {
       isDescendentOf: [],
       match: "629792015"
     });
-    expect(mockEntityService.getEntitySummary).toHaveBeenCalledTimes(1);
-    expect(mockEntityService.getEntitySummary).toHaveBeenCalledWith("http://snomed.info/sct#111266001");
+    expect(getEntitySummarySpy).toHaveBeenCalledTimes(1);
+    expect(getEntitySummarySpy).toHaveBeenCalledWith("http://snomed.info/sct#111266001");
   });
 
   it("can hidePopup", () => {
@@ -1276,14 +1295,14 @@ describe("SecondaryTree.vue", () => {
 
   it("can navigate ___ metaKey", () => {
     wrapper.vm.navigate({ metaKey: true }, "testIri");
-    expect(mockRouter.push).toHaveBeenCalledTimes(1);
-    expect(mockRouter.push).toHaveBeenCalledWith({ name: "Concept", params: { selectedIri: "testIri" } });
+    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith({ name: "Concept", params: { selectedIri: "testIri" } });
   });
 
   it("can navigate ___ ctrlKey", () => {
     wrapper.vm.navigate({ ctrlKey: true }, "testIri");
-    expect(mockRouter.push).toHaveBeenCalledTimes(1);
-    expect(mockRouter.push).toHaveBeenCalledWith({ name: "Concept", params: { selectedIri: "testIri" } });
+    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith({ name: "Concept", params: { selectedIri: "testIri" } });
   });
 
   it("can navigate ___ other", () => {
@@ -1291,6 +1310,6 @@ describe("SecondaryTree.vue", () => {
     Object.defineProperty(HTMLElement.prototype, "scrollHeight", { configurable: true, value: 100 });
 
     wrapper.vm.navigate({ shiftKey: true }, "testIri");
-    expect(mockRouter.push).not.toHaveBeenCalled();
+    expect(mockPush).not.toHaveBeenCalled();
   });
 });

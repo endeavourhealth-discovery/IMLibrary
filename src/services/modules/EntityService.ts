@@ -197,7 +197,7 @@ export default class EntityService {
         signal: controller?.signal
       });
     } catch (error) {
-      return {} as any;
+      return { result: [], totalCount: 0 } as any;
     }
   }
 
