@@ -1,45 +1,38 @@
-import { flushPromises, mount } from "@vue/test-utils";
 import SnomedLicense from "../../../src/components/modules/SnomedLicense.vue";
 import Dialog from "primevue/dialog";
 import Button from "primevue/button";
 import PrimeVue from "primevue/config";
 import { expect, vi } from "vitest";
-import { setupServer } from "msw/node";
+import { render, fireEvent } from "@testing-library/vue";
+import { createStore } from "vuex";
+
+const store = createStore({
+  // update stateType.ts when adding new state!
+  state: {
+    snomedLicenseAccepted: false,
+    snomedReturnUrl: "testUrl.org"
+  },
+  mutations: {
+    updateSnomedLicenseAccepted(state, status) {
+      state.snomedLicenseAccepted = status;
+      localStorage.setItem("snomedLicenseAccepted", status);
+    }
+  }
+});
 
 describe("SnomedLicense.vue", () => {
-  let wrapper;
-  let mockStore;
   let mockLocation;
-
-  const restHandlers = [];
-  const server = setupServer(...restHandlers);
-
-  beforeAll(() => {
-    server.listen({ onUnhandledRequest: "error" });
-  });
-
-  afterAll(() => {
-    server.close();
-  });
-
-  afterEach(() => {
-    server.resetHandlers();
-  });
+  let component;
 
   beforeEach(() => {
-    mockStore = {
-      state: { snomedLicenseAccepted: "false", snomedReturnUrl: "testUrl" },
-      commit: vi.fn()
-    };
     mockLocation = { href: "" };
     location = window.location;
     delete window.location;
     window.location = mockLocation;
-    wrapper = mount(SnomedLicense, {
+    component = render(SnomedLicense, {
       global: {
-        plugins: [PrimeVue],
-        components: { Dialog, Button },
-        mocks: { $store: mockStore }
+        plugins: [PrimeVue, store],
+        components: { Dialog, Button }
       }
     });
   });
@@ -48,29 +41,14 @@ describe("SnomedLicense.vue", () => {
     window.location = location;
   });
 
-  it("updates showDialog from store snomedLicenseAccepted ___ true", async () => {
-    wrapper.vm.$options.watch.snomedLicenseAccepted.call(wrapper.vm, "false");
-    await wrapper.vm.$nextTick();
-    expect(wrapper.vm.showDialog).toBe(true);
+  it("shows dialog", async () => {
+    component.getByTestId("license-dialog");
   });
 
-  it("updates showDialog from store snomedLicenseAccepted __ false", async () => {
-    wrapper.vm.$options.watch.snomedLicenseAccepted.call(wrapper.vm, "true");
-    await wrapper.vm.$nextTick();
-    expect(wrapper.vm.showDialog).toBe(false);
-  });
-
-  it("updates store and reroutes on submitAgree", async () => {
-    wrapper.vm.submitAgree();
-    await wrapper.vm.$nextTick();
-    expect(mockStore.commit).toBeCalledTimes(1);
-    expect(mockStore.commit).toBeCalledWith("updateSnomedLicenseAccepted", "true");
-    expect(window.location.href).toBe("testUrl");
-  });
-
-  it("reroutes on submitDecline", async () => {
-    wrapper.vm.submitDecline();
-    await wrapper.vm.$nextTick();
-    expect(window.location.href).toBe("https://www.snomed.org/");
+  it("routes after accepted", async () => {
+    const button = component.getByTestId("agree-button");
+    await fireEvent.click(button);
+    expect(await component.queryByTestId("license-dialog")).toBeFalsy();
+    expect(window.location.href).toBe("testUrl.org");
   });
 });

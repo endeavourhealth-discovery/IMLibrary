@@ -38,14 +38,14 @@ const restHandlers = [
     const iri = req.url.searchParams.get("iri");
     const predicates = req.url.searchParams.get("predicates");
     const predicatesArray = predicates?.split(",");
-    const entityValue = {};
+    const entityValue = {} as any;
     if (iri) entityValue["@id"] = iri;
     if (predicatesArray && !predicatesArray.includes("http://www.w3.org/1999/02/22-rdf-syntax")) entityValue["http://www.w3.org/1999/02/22-rdf-syntax"] = null;
     if (predicatesArray && !predicatesArray.includes("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"))
       entityValue["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"] = null;
-    const entity = data.entity.create(entityValue);
-    Object.keys(entity).forEach(key => {
-      if (null === entity[key]) delete entity[key];
+    const entity = data.entity.create(entityValue) as any;
+    Object.keys(entity).forEach((key: string) => {
+      if (!entity[key]) delete entity[key];
     });
     return res(ctx.status(200), ctx.json(entity));
   }),
