@@ -11,7 +11,7 @@
         @mouseenter="showPopup($event, altParent.iri)"
         @mouseleave="hidePopup($event)"
         class="p-button-text p-button-plain"
-        data-unit="alt-parent"
+        data-testid="alt-parent"
       />
     </div>
     <div class="flex flex-row justify-contents-start" id="secondary-tree-parents-bar">
@@ -23,7 +23,7 @@
         @mouseenter="showPopup($event, currentParent?.iri)"
         @mouseleave="hidePopup($event)"
         class="p-button-text p-button-plain"
-        data-unit="parent"
+        data-testid="parent"
       />
     </div>
     <Tree
@@ -55,6 +55,7 @@
           @click="navigate($event, slotProps.node.data)"
           @dblclick="onDblClick(slotProps.node.data)"
           v-tooltip.top="'CTRL+click to navigate'"
+          data-testid="row"
         >
           <span v-if="!slotProps.node.loading">
             <div :style="'color:' + slotProps.node.color">

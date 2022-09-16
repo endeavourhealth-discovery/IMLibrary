@@ -15,3 +15,5 @@ afterAll(() => {
 afterEach(() => {
   server.resetHandlers();
 });
+
+export { server, restHandlers };
