@@ -63,7 +63,7 @@
             </div>
           </span>
           <ProgressSpinner v-if="slotProps.node.loading" />
-          <span class="tree-node-label">{{ slotProps.node.label }}</span>
+          <span class="tree-node-label" data-testid="row-label">{{ slotProps.node.label }}</span>
         </div>
       </template>
     </Tree>

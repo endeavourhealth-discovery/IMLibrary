@@ -60,6 +60,6 @@ module.exports = defineConfig({
     coverage: {
       reporter: ["text", "lcov"]
     },
-    setupFiles: "./tests/setupTests.js"
+    setupFiles: "./tests/setupTests.ts"
   }
 });
