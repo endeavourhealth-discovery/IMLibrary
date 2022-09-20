@@ -18,59 +18,50 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script setup lang="ts">
+import { computed, onMounted, PropType, ref, Ref } from "vue";
 import { RDFS, OWL } from "../../vocabulary/Vocabulary";
 import { isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
+import _ from "lodash";
 
-export default defineComponent({
-  name: "ReportTable",
-  props: {
-    title: { type: String, required: false },
-    subTitle: { type: String, required: false },
-    tableHeader: { type: String, required: false },
-    inputData: { type: Array as PropType<Array<any>>, default: [] },
-    id: { type: String, default: "report-table" }
-  },
-  computed: {
-    isCorrectInputData(): boolean {
-      return this.inputData.every(item => {
-        if (isObjectHasKeys(item, [RDFS.LABEL, OWL.HAS_VALUE]) || isObjectHasKeys(item, ["count", "label"])) return true;
-        else return false;
+const props = defineProps({
+  title: { type: String, required: false },
+  subTitle: { type: String, required: false },
+  tableHeader: { type: String, required: false },
+  inputData: { type: Array as PropType<any[]>, default: [] },
+  id: { type: String, default: "report-table" }
+});
+
+let tableData: Ref<{ count: number; label: string }[]> = ref([]);
+let loading = ref(false);
+
+const isCorrectInputData = computed(() =>
+  props.inputData.every(item => isObjectHasKeys(item, [RDFS.LABEL, OWL.HAS_VALUE]) || isObjectHasKeys(item, ["count", "label"]))
+);
+
+onMounted(() => {
+  getReportTableData();
+});
+
+function getReportTableData(): void {
+  if (!isCorrectInputData) return;
+  loading.value = true;
+  for (const entry of props.inputData) {
+    if (isObjectHasKeys(entry, [RDFS.LABEL, OWL.HAS_VALUE])) {
+      tableData.value.push({
+        label: entry[RDFS.LABEL],
+        count: entry[OWL.HAS_VALUE]
       });
     }
-  },
-  data() {
-    return {
-      tableData: [] as { count: number; label: string }[],
-      loading: false
-    };
-  },
-  mounted() {
-    this.getReportTableData();
-  },
-  methods: {
-    getReportTableData(): void {
-      if (!this.isCorrectInputData) return;
-      this.loading = true;
-      for (const entry of this.inputData) {
-        if (isObjectHasKeys(entry, [RDFS.LABEL, OWL.HAS_VALUE])) {
-          this.tableData.push({
-            label: entry[RDFS.LABEL],
-            count: entry[OWL.HAS_VALUE]
-          });
-        }
-        if (isObjectHasKeys(entry, ["label", "count"])) {
-          this.tableData.push({
-            label: entry.label,
-            count: entry.count
-          });
-        }
-      }
-      this.loading = false;
+    if (isObjectHasKeys(entry, ["label", "count"])) {
+      tableData.value.push({
+        label: entry.label,
+        count: entry.count
+      });
     }
   }
-});
+  loading.value = false;
+}
 </script>
 
 <style scoped>

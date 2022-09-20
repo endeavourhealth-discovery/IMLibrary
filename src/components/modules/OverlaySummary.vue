@@ -31,22 +31,18 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { defineComponent } from "vue";
 import { getNamesAsStringFromTypes } from "../../helpers/modules/ConceptTypeMethods";
 import { TTIriRef } from "../../interfaces/Interfaces";
 
-export default defineComponent({
-  name: "OverlaySummary",
-  props: {
-    hoveredResult: { type: Object, required: true }
-  },
-  methods: {
-    getConceptTypes(types: TTIriRef[]): string {
-      return getNamesAsStringFromTypes(types);
-    }
-  }
+const props = defineProps({
+  hoveredResult: { type: Object, required: true }
 });
+
+function getConceptTypes(types: TTIriRef[]): string {
+  return getNamesAsStringFromTypes(types);
+}
 </script>
 
 <style scoped></style>

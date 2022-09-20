@@ -5,10 +5,4 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "@vue/runtime-core";
-
-export default defineComponent({
-  name: "PageNotFound"
-});
-</script>
+<script setup lang="ts"></script>

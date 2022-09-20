@@ -8,14 +8,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script setup lang="ts">
+import { PropType } from "vue";
 
-export default defineComponent({
-  name: "TermCodeTable",
-  props: {
-    terms: { type: Array as PropType<Array<{ name: string; code: string }>>, required: true }
-  }
+const props = defineProps({
+  terms: { type: Array as PropType<Array<{ name: string; code: string }>>, required: true }
 });
 </script>
 <style scoped>

@@ -1,8 +1,8 @@
 <template>
   <div v-if="show && data && isArrayObjectWithName" :id="id" :style="{ width: size }">
     <div class="head-container">
-      <strong class="label">{{ label }}: </strong>
-      <span>&nbsp;({{ data.length }})</span>
+      <strong class="label" data-testid="label">{{ label }}: </strong>
+      <span data-testid="count">&nbsp;({{ data.length }})</span>
       <Button
         :icon="buttonExpanded ? 'pi pi-minus' : 'pi pi-plus'"
         class="p-button-rounded p-button-text p-button-primary p-button-sm expand-button"
@@ -15,6 +15,7 @@
           leaveActiveClass: 'my-fadeout',
           leaveToClass: 'hidden'
         }"
+        data-testid="expand-button"
       />
     </div>
     <Listbox
@@ -27,7 +28,7 @@
       class="array-listbox hidden"
     >
       <template #option="slotProps">
-        <div class="data-name">
+        <div class="data-name" data-testid="row-text">
           {{ slotProps.option?.name || slotProps.option?.["@id"] }}
         </div>
       </template>
@@ -35,69 +36,66 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
-import { RouteRecordName } from "vue-router";
-import { mapState } from "vuex";
+<script setup lang="ts">
+import { computed, defineComponent, onMounted, PropType, ref, Ref } from "vue";
+import { RouteRecordName, useRoute, useRouter } from "vue-router";
+import { mapState, useStore } from "vuex";
 import { isArrayHasLength, isObjectHasKeys } from "../../../helpers/modules/DataTypeCheckers";
 import LoggerService from "../../../services/modules/LoggerService";
 
-export default defineComponent({
-  name: "ArrayObjectNameListboxWithLabel",
-  props: {
-    label: { type: String, required: true },
-    data: { type: Array as PropType<Array<unknown>>, required: false, default: [] },
-    size: { type: String, default: "100%", required: false },
-    id: { type: String, default: "array-object-name-listbox-with-label" },
-    show: { type: Boolean, required: true }
-  },
-  computed: {
-    ...mapState(["arrayObjectNameListboxWithLabelStartExpanded"]),
-    isArrayObjectWithName(): boolean {
-      if (!this.data) return false;
-      if (!isArrayHasLength(this.data)) return false;
-      if (this.data.every(item => isObjectHasKeys(item, ["name"]))) {
-        return true;
-      } else {
-        LoggerService.warn(
-          undefined,
-          "Data error. Data is not array, array does not contain Object or Object has no property 'name' for use within component ArrayObjectNameListboxWithLabel.vue"
-        );
-        return false;
-      }
-    }
-  },
-  mounted() {
-    this.expandAtStartup();
-  },
-  data() {
-    return {
-      selected: {} as any,
-      buttonExpanded: false
-    };
-  },
-  methods: {
-    navigate(iri: string) {
-      const currentRoute = this.$route.name as RouteRecordName | undefined;
-      if (iri)
-        this.$router.push({
-          name: currentRoute,
-          params: { selectedIri: iri }
-        });
-    },
+const props = defineProps({
+  label: { type: String, required: true },
+  data: { type: Array as PropType<unknown[]>, required: false, default: [] },
+  size: { type: String, default: "100%", required: false },
+  id: { type: String, default: "array-object-name-listbox-with-label" },
+  show: { type: Boolean, required: true }
+});
 
-    setButtonExpanded() {
-      this.buttonExpanded = !this.buttonExpanded;
-    },
+const route = useRoute();
+const router = useRouter();
+const store = useStore();
+const arrayObjectNameListboxWithLabelStartExpanded = computed(() => store.state.arrayObjectNameListboxWithLabelStartExpanded);
 
-    expandAtStartup() {
-      if (this.arrayObjectNameListboxWithLabelStartExpanded.includes(this.label)) {
-        const button = document.getElementById(`expand-button-${this.id}`) as HTMLElement;
-        if (button) button.click();
-      }
-    }
+let selected: Ref<any> = ref({});
+let buttonExpanded = ref(false);
+
+const isArrayObjectWithName = computed(() => {
+  if (!props.data) return false;
+  if (!isArrayHasLength(props.data)) return false;
+  if (props.data.every(item => isObjectHasKeys(item, ["name"]))) {
+    return true;
+  } else {
+    LoggerService.warn(
+      undefined,
+      "Data error. Data is not array, array does not contain Object or Object has no property 'name' for use within component ArrayObjectNameListboxWithLabel.vue"
+    );
+    return false;
   }
 });
+
+onMounted(() => {
+  expandAtStartup();
+});
+
+function navigate(iri: string) {
+  const currentRoute = route.name as RouteRecordName | undefined;
+  if (iri)
+    router.push({
+      name: currentRoute,
+      params: { selectedIri: iri }
+    });
+}
+
+function setButtonExpanded() {
+  buttonExpanded.value = !buttonExpanded.value;
+}
+
+function expandAtStartup() {
+  if (arrayObjectNameListboxWithLabelStartExpanded.value.includes(props.label)) {
+    const button = document.getElementById(`expand-button-${props.id}`) as HTMLElement;
+    if (button) button.click();
+  }
+}
 </script>
 
 <style lang="scss" scoped>
