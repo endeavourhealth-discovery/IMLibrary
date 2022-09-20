@@ -5,45 +5,39 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { defineComponent, onMounted, ref } from "vue";
 
-export default defineComponent({
-  name: "TextHTMLWithLabel",
-  props: {
-    label: { type: String, required: true },
-    data: { type: String, required: false },
-    size: { type: String, default: "100%" },
-    id: { type: String, default: "text-html-with-label" },
-    show: { type: Boolean, required: true }
-  },
-  mounted() {
-    this.init();
-  },
-  data() {
-    return {
-      convertedText: ""
-    };
-  },
-  methods: {
-    init() {
-      if (!this.data) {
-        this.convertedText = "None";
-        return;
-      }
-      let text = this.data;
-      if (text.startsWith("<p>")) {
-        text = text.slice(3);
-      }
-      if (this.data.endsWith("<p>")) {
-        text = text.slice(0, -3);
-      }
-      text = text.replace(/<p>/g, "</p><p class='" + this.id + "-p'>");
-      text = text.replace(/\\n/g, "</p><p class='" + this.id + "-p'>");
-      this.convertedText = "<p class='" + this.id + "-p'>" + text + "</p>";
-    }
-  }
+const props = defineProps({
+  label: { type: String, required: true },
+  data: { type: String, required: false },
+  size: { type: String, default: "100%" },
+  id: { type: String, default: "text-html-with-label" },
+  show: { type: Boolean, required: true }
 });
+
+let convertedText = ref("");
+
+onMounted(() => {
+  init();
+});
+
+function init() {
+  if (!props.data) {
+    convertedText.value = "None";
+    return;
+  }
+  let text = props.data;
+  if (text.startsWith("<p>")) {
+    text = text.slice(3);
+  }
+  if (props.data.endsWith("<p>")) {
+    text = text.slice(0, -3);
+  }
+  text = text.replace(/<p>/g, "</p><p class='" + props.id + "-p'>");
+  text = text.replace(/\\n/g, "</p><p class='" + props.id + "-p'>");
+  convertedText.value = "<p class='" + props.id + "-p'>" + text + "</p>";
+}
 </script>
 
 <style scoped>

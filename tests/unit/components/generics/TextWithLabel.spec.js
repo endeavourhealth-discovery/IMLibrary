@@ -1,21 +1,19 @@
-import { shallowMount } from "@vue/test-utils";
+import { render, fireEvent, within } from "@testing-library/vue";
 import TextWithLabel from "../../../../src/components/modules/generics/TextWithLabel.vue";
 
 describe("TextWithLabel.vue", () => {
-  let wrapper;
+  let component;
 
   beforeEach(() => {
     vi.resetAllMocks();
 
-    wrapper = shallowMount(TextWithLabel, {
+    component = render(TextWithLabel, {
       props: { label: "Name", data: "Scoliosis", size: "50%", show: true }
     });
   });
 
   it("renders props", () => {
-    const label = wrapper.get(".label");
-    const data = wrapper.get(".data");
-    expect(label.text()).toBe("Name:");
-    expect(data.text()).toBe("Scoliosis");
+    component.getByText("Name:");
+    component.getByText("Scoliosis");
   });
 });

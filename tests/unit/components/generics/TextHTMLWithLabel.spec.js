@@ -1,13 +1,13 @@
-import { shallowMount } from "@vue/test-utils";
+import { render, fireEvent, within } from "@testing-library/vue";
 import TextHTMLWithLabel from "../../../../src/components/modules/generics/TextHTMLWithLabel.vue";
 
 describe("TextHTMLWithLabel.vue", () => {
-  let wrapper;
+  let component;
 
   beforeEach(() => {
     vi.resetAllMocks();
 
-    wrapper = shallowMount(TextHTMLWithLabel, {
+    component = render(TextHTMLWithLabel, {
       props: {
         label: "Description",
         data: "An entry recording information about a criticial care encounter.<p>common data model attributes for Critical care encounter",
@@ -18,120 +18,9 @@ describe("TextHTMLWithLabel.vue", () => {
     });
   });
 
-  it("can create convertedText", () => {
-    expect(wrapper.vm.convertedText).toEqual(
-      "<p class='TextHTMLWithLabel1-p'>An entry recording information about a criticial care encounter.</p><p class='TextHTMLWithLabel1-p'>common data model attributes for Critical care encounter</p>"
-    );
-  });
-});
-
-describe("TextHTMLWithLabel.vue ___ descContainer", () => {
-  let wrapper;
-
-  beforeEach(() => {
-    vi.resetAllMocks();
-
-    wrapper = shallowMount(TextHTMLWithLabel, {
-      props: {
-        label: "Description",
-        data: "An entry recording information about a criticial care encounter.<p>common data model attributes for Critical care encounter",
-        size: "100%",
-        id: "TextHTMLWithLabel1",
-        show: true
-      }
-    });
-  });
-
-  it("can create convertedText", () => {
-    expect(wrapper.vm.convertedText).toEqual(
-      "<p class='TextHTMLWithLabel1-p'>An entry recording information about a criticial care encounter.</p><p class='TextHTMLWithLabel1-p'>common data model attributes for Critical care encounter</p>"
-    );
-    // expect(wrapper.get(".text-html-container").html()).toEqual(
-    //   '<div class="text-html-container" id="TextHTMLWithLabel1"><p class="TextHTMLWithLabel1-p">An entry recording information about a criticial care encounter.</p><p class="TextHTMLWithLabel1-p">common data model attributes for Critical care encounter</p></div>'
-    // );
-  });
-
-  // it("can render data", () => {
-  //   const label = wrapper.get(".label");
-  //   expect(label.text()).toBe("Description:");
-  //   expect(wrapper.get(".text-html-container").html()).toEqual(
-  //     '<div class="text-html-container" id="TextHTMLWithLabel1"><p class="TextHTMLWithLabel1-p">An entry recording information about a criticial care encounter.</p><p class="TextHTMLWithLabel1-p">common data model attributes for Critical care encounter</p></div>'
-  //   );
-  // });
-});
-
-describe("TextHTMLWithLabel.vue ___ id", () => {
-  let wrapper;
-
-  beforeEach(() => {
-    vi.resetAllMocks();
-
-    wrapper = shallowMount(TextHTMLWithLabel, {
-      props: { label: "Description", data: undefined, size: "100%", id: undefined, show: true }
-    });
-  });
-
-  it("can create convertedText", () => {
-    expect(wrapper.vm.convertedText).toBe("None");
-  });
-
-  // it("renders data", () => {
-  //   const label = wrapper.get(".label");
-  //   expect(label.text()).toBe("Description:");
-  //   expect(wrapper.get(".text-html-container").html()).toEqual('<span class="text-html-container">None</span>');
-  // });
-});
-
-describe("TextHTMLWithLabel.vue ___ no data", () => {
-  let wrapper;
-
-  beforeEach(() => {
-    vi.resetAllMocks();
-
-    wrapper = shallowMount(TextHTMLWithLabel, {
-      props: { label: "Description", data: undefined, size: "100%", id: "TextHTMLWithLabel1", show: true }
-    });
-  });
-
-  it("can create convertedText", () => {
-    expect(wrapper.vm.convertedText).toBe("None");
-  });
-
-  // it("renders data", () => {
-  //   const label = wrapper.get(".label");
-  //   expect(label.text()).toBe("Description:");
-  //   expect(wrapper.get(".text-html-container").html()).toEqual('<span class="text-html-container">None</span>');
-  // });
-});
-
-describe("TextHTMLWithLabel.vue ___ <p> start and end", () => {
-  let wrapper;
-
-  beforeEach(() => {
-    vi.resetAllMocks();
-
-    wrapper = shallowMount(TextHTMLWithLabel, {
-      props: {
-        label: "Description",
-        data: "<p>An entry recording information about a criticial care encounter.<p>common data model attributes for Critical care encounter<p>",
-        size: "100%",
-        id: "TextHTMLWithLabel1",
-        show: true
-      }
-    });
-  });
-
-  it("can create convertedText", () => {
-    expect(wrapper.vm.convertedText).toBe(
-      "<p class='TextHTMLWithLabel1-p'>An entry recording information about a criticial care encounter.</p><p class='TextHTMLWithLabel1-p'>common data model attributes for Critical care encounter</p>"
-    );
-  });
-
-  it("renders data", () => {
-    const label = wrapper.get(".label");
-    expect(label.text()).toBe("Description:");
-    // expect(wrapper.get(".text-html-container").html()).toEqual(
-    //   '<div class="text-html-container" id="TextHTMLWithLabel1"><p class="TextHTMLWithLabel1-p">An entry recording information about a criticial care encounter.</p><p class="TextHTMLWithLabel1-p">common data model attributes for Critical care encounter</p></div>'
-    // );
+  it("can render props", () => {
+    component.getByText("Description:");
+    component.getByText("An entry recording information about a criticial care encounter.");
+    component.getByText("common data model attributes for Critical care encounter");
   });
 });

@@ -1,64 +1,60 @@
 import ObjectNameTagWithLabel from "../../../../src/components/modules/generics/ObjectNameTagWithLabel.vue";
-import { shallowMount } from "@vue/test-utils";
+import { render, fireEvent, within } from "@testing-library/vue";
 import Tag from "primevue/tag";
 import LoggerService from "../../../../src/services/modules/LoggerService";
 import { IM } from "../../../../src/vocabulary/IM";
+import { it } from "vitest";
+
+const mockDispatch = vi.fn();
+const mockState = {
+  tagSeverityMatches: [
+    { "@id": IM.ACTIVE, severity: "success" },
+    { "@id": IM.DRAFT, severity: "warning" },
+    { "@id": IM.INACTIVE, severity: "danger" }
+  ]
+};
+const mockCommit = vi.fn();
+
+vi.mock("vuex", () => ({
+  useStore: () => ({
+    dispatch: mockDispatch,
+    state: mockState,
+    commit: mockCommit
+  })
+}));
 
 describe("ObjectNameTagWithLabel.vue", () => {
-  let wrapper;
-  let mockStore;
+  let component;
 
   beforeEach(() => {
     vi.resetAllMocks();
 
-    mockStore = {
-      state: {
-        tagSeverityMatches: [
-          { "@id": IM.ACTIVE, severity: "success" },
-          { "@id": IM.DRAFT, severity: "warning" },
-          { "@id": IM.INACTIVE, severity: "danger" }
-        ]
-      }
-    };
-
-    wrapper = shallowMount(ObjectNameTagWithLabel, {
-      global: { components: { Tag }, mocks: { $store: mockStore } },
+    component = render(ObjectNameTagWithLabel, {
+      global: { components: { Tag } },
       props: { label: "Status", data: { "@id": "http://endhealth.info/im#Active", name: "Active" }, size: "100%", show: true }
     });
   });
 
-  describe("isObjectWithName", () => {
-    it("returns true if object with name", () => {
-      expect(ObjectNameTagWithLabel.computed.isObjectWithName.call({ data: { "@id": "http://endhealth.info/im#Active", name: "Active" } })).toBe(true);
-    });
+  it("shows tag and label", () => {
+    component.getByText("Status:");
+    component.getByText("Active");
+  });
+});
 
-    it("returns false if not object with name", () => {
-      expect(ObjectNameTagWithLabel.computed.isObjectWithName.call({ data: "Name" })).toBe(false);
+describe("ObjectNameTagWithLabel.vue ___ missing name", () => {
+  let component;
+
+  beforeEach(() => {
+    vi.resetAllMocks();
+
+    component = render(ObjectNameTagWithLabel, {
+      global: { components: { Tag } },
+      props: { label: "Status", data: { "@id": "http://endhealth.info/im#Active" }, size: "100%", show: true }
     });
   });
 
-  describe("getSeverity", () => {
-    it("returns correct severity ___ Active", () => {
-      expect(wrapper.vm.getSeverity({ "@id": "http://endhealth.info/im#Active", name: "Active" })).toBe("success");
-    });
-
-    it("returns correct severity ___ Draft", () => {
-      expect(wrapper.vm.getSeverity({ "@id": "http://endhealth.info/im#Draft", name: "Draft" })).toBe("warning");
-    });
-
-    it("returns correct severity ___ Inactive", () => {
-      expect(wrapper.vm.getSeverity({ "@id": "http://endhealth.info/im#Inactive", name: "Inactive" })).toBe("danger");
-    });
-
-    it("returns correct severity ___ none", () => {
-      expect(wrapper.vm.getSeverity(null)).toBe("info");
-    });
-
-    it("returns correct severity ___ unknown name", () => {
-      LoggerService.warn = vi.fn();
-      expect(wrapper.vm.getSeverity({ "@id": "http://endhealth.info/im#Discontinued", name: "Discontinued" })).toBe("info");
-      expect(LoggerService.warn).toHaveBeenCalledTimes(1);
-      expect(LoggerService.warn).toHaveBeenCalledWith("TagWithLabel missing case for severity");
-    });
+  it("shows tag and label", () => {
+    component.getByText("Status:");
+    component.getByText("None");
   });
 });

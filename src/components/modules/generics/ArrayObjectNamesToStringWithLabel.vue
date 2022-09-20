@@ -1,39 +1,35 @@
 <template>
   <div v-if="show" class="container" :style="{ width: size }" :id="id">
-    <strong class="label">{{ label }}: </strong>
-    <span class="data-string">
+    <strong class="label" data-testid="label">{{ label }}: </strong>
+    <span class="data-string" data-testid="data-string">
       {{ arrayToString ? arrayToString : "None" }}
     </span>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script setup lang="ts">
+import { computed, defineComponent, PropType } from "vue";
 import { isArrayHasLength, isObjectHasKeys } from "../../../helpers/modules/DataTypeCheckers";
 import { Vocabulary } from "../../../vocabulary";
 
-export default defineComponent({
-  name: "ArrayObjectNamesToStringWithLabel",
-  props: {
-    label: { type: String, required: true },
-    data: { type: Array as PropType<Array<string>>, required: true },
-    size: { type: String, default: "100%" },
-    id: { type: String, default: "array-object-names-to-string-with-label" },
-    show: { type: Boolean, required: true }
-  },
-  computed: {
-    arrayToString(): string | undefined {
-      if (isArrayHasLength(this.data) && this.data.every(item => isObjectHasKeys(item, ["name"]))) {
-        return this.data
-          .map(function (item: any) {
-            if (item["@id"] === Vocabulary.SHACL.NODESHAPE) return "Data model";
-            return item.name;
-          })
-          .join(", ");
-      } else {
-        return undefined;
-      }
-    }
+const props = defineProps({
+  label: { type: String, required: true },
+  data: { type: Array as PropType<string[]>, required: true },
+  size: { type: String, default: "100%" },
+  id: { type: String, default: "array-object-names-to-string-with-label" },
+  show: { type: Boolean, required: true }
+});
+
+const arrayToString = computed(() => {
+  if (isArrayHasLength(props.data) && props.data.every(item => isObjectHasKeys(item, ["name"]))) {
+    return props.data
+      .map(function (item: any) {
+        if (item["@id"] === Vocabulary.SHACL.NODESHAPE) return "Data model";
+        return item.name;
+      })
+      .join(", ");
+  } else {
+    return undefined;
   }
 });
 </script>

@@ -5,18 +5,15 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { defineComponent } from "vue";
 
-export default defineComponent({
-  name: "TextWithLabel",
-  props: {
-    label: { type: String, required: true },
-    data: { type: String, required: false },
-    size: { type: String, default: "100%" },
-    id: { type: String, default: "text-with-label" },
-    show: { type: Boolean, required: true }
-  }
+const props = defineProps({
+  label: { type: String, required: true },
+  data: { type: String, required: false },
+  size: { type: String, default: "100%" },
+  id: { type: String, default: "text-with-label" },
+  show: { type: Boolean, required: true }
 });
 </script>
 

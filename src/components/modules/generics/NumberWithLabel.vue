@@ -5,25 +5,21 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { computed, defineComponent } from "vue";
 
-export default defineComponent({
-  name: "NumberWithLabel",
-  props: {
-    label: { type: String, required: true },
-    data: { type: [Number, String], required: true },
-    size: { type: String, default: "100%" },
-    id: { type: String, default: "number-with-label" },
-    show: { type: Boolean, required: true }
-  },
-  computed: {
-    asString(): string {
-      if (!this.data) return "None";
-      if (typeof this.data === "number") return this.data.toString();
-      else return this.data;
-    }
-  }
+const props = defineProps({
+  label: { type: String, required: true },
+  data: { type: [Number, String], required: true },
+  size: { type: String, default: "100%" },
+  id: { type: String, default: "number-with-label" },
+  show: { type: Boolean, required: true }
+});
+
+const asString = computed(() => {
+  if (!props.data) return "None";
+  if (typeof props.data === "number") return props.data.toString();
+  else return props.data;
 });
 </script>
 

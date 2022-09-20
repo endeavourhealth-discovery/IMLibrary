@@ -1,13 +1,13 @@
-import { shallowMount } from "@vue/test-utils";
+import { render, fireEvent, within } from "@testing-library/vue";
 import ArrayObjectNamesToStringWithLabel from "../../../../src/components/modules/generics/ArrayObjectNamesToStringWithLabel.vue";
 
 describe("ArrayObjectNameToStringWithLabel.vue", () => {
-  let wrapper;
+  let component;
 
   beforeEach(() => {
     vi.resetAllMocks();
 
-    wrapper = shallowMount(ArrayObjectNamesToStringWithLabel, {
+    component = render(ArrayObjectNamesToStringWithLabel, {
       props: {
         label: "Types",
         size: "50%",
@@ -22,36 +22,7 @@ describe("ArrayObjectNameToStringWithLabel.vue", () => {
   });
 
   it("renders after mount", () => {
-    const label = wrapper.get(".label");
-    expect(label.text()).toBe("Types:");
-    const data = wrapper.get(".data-string");
-    expect(data.text()).toBe("Record type, Data model, Class");
-  });
-
-  it("can convert arrayToString ___ success", () => {
-    expect(
-      ArrayObjectNamesToStringWithLabel.computed.arrayToString.call({
-        data: [
-          { "@id": "http://endhealth.info/im#RecordType", name: "Record type" },
-          { "@id": "http://www.w3.org/ns/shacl#NodeShape", name: "Node shape" },
-          { "@id": "http://www.w3.org/2002/07/owl#Class", name: "Class" }
-        ]
-      })
-    ).toBe("Record type, Data model, Class");
-  });
-
-  it("can convert arrayToString ___ fail", () => {
-    expect(
-      ArrayObjectNamesToStringWithLabel.computed.arrayToString.call({
-        data: [
-          { "@id": "http://endhealth.info/im#RecordType", name: "Record type" },
-          {
-            "@id": "http://www.w3.org/ns/shacl#NodeShape",
-            typename: "Node shape"
-          },
-          { "@id": "http://www.w3.org/2002/07/owl#Class", name: "Class" }
-        ]
-      })
-    ).toBe(undefined);
+    component.getByText("Types:");
+    component.getByText("Record type, Data model, Class");
   });
 });

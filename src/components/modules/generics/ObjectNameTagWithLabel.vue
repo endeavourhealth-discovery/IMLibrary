@@ -1,50 +1,41 @@
 <template>
   <div v-if="show" class="container" :style="{ width: size }">
-    <strong class="label">{{ label }}: </strong>
-    <Tag v-if="isObjectWithName" :value="data.name" :severity="getSeverity(data)" class="data-tag" />
+    <strong class="label" data-testid="label">{{ label }}: </strong>
+    <Tag v-if="isObjectWithName" :value="data.name" :severity="getSeverity(data)" class="data-tag" data-testid="data-tag" />
     <span v-else class="data">None</span>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script setup lang="ts">
+import { computed, defineComponent, PropType } from "vue";
 import { TTIriRef } from "../../../interfaces/Interfaces";
 import { isObjectHasKeys } from "../../../helpers/modules/DataTypeCheckers";
 import LoggerService from "../../../services/modules/LoggerService";
-import { mapState } from "vuex";
+import { mapState, useStore } from "vuex";
 
-export default defineComponent({
-  name: "ObjectNameTagWithLabel",
-  props: {
-    label: { type: String, required: true },
-    data: { type: Object as PropType<TTIriRef>, required: true },
-    size: { type: String, default: "100%" },
-    id: { type: String, default: "object-name-tag-with-label" },
-    show: { type: Boolean, required: true }
-  },
-  computed: {
-    ...mapState(["tagSeverityMatches"]),
-    isObjectWithName(): boolean {
-      if (isObjectHasKeys(this.data, ["name"])) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  },
-  methods: {
-    getSeverity(data: TTIriRef): string {
-      let result = "info";
-      if (!this.tagSeverityMatches) throw new Error("Missing vuex store property 'tagSeverityMatches'");
-      if (data && isObjectHasKeys(data, ["@id"])) {
-        const found = this.tagSeverityMatches.find((severity: { "@id": string; severity: string }) => severity["@id"] === data["@id"]);
-        if (found) result = found.severity;
-        else LoggerService.warn("TagWithLabel missing case for severity");
-      }
-      return result;
-    }
-  }
+const props = defineProps({
+  label: { type: String, required: true },
+  data: { type: Object as PropType<TTIriRef>, required: true },
+  size: { type: String, default: "100%" },
+  id: { type: String, default: "object-name-tag-with-label" },
+  show: { type: Boolean, required: true }
 });
+
+const store = useStore();
+const tagSeverityMatches = computed(() => store.state.tagSeverityMatches);
+
+const isObjectWithName = computed(() => isObjectHasKeys(props.data, ["name"]));
+
+function getSeverity(data: TTIriRef): string {
+  let result = "info";
+  if (!tagSeverityMatches.value) throw new Error("Missing vuex store property 'tagSeverityMatches'");
+  if (data && isObjectHasKeys(data, ["@id"])) {
+    const found = tagSeverityMatches.value.find((severity: { "@id": string; severity: string }) => severity["@id"] === data["@id"]);
+    if (found) result = found.severity;
+    else LoggerService.warn("TagWithLabel missing case for severity");
+  }
+  return result;
+}
 </script>
 
 <style scoped>
