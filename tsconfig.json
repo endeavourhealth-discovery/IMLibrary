@@ -17,5 +17,6 @@
     "skipLibCheck": true,
     "types": ["vite/client"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/index.js", "tests/**/*.ts", "tests/**/*.tsx", "tests/**/*.js", "*.d.ts"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/index.js", "*.d.ts"],
+  "exclude": ["tests"]
 }

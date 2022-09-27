@@ -54,7 +54,7 @@
   "files": [
     "dist"
   ],
-  "types": "index.d.ts",
+  "types": "dist/types/index.d.ts",
   "module": "./dist/im-library.js",
   "exports": {
     ".": "./dist/im-library.js",
