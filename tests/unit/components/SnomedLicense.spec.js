@@ -5,11 +5,12 @@ import PrimeVue from "primevue/config";
 import { expect, vi } from "vitest";
 import { render, fireEvent } from "@testing-library/vue";
 import { createStore } from "vuex";
+import { flushPromises } from "@vue/test-utils";
+import { nextTick } from "vue";
 
 const store = createStore({
-  // update stateType.ts when adding new state!
   state: {
-    snomedLicenseAccepted: false,
+    snomedLicenseAccepted: "false",
     snomedReturnUrl: "testUrl.org"
   },
   mutations: {
@@ -20,35 +21,68 @@ const store = createStore({
   }
 });
 
-describe("SnomedLicense.vue", () => {
+describe("SnomedLicense.vue ___ not accepted", () => {
   let mockLocation;
   let component;
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    vi.resetAllMocks();
     mockLocation = { href: "" };
     location = window.location;
     delete window.location;
     window.location = mockLocation;
+    store.state.snomedLicenseAccepted = "false";
     component = render(SnomedLicense, {
       global: {
         plugins: [PrimeVue, store],
         components: { Dialog, Button }
       }
     });
+    await flushPromises();
   });
 
   afterEach(() => {
     window.location = location;
   });
 
-  it("shows dialog", async () => {
+  it("shows dialog if license not accepted", () => {
+    store.state.snomedLicenseAccepted = "false";
     component.getByTestId("license-dialog");
   });
 
   it("routes after accepted", async () => {
     const button = component.getByTestId("agree-button");
     await fireEvent.click(button);
-    expect(await component.queryByTestId("license-dialog")).toBeFalsy();
+    expect(component.queryByTestId("license-dialog")).toBeNull();
     expect(window.location.href).toBe("testUrl.org");
+  });
+});
+
+describe("SnomedLicense.vue ___ accepted", () => {
+  let mockLocation;
+  let component;
+
+  beforeEach(async () => {
+    vi.resetAllMocks();
+    mockLocation = { href: "" };
+    location = window.location;
+    delete window.location;
+    window.location = mockLocation;
+    store.state.snomedLicenseAccepted = "true";
+    component = render(SnomedLicense, {
+      global: {
+        plugins: [PrimeVue, store],
+        components: { Dialog, Button }
+      }
+    });
+    await flushPromises();
+  });
+
+  afterEach(() => {
+    window.location = location;
+  });
+
+  it("doesn't show dialog if license accepted", () => {
+    expect(component.queryByTestId("license-dialog")).toBeNull();
   });
 });
