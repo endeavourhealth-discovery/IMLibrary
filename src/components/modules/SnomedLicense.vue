@@ -1,5 +1,5 @@
 <template>
-  <Dialog header="SNOMED License Agreement" :visible="showDialog" :modal="true">
+  <Dialog header="SNOMED License Agreement" :visible="showDialog" :modal="true" :data-testid="'license-dialog' + showDialog">
     <div data-testid="license-dialog">
       <div class="license-content">
         <strong>Information Model</strong> includes SNOMED Clinical Terms® (SNOMED CT®) which is used by permission of the International Health Terminology
@@ -79,7 +79,11 @@ const store = useStore();
 const snomedLicenseAccepted = computed(() => store.state.snomedLicenseAccepted);
 const snomedReturnUrl = computed(() => store.state.snomedReturnUrl);
 
-const showDialog = computed(() => !snomedLicenseAccepted.value);
+const showDialog = computed(() => {
+  if (snomedLicenseAccepted.value === "true") {
+    return false;
+  } else return true;
+});
 
 function submitDecline(): void {
   window.location.href = "https://www.snomed.org/";
