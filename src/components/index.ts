@@ -20,6 +20,7 @@ import TermCodeTable from "./modules/TermCodeTable.vue";
 import SecondaryTree from "./modules/SecondaryTree.vue";
 import OverlaySummary from "./modules/OverlaySummary.vue";
 import QueryDefinition from "./modules/query/QueryDefinition.vue";
+import ReleaseNotes from "./modules/ReleaseNotes.vue";
 
 export {
   AccessDenied,
@@ -43,5 +44,6 @@ export {
   NumberWithLabel,
   SecondaryTree,
   OverlaySummary,
-  QueryDefinition
+  QueryDefinition,
+  ReleaseNotes
 };
