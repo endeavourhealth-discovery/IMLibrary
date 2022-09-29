@@ -1,10 +1,11 @@
 import { CreateComponentPublicInstance } from "vue";
+import {Store} from 'vuex';
 
 export default class DirectService {
-  store: any;
+  store: Store<any>;
   private _message: string;
 
-  constructor(store: any) {
+  constructor(store: Store<any>) {
     this.store = store;
     this._message = "You will be directed to a different application. Are you sure you want to proceed?";
   }
