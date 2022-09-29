@@ -1,4 +1,9 @@
 export enum QueryDisplayType {
   Default = "default",
-  Complex = "complex"
+  Boolean = "boolean",
+  String = "string",
+  Iri = "iri",
+  From = "from",
+  SimpleWhere = "simpleWhere",
+  SimpleOr = "simpleOr"
 }

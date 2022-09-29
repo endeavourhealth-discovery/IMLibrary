@@ -1,5 +1,11 @@
 import { QueryDisplayType } from "../../enums/Enums";
 
+export interface FieldDto {
+  name: string;
+  firstType: string;
+  secondType?: string;
+}
+
 export interface Field {
   name: string;
   type: string;
