@@ -6,7 +6,7 @@ import { faker } from "@faker-js/faker";
 
 const apiUrl = "http://localhost/imapi/api/";
 
-const data = factory({
+const fakerFactory = factory({
   entity: {
     "@id": primaryKey(faker.internet.url),
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": nullable(manyOf("iriRef", { unique: true })),
@@ -29,6 +29,15 @@ const data = factory({
     orderNumber: faker.datatype.number,
     parents: manyOf("iriRef", { unique: true }),
     type: manyOf("iriRef", { unique: true })
+  },
+  githubRelease: {
+    version: faker.datatype.string,
+    title: faker.datatype.string,
+    createdDate: faker.date.recent,
+    publishedDate: faker.date.past,
+    releaseNotes: faker.datatype.array,
+    author: faker.name.fullName,
+    url: primaryKey(faker.internet.url)
   }
 });
 
@@ -43,7 +52,7 @@ const restHandlers = [
     if (predicatesArray && !predicatesArray.includes("http://www.w3.org/1999/02/22-rdf-syntax")) entityValue["http://www.w3.org/1999/02/22-rdf-syntax"] = null;
     if (predicatesArray && !predicatesArray.includes("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"))
       entityValue["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"] = null;
-    const entity = data.entity.create(entityValue) as any;
+    const entity = fakerFactory.entity.create(entityValue) as any;
     Object.keys(entity).forEach((key: string) => {
       if (!entity[key]) delete entity[key];
     });
@@ -51,19 +60,24 @@ const restHandlers = [
   }),
   rest.get(apiUrl + "entity/public/parents", async (req, res, ctx) => {
     const iri = req.url.searchParams.get("iri");
-    return res(ctx.status(200), ctx.json([data.entitySummary.create(), data.entitySummary.create()]));
+    return res(ctx.status(200), ctx.json([fakerFactory.entitySummary.create(), fakerFactory.entitySummary.create()]));
   }),
   rest.get(apiUrl + "entity/public/childrenPaged", async (req, res, ctx) => {
     const iri = req.url.searchParams.get("iri");
-    const children = [data.entitySummary.create(), data.entitySummary.create(), data.entitySummary.create(), data.entitySummary.create()];
-    return res(ctx.status(200), ctx.json(data.pagedChildren.create({ result: children, totalCount: 4 })));
+    const children = [
+      fakerFactory.entitySummary.create(),
+      fakerFactory.entitySummary.create(),
+      fakerFactory.entitySummary.create(),
+      fakerFactory.entitySummary.create()
+    ];
+    return res(ctx.status(200), ctx.json(fakerFactory.pagedChildren.create({ result: children, totalCount: 4 })));
   }),
   rest.get(apiUrl + "entity/public/summary", async (req, res, ctx) => {
     const iri = req.url.searchParams.get("iri");
     if (iri) {
-      const found = data.entitySummary.findFirst({ where: { "@id": { equals: iri } } });
+      const found = fakerFactory.entitySummary.findFirst({ where: { "@id": { equals: iri } } });
       if (found) return res(ctx.status(200), ctx.json(found));
-      else return res(ctx.status(200), ctx.json(data.pagedChildren.create()));
+      else return res(ctx.status(200), ctx.json(fakerFactory.pagedChildren.create()));
     } else return res(ctx.status(500), ctx.json({ errorMessage: "Missing iri parameter" }));
   })
 ];
@@ -81,4 +95,4 @@ afterEach(() => {
   server.resetHandlers();
 });
 
-export { data, server, restHandlers };
+export { fakerFactory, server, restHandlers };
