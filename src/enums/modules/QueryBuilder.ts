@@ -5,5 +5,6 @@ export enum QueryDisplayType {
   Iri = "iri",
   From = "from",
   SimpleWhere = "simpleWhere",
-  SimpleOr = "simpleOr"
+  SimpleOr = "simpleOr",
+  PropertyIs = "propertyIs"
 }
