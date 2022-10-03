@@ -8,5 +8,6 @@ import LoggerService from "./modules/LoggerService";
 import QueryService from "./modules/QueryService";
 import SetService from "./modules/SetService";
 import ClassService from "./modules/ClassService";
+import GithubService from "./modules/GithubService";
 
-export { AuthService, ConfigService, DirectService, EntityService, FilerService, Env, LoggerService, QueryService, SetService, ClassService };
+export { AuthService, ConfigService, DirectService, EntityService, FilerService, Env, LoggerService, QueryService, SetService, ClassService, GithubService };

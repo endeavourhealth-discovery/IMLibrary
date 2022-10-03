@@ -52,6 +52,7 @@ import { UPRN } from "./modules/Uprn";
 import { UprnSearchResponse } from "./modules/UprnSearchResponse";
 import { ValueSetMember } from "./modules/ValueSetMember";
 import { Field, GenericType, QueryObject, FieldUI, SimplifiedType, QueryDisplay } from "../interfaces/modules/QueryBuilder";
+import { GithubRelease } from "./modules/GithubRelease";
 
 export {
   type AccountItem,
@@ -112,5 +113,6 @@ export {
   type QueryObject,
   type FieldUI,
   type SimplifiedType,
-  type QueryDisplay
+  type QueryDisplay,
+  type GithubRelease
 };
