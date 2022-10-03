@@ -114,7 +114,7 @@ async function init(repoName: string, latestVersion: string) {
     loadingGlobal.value = false;
     await nextTick();
     startExpanded(props.repositoryName);
-  }
+  } else loadingGlobal.value = false;
 }
 
 function getLocalVersion(repoName: string): string | null {
@@ -193,7 +193,7 @@ function resetBooleanObject(booleanObject: any) {
 async function viewAll() {
   await getAdditionalAppLatestReleaseNotes(props.repositoryName);
   if (props.repositoryName !== "IMAuth" && showApp.value.auth === false) startExpanded("IMAuth");
-  if (props.repositoryName !== "IMDirectory" && showApp.value.directory === false) startExpanded("IMDirector");
+  if (props.repositoryName !== "IMDirectory" && showApp.value.directory === false) startExpanded("IMDirectory");
   if (props.repositoryName !== "IMEditor" && showApp.value.editor === false) startExpanded("IMEditor");
   if (showApp.value.importData === false) startExpanded("ImportData");
   if (props.repositoryName !== "IMViewer" && showApp.value.viewer === false) startExpanded("IMViewer");
