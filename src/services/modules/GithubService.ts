@@ -12,6 +12,7 @@ export default class GithubService {
     try {
       return await this.axios.get(this.api + "node_api/github/public/latestRelease/", { params: { repositoryName: repositoryName } });
     } catch (error) {
+      console.warn(error);
       return {} as any;
     }
   }
@@ -20,6 +21,7 @@ export default class GithubService {
     try {
       return await this.axios.get(this.api + "node_api/github/public/releases", { params: { repositoryName: repositoryName } });
     } catch (error) {
+      console.warn(Error);
       return [];
     }
   }
