@@ -75,6 +75,7 @@ import { defineComponent, onMounted, Ref, ref, inject, reactive, nextTick } from
 import semver from "semver";
 import { Env, GithubService } from "../../services/Services";
 import { GithubRelease } from "../../interfaces/Interfaces";
+import { isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
 
 const props = defineProps({
   appVersion: { type: String, required: true },
@@ -128,7 +129,7 @@ function setLocalVersion(repoName: string, versionNo: string) {
 async function getLatestReleaseNotes(repoName: string) {
   loadingPerApp.value[repoNameToKey(repoName)] = true;
   const release = await githubService.getLatestRelease(repoName);
-  if (release) releases.set(repoNameToKey(repoName), [release]);
+  if (isObjectHasKeys(release)) releases.set(repoNameToKey(repoName), [release]);
   loadingPerApp.value[repoNameToKey(repoName)] = false;
 }
 
