@@ -2,7 +2,7 @@ import { QueryRequest } from "../../interfaces/modules/QueryRequest";
 import Env from "./Env";
 import { isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
 import { mapToObject } from "../../helpers/modules/Transforms";
-import { QueryDisplay } from "../../interfaces/Interfaces";
+import { QueryDisplay, QueryObject } from "../../interfaces/Interfaces";
 
 export default class QueryService {
   axios: any;
@@ -102,6 +102,14 @@ export default class QueryService {
       return this.axios.post(Env.VITE_NODE_API + "/node_api/query/public/queryDisplay", query);
     } catch (error) {
       return {} as QueryDisplay;
+    }
+  }
+
+  public async getQueryObject(query: any): Promise<QueryObject> {
+    try {
+      return this.axios.post(Env.VITE_NODE_API + "/node_api/query/public/queryObject", query);
+    } catch (error) {
+      return {} as QueryObject;
     }
   }
 }
