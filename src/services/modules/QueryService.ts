@@ -112,4 +112,14 @@ export default class QueryService {
       return {} as QueryObject;
     }
   }
+
+  public async getQueryDefinitionDisplay(conceptIri: string): Promise<QueryDisplay> {
+    try {
+      return this.axios.get(Env.VITE_NODE_API + "/node_api/query/public/queryDefinitionDisplay", {
+        params: { iri: conceptIri }
+      });
+    } catch (error) {
+      return {} as QueryDisplay;
+    }
+  }
 }
