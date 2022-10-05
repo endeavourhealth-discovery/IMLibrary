@@ -21,6 +21,7 @@ import SecondaryTree from "./modules/SecondaryTree.vue";
 import OverlaySummary from "./modules/OverlaySummary.vue";
 import QueryDefinition from "./modules/query/QueryDefinition.vue";
 import ReleaseNotes from "./modules/ReleaseNotes.vue";
+import IMViewerLink from "./modules/IMViewerLink.vue";
 
 export {
   AccessDenied,
@@ -45,5 +46,6 @@ export {
   SecondaryTree,
   OverlaySummary,
   QueryDefinition,
-  ReleaseNotes
+  ReleaseNotes,
+  IMViewerLink
 };
