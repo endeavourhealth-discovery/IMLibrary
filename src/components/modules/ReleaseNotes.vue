@@ -178,7 +178,7 @@ function startExpanded(repoName: string) {
   const key = repoNameToKey(repoName);
   const button = document.getElementById(`expand-button-${key}`) as HTMLElement;
   if (button) button.click();
-  else throw new Error("failed to find button to click: " + key);
+  // else throw new Error("failed to find button to click: " + key);
 }
 
 function setShowLegacy(repoName: string, show: boolean) {
