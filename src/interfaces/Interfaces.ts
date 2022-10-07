@@ -61,6 +61,7 @@ import { TTAlias } from "./modules/query/TTAlias";
 import { TTContext } from "./modules/query/TTContext";
 import { Value } from "./modules/query/Value";
 import { Where } from "./modules/query/Where";
+import TangledTreeData from "./modules/TangledTreeData";
 
 export {
   type AccountItem,
@@ -130,5 +131,6 @@ export {
   type TTAlias,
   type TTContext,
   type Value,
-  type Where
+  type Where,
+  type TangledTreeData
 };
