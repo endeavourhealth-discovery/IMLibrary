@@ -34,7 +34,7 @@ import { PropertyGroup } from "./modules/PropertyGroup";
 import { PropertyShape } from "./modules/PropertyShape";
 import { QueryComponentDetails } from "./modules/QueryComponentDetails";
 import { QueryNextComponentSummary } from "./modules/QueryNextComponentSummary";
-import { QueryRequest } from "./modules/QueryRequest";
+import { QueryRequest } from "./modules/query/QueryRequest";
 import { RecentActivityItem } from "./modules/RecentActivityItem";
 import { SearchRequest } from "./modules/SearchRequest";
 import { SearchResponse } from "./modules/SearchResponse";
@@ -53,6 +53,14 @@ import { UprnSearchResponse } from "./modules/UprnSearchResponse";
 import { ValueSetMember } from "./modules/ValueSetMember";
 import { Field, GenericType, QueryObject, FieldUI, SimplifiedType, QueryDisplay } from "../interfaces/modules/QueryBuilder";
 import { GithubRelease } from "./modules/GithubRelease";
+import { Argument } from "./modules/query/Argument";
+import { Compare } from "./modules/query/Compare";
+import { Query } from "./modules/query/Query";
+import { Select } from "./modules/query/Select";
+import { TTAlias } from "./modules/query/TTAlias";
+import { TTContext } from "./modules/query/TTContext";
+import { Value } from "./modules/query/Value";
+import { Where } from "./modules/query/Where";
 
 export {
   type AccountItem,
@@ -114,5 +122,13 @@ export {
   type FieldUI,
   type SimplifiedType,
   type QueryDisplay,
-  type GithubRelease
+  type GithubRelease,
+  type Argument,
+  type Compare,
+  type Query,
+  type Select,
+  type TTAlias,
+  type TTContext,
+  type Value,
+  type Where
 };

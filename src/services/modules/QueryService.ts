@@ -1,4 +1,4 @@
-import { QueryRequest } from "../../interfaces/modules/QueryRequest";
+import { QueryRequest } from "../../interfaces/modules/query/QueryRequest";
 import Env from "./Env";
 import { isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
 import { mapToObject } from "../../helpers/modules/Transforms";
@@ -56,9 +56,10 @@ export default class QueryService {
     });
   }
 
-  public async queryIM(query: QueryRequest): Promise<{ entities: any[]; "@context": any }> {
+  public async queryIM(query: QueryRequest, controller?: AbortController): Promise<{ entities: any[]; "@context": any }> {
     try {
-      return await this.axios.post(Env.API + "api/query/public/queryIM", query);
+      if (controller) return await this.axios.post(Env.API + "api/query/public/queryIM", query, { signal: controller.signal });
+      else return await this.axios.post(Env.API + "api/query/public/queryIM", query);
     } catch (error) {
       return undefined as any;
     }
