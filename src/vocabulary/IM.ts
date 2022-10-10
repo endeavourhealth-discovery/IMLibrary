@@ -20,6 +20,8 @@ export class IM {
   public static USAGE_STATS = IM.NAMESPACE + "usageStats";
   public static HAS_TERM_CODE = IM.NAMESPACE + "hasTermCode";
   public static ORDER = IM.NAMESPACE + "order";
+  public static HAS_SUBSET = IM.NAMESPACE + "hasSubset";
+  public static IS_SUBSET_OF = IM.NAMESPACE + "isSubsetOf";
 
   // task
   public static IN_TASK = IM.NAMESPACE + "inTask";
