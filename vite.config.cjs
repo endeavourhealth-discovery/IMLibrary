@@ -18,7 +18,7 @@ const config = {
 
 const currentConfig = config[process.env.LIB_NAME] || config.all;
 
-module.exports = defineConfig({
+export default defineConfig({
   plugins: [vue()], // to process SFC
   build: {
     lib: {
