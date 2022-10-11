@@ -15,6 +15,7 @@ import EntityValidator from "./modules/EntityValidator";
 import EclSearchBuilderMethods from "./modules/EclSearchBuilderMethods.ts";
 import QueryBuilderMethods from "./modules/QueryBuilderMethods";
 import UtililityMethods from "./modules/UtilityMethods"
+import TangledTreeLayout from "./modules/TangledTreeLayout";
 
 export default {
   ChartRescale,
@@ -33,5 +34,6 @@ export default {
   EntityValidator,
   EclSearchBuilderMethods,
   QueryBuilderMethods,
-  UtililityMethods
+  UtililityMethods,
+  TangledTreeLayout
 };
