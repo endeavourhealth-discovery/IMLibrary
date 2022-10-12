@@ -7,9 +7,9 @@ export function processArguments(property: PropertyShape, valueVariableMap?: Map
   property.argument.forEach(arg => {
     let key = "";
     let value: any;
-    if (arg.parameter === "this" && !arg.valueData) key = property.path["@id"];
+    if (arg.parameter === "this" && !arg.valueIri) key = property.path["@id"];
     else key = arg.parameter;
-    if (arg.valueData) value = arg.valueData;
+    if (arg.valueIri) value = arg.valueIri["@id"];
     else if (arg.valueVariable) {
       if (!valueVariableMap) throw new Error("missing valueVariableMap while processing arguments with a valueProperty");
       if (property.builderChild && valueVariableMap && valueVariableMap.has(arg.valueVariable + property.order)) {
