@@ -10,7 +10,7 @@
     "build:all": "cross-env LIB_NAME=all vite build",
     "build:api": "cross-env LIB_NAME=api vite build",
     "build:finalize": "shx mkdir ./build && shx cp -R ./dist ./build/dist && shx cp ./package.json ./build",
-    "build:production": "npm run build:dev && npm pack",
+    "build:production": "cross-env VITE_API=https://localhost:8444/imapi/ npm run build:dev && npm pack",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
