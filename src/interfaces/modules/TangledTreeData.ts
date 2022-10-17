@@ -3,4 +3,5 @@ export default interface TangledTreeData {
   parents?: TangledTreeData[];
   name: string;
   type: string;
+  cardinality?: string
 }
