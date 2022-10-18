@@ -126,7 +126,7 @@ export default class QueryService {
 
   public async getQueryObjectByIri(conceptIri: string): Promise<QueryObject> {
     try {
-      return this.axios.get(Env.VITE_NODE_API + "/node_api/query/public/queryObject", {
+      return this.axios.get(Env.VITE_NODE_API + "/node_api/query/public/queryObjectDisplay", {
         params: { iri: conceptIri }
       });
     } catch (error) {
