@@ -89,15 +89,13 @@ export function constructTangleLayout(levels:any, options:any) {
   const node_width = 170;
   const bundle_width = 14;
   const level_y_padding = 16;
-  const metro_d = 4;
-  const min_family_height = 25;
 
   options.value.c ||= 16;
   const c = options.value.c;
   options.value.bigc ||= node_width+c;
 
   nodes.forEach(
-    (n:any) => (n.height = (Math.max(1, n.bundles.length) - 1) * metro_d)
+    (n:any) => (n.height = (Math.max(1, n.bundles.length) - 1))
   );
 
   let x_offset = padding;
@@ -128,24 +126,16 @@ export function constructTangleLayout(levels:any, options:any) {
 
   links.forEach(l => {
     l.xt = l.target.x;
-    l.yt = l.target.y + l.target.bundles_index[l.bundle.id].i * metro_d - (l.target.bundles.length * metro_d) / 2 + metro_d / 2;
+    l.yt = l.target.y;
     l.xb = l.bundle.x;
     l.yb = l.bundle.y;
     l.xs = l.source.x;
     l.ys = l.source.y;
   });
 
-  // compress vertical space
-  let y_negative_offset = 0;
-  levels.forEach((l:any) => {
-    // @ts-ignore
-    y_negative_offset += -min_family_height + d3.min(l.bundles, (b:any) => d3.min(b.links, (link:any) => link.ys - 2*c - (link.yt + c))) || 0;
-    l.forEach((n:any) => (n.y -= y_negative_offset));
-  });
-
   let color = 16;
   links.forEach(l => {
-    l.yt = l.target.y + l.target.bundles_index[l.bundle.id].i * metro_d - (l.target.bundles.length * metro_d) / 2 + metro_d / 2;
+    l.yt = l.target.y;
     l.ys = l.source.y;
     l.c1 = l.source.level - l.target.level > 1 ? Math.min(options.value.bigc, l.xb-l.xt, l.yb-l.yt)-c : c;
     l.c2 = c;
@@ -162,8 +152,7 @@ export function constructTangleLayout(levels:any, options:any) {
     node_height,
     node_width,
     bundle_width,
-    level_y_padding,
-    metro_d
+    level_y_padding
   };
 
   return { levels, nodes, nodes_index, links, bundles, layout };

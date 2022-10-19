@@ -123,4 +123,14 @@ export default class QueryService {
       return {} as QueryDisplay;
     }
   }
+
+  public async getQueryObjectByIri(conceptIri: string): Promise<QueryObject> {
+    try {
+      return this.axios.get(Env.VITE_NODE_API + "/node_api/query/public/queryObjectDisplay", {
+        params: { iri: conceptIri }
+      });
+    } catch (error) {
+      return {} as QueryObject;
+    }
+  }
 }
