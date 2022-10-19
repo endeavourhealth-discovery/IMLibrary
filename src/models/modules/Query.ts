@@ -120,25 +120,25 @@ export class Profile extends Entity {
   public "entityReferences" = [];
   public "entitiesWithoutData" = [];
 
-  constructor(entity?: any);
-  constructor(entity: any) {
-    super(entity);
+  // constructor(entity?: any);
+  // constructor(entity: any) {
+  //   super(entity);
 
-    //parse definition
-    if (entity["http://endhealth.info/im#definition"] && (typeof entity["http://endhealth.info/im#definition"] == 'string')) {
-      try {
-        const _definition = JSON.parse(entity["http://endhealth.info/im#definition"]);
-        this["http://endhealth.info/im#definition"] = _definition;
-        this["entityReferences"] = entity?.entityReferences;
-        // populate definitionTree (this is the UI's object model and maps 1 to 1 onto Profiles written in RDF)
-        this.convertToDefinitionTree(_definition);
-      } catch (e) {
-        console.log("Definition is not valid JSON");
-      }
-    }
+  //   //parse definition
+  //   if (entity["http://endhealth.info/im#definition"] && (typeof entity["http://endhealth.info/im#definition"] == 'string')) {
+  //     try {
+  //       const _definition = JSON.parse(entity["http://endhealth.info/im#definition"]);
+  //       this["http://endhealth.info/im#definition"] = _definition;
+  //       this["entityReferences"] = entity?.entityReferences;
+  //       // populate definitionTree (this is the UI's object model and maps 1 to 1 onto Profiles written in RDF)
+  //       this.convertToDefinitionTree(_definition);
+  //     } catch (e) {
+  //       console.log("Definition is not valid JSON");
+  //     }
+  //   }
 
-    return this;
-  }
+  //   return this;
+  // }
 
   get mainEntity(): any {
     return this["http://endhealth.info/im#definition"]["entityType"];

@@ -100,7 +100,7 @@ export default class QueryService {
 
   public async getSetQueryDisplay(query: any): Promise<QueryDisplay> {
     try {
-      return this.axios.post(Env.VITE_NODE_API + "/node_api/query/public/queryDisplay", query);
+      return await this.axios.post(Env.VITE_NODE_API + "/node_api/query/public/queryDisplay", query);
     } catch (error) {
       return {} as QueryDisplay;
     }
@@ -108,7 +108,7 @@ export default class QueryService {
 
   public async getQueryObject(query: any): Promise<QueryObject> {
     try {
-      return this.axios.post(Env.VITE_NODE_API + "/node_api/query/public/queryObject", query);
+      return await this.axios.post(Env.VITE_NODE_API + "/node_api/query/public/queryObject", query);
     } catch (error) {
       return {} as QueryObject;
     }
@@ -116,7 +116,7 @@ export default class QueryService {
 
   public async getQueryDefinitionDisplay(conceptIri: string): Promise<QueryDisplay> {
     try {
-      return this.axios.get(Env.VITE_NODE_API + "/node_api/query/public/queryDefinitionDisplay", {
+      return await this.axios.get(Env.VITE_NODE_API + "/node_api/query/public/queryDefinitionDisplay", {
         params: { iri: conceptIri }
       });
     } catch (error) {
@@ -126,7 +126,7 @@ export default class QueryService {
 
   public async getQueryObjectByIri(conceptIri: string): Promise<QueryObject> {
     try {
-      return this.axios.get(Env.VITE_NODE_API + "/node_api/query/public/queryObjectDisplay", {
+      return await this.axios.get(Env.VITE_NODE_API + "/node_api/query/public/queryObjectDisplay", {
         params: { iri: conceptIri }
       });
     } catch (error) {

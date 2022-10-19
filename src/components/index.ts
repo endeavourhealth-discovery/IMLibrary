@@ -22,6 +22,7 @@ import OverlaySummary from "./modules/OverlaySummary.vue";
 import QueryDefinition from "./modules/query/QueryDefinition.vue";
 import ReleaseNotes from "./modules/ReleaseNotes.vue";
 import IMViewerLink from "./modules/IMViewerLink.vue";
+import QuerySetDefinition from "./modules/query/QuerySetDefinition.vue";
 
 export {
   AccessDenied,
@@ -47,5 +48,6 @@ export {
   OverlaySummary,
   QueryDefinition,
   ReleaseNotes,
-  IMViewerLink
+  IMViewerLink,
+  QuerySetDefinition
 };
