@@ -1,4 +1,6 @@
 import { QueryDisplayType } from "../../enums/Enums";
+import { TTAlias } from "../Interfaces";
+import { TTIriRef } from "./TTIriRef";
 
 export interface FieldDto {
   name: string;
@@ -53,4 +55,15 @@ export interface QueryDisplay {
   value?: any;
   children?: QueryDisplay[];
   selectable?: boolean;
+}
+
+export interface SetQueryObject {
+  include: boolean;
+  concept: TTAlias;
+  refinements: Refinement[];
+}
+
+export interface Refinement {
+  property: TTAlias;
+  is: TTAlias;
 }

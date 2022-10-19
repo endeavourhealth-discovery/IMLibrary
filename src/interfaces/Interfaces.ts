@@ -51,7 +51,7 @@ import { TTIriRef } from "./modules/TTIriRef";
 import { UPRN } from "./modules/Uprn";
 import { UprnSearchResponse } from "./modules/UprnSearchResponse";
 import { ValueSetMember } from "./modules/ValueSetMember";
-import { Field, GenericType, QueryObject, FieldUI, SimplifiedType, QueryDisplay } from "../interfaces/modules/QueryBuilder";
+import { Field, GenericType, QueryObject, FieldUI, SimplifiedType, QueryDisplay, SetQueryObject, Refinement } from "../interfaces/modules/QueryBuilder";
 import { GithubRelease } from "./modules/GithubRelease";
 import { Argument } from "./modules/query/Argument";
 import { Compare } from "./modules/query/Compare";
@@ -120,8 +120,10 @@ export {
   type Field,
   type GenericType,
   type QueryObject,
+  type SetQueryObject,
   type FieldUI,
   type SimplifiedType,
+  type Refinement,
   type QueryDisplay,
   type GithubRelease,
   type Argument,
