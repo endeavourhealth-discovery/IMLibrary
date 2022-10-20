@@ -2,7 +2,7 @@ import { QueryRequest } from "../../interfaces/modules/query/QueryRequest";
 import Env from "./Env";
 import { isObjectHasKeys } from "../../helpers/modules/DataTypeCheckers";
 import { mapToObject } from "../../helpers/modules/Transforms";
-import { QueryDisplay, QueryObject } from "../../interfaces/Interfaces";
+import { QueryDisplay, QueryObject, TTIriRef } from "../../interfaces/Interfaces";
 
 export default class QueryService {
   axios: any;
@@ -131,6 +131,26 @@ export default class QueryService {
       });
     } catch (error) {
       return {} as QueryObject;
+    }
+  }
+
+  public async getAllowablePropertySuggestions(conceptIri: string, searchTerm?: string): Promise<TTIriRef[]> {
+    try {
+      return await this.axios.get(Env.VITE_NODE_API + "/node_api/query/public/allowablePropertySuggestions", {
+        params: { iri: conceptIri, searchTerm: searchTerm }
+      });
+    } catch (error) {
+      return [] as TTIriRef[];
+    }
+  }
+
+  public async getAllowableRangeSuggestions(conceptIri: string, searchTerm?: string): Promise<TTIriRef[]> {
+    try {
+      return await this.axios.get(Env.VITE_NODE_API + "/node_api/query/public/allowableRangeSuggestions", {
+        params: { iri: conceptIri, searchTerm: searchTerm }
+      });
+    } catch (error) {
+      return [] as TTIriRef[];
     }
   }
 }
