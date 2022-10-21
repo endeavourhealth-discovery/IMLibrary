@@ -3,7 +3,7 @@ export function iriToUrl(iri: string) {
 }
 
 export function urlToIri(url: string) {
-  return url.replace(/%2F/gi, "/").replace(/%23/, "#");
+  return url.replace(/%2F/gi, "/").replace(/%23/, "#").replace(/%3A/, ":");
 }
 
 export default {

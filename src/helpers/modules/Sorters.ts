@@ -13,9 +13,9 @@ export function byPriority(a: any, b: any): number {
 
 export function byScheme(a: any, b: any): number {
   if (!isObjectHasKeys(a, ["scheme"]) || !isObjectHasKeys(b, ["scheme"])) return 0;
-  if (a.scheme < b.scheme) {
+  if (a.scheme.toLowerCase() < b.scheme.toLowerCase()) {
     return -1;
-  } else if (a.scheme > b.scheme) {
+  } else if (a.scheme.toLowerCase() > b.scheme.toLowerCase()) {
     return 1;
   } else {
     return 0;
@@ -24,9 +24,9 @@ export function byScheme(a: any, b: any): number {
 
 export function byLabel(a: any, b: any): number {
   if (!isObjectHasKeys(a, ["label"]) || !isObjectHasKeys(b, ["label"])) return 0;
-  if (a.label < b.label) {
+  if (a.label.toLowerCase() < b.label.toLowerCase()) {
     return -1;
-  } else if (a.label > b.label) {
+  } else if (a.label.toLowerCase() > b.label.toLowerCase()) {
     return 1;
   } else {
     return 0;
@@ -35,9 +35,9 @@ export function byLabel(a: any, b: any): number {
 
 export function byName(a: any, b: any): number {
   if (!isObjectHasKeys(a, ["name"]) || !isObjectHasKeys(b, ["name"])) return 0;
-  if (a.name < b.name) {
+  if (a.name.toLowerCase() < b.name.toLowerCase()) {
     return -1;
-  } else if (a.name > b.name) {
+  } else if (a.name.toLowerCase() > b.name.toLowerCase()) {
     return 1;
   } else {
     return 0;
