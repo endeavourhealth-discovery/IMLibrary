@@ -10,7 +10,7 @@ export function generateNewComponent(
   position: number,
   data: any,
   shape: PropertyShape | PropertyGroup,
-  showButtons: { minus: boolean; plus: boolean },
+  showButtons: { minus: boolean; plus: boolean; up: boolean; down: boolean },
   mode: EditorMode
 ): ComponentDetails {
   return {
@@ -88,7 +88,7 @@ export function scrollIntoView(component: ComponentDetails) {
 export function addItem(
   itemToAdd: { selectedType: ComponentType; position: number; value: any },
   build: ComponentDetails[],
-  showButtons: { minus: boolean; plus: boolean },
+  showButtons: { minus: boolean; plus: boolean; up: boolean; down: boolean },
   shape: PropertyGroup | PropertyShape,
   mode: EditorMode
 ) {
