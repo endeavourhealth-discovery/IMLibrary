@@ -6,4 +6,5 @@ export class RDFS {
   public static SUBCLASS_OF = RDFS.NAMESPACE + "subClassOf";
   public static SUB_PROPERTY_OF = RDFS.NAMESPACE + "subPropertyOf";
   public static CLASS = RDFS.NAMESPACE + "Class";
+  public static RANGE = RDFS.NAMESPACE + "range";
 }

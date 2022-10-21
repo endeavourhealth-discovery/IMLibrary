@@ -115,6 +115,7 @@ export class IM {
   public static MEMBERS_BUILDER = IM.NAMESPACE + "membersBuilder";
   public static COMPONENT_GROUP = IM.NAMESPACE + "componentGroup";
   public static ARRAY_BUILDER_WITH_DROPDOWN = IM.NAMESPACE + "arrayBuilderWithDropdown";
+  public static PROPERTY_BUILDER = IM.NAMESPACE + "propertyBuilder";
 
   //editor validations
   public static VALIDATION_HAS_PARENT = IM.NAMESPACE + "Validation_hasParent";

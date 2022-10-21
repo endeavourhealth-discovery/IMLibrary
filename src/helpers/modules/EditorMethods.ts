@@ -49,6 +49,8 @@ function processComponentType(type: TTIriRef): any {
       return ComponentType.STEPS_GROUP;
     case IM.ARRAY_BUILDER_WITH_DROPDOWN:
       return ComponentType.ARRAY_BUILDER_WITH_DROPDOWN;
+    case IM.PROPERTY_BUILDER:
+      return ComponentType.PROPERTY_BUILDER;
     default:
       throw new Error("Invalid component type encountered while processing component types" + type["@id"]);
   }

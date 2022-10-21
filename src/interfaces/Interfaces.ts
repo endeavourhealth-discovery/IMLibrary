@@ -30,6 +30,7 @@ import { ModuleItem } from "./modules/ModuleItem";
 import { Namespace } from "./modules/Namespace";
 import { NextComponentSummary } from "./modules/NextComponentSummary";
 import { ProcessedDataModelProperty } from "./modules/ProcessedDataModelProperty";
+import { Property } from "./modules/Property";
 import { PropertyGroup } from "./modules/PropertyGroup";
 import { PropertyShape } from "./modules/PropertyShape";
 import { QueryComponentDetails } from "./modules/QueryComponentDetails";
@@ -96,6 +97,7 @@ export {
   type Namespace,
   type NextComponentSummary,
   type ProcessedDataModelProperty,
+  type Property,
   type PropertyGroup,
   type PropertyShape,
   type QueryComponentDetails,
