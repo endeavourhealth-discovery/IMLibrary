@@ -6,11 +6,11 @@
   "scripts": {
     "clean": "rimraf dist && rimraf build",
     "build:tsc": "vue-tsc",
-    "build:dev": "npm-run-all clean build:tsc build:all build:api build:finalize",
     "build:all": "cross-env LIB_NAME=all vite build",
     "build:api": "cross-env LIB_NAME=api vite build",
     "build:finalize": "shx mkdir ./build && shx cp -R ./dist ./build/dist && shx cp ./package.json ./build",
-    "build:production": "npm run build:dev && npm pack",
+    "build": "npm-run-all clean build:tsc build:all build:api build:finalize",
+    "package": "npm run build && npm pack",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
