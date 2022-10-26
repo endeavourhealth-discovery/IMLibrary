@@ -1,4 +1,4 @@
-import { Argument } from "../../models/modules/AutoGen";
+import { Argument } from "./query/Argument";
 import { TTIriRef } from "./TTIriRef";
 
 export interface PropertyShape {
