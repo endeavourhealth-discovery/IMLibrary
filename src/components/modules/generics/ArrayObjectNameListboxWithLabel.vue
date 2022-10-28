@@ -56,8 +56,8 @@ const router = useRouter();
 const store = useStore();
 const arrayObjectNameListboxWithLabelStartExpanded = computed(() => store.state.arrayObjectNameListboxWithLabelStartExpanded);
 
-let selected: Ref<any> = ref({});
-let buttonExpanded = ref(false);
+const selected: Ref = ref({});
+const buttonExpanded = ref(false);
 
 const isArrayObjectWithName = computed(() => {
   if (!props.data) return false;

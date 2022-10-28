@@ -69,14 +69,14 @@ const store = useStore();
 const arrayObjectNameListboxWithLabelStartExpanded = computed(() => store.state.arrayObjectNameListboxWithLabelStartExpanded);
 const conceptIri = computed(() => store.state.conceptIri);
 
-let selected: Ref<any> = ref({});
-let buttonExpanded = ref(false);
-let loadMoreButtonVisible = ref(false);
-let pageSize = ref(10);
-let nextPage = ref(2);
-let totalCount = ref(0);
-let listboxData: Ref<any[]> = ref([]);
-let loading = ref(false);
+const selected: Ref = ref({});
+const buttonExpanded = ref(false);
+const loadMoreButtonVisible = ref(false);
+const pageSize = ref(10);
+const nextPage = ref(2);
+const totalCount = ref(0);
+const listboxData: Ref<any[]> = ref([]);
+const loading = ref(false);
 
 const isArrayObjectWithName = computed(() => {
   if (!props.data) return false;

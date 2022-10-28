@@ -128,18 +128,18 @@ const router = useRouter();
 const route = useRoute();
 const entityService = new EntityService(axios);
 
-let conceptAggregate: Ref<ConceptAggregate> = ref({} as ConceptAggregate);
-let root: Ref<TreeNode[]> = ref([]);
-let expandedKeys: Ref<any> = ref({});
-let selectedKey: Ref<any> = ref({});
-let currentParent: Ref<TreeParent | null> = ref(null);
-let alternateParents: Ref<TreeParent[]> = ref([]);
-let parentPosition = ref(0);
-let hoveredResult: Ref<ConceptSummary> = ref({} as ConceptSummary);
-let overlayLocation: Ref<any> = ref({});
-let loading = ref(false);
-let totalCount = ref(0);
-let pageSize = ref(20);
+const conceptAggregate: Ref<ConceptAggregate> = ref({} as ConceptAggregate);
+const root: Ref<TreeNode[]> = ref([]);
+const expandedKeys: Ref = ref({});
+const selectedKey: Ref = ref({});
+const currentParent: Ref<TreeParent | null> = ref(null);
+const alternateParents: Ref<TreeParent[]> = ref([]);
+const parentPosition = ref(0);
+const hoveredResult: Ref<ConceptSummary> = ref({} as ConceptSummary);
+const overlayLocation: Ref = ref({});
+const loading = ref(false);
+const totalCount = ref(0);
+const pageSize = ref(20);
 
 const altTreeOP = ref();
 

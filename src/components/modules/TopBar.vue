@@ -57,10 +57,10 @@ const currentUser = computed(() => store.state.currentUser);
 const isLoggedIn = computed(() => store.state.isLoggedIn);
 const authReturnUrl = computed(() => store.state.authReturnUrl);
 
-let loading = ref(false);
-let loginItems: Ref<LoginItem[]> = ref([]);
-let accountItems: Ref<AccountItem[]> = ref([]);
-let appItems: Ref<{ icon: string; url: string; label: string }[]> = ref([]);
+const loading = ref(false);
+const loginItems: Ref<LoginItem[]> = ref([]);
+const accountItems: Ref<AccountItem[]> = ref([]);
+const appItems: Ref<{ icon: string; url: string; label: string }[]> = ref([]);
 
 const userMenu = ref();
 const appsOP = ref();

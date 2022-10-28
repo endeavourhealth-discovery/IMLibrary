@@ -32,8 +32,8 @@ const props = defineProps({
   id: { type: String, default: "report-table" }
 });
 
-let tableData: Ref<{ count: number; label: string }[]> = ref([]);
-let loading = ref(false);
+const tableData: Ref<{ count: number; label: string }[]> = ref([]);
+const loading = ref(false);
 
 const isCorrectInputData = computed(() =>
   props.inputData.every(item => isObjectHasKeys(item, [RDFS.LABEL, OWL.HAS_VALUE]) || isObjectHasKeys(item, ["count", "label"]))
