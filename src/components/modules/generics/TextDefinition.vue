@@ -57,11 +57,11 @@ watch(
   () => (data.value = props.data)
 );
 
-let buttonExpanded = ref(false);
-let count = ref(0);
-let definition = ref("");
-let loading = ref(false);
-let data = ref({ ...props.data });
+const buttonExpanded = ref(false);
+const count = ref(0);
+const definition = ref("");
+const loading = ref(false);
+const data = ref({ ...props.data });
 
 onMounted(() => init());
 

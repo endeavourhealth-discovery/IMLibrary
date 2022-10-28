@@ -16,7 +16,7 @@ const props = defineProps({
   show: { type: Boolean, required: true }
 });
 
-let convertedText = ref("");
+const convertedText = ref("");
 
 onMounted(() => {
   init();
