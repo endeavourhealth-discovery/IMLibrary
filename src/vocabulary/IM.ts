@@ -137,4 +137,11 @@ export class IM {
   public static ADD_QUADS = IM.NAMESPACE + "AddQuads";
   public static UPDATE_PREDICATES = IM.NAMESPACE + "UpdatePredicates";
   public static DELETE_ALL = IM.NAMESPACE + "DeleteAll";
+
+  //Provenance
+  public static PROV_TARGET = IM.NAMESPACE + "provenanceTarget";
+  public static PROV_ACTIVITY_TYPE = IM.NAMESPACE + "provenanceActivityType";
+  public static PROV_AGENT = IM.NAMESPACE + "provenanceAgent";
+  public static EFFECTIVE_DATE = IM.NAMESPACE + "effectiveDate";
+  public static PROV_USED = IM.NAMESPACE + "usedEntity";
 }
