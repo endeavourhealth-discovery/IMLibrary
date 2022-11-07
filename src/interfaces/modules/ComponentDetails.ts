@@ -10,7 +10,7 @@ export interface ComponentDetails {
   position: number;
   type: ComponentType;
   json: any;
-  showButtons?: { minus: boolean; plus: boolean };
+  showButtons?: { minus: boolean; plus: boolean; up: boolean; down: boolean };
   shape: PropertyShape | PropertyGroup;
   mode: EditorMode;
 }
