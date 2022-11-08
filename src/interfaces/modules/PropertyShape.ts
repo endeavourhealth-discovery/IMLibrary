@@ -24,4 +24,5 @@ export interface PropertyShape {
   valueVariable: string;
   select: TTIriRef[];
   builderChild: boolean;
+  subProperty: PropertyShape[];
 }

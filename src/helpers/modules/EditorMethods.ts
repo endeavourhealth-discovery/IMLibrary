@@ -53,6 +53,8 @@ function processComponentType(type: TTIriRef): any {
       return ComponentType.ARRAY_BUILDER_WITH_DROPDOWN;
     case IM.PROPERTY_BUILDER:
       return ComponentType.PROPERTY_BUILDER;
+    case IM.TOGGLEABLE_COMPONENT:
+      return ComponentType.TOGGLEABLE_COMPONENT;
     default:
       throw new Error("Invalid component type encountered while processing component types" + type["@id"]);
   }
