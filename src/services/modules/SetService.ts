@@ -1,5 +1,5 @@
 import { CancelToken } from "axios";
-import { Query, SearchResponse } from "../../interfaces/Interfaces";
+import { Query, SearchResponse, SetQueryObject } from "../../interfaces/Interfaces";
 import Env from "./Env";
 
 export default class SetService {
@@ -48,5 +48,13 @@ export default class SetService {
       params: { iri: conceptIri },
       responseType: "blob"
     });
+  }
+
+  public async getSetQueryObjectFromQuery(query: Query) {
+    return this.axios.post(Env.VITE_NODE_API + "node_api/set/public/query/setQueryObject", query);
+  }
+
+  public async getQueryFromSetQueryObject(clauses: SetQueryObject[]) {
+    return this.axios.post(Env.VITE_NODE_API + "node_api/set/public/setQueryObject/query", clauses);
   }
 }
