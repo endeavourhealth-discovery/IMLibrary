@@ -25,4 +25,5 @@ export interface PropertyShape {
   select: TTIriRef[];
   builderChild: boolean;
   subProperty: PropertyShape[];
+  forceIsValue: boolean;
 }
