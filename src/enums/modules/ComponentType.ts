@@ -25,5 +25,6 @@ export enum ComponentType {
   BUILDER_DROPDOWN_CHILD_WRAPPER = "BuilderDropdownChildWrapper",
   PROPERTY_BUILDER = "PropertyBuilder",
   SET_DEFINITION_BUILDER = "SetDefinitionBuilder",
+  QUERY_DEFINITION_BUILDER = "QueryDefinitionBuilder",
   TOGGLEABLE_COMPONENT = "ToggleableComponent"
 }

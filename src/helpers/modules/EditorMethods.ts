@@ -57,6 +57,8 @@ function processComponentType(type: TTIriRef): any {
       return ComponentType.STEPS_GROUP;
     case IM.SET_DEFINITION_BUILDER:
       return ComponentType.SET_DEFINITION_BUILDER;
+    case IM.QUERY_DEFINITION_BUILDER:
+      return ComponentType.QUERY_DEFINITION_BUILDER;
     case IM.ARRAY_BUILDER_WITH_DROPDOWN:
       return ComponentType.ARRAY_BUILDER_WITH_DROPDOWN;
     case IM.PROPERTY_BUILDER:

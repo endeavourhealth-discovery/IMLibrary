@@ -117,6 +117,7 @@ export class IM {
   public static ARRAY_BUILDER_WITH_DROPDOWN = IM.NAMESPACE + "arrayBuilderWithDropdown";
   public static PROPERTY_BUILDER = IM.NAMESPACE + "propertyBuilder";
   public static SET_DEFINITION_BUILDER = IM.NAMESPACE + "SetDefinitionBuilder";
+  public static QUERY_DEFINITION_BUILDER = IM.NAMESPACE + "QueryDefinitionBuilder";
   public static TOGGLEABLE_COMPONENT = IM.NAMESPACE + "ToggleableComponent";
 
   //editor validations
