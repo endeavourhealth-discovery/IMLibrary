@@ -1,6 +1,7 @@
 import { ComponentType } from "../../enums/Enums";
 import { PropertyShape, TTIriRef } from "../../interfaces/Interfaces";
 import { IM } from "../../vocabulary/IM";
+import { isArrayHasLength } from "./DataTypeCheckers";
 
 export function processArguments(property: PropertyShape, valueVariableMap?: Map<string, any>) {
   const result = new Map<string, any>();
@@ -21,6 +22,13 @@ export function processArguments(property: PropertyShape, valueVariableMap?: Map
     result.set(key, value);
   });
   return result;
+}
+
+function getTreeQueryIri(select: TTIriRef[]) {
+  if (!isArrayHasLength(select) || select.length < 2) {
+    return undefined;
+  }
+  return select[1]["@id"];
 }
 
 function processComponentType(type: TTIriRef): any {
@@ -60,4 +68,4 @@ function processComponentType(type: TTIriRef): any {
   }
 }
 
-export default { processArguments, processComponentType };
+export default { processArguments, processComponentType, getTreeQueryIri };
