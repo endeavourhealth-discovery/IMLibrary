@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="termcode-table-container">
     <DataTable class="p-datatable-sm term-code-table" :value="terms" responsiveLayout="scroll" :scrollable="true" scrollHeight="flex">
       <template #empty> No terms found. </template>
       <Column field="name" header="Name"> </Column>
@@ -18,6 +18,11 @@ const props = defineProps({
 <style scoped>
 .term-code.table {
   height: 100%;
+  width: 100%;
+}
+.termcode-table-container {
+  display: flex;
+  flex-flow: column nowrap;
   width: 100%;
 }
 </style>
