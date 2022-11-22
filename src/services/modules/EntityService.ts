@@ -514,4 +514,12 @@ export default class EntityService {
       return {} as TTIriRef;
     }
   }
+
+  public async getValidatedEntitiesBySnomedCodes(codes: string[]): Promise<any[]> {
+    try {
+      return await this.axios.post(Env.VITE_NODE_API + "node_api/public/search/validatedEntity", codes);
+    } catch (error) {
+      return [] as any[];
+    }
+  }
 }
